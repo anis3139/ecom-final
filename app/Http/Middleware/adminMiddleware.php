@@ -20,7 +20,7 @@ class adminMiddleware
         if($request->session()->has('user')){
             return $next($request);
         }else{
-            return redirect('login');
+            return redirect('admin/login');
         }
     }
 }

@@ -4,9 +4,8 @@ namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\adminModel;
-use Illuminate\Hashing\BcryptHasher;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
+
 
 class loginController extends Controller
 {
@@ -16,8 +15,8 @@ class loginController extends Controller
 
     function onLogin(Request $request){
         $user= $request->input('user');
-        $pass= $request->input(Hash::make('pass'));
-        $countValue=adminModel::where('username','=',$user)->where('password','=', $pass)->count();
+        $pass= $request->input('pass');
+        $countValue=adminModel::where('username','=',$user)->where('password','=', md5($pass))->count();
         
          if($countValue==1){
              $request->session()->put('user',$user);
@@ -33,7 +32,7 @@ class loginController extends Controller
 
      function onLogout(Request $request){
         $request->session()->flush();
-        return redirect('/login');
+        return redirect('/admin/login');
     }
     
 }

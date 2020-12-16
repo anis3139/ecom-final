@@ -14,6 +14,12 @@
     <link href="{{ asset('admin/css/responsive.css') }}" rel="stylesheet">
     <link href="{{ asset('admin/css/datatables.min.css') }}" rel="stylesheet">
     <link href="{{ asset('admin/css/datatables-select.min.css') }}" rel="stylesheet">
+    <style>
+        .topbar {
+            margin-top: -24px !important;
+        }
+    </style>
+    @yield('css');
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
 

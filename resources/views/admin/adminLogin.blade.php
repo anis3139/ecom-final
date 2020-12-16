@@ -51,13 +51,14 @@
         let formData=$(this).serializeArray();
         let userName=formData[0]['value'];
         let password=formData[1]['value'];
-        let url="/onLogin";
+        let url="/admin/onLogin";
         axios.post(url,{
             user:userName,
             pass:password
         }).then(function (response) {
           console.log(response.data);
            if(response.status==200 && response.data==1){
+            toastr.success('Login Success.');
                window.location.href="/";
            }
            else{

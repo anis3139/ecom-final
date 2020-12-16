@@ -4,7 +4,6 @@ namespace App\Http\Controllers\admin;
 use App\Http\Controllers\Controller;
 use App\Models\adminModel;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
 class adminController extends Controller
 {
     public function adminIndex()
@@ -58,7 +57,7 @@ class adminController extends Controller
         $email = $req->Input('email');
 
 
-        $result = AdminModel::where('id', '=', $id)->update(['name' => $name, 'password' =>   Hash::make($password), 'username' => $username, 'email' => $email]);
+        $result = AdminModel::where('id', '=', $id)->update(['name' => $name, 'password' =>   md5($password), 'username' => $username, 'email' => $email]);
         if ($result == true) {
             return 1;
         } else {
@@ -85,7 +84,7 @@ class adminController extends Controller
 
         $result = AdminModel::insert([
             'name' => $name,
-            'password' =>   Hash::make($password),
+            'password' =>  md5($password),
             'username' => $username,
             'email' => $email
         ]);

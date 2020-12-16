@@ -8,7 +8,7 @@
                         <li class="nav-item mt-3">ADMIN</li>
                     </ul>
                     <ul class="navbar-nav my-lg-0">
-                        <li class="nav-item"><a href="{{ url('/logout') }}" class="btn btn-sm btn-danger">Logout</a></li>
+                        <li class="nav-item"><a href="{{ route('admin.logout') }}" class="btn btn-sm btn-danger">Logout</a></li>
                     </ul>
                 </div>
             </nav>
@@ -22,13 +22,13 @@
                         <li> <a href="{{ url('/adminPannel') }}"><span> <i class="fas fa-user"></i> </span><span class="hide-menu">Admin</span></a></li>
                         <li> <a href="{{ url('/visitor') }}"><span> <i class="fas fa-users"></i> </span><span class="hide-menu">Visitor</span></a></li>
                         <li> <a href="{{ url('/contact') }}"><span> <i class="fas fa-mail-bulk"></i> </span><span class="hide-menu">Contact</span></a></li>
-                        <li> <a href="{{ url('/category') }}"><span> <i class="fas fa-server"></i> </span><span class="hide-menu">Category</span></a></li>
-                        <li> <a href="{{ url('/brand') }}"><span> <i class="fas fa-suitcase"></i> </span><span class="hide-menu">Brnad</span></a></li>
-                        <li> <a href="{{ url('/products') }}"><span> <i class="fas fa-plus-circle"></i> </span><span class="hide-menu">Products</span></a></li>
-                        <li> <a href="{{ url('/slider') }}"><span> <i class="fas fa-image"></i> </span><span class="hide-menu">Slider</span></a></li>
+                        <li> <a href="{{ route('admin.categories') }}"><span> <i class="fas fa-server"></i> </span><span class="hide-menu">Category</span></a></li>
+                        <li> <a href="{{ route('admin.brands') }}"><span> <i class="fas fa-suitcase"></i> </span><span class="hide-menu">Brand</span></a></li>
+                        <li> <a href="{{ route('admin.products') }}"><span> <i class="fas fa-plus-circle"></i> </span><span class="hide-menu">Products</span></a></li>
+                        <li> <a href="{{ route('admin.slider') }}"><span> <i class="fas fa-image"></i> </span><span class="hide-menu">Slider</span></a></li>
                         <li> <a href="{{ url('/others') }}"><span> <i class="fas fa-cog"></i> </span><span class="hide-menu">Generale Settings</span></a></li>
                         <li> <a href="{{ url('/social') }}"><span> <i class="fas fa-thumbs-up"></i> </span><span class="hide-menu">Social Settings</span></a></li>
-                       </ul>
+                    </ul>
                 </nav>
             </div>
         </aside>
