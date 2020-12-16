@@ -24,8 +24,7 @@ Route::group(['prefix' => 'admin'], function () {
     Route::get('/login', [App\Http\Controllers\admin\loginController::class, 'loginIndex'])->name('admin.login');
     Route::post('/onLogin', [App\Http\Controllers\admin\loginController::class, 'onLogin'])->name('admin.onLogin');
     Route::get('/logout', [App\Http\Controllers\admin\loginController::class, 'onLogout'])->name('admin.logout');
-
-
+    
     Route::group(['middleware' => 'loginCheck'], function () {
         
         
