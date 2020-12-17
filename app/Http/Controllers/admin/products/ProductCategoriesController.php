@@ -40,10 +40,6 @@ class ProductCategoriesController extends Controller
      */
     public function store(Request $request)
     {
-
-
-
-
             $data = json_decode($_POST['data']);
             $name = $data['0']->name;
             $categories = $data['0']->categories;
@@ -68,8 +64,6 @@ class ProductCategoriesController extends Controller
             } else {
                 return 0;
             }
-
-
 
     }
 
@@ -197,61 +191,51 @@ class ProductCategoriesController extends Controller
     public function destroy(Request $request)
     {
 
-
-
         $id = $request->input('id');
+        $category = ProductsCategoryModel::find($id);
+        if ($category->parent_id==0) {
+            // Delete sub categories
+            $sub_categories = ProductsCategoryModel::orderBy('name', 'desc')->where('parent_id', $category->id)->get();
 
-        $CategoryList = array();
-        $Category = $id;
-        $this->GetcategoryHirarchy( $CategoryList, $Category);
-        $Categorys = json_decode(json_encode((object)$CategoryList), True);
+            foreach ($sub_categories as $sub) {
 
-
-        if (count($Categorys)>0) {
-
-            foreach ($Categorys as  $Categoryvalue) {
-                $delete_old_file = ProductsCategoryModel::where('id', '=', $Categoryvalue['id'])->first();
+                $delete_old_file = ProductsCategoryModel::where('id', '=', $id)->first();
                 $delete_old_file_image = (explode('/', $delete_old_file->banner_image))[4];
                 $delete_old_file_icon = (explode('/', $delete_old_file->icon))[4];
                 Storage::delete("public/".$delete_old_file_image);
                 Storage::delete("public/".$delete_old_file_icon);
                 $result = $delete_old_file->delete();
-
-
             }
-    }
 
 
+        }else{
+            $delete_old_file = ProductsCategoryModel::where('id', '=', $id)->first();
+            $delete_old_file_image = (explode('/', $delete_old_file->banner_image))[4];
+            $delete_old_file_icon = (explode('/', $delete_old_file->icon))[4];
+            Storage::delete("public/".$delete_old_file_image);
+            Storage::delete("public/".$delete_old_file_icon);
+            $result = $delete_old_file->delete();
 
-
-
-        $delete_old_file = ProductsCategoryModel::where('id', '=', $id)->first();
-        $delete_old_file_image = (explode('/', $delete_old_file->banner_image))[4];
-        $delete_old_file_icon = (explode('/', $delete_old_file->icon))[4];
-        Storage::delete("public/".$delete_old_file_image);
-        Storage::delete("public/".$delete_old_file_icon);
-        $result = $delete_old_file->delete();
-        if ($result == true) {
-            return 1;
-        } else {
-            return 0;
+       
         }
+
+
+
+
 
 
 }
 
     public function getCategoriesData(){
-        // $categories_result =json_decode( Productsparent_idModel::tree());
+        $result = json_decode(ProductsCategoryModel::with('parent')->orderBy('id', 'asc')->get());
+        return $result;
 
-        try {
-            $CategoryList = array();
-            $Category = 0;
-            $this->GetcategoryHirarchy( $CategoryList, $Category);
-            $Category = json_decode(json_encode((object)$CategoryList), True);
-            return $Category;
-        } catch (\Throwable $th) {
-            return response()->json(array('status',$th));
-        }
+    }
+
+    public function getCategoriesParantData(){
+        $main_categories = ProductsCategoryModel::orderBy('name', 'asc')->where('parent_id', 0)->get();
+        return $main_categories;
+
     }
 
 
@@ -261,80 +245,5 @@ class ProductCategoriesController extends Controller
 
 
 
-    private function GetcategoryHirarchy( &$parent_idList, &$parent_id) {
-        $categorys = DB::select("SELECT
-                                        `parent`.`id`,
-                                        `parent`.`name`,
-                                        `parent`.`parent_id`,
-                                        `parent`.`icon`,
-                                        `parent`.`banner_image`,
-                                        COUNT(`child`.`id`) AS `SectionCount`
-                                    FROM
-                                        `products_category` `parent`
-                                            LEFT JOIN
-                                        `products_category` `child` ON `parent`.`id` = `child`.`parent_id`
-                                    WHERE
-                                        `parent`.`parent_id` = $parent_id
-                                    GROUP BY `parent`.`id`
-                                    ORDER BY `parent`.`id`");
-        $Level = 1;
-        $parent_id .= '';
-        foreach($categorys as $each_category) {
-            $Category_array = array(
-                'id' => $each_category->id,
-                'name' => $each_category->name,
-                'parent_id' => $each_category->parent_id,
-                'icon' => $each_category->icon,
-                'banner_image' => $each_category->banner_image,
-            );
-            $ParentCategory = $each_category->name;
 
-            // if ($each_category -> SectionCount < 1) {
-                array_push($parent_idList, $Category_array);
-                $parent_id=$each_category->name;
-
-            // }
-            $this->GetCategoryRecursive( $each_category->id, $parent_idList, $Level, $ParentCategory);
-        }
-    }
-
-    private function GetCategoryRecursive( $parent_category_id, &$parent_idList, $Level, $ParentCategory) {
-        $category = DB::select("SELECT
-                                `parent`.`id`,
-                                `parent`.`name`,
-                                `parent`.`parent_id`,
-                                `parent`.`icon`,
-                                `parent`.`banner_image`,
-                                COUNT(`child`.`id`) AS `SectionCount`
-                            FROM
-                                `products_category` `parent`
-                                    LEFT JOIN
-                                `products_category` `child` ON `parent`.`id` = `child`.`parent_id`
-                            WHERE
-                                `parent`.`parent_id` = $parent_category_id
-                            GROUP BY `parent`.`id`
-                            ORDER BY `parent`.`id`
-        ");
-        $NextLevel = $Level + 1;
-        $Spaces = '';
-        for($I = 0; $I < $NextLevel; $I++) {
-            $Spaces .= "&emsp;";
-        }
-
-        foreach($category as $each_category) {
-
-            $category_arrey = array(
-                'id' => $each_category->id,
-                'name' =>$ParentCategory.'-> '. $each_category->name,
-                'parent_id' => $each_category->parent_id,
-                'icon' => $each_category->icon,
-                'banner_image' => $each_category->banner_image,
-            );
-            $CategoryName_Recursive=$ParentCategory.'-> '. $each_category->name;
-
-            array_push($parent_idList, $category_arrey);
-
-            $this->GetCategoryRecursive( $each_category->id, $parent_idList, $NextLevel, $CategoryName_Recursive );
-        }
-    }
 }

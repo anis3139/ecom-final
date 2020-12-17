@@ -20,6 +20,7 @@
                                 <tr>
                                     <th>#</th>
                                     <th>name</th>
+                                    <th>Parant Category</th>
                                     <th>Image</th>
                                     <th>Icon</th>
                                     <th>Edit</th>
@@ -182,13 +183,20 @@
                         var count = 1;
                         var dataJSON = response.data;
 
-                        // var html='';
 
 
+                        console.log(dataJSON);
                         $.each(dataJSON, function(i, item) {
+                            var parent='';
+                            if (dataJSON[i].parent_id == 0) {
+                                parent='Parent Category';
+                            }else{
+                                parent=dataJSON[i].parent.name;
+                            }
                             $('<tr class="text-center">').html(
                                 "<td>" + count++ + " </td>" +
                                 "<td>" + dataJSON[i].name + " </td>" +
+                                "<td>" + parent + " </td>" +
                                 "<td><img width='200px' height='80' class='table-img' src=" + dataJSON[i]
                                 .banner_image + "> </td>" +
                                 "<td><img width='200px' height='80' class='table-img' src=" + dataJSON[i]
@@ -245,13 +253,13 @@
 
         function CategoryDropDownPush() {
             // Add Category List
-            axios.get("{{ route('admin.getCategoriesData') }}")
+            axios.get("{{ route('admin.getCategoriesParantData') }}")
                 .then(function(response) {
 
                     var dataJSON = response.data;
                     $('#Categories').empty();
                     $('#Categories').append(
-                        `<option  selected class='p-5 m-5' value='0'>Select Parent Category</option>`);
+                        `<option  selected class='p-5 m-5' value='0'>Parent Category</option>`);
                     $.each(dataJSON, function(i, item) {
                         $('#Categories').append(
                             `<option value="${dataJSON[i].id}"> ${dataJSON[i].name} </option>`);
@@ -372,8 +380,8 @@
                     id: id
                 })
                 .then(function(response) {
-                    console.log(response.data)
 
+                console.log(response.data);
                     $('#confirmDeleteCategory').html("Yes");
                     if (response.status == 200) {
                         if (response.data == 1) {
@@ -411,13 +419,13 @@
 
 
         // Add Category List
-        axios.get("{{ route('admin.getCategoriesData') }}")
+        axios.get("{{ route('admin.getCategoriesParantData') }}")
             .then(function(response) {
 
                 var dataJSON = response.data;
                 $('#CategoriesUpdate').empty();
                 $('#CategoriesUpdate').append(
-                    `<option  selected class='p-5 m-5' value='0'>Parent Category</option>`);
+                    `<option class='p-5 m-5' value='0'>Parent Category</option>`);
                 $.each(dataJSON, function(i, item) {
                     $('#CategoriesUpdate').append(
                         `<option value="${dataJSON[i].id}"> ${dataJSON[i].name} </option>`);
@@ -460,7 +468,7 @@
                     id: id
                 })
                 .then(function(response) {
-                    console.log(response.data);
+
                     if (response.status == 200) {
                         $('#loadDivCategory').addClass('d-none');
                         $('#CategoryEditForm').removeClass('d-none');
@@ -470,7 +478,7 @@
 
                         $('#CategoriesUpdate option[value=' + jsonData[0].parent_id + ']').attr(
                             'selected', 'selected');
-                        $('#CategoriesUpdate')[0].reset();
+
                         var iconSource = (jsonData[0].icon);
                         $('#updateCategoryIconPreview').attr('src', iconSource)
 
@@ -503,9 +511,7 @@
         function CategoryUpdate(idUpdate, nameUpdate, CategoriesEdit, img, icon) {
             if (nameUpdate.length == 0) {
                 toastr.error('Category name is empty!');
-            } else if (CategoriesEdit == 0) {
-                toastr.error('Category Category is empty!');
-            } else {
+            }  else {
                 $('#CategoryUpdateConfirmBtn').html(
                     "<div class='spinner-border spinner-border-sm text-primary' role='status'></div>"); //animation
                 updateData = [{
@@ -522,7 +528,7 @@
                         'Content-Type': 'multipart/form-data'
                     }
                 }).then(function(response) {
-                    console.log(response.data);
+
                     $('#CategoryUpdateConfirmBtn').html("Update");
                     if (response.status = 200) {
                         if (response.data == 1) {
