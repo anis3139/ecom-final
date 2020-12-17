@@ -193,31 +193,37 @@ class ProductCategoriesController extends Controller
 
         $id = $request->input('id');
         $category = ProductsCategoryModel::find($id);
+      
         if ($category->parent_id==0) {
-            // Delete sub categories
-            $sub_categories = ProductsCategoryModel::orderBy('name', 'desc')->where('parent_id', $category->id)->get();
-
+           
+            $sub_categories = ProductsCategoryModel::orderBy('name', 'desc')->where('parent_id', $category->id) ->orWhere('parent_id', 0)->get();
             foreach ($sub_categories as $sub) {
-
-                $delete_old_file = ProductsCategoryModel::where('id', '=', $id)->first();
-                $delete_old_file_image = (explode('/', $delete_old_file->banner_image))[4];
-                $delete_old_file_icon = (explode('/', $delete_old_file->icon))[4];
+                $delete_old_file_image = (explode('/', $sub->banner_image))[4];
+                $delete_old_file_icon = (explode('/', $sub->icon))[4];
                 Storage::delete("public/".$delete_old_file_image);
                 Storage::delete("public/".$delete_old_file_icon);
-                $result = $delete_old_file->delete();
+                $result = $sub->delete();
+            }
+            if ($result == true) {
+                return 1;
+            } else {
+                return 0;
             }
 
-
-        }else{
+        }
             $delete_old_file = ProductsCategoryModel::where('id', '=', $id)->first();
             $delete_old_file_image = (explode('/', $delete_old_file->banner_image))[4];
             $delete_old_file_icon = (explode('/', $delete_old_file->icon))[4];
             Storage::delete("public/".$delete_old_file_image);
             Storage::delete("public/".$delete_old_file_icon);
             $result = $delete_old_file->delete();
+            if ($result == true) {
+                return 1;
+            } else {
+                return 0;
+            }
 
-       
-        }
+        
 
 
 
@@ -227,13 +233,13 @@ class ProductCategoriesController extends Controller
 }
 
     public function getCategoriesData(){
-        $result = json_decode(ProductsCategoryModel::with('parent')->orderBy('id', 'asc')->get());
+        $result = json_decode(ProductsCategoryModel::with('parent')->orderBy('id', 'desc')->get());
         return $result;
 
     }
 
     public function getCategoriesParantData(){
-        $main_categories = ProductsCategoryModel::orderBy('name', 'asc')->where('parent_id', 0)->get();
+        $main_categories = ProductsCategoryModel::orderBy('name', 'desc')->where('parent_id', 0)->get();
         return $main_categories;
 
     }

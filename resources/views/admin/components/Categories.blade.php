@@ -259,7 +259,7 @@
                     var dataJSON = response.data;
                     $('#Categories').empty();
                     $('#Categories').append(
-                        `<option  selected class='p-5 m-5' value='0'>Parent Category</option>`);
+                        `<option  selected class='p-5 m-5' value='0'>Make Parent Category</option>`);
                     $.each(dataJSON, function(i, item) {
                         $('#Categories').append(
                             `<option value="${dataJSON[i].id}"> ${dataJSON[i].name} </option>`);
@@ -425,7 +425,7 @@
                 var dataJSON = response.data;
                 $('#CategoriesUpdate').empty();
                 $('#CategoriesUpdate').append(
-                    `<option class='p-5 m-5' value='0'>Parent Category</option>`);
+                    `<option class='p-5 m-5' value='0'>Make Parent Category</option>`);
                 $.each(dataJSON, function(i, item) {
                     $('#CategoriesUpdate').append(
                         `<option value="${dataJSON[i].id}"> ${dataJSON[i].name} </option>`);
