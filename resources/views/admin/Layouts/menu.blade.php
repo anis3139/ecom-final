@@ -19,7 +19,7 @@
                     <ul id="sidebarnav">
                         <li class="nav-devider mt-0" style="margin-bottom: 5px"></li>
                         <li> <a href="{{ url('/') }}"><span> <i class="fas fa-home"></i> </span><span class="hide-menu">Home</span></a></li>
-                        <li> <a href="{{ url('/adminPannel') }}"><span> <i class="fas fa-user"></i> </span><span class="hide-menu">Admin</span></a></li>
+                        <li> <a href="{{ route('admin.adminPannel') }}"><span> <i class="fas fa-user"></i> </span><span class="hide-menu">Admin</span></a></li>
                         <li> <a href="{{ url('/visitor') }}"><span> <i class="fas fa-users"></i> </span><span class="hide-menu">Visitor</span></a></li>
                         <li> <a href="{{ url('/contact') }}"><span> <i class="fas fa-mail-bulk"></i> </span><span class="hide-menu">Contact</span></a></li>
                         <li> <a href="{{ route('admin.categories') }}"><span> <i class="fas fa-server"></i> </span><span class="hide-menu">Category</span></a></li>

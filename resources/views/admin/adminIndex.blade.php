@@ -13,7 +13,6 @@
                         <th class="th-sm">Name</th>
                         <th class="th-sm">Eamil</th>
                         <th class="th-sm">User Name</th>
-                        <th class="th-sm">Password</th>
                         <th class="th-sm">Edit</th>
                         <th class="th-sm">Delete</th>
                     </tr>
@@ -45,7 +44,7 @@
 
 
 
-<!-- Brnad add -->
+<!--  admin add -->
 <div class="modal fade" id="addAdminModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
@@ -77,10 +76,10 @@
     </div>
 </div>
 
-<!-- Brnad add -->
+<!--  admin add -->
 
 
-<!-- Modal Brnad Delete -->
+<!-- Modal  admin Delete -->
 <div class="modal fade" id="deleteModalAdmin" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -96,12 +95,12 @@
         </div>
     </div>
 </div>
-<!-- Modal Brnad Delete -->
+<!-- Modal  admin Delete -->
 
 
 
 
-<!-- Brnad update -->
+<!--  admin update -->
 <div class="modal fade" id="updateAdminModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
@@ -119,7 +118,7 @@
                             <input id="AdminNameIdUpdate" type="text" id="" class="form-control mb-3" placeholder="Admin Name">
                             <input id="AdminEmailIdUpdate" type="text" id="" class="form-control mb-3" placeholder="Admin Email">
                             <input id="AdminUsernameIdUpdate" type="text" id="" class="form-control mb-3" placeholder="Admin User Name">
-                            <input id="AdminPasswordIdUpdate" type="text" id="" class="form-control mb-3" placeholder="Admin Password">
+                            <input id="AdminPasswordIdUpdate" type="text" id="" class="form-control mb-3" placeholder="Input Admin New Password">
 
                         </div>
 
@@ -137,7 +136,7 @@
 </div>
 
 
-<!-- Brnad update -->
+<!--  admin update -->
 
 
 
@@ -151,7 +150,7 @@
     function getAdmindata() {
 
 
-        axios.get('/getAdminData')
+        axios.get('/admin/getAdminData')
             .then(function(response) {
                
                 if (response.status = 200) {
@@ -174,7 +173,7 @@
 
                             "<td>" + dataJSON[i].username + " </td>" +
 
-                            "<td>" + dataJSON[i].password + " </td>" +
+                       
 
                             "<td><a class='AdminEditIcon' data-id=" + dataJSON[i].id +
                             "><i class='fas fa-edit'></i></a> </td>" +
@@ -255,14 +254,14 @@
 
 
 
-        ProductAdd(name, email, username, password);
+        adminAdd(name, email, username, password);
 
     })
 
-    //Courses Add Method
+    // admin Add Method
 
 
-    function ProductAdd(name, email, username, password) {
+    function adminAdd(name, email, username, password) {
 
 
 
@@ -284,7 +283,7 @@
             $('#AdminAddConfirmBtn').html(
                 "<div class='spinner-border spinner-border-sm text-primary' role='status'></div>"); //animation
 
-            axios.post('/adminAdd', {
+            axios.post('/admin/adminAdd', {
                 name: name,
                 email: email,
                 username: username,
@@ -337,13 +336,13 @@
     })
 
 
-    //delete courses function
+    //delete  admin function
 
     function DeleteDataAdmin(id) {
         $('#confirmDeleteAdmin').html(
             "<div class='spinner-border spinner-border-sm text-primary' role='status'></div>"); //animation
 
-        axios.post('/adminDelete', {
+        axios.post('/admin/adminDelete', {
                 id: id
             })
             .then(function(response) {
@@ -381,7 +380,7 @@
 
     function AdminUpdateDetails(id) {
 
-        axios.post('/adminDetailEdit', {
+        axios.post('/admin/adminDetailEdit', {
                 id: id
             })
             .then(function(response) {
@@ -416,7 +415,7 @@
 
 
 
-    //courses update modal save button
+    // admin update modal save button
 
     $('#AdminupdateConfirmBtn').click(function() {
 
@@ -449,14 +448,14 @@
 
         } else if (PasswordUpdate == 0) {
 
-            toastr.error('Password description is empty!');
+            toastr.error('Password is empty!');
 
         } else {
             $('#AdminupdateConfirmBtn').html(
                 "<div class='spinner-border spinner-border-sm text-primary' role='status'></div>"); //animation
 
 
-            axios.post('/adminDataUpdate', {
+            axios.post('/admin/adminDataUpdate', {
                 id: idUpdate,
                 name: nameUpdate,
                 email: emailUpdate,

@@ -18,12 +18,11 @@ class loginController extends Controller
     function onLogin(Request $request){
         
         
-        // $this->validate($request, [
-        //     'user'  => 'required',
-        //     'pass'  => 'required',
-        //   ]);
+        $this->validate($request, [
+            'username'  => 'required',
+            'password'  => 'required',
+          ]);
 
-        //  dd($credentials);
 
          $credentials=$request->only('username','password');
 
