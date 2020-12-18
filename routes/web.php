@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 
 
 
-Route::get('/', [App\Http\Controllers\admin\homeController::class, 'adminHome'])->name('admin.adminHome')->middleware('loginCheck');;
+Route::get('/', [App\Http\Controllers\admin\homeController::class, 'adminHome'])->name('admin.adminHome')->middleware('admin.auth');
 
 
 Route::group(['prefix' => 'admin'], function () {
@@ -25,7 +25,7 @@ Route::group(['prefix' => 'admin'], function () {
     Route::post('/onLogin', [App\Http\Controllers\admin\loginController::class, 'onLogin'])->name('admin.onLogin');
     Route::get('/logout', [App\Http\Controllers\admin\loginController::class, 'onLogout'])->name('admin.logout');
 
-    Route::group(['middleware' => 'loginCheck'], function () {
+    Route::group(['middleware' => 'admin.auth'], function () {
 
 
 

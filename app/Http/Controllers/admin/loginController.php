@@ -27,9 +27,9 @@ class loginController extends Controller
 
          $credentials=$request->only('username','password');
 
-         if (Auth::attempt($credentials,$request->remember)) {
+         if (Auth::guard('admin')->attempt($credentials,$request->remember)) {
              $user=adminModel::where('username',$request->username)->first();
-             Auth::login($user);
+             Auth::guard('admin')->login($user);
              return 1;
          }
          else{
@@ -40,9 +40,7 @@ class loginController extends Controller
 
 
      function onLogout(Request $request){
-        auth::logout();
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
+        auth::guard('admin')->logout();
         return redirect('/admin/login');
     }
     
