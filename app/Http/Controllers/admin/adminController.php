@@ -54,10 +54,15 @@ class adminController extends Controller
         $name = $req->Input('name');
         $password = $req->Input('password');
         $username = $req->Input('username');
-        $email = $req->Input('email');
+        $email = strtolower($req-> Input('email'));
 
 
-        $result = AdminModel::where('id', '=', $id)->update(['name' => $name, 'password' =>   md5($password), 'username' => $username, 'email' => $email]);
+        $result = AdminModel::where('id', '=', $id)->update([
+            'name' => $name, 
+            'password' =>   bcrypt($password), 
+            'username' => $username, 
+            'email' => $email
+            ]);
         if ($result == true) {
             return 1;
         } else {
@@ -79,12 +84,12 @@ class adminController extends Controller
         $name = $req->Input('name');
         $password = $req->Input('password');
         $username = $req->Input('username');
-        $email = $req->Input('email');
+        $email =strtolower( $req->Input('email'));
 
 
         $result = AdminModel::insert([
             'name' => $name,
-            'password' =>  md5($password),
+            'password' =>  bcrypt($password),
             'username' => $username,
             'email' => $email
         ]);

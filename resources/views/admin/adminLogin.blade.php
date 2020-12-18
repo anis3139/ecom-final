@@ -53,8 +53,8 @@
         let password=formData[1]['value'];
         let url="/admin/onLogin";
         axios.post(url,{
-            user:userName,
-            pass:password
+          username:userName,
+          password:password
         }).then(function (response) {
           console.log(response.data);
            if(response.status==200 && response.data==1){

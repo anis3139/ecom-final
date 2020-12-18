@@ -18,7 +18,7 @@ class adminSeeder extends Seeder
             'name'=>'anis',
             'username'=>'admin',
             'email'=>'anis904692@gmail.com',
-            'password'=>md5('ANIs9434278')
+            'password'=>bcrypt('ANIs9434278')
         ]);
     }
 }
