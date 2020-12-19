@@ -20,14 +20,15 @@ Route::get('/', [App\Http\Controllers\admin\homeController::class, 'adminHome'])
 
 
 Route::group(['prefix' => 'admin'], function () {
+    Route::group(['middleware' => 'admin.guest'], function () {
 
-    Route::get('/login', [App\Http\Controllers\admin\loginController::class, 'loginIndex'])->name('admin.login');
-    Route::post('/onLogin', [App\Http\Controllers\admin\loginController::class, 'onLogin'])->name('admin.onLogin');
-    Route::get('/logout', [App\Http\Controllers\admin\loginController::class, 'onLogout'])->name('admin.logout');
+        Route::get('/login', [App\Http\Controllers\admin\loginController::class, 'loginIndex'])->name('admin.login');
+        Route::post('/onLogin', [App\Http\Controllers\admin\loginController::class, 'onLogin'])->name('admin.onLogin');
+    });
 
-    Route::group(['middleware' => 'admin.auth'], function () {
-
-
+        Route::group(['middleware' => 'admin.auth'], function () {
+        //Logout
+        Route::get('/logout', [App\Http\Controllers\admin\loginController::class, 'onLogout'])->name('admin.logout');
 
         // Admin Route
         Route::get('/adminPannel', [App\Http\Controllers\admin\adminController::class, 'adminIndex'])->name('admin.adminPannel');

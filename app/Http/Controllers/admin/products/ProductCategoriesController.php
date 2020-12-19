@@ -53,11 +53,20 @@ class ProductCategoriesController extends Controller
             $iconHost = $_SERVER['HTTP_HOST'];
             $iconNameLocation = "http://" . $iconHost . "/storage/" . $iconName;
 
+            $slug=Str::slug($name);
+            $next = 2;
+            while (ProductsCategoryModel::where('slug', '=', $slug)->first()) {
+                $slug = $slug."-".$next;
+                $next++;
+            }
+
+
             $result = ProductsCategoryModel::insert([
                 'name' => $name,
                 'parent_id' => $categories,
                 'banner_image' => $location,
                 'icon' => $iconNameLocation,
+                'slug' => $slug,
             ]);
             if ($result == true) {
                 return 1;
@@ -193,9 +202,9 @@ class ProductCategoriesController extends Controller
 
         $id = $request->input('id');
         $category = ProductsCategoryModel::find($id);
-      
+
         if ($category->parent_id==0) {
-           
+
             $sub_categories = ProductsCategoryModel::orderBy('name', 'desc')->where('parent_id', $category->id) ->orWhere('parent_id', 0)->get();
             foreach ($sub_categories as $sub) {
                 $delete_old_file_image = (explode('/', $sub->banner_image))[4];
@@ -223,7 +232,7 @@ class ProductCategoriesController extends Controller
                 return 0;
             }
 
-        
+
 
 
 

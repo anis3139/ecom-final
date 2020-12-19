@@ -18,7 +18,8 @@ class CreateProducrtsBrandModelsTable extends Migration
             $table->string('name');
             $table->string('image');
             $table->string('products_category_id');
-            $table->timestamps();
+            $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('updated_at')->useCurrent();
         });
     }
 
@@ -29,6 +30,6 @@ class CreateProducrtsBrandModelsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('products_brand_models');
+        Schema::dropIfExists('products_brand');
     }
 }

@@ -15,16 +15,21 @@ class CreateProductTablesTable extends Migration
     {
         Schema::create('product_tables', function (Blueprint $table) {
             $table->id();
-            $table->string('product_title');
-            $table->text('product_discription');
+            $table->string('product_title',128);
+            $table->longText('product_discription');
             $table->string('product_slug');
+            $table->tinyInteger('product_in_stock')->default(1);
+            $table->decimal('product_price', 8, 2);
+            $table->decimal('product_selling_price', 8, 2)->nullable();
             $table->integer('product_quantity')->default(1);
-            $table->integer('product_category_id');
-            $table->integer('product_brand_id');
-            $table->integer('product_measurements_id');
+            $table->tinyInteger('product_active')->default(1);
+            $table->unsignedInteger('product_category_id');
+            $table->unsignedInteger('product_brand_id');
+            $table->unsignedInteger('product_measurements_id');
             $table->binary('product_if_has_color');
-            $table->integer('product_owner_id');
-            $table->timestamps();
+            $table->unsignedInteger('product_owner_id');
+            $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('updated_at')->useCurrent();
         });
     }
 
