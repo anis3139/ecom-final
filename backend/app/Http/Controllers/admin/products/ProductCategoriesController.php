@@ -6,9 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Models\ProductsCategoryModel;
 use Exception;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+
 use Illuminate\Support\Facades\Storage;
-use phpDocumentor\Reflection\PseudoTypes\True_;
+
+use Illuminate\Support\Str;
 
 class ProductCategoriesController extends Controller
 {
