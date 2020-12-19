@@ -16,9 +16,27 @@ class product_table extends Model
     public $keyType = 'int';
     public  $timestamps = false;
 
-    public function category()
-    {
-        return $this->belongsTo('App\Models\product_table');
+
+    public function category() {
+        return $this->hasOne(ProductsCategoryModel::class,'product_category_id');
     }
+
+    public function brand() {
+        return $this->hasOne(ProductsBrandModel::class,'product_brand_id');
+    }
+
+    public function masermant() {
+        return $this->hasOne(meserments::class,'product_measurements_id');
+    }
+
+    public function vendor() {
+        return $this->belongsTo(Vendor::class,'product_owner_id');
+    }
+
+    public function image() {
+        return $this->hasMany(product_has_images::class,'product_image_id');
+    }
+
+
 
 }

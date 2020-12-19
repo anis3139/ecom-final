@@ -16,6 +16,7 @@ class ProductsCategoryModel extends Model
     public $keyType = 'int';
     public  $timestamps = false;
 
+
     public function parent() {
         return $this->belongsTo(ProductsCategoryModel::class,'parent_id');
     }
@@ -28,8 +29,7 @@ class ProductsCategoryModel extends Model
     {
       return $this->hasMany(product_table::class);
     }
-
-
+    
     public static function ParentOrNotCategory($parent_id, $child_id)
     {
       $categories = ProductsCategoryModel::where('id', $child_id)->where('parent_id', $parent_id)->get();
@@ -39,5 +39,6 @@ class ProductsCategoryModel extends Model
         return false;
       }
     }
+
 
 }

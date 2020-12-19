@@ -20,6 +20,9 @@ class CreateProducrtsBrandModelsTable extends Migration
             $table->string('products_category_id');
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent();
+
+            // $table->foreign('product_category_id')->references('id')->on('products_category')->onDelete('cascade');
+
         });
     }
 
