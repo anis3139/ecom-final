@@ -23,6 +23,7 @@ class CreateProductTablesTable extends Migration
             $table->decimal('product_selling_price', 8, 2)->nullable();
             $table->integer('product_quantity')->default(1);
             $table->tinyInteger('product_active')->default(1);
+            $table->tinyInteger('feture_products')->default(0);
             $table->binary('product_if_has_color')->default(0);
             $table->unsignedInteger('product_category_id');
             $table->unsignedInteger('product_brand_id');
