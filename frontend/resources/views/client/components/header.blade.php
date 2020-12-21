@@ -16,8 +16,10 @@
                       <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                      <li><a href="#"><img src="{{ asset('client/img')}}/flag/french.jpg" alt="">FRENCH</a></li>
+                      <li><a href="#"><img src="{{ asset('client/img')}}/flag/french.jpg" alt="">SPANISH</a></li>
                       <li><a href="#"><img src="{{ asset('client/img')}}/flag/english.jpg" alt="">ENGLISH</a></li>
+                      <li><a href="#"><img src="{{ asset('client/img')}}/flag/english.jpg" alt="">BANGLA</a></li>
+                      <li><a href="#"><img src="{{ asset('client/img')}}/flag/english.jpg" alt="">CHINA</a></li>
                     </ul>
                   </div>
                 </div>
@@ -69,12 +71,12 @@
               <!-- logo  -->
               <div class="aa-logo">
                 <!-- Text based logo -->
-                <a href="index.html">
-                  <span class="fa fa-shopping-cart"></span>
-                  <p>daily<strong>Shop</strong> <span>Your Shopping Partner</span></p>
+                <a href="{{ route('client.home') }}">
+                  {{-- <span class="fa fa-shopping-cart"></span>
+                  <p>daily<strong>Shop</strong> <span>Your Shopping Partner</span></p> --}}
                 </a>
                 <!-- img based logo -->
-                <!-- <a href="index.html"><img src="{{ asset('client/img')}}/logo.jpg" alt="logo img"></a> -->
+                 <a href="{{ route('client.home') }}"><img src="{{ asset('client/img')}}/logo.jpg" alt="logo img"></a>
               </div>
               <!-- / logo  -->
                <!-- cart box -->

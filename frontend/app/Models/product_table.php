@@ -26,7 +26,7 @@ class product_table extends Model
     }
 
     public function masermant() {
-        return $this->hasOne(meserments::class,'product_measurements_id');
+        return $this->hasMany(meserments::class,'product_measurements_id');
     }
 
     public function vendor() {

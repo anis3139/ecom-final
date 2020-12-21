@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\client;
 
 use App\Http\Controllers\Controller;
+use App\Models\ProductsCategoryModel;
 use App\Models\SliderModel;
 use Illuminate\Http\Request;
 
@@ -12,7 +13,8 @@ class HomeController extends Controller
     {
        
         $sliders = SliderModel::all();
-        return view("client.index", compact('sliders'));
+        $categories=ProductsCategoryModel::all();
+        return view("client.index", compact('sliders', 'categories'));
     }
 
 }
