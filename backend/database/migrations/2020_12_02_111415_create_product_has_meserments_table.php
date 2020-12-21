@@ -16,7 +16,7 @@ class CreateProductHasMesermentsTable extends Migration
         Schema::create('product_has_meserments', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('has_meserment_product_id')->unsigned();
-            $table->integer('has_meserment_meserments_id')->unsigned();
+            $table->integer('has_mesermentid')->unsigned();
             $table->timestamps();
         });
     }

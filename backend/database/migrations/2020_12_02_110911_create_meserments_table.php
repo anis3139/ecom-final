@@ -15,7 +15,8 @@ class CreateMesermentsTable extends Migration
     {
         Schema::create('meserments', function (Blueprint $table) {
             $table->id();
-            $table->string('meserments_title');
+            $table->string('product_id');
+            $table->string('meserment_value');
             $table->timestamps();
         });
     }

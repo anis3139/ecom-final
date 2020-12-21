@@ -9,16 +9,16 @@ class adminController extends Controller
     public function adminIndex()
     {
 
-        return view('admin.adminIndex');
+        return view('admin.components.adminIndex');
     }
 
 
     public function adminData()
     {
         $result = json_decode(adminModel::orderBy('id', 'desc')->get());
-      
+
         return $result;
-      
+
     }
 
 
@@ -58,9 +58,9 @@ class adminController extends Controller
 
 
         $result = AdminModel::where('id', '=', $id)->update([
-            'name' => $name, 
-            'password' =>   bcrypt($password), 
-            'username' => $username, 
+            'name' => $name,
+            'password' =>   bcrypt($password),
+            'username' => $username,
             'email' => $email
             ]);
         if ($result == true) {

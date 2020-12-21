@@ -22,13 +22,12 @@ class CreateProductTablesTable extends Migration
             $table->decimal('product_price', 8, 2);
             $table->decimal('product_selling_price', 8, 2)->nullable();
             $table->integer('product_quantity')->default(1);
-            $table->tinyInteger('product_active')->default(1);
-            $table->tinyInteger('feture_products')->default(0);
+            $table->string('product_active')->default('on');
+            $table->string('feture_products')->default('on');
             $table->binary('product_if_has_color')->default(0);
+            $table->unsignedInteger('product_meserment_type')->nullable();
             $table->unsignedInteger('product_category_id');
             $table->unsignedInteger('product_brand_id');
-            $table->unsignedInteger('product_measurements_id');
-            $table->unsignedInteger('product_image_id');
             $table->unsignedInteger('product_owner_id')->default(0);
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent();
@@ -36,8 +35,6 @@ class CreateProductTablesTable extends Migration
             // $table->foreign('product_category_id')->references('id')->on('products_category')->onDelete('cascade');
             // $table->foreign('product_brand_id')->references('id')->on('products_brand')->onDelete('cascade');
             // $table->foreign('product_owner_id')->references('id')->on('vendors')->onDelete('cascade');
-            // $table->foreign('product_measurements_id')->references('id')->on('meserments')->onDelete('cascade');
-            // $table->foreign('product_image_id')->references('id')->on('product_has_images')->onDelete('cascade');
 
         });
     }

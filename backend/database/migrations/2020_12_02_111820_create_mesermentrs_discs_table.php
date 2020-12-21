@@ -16,7 +16,7 @@ class CreateMesermentrsDiscsTable extends Migration
         Schema::create('mesermentrs_discs', function (Blueprint $table) {
             $table->id();
             $table->integer('mesermentrs_disc_title');
-            $table->integer('mesermentrs_id');
+            $table->integer('meserments_id');
             $table->timestamps();
         });
     }

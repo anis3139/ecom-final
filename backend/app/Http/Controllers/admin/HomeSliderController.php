@@ -11,7 +11,7 @@ class HomeSliderController extends Controller
 {
     public function SliderIndex(){
 
-        return view('admin.Slider');
+        return view('admin.components.Slider');
     }
 
     public function SliderData()
