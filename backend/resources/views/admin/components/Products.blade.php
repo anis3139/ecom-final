@@ -236,7 +236,7 @@
 
 
     <!-- Modal Delete -->
-    <div class="modal fade" id="productModalProducts" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    <div class="modal fade" id="productModalDelete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -377,10 +377,9 @@
                         //Products click on delete icon
 
                         $(".productDeleteIcon").click(function() {
-
                             var id = $(this).data('id');
                             $('#productDeleteId').html(id);
-                            $('#productModalCourse').modal('show');
+                            $('#productModalDelete').modal('show');
 
                         })
 
@@ -614,6 +613,57 @@
                 });
             }
         }
+
+
+
+
+
+
+
+
+
+
+
+
+
+ //  Brands delete modal yes button
+ $('#confirmDeleteproduct').click(function() {
+            var id = $('#productDeleteId').html();
+            // var id = $(this).data('id');
+            DeleteProductsData(id);
+        })
+        //delete Brands function
+        function DeleteProductsData(id) {
+            $('#confirmDeleteproduct').html(
+                "<div class='spinner-border spinner-border-sm text-primary' role='status'></div>"); //animation
+            axios.post("{{ route('admin.delete') }}", {
+                    id: id
+                })
+                .then(function(response) {
+
+                    $('#confirmDeleteproduct').html("Yes");
+                    if (response.status == 200) {
+                        if (response.data == 1) {
+                            $('#productModalDelete').modal('hide');
+                            toastr.error('Delete Success.');
+                            getProductsdata();
+                        } else {
+                            $('#productModalDelete').modal('hide');
+                            toastr.error('Delete Failed');
+                            getProductsdata();
+                        }
+                    } else {
+                        $('#productModalDelete').modal('hide');
+                        toastr.error('Something Went Wrong');
+                    }
+                }).catch(function(error) {
+                    $('#productModalDelete').modal('hide');
+                    toastr.error('Something Went Wrong');
+                });
+        }
+
+
+
 
     </script>
 

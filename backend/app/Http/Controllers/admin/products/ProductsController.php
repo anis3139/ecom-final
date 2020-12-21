@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\product_has_images;
 use App\Models\product_table;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class ProductsController extends Controller
@@ -81,7 +82,7 @@ class ProductsController extends Controller
             $result->product_slug = $slug;
             $result->save();
             $last_id=$result->id;
-    
+
         try {
         if (count($request->images) > 0) {
             $i = 0;
@@ -154,8 +155,32 @@ class ProductsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        //
+
+         $id = $request->input('id');
+
+        $product_has_images=product_has_images::where('has_images_product_id',$id)->get();
+
+
+        foreach ($product_has_images as  $product_has_images_value) {
+
+            $delete_old_file = product_has_images::where('id', '=', $product_has_images_value->id)->first();
+
+
+            $delete_old_file_name = (explode('/', $delete_old_file->image_path))[4];
+            Storage::delete("public/".$delete_old_file_name);
+            $result2 = $delete_old_file->delete();
+        }
+
+        $data=product_table::where('id','=' ,$id)->first();
+        $result=$data->delete();
+        if ($result == true) {
+            return 1;
+        } else {
+            return 0;
+        }
+
+
     }
 }
