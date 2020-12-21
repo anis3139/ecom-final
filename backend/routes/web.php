@@ -76,6 +76,45 @@ Route::group(['prefix' => 'admin'], function () {
          Route::post('/delete', [\App\Http\Controllers\admin\products\ProductsController::class,'destroy'])->name('admin.delete');
 
 
+         //contact Model
+         Route::get('/contact', [\App\Http\Controllers\admin\contactController::class,'MessageIndex'])->name('admin.contact');
+         Route::get('/getContactData', [\App\Http\Controllers\admin\contactController::class,'getContactData'])->name('admin.getContactData');
+         Route::post('/deleteContactData', [\App\Http\Controllers\admin\contactController::class,'contactDelete'])->name('admin.contactDelete');
+
+        //Visitor Table
+        Route::get('/visitor', [\App\Http\Controllers\admin\VisitorController::class,'VisitorIndex'])->name('admin.VisitorIndex');
+
+
+
+
+        //admin panel Home Page Social Link management
+        Route::get('/social', [\App\Http\Controllers\admin\SocialController::class,'SocialIndex'])->name('admin.social');
+        Route::post('/facebook', [\App\Http\Controllers\admin\SocialController::class,'addFacebook'])->name('admin.facebook');
+        Route::post('/twitter', [\App\Http\Controllers\admin\SocialController::class,'addTwitter'])->name('admin.twitter');
+        Route::post('/youtube', [\App\Http\Controllers\admin\SocialController::class,'addYoutube'])->name('admin.youtube');
+        Route::post('/instragram', [\App\Http\Controllers\admin\SocialController::class,'addInstragram'])->name('admin.instragram');
+        Route::post('/linkin', [\App\Http\Controllers\admin\SocialController::class,'addLinkin'])->name('admin.linkin');
+        Route::post('/google', [\App\Http\Controllers\admin\SocialController::class,'addGoogle'])->name('admin.google');
+
+
+        //admin panel Home Page Others management with social URL
+        Route::get('/others', [\App\Http\Controllers\admin\OthersSettingsController::class,'otherIndex'])->name('admin.others');
+        Route::post('/address', [\App\Http\Controllers\admin\OthersSettingsController::class,'addAddress'])->name('admin.address');
+        Route::post('/phone', [\App\Http\Controllers\admin\OthersSettingsController::class,'addPhone'])->name('admin.phone');
+        Route::post('/email', [\App\Http\Controllers\admin\OthersSettingsController::class,'addEmail'])->name('admin.email');
+        Route::post('/title', [\App\Http\Controllers\admin\OthersSettingsController::class,'addTitle'])->name('admin.title');
+        Route::post('/gmap', [\App\Http\Controllers\admin\OthersSettingsController::class,'addGmap'])->name('admin.gmap');
+        Route::post('/logo', [\App\Http\Controllers\admin\OthersSettingsController::class,'logoAdd'])->name('admin.logo');
+
+
+
+        //admin panel Orders
+        Route::get('/ordeIndex', [\App\Http\Controllers\admin\OrderModelController::class,'ordeIndex'])->name('admin.ordeIndex');
+
+
+
+
+
     });
 
 

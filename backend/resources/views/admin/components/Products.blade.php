@@ -112,33 +112,26 @@
                                 </select>
 
                                 <select id="pdStock" style="margin-bottom: 10px;" class="browser-default custom-select">
-                                    <option disabled selected>Product Stock Status</option>
-                                    <option value="1">Stock In</option>
+                                    <option value="1" selected>Stock In</option>
                                     <option value="0">Stock Out</option>
                                 </select>
 
-                                <!-- Material checked -->
-                                <div
-                                    class="switch d-flex justify-content-between py-1 px-2 my-2 mx-1 border border-secondary rounded">
-                                    <span class="">Product Feature ? </span>
 
-                                    <label class="">
-                                        <input id="pdFeature" type="checkbox">
-                                        <span class="lever"></span>
-                                    </label>
+                                <div class="form-group">
+                                   <label for="pdFeature">Product Feature ? </label>
+                                    <select id="pdFeature" style="margin-bottom: 10px;" class="browser-default custom-select">
+                                        <option value="1">Yes</option>
+                                        <option value="0" selected>No</option>
+                                    </select>
                                 </div>
 
-                                <!-- Material checked -->
-                                <div
-                                    class="switch d-flex justify-content-between py-1 px-2 my-2 mx-1 border border-secondary rounded">
-                                    <span class="">Product Publish Status: </span>
-
-                                    <label class="">
-                                        <input id="pdActive" type="checkbox" checked>
-                                        <span class="lever"></span>
-                                    </label>
+                                <div class="form-group">
+                                    <label for="pdFeature">Product Status: </label>
+                                    <select id="pdActive" style="margin-bottom: 10px;" class="browser-default custom-select">
+                                        <option value="1" selected>Publish</option>
+                                        <option value="0">Panding</option>
+                                    </select>
                                 </div>
-
                             </div>
                             <div class="col-md-6">
 
@@ -215,9 +208,6 @@
 
                                             </tbody>
                                         </table>
-
-
-
                                     </div>
                                 </div>
                             </div>
@@ -537,6 +527,7 @@
             var feture_products = $('#pdFeature').val();
             var product_active = $('#pdActive').val();
             var images = [];
+            console.log(product_active);
             $("input[name='productImage[]']").each(function() {
                 if ($(this).prop('files')[0] !== undefined) {
                     images.push($(this).prop('files')[0]);

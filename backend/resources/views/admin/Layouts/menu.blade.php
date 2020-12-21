@@ -20,14 +20,15 @@
                         <li class="nav-devider mt-0" style="margin-bottom: 5px"></li>
                         <li> <a href="{{ url('/') }}"><span> <i class="fas fa-home"></i> </span><span class="hide-menu">Home</span></a></li>
                         <li> <a href="{{ route('admin.adminPannel') }}"><span> <i class="fas fa-user"></i> </span><span class="hide-menu">Admin</span></a></li>
-                        <li> <a href="{{ url('/visitor') }}"><span> <i class="fas fa-users"></i> </span><span class="hide-menu">Visitor</span></a></li>
-                        <li> <a href="{{ url('/contact') }}"><span> <i class="fas fa-mail-bulk"></i> </span><span class="hide-menu">Contact</span></a></li>
+                        <li> <a href="{{ route('admin.VisitorIndex')}}"><span> <i class="fas fa-users"></i> </span><span class="hide-menu">Visitor</span></a></li>
+                        <li> <a href="{{ route('admin.ordeIndex')}}"><span> <i class="fas fa-cart-arrow-down"></i> </span><span class="hide-menu">Order Manage</span></a></li>
+                        <li> <a href="{{ route('admin.contact')}}"><span> <i class="fas fa-mail-bulk"></i> </span><span class="hide-menu">Contact</span></a></li>
                         <li> <a href="{{ route('admin.categories') }}"><span> <i class="fas fa-server"></i> </span><span class="hide-menu">Category</span></a></li>
                         <li> <a href="{{ route('admin.brands') }}"><span> <i class="fas fa-suitcase"></i> </span><span class="hide-menu">Brand</span></a></li>
                         <li> <a href="{{ route('admin.products') }}"><span> <i class="fas fa-plus-circle"></i> </span><span class="hide-menu">Products</span></a></li>
                         <li> <a href="{{ route('admin.slider') }}"><span> <i class="fas fa-image"></i> </span><span class="hide-menu">Slider</span></a></li>
-                        <li> <a href="{{ url('/others') }}"><span> <i class="fas fa-cog"></i> </span><span class="hide-menu">Generale Settings</span></a></li>
-                        <li> <a href="{{ url('/social') }}"><span> <i class="fas fa-thumbs-up"></i> </span><span class="hide-menu">Social Settings</span></a></li>
+                        <li> <a href="{{ route('admin.others') }}"><span> <i class="fas fa-cog"></i> </span><span class="hide-menu">Generale Settings</span></a></li>
+                        <li> <a href="{{ route('admin.social') }}"><span> <i class="fas fa-thumbs-up"></i> </span><span class="hide-menu">Social Settings</span></a></li>
                     </ul>
                 </nav>
             </div>
