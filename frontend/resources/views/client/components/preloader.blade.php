@@ -1,4 +1,4 @@
-   <!-- wpf loader Two -->
+   {{-- <!-- wpf loader Two -->
    <div id="wpf-loader-two">          
       <div class="wpf-loader-two-inner">
         <span>Loading</span>
@@ -7,4 +7,4 @@
     <!-- / wpf loader Two -->       
   <!-- SCROLL TOP BUTTON -->
     <a class="scrollToTop" href="#"><i class="fa fa-chevron-up"></i></a>
-  <!-- END SCROLL TOP BUTTON -->
+  <!-- END SCROLL TOP BUTTON --> --}}

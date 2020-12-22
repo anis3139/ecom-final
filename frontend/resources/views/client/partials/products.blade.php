@@ -8,33 +8,49 @@
               <div class="aa-product-inner">
                 <!-- start prduct navigation -->
                 <ul class="nav nav-tabs aa-products-tab">
-                   @foreach ( App\Models\ProductsCategoryModel::orderby('id','desc')->take(4)->get() as $category)
-                   <li class=" @if ($loop->first)active @endif"><a href="#{{$category->name}}" data-toggle="tab">{{$category->name}}</a></li>
+                   @foreach ($categories as $category)
+                   <li class=" @if ($loop->first)active @endif"><a href="#tab{{$category->id}}" data-toggle="tab">{{$category->name}}</a></li>
                    @endforeach
                 </ul>
+               
                   <!-- Tab panes -->
                 <div class="tab-content">
-                   @foreach ( App\Models\ProductsCategoryModel::orderby('id','desc')->get()  as $catItem)
-                    <div class="tab-pane fade in active" id="{{$catItem->name}}">
+                   @foreach ( $categories  as $catItem)
+                    <div class="tab-pane fade in @PHP  @if($loop->first) active @endif @ENDPHP" id="tab{{$catItem->id}}">
                       <ul class="aa-product-catg">
                         <!-- start single product item -->
-                        <li>
-                          <figure>
-                            <a class="aa-product-img" href="#"><img src="{{ asset('client/img')}}/man/polo-shirt-2.png" alt="polo shirt img"></a>
-                            <a class="aa-add-card-btn"href="#"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
-                              <figcaption>
-                              <h4 class="aa-product-title"><a href="#">Polo T-Shirt</a></h4>
-                              <span class="aa-product-price">$45.50</span><span class="aa-product-price"><del>$65.50</del></span>
-                            </figcaption>
-                          </figure>                        
-                          <div class="aa-product-hvr-content">
-                            <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
-                            <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a>
-                            <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>                          
-                          </div>
-                          <!-- product badge -->
-                          <span class="aa-badge aa-sale" href="#">SALE!</span>
-                        </li>                
+                        @php
+                          $products=App\Models\product_table::where('product_category_id', $catItem->id)->where('product_active', 1)->take(12)->get();
+                        @endphp
+                        @foreach ($products as $product)
+                              <li>
+                                <figure>
+                                  <a class="aa-product-img" href="{{ route('client.showProductDetails', $product->product_slug)}}"><img src="{{ asset('client/img')}}/man/polo-shirt-2.png" alt="polo shirt img"></a>
+                                  <a class="aa-add-card-btn"href="{{ $product->id}}"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
+                                    <figcaption>
+                                    <h4 class="aa-product-title"><a href="{{ route('client.showProductDetails', $product->product_slug)}}">{{ $product->product_title}}</a></h4>
+                                    <span class="aa-product-price">${{ $product->product_price}}</span><span class="aa-product-price"><del>${{ $product->product_selling_price}}</del></span>
+                                  </figcaption>
+                                </figure>                        
+                                <div class="aa-product-hvr-content">
+                                  <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
+                                  <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a>
+                                  <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>                          
+                                </div>
+                                <!-- product badge -->
+                               
+                                  @if($product->product_in_stock)
+                                  <span class="aa-badge aa-sale" href="#">
+                                  SALE!
+                                </span>
+                                    @else
+                                    <span class="aa-badge aa-sold-out" href="#">Sold Out!</span>
+                                  @endif
+                                  
+
+                               
+                              </li>                
+                        @endforeach
                       </ul>
                     </div>
                     @endforeach
