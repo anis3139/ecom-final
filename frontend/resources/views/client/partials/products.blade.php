@@ -12,7 +12,7 @@
                    <li class=" @if ($loop->first)active @endif"><a href="#tab{{$category->id}}" data-toggle="tab">{{$category->name}}</a></li>
                    @endforeach
                 </ul>
-               
+
                   <!-- Tab panes -->
                 <div class="tab-content">
                    @foreach ( $categories  as $catItem)
@@ -25,20 +25,20 @@
                         @foreach ($products as $product)
                               <li>
                                 <figure>
-                                  <a class="aa-product-img" href="{{ route('client.showProductDetails', $product->product_slug)}}"><img src="{{ asset('client/img')}}/man/polo-shirt-2.png" alt="polo shirt img"></a>
+                                  <a class="aa-product-img" href="{{ route('client.showProductDetails', ['slug'=>$product->product_slug]) }}"><img src="{{ asset('client/img')}}/man/polo-shirt-2.png" alt="polo shirt img"></a>
                                   <a class="aa-add-card-btn"href="{{ $product->id}}"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
                                     <figcaption>
                                     <h4 class="aa-product-title"><a href="{{ route('client.showProductDetails', $product->product_slug)}}">{{ $product->product_title}}</a></h4>
                                     <span class="aa-product-price">${{ $product->product_price}}</span><span class="aa-product-price"><del>${{ $product->product_selling_price}}</del></span>
                                   </figcaption>
-                                </figure>                        
+                                </figure>
                                 <div class="aa-product-hvr-content">
                                   <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
                                   <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a>
-                                  <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>                          
+                                  <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>
                                 </div>
                                 <!-- product badge -->
-                               
+
                                   @if($product->product_in_stock)
                                   <span class="aa-badge aa-sale" href="#">
                                   SALE!
@@ -46,29 +46,29 @@
                                     @else
                                     <span class="aa-badge aa-sold-out" href="#">Sold Out!</span>
                                   @endif
-                                  
 
-                               
-                              </li>                
+
+
+                              </li>
                         @endforeach
                       </ul>
                     </div>
                     @endforeach
                 </div>
-                                            
-                
-                     
-                   
-                  <!-- quick view modal -->                  
+
+
+
+
+                  <!-- quick view modal -->
                   <div class="modal fade" id="quick-view-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
-                      <div class="modal-content">                      
+                      <div class="modal-content">
                         <div class="modal-body">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                           <div class="row">
                             <!-- Modal view slider -->
-                            <div class="col-md-6 col-sm-6 col-xs-12">                              
-                              <div class="aa-product-view-slider">                                
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                              <div class="aa-product-view-slider">
                                 <div class="simpleLens-gallery-container" id="demo-1">
                                   <div class="simpleLens-container">
                                       <div class="simpleLens-big-image-container">
@@ -82,7 +82,7 @@
                                          data-lens-image="{{ asset('client/img')}}/view-slider/large/polo-shirt-1.png"
                                          data-big-image="{{ asset('client/img')}}/view-slider/medium/polo-shirt-1.png">
                                           <img src="{{ asset('client/img')}}/view-slider/thumbnail/polo-shirt-1.png">
-                                      </a>                                    
+                                      </a>
                                       <a href="#" class="simpleLens-thumbnail-wrapper"
                                          data-lens-image="{{ asset('client/img')}}/view-slider/large/polo-shirt-3.png"
                                          data-big-image="{{ asset('client/img')}}/view-slider/medium/polo-shirt-3.png">
@@ -136,10 +136,10 @@
                               </div>
                             </div>
                           </div>
-                        </div>                        
+                        </div>
                       </div><!-- /.modal-content -->
                     </div><!-- /.modal-dialog -->
-                  </div><!-- / quick view modal -->              
+                  </div><!-- / quick view modal -->
               </div>
             </div>
           </div>

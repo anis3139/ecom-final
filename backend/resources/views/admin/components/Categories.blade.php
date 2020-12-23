@@ -21,6 +21,7 @@
                                     <th>#</th>
                                     <th>name</th>
                                     <th>Parant Category</th>
+                                    <th>Status</th>
                                     <th>Image</th>
                                     <th>Icon</th>
                                     <th>Edit</th>
@@ -69,17 +70,24 @@
                             <div class="col-md-6">
                                 <input id="CategoryName" type="text" id="" class="form-control my-5"
                                     placeholder="Category Name">
-
-                                <input type="file" id="iconCategory" class="form-control" name="text-input">
-                                <img id="addCategoryIconPreview" style="height: 100px !important;" class="imgPreview mt-3 "
-                                    src="{{ asset('admin/images/default-image.png') }}" />
-                            </div>
-                            <div class="col-md-6">
+                                <select name="" id="catStatus">
+                                    <option value="1" selected>Publish</option>
+                                    <option value="0">Panding</option>
+                                </select>
                                 <select name="Categories" id="Categories" class="form-control my-5">
 
                                 </select>
 
 
+                            </div>
+                            <div class="col-md-6">
+
+                                <label for="iconCategory" class="border-bottom border-primary mb-2">Category Icon</label>
+                                <input type="file" id="iconCategory" class="form-control" name="text-input">
+                                <img id="addCategoryIconPreview" style="height: 100px !important;" class="imgPreview mt-3 "
+                                    src="{{ asset('admin/images/default-image.png') }}" />
+
+                                <label for="imageCategory" class="border-bottom border-primary my-2">Category Image</label>
                                 <input type="file" id="imageCategory" class="form-control" name="text-input">
                                 <img id="addCategoryImagePreview" style="height: 100px !important;" class="imgPreview mt-3 "
                                     src="{{ asset('admin/images/default-image.png') }}" />
@@ -135,14 +143,22 @@
                                 <input id="CategoryUpdateName" type="text" id="" class="form-control my-5"
                                     placeholder="Category Name">
 
+                                    <select name="" id="catEditStatus">
+                                        <option value="1" selected>Publish</option>
+                                        <option value="0">Panding</option>
+                                    </select>
+
+                                    <select name="CategoriesUpdate" id="CategoriesUpdate" class="form-control my-5">
+                                    </select>
+
+                            </div>
+                            <div class="col-md-6">
+                                <label for="iconUpdateCategory" class="border-bottom border-primary my-2">Category icon</label>
+
                                 <input type="file" id="iconUpdateCategory" class="form-control" name="text-input">
                                 <img id="updateCategoryIconPreview" style="height: 100px !important;"
                                     class="imgPreview mt-3 " src="{{ asset('admin/images/default-image.png') }}" />
-                            </div>
-                            <div class="col-md-6">
-
-                                <select name="CategoriesUpdate" id="CategoriesUpdate" class="form-control my-5">
-                                </select>
+                                    <label for="imageUpdateCategory"  class="border-bottom border-primary my-2">Category Image</label>
                                 <input type="file" id="imageUpdateCategory" class="form-control" name="text-input">
                                 <img id="updateCategoryImagePreview" style="height: 100px !important;"
                                     class="imgPreview mt-3 " src="{{ asset('admin/images/default-image.png') }}" />
@@ -167,25 +183,19 @@
 @section('script')
 
     <script>
+
         getCategorydata();
 
         function getCategorydata() {
             axios.get("{{ route('admin.getCategoriesData') }}")
-
                 .then(function(response) {
-
                     if (response.status = 200) {
-
                         $('#mainDivCategory').removeClass('d-none');
                         $('#loadDivCategory').addClass('d-none');
                         $('#CategoryDataTable').DataTable().destroy();
                         $('#Category_Table').empty();
                         var count = 1;
                         var dataJSON = response.data;
-
-
-
-                        console.log(dataJSON);
                         $.each(dataJSON, function(i, item) {
                             var parent='';
                             if (dataJSON[i].parent_id == 0) {
@@ -193,13 +203,22 @@
                             }else{
                                 parent=dataJSON[i].parent.name;
                             }
+
+                            var statusCat='';
+                            if (dataJSON[i].status == 1) {
+                                statusCat='Publish';
+                            }else{
+                                statusCat='Panding';
+                            }
+
                             $('<tr class="text-center">').html(
                                 "<td>" + count++ + " </td>" +
                                 "<td>" + dataJSON[i].name + " </td>" +
                                 "<td>" + parent + " </td>" +
-                                "<td><img width='200px' height='80' class='table-img' src=" + dataJSON[i]
+                                "<td>" +  statusCat + " </td>" +
+                                "<td><img width='150px' height='80' class='table-img' src=" + dataJSON[i]
                                 .banner_image + "> </td>" +
-                                "<td><img width='200px' height='80' class='table-img' src=" + dataJSON[i]
+                                "<td><img width='150px' height='80' class='table-img' src=" + dataJSON[i]
                                 .icon + "> </td>" +
                                 "<td><a class='CategoryEditIcon' data-id=" + dataJSON[i].id +
                                 "><i class='fas fa-edit'></i></a> </td>" +
@@ -248,6 +267,11 @@
         // Material Select Initialization
         $(document).ready(function() {
             $('#Categories').material_select();
+
+        });
+        // Material Select Initialization
+        $(document).ready(function() {
+            $('#catStatus').material_select();
 
         });
 
@@ -302,12 +326,13 @@
         $('#CategoryAddConfirmBtn').click(function() {
             var name = $('#CategoryName').val();
             var categories = $('#Categories').val();
+            var catStatus = $('#catStatus').val();
             var icon = $('#iconCategory').prop('files')[0];
             var image = $('#imageCategory').prop('files')[0];
-            CategoryAdd(name, categories, icon, image);
+            CategoryAdd(name, categories, icon, image, catStatus);
         })
 
-        function CategoryAdd(name, categories, icon, image) {
+        function CategoryAdd(name, categories, icon, image, catStatus) {
             if (name.length == 0) {
                 toastr.error('Category Title is empty!');
             } else {
@@ -315,7 +340,8 @@
                     "<div class='spinner-border spinner-border-sm text-primary' role='status'></div>"); //animation
                 my_data = [{
                     name: name,
-                    categories: categories
+                    categories: categories,
+                    catStatus: catStatus
                 }];
                 var fm = new FormData();
                 fm.append('data', JSON.stringify(my_data));
@@ -323,7 +349,7 @@
                 fm.append('icon', icon);
                 fm.getAll('photo');
 
-                axios.post("/admin/addCategory", fm, {
+                axios.post("{{ route('admin.addCategory')}}", fm, {
                     headers: {
                         'Content-Type': 'multipart/form-data'
                     }
@@ -376,12 +402,12 @@
         function DeleteDataCategory(id) {
             $('#confirmDeleteCategory').html(
                 "<div class='spinner-border spinner-border-sm text-primary' role='status'></div>"); //animation
-            axios.post("/admin/deleteCategory", {
+            axios.post("{{ route('admin.deleteCategory')}}", {
                     id: id
                 })
                 .then(function(response) {
 
-                console.log(response.data);
+
                     $('#confirmDeleteCategory').html("Yes");
                     if (response.status == 200) {
                         if (response.data == 1) {
@@ -415,9 +441,11 @@
 
         });
 
+ // Material Select Initialization
+ $(document).ready(function() {
+            $('#catEditStatus').material_select();
 
-
-
+        });
         // Add Category List
         axios.get("{{ route('admin.getCategoriesParantData') }}")
             .then(function(response) {
@@ -464,7 +492,7 @@
 
 
         function CategoryUpdateDetails(id) {
-            axios.post('/admin/getEditCategoryData', {
+            axios.post("{{ route('admin.getEditCategoryData') }}", {
                     id: id
                 })
                 .then(function(response) {
@@ -477,6 +505,9 @@
                         $('#CategoryUpdateName').val(jsonData[0].name);
 
                         $('#CategoriesUpdate option[value=' + jsonData[0].parent_id + ']').attr(
+                            'selected', 'selected');
+
+                        $('#catEditStatus option[value=' + jsonData[0].status + ']').attr(
                             'selected', 'selected');
 
                         var iconSource = (jsonData[0].icon);
@@ -502,13 +533,14 @@
           $('#CategoryUpdateConfirmBtn').click(function() {
             var idUpdate = $('#CategoryEditId').html();
             var nameUpdate = $('#CategoryUpdateName').val();
+            var catEditStatus = $('#catEditStatus').val();
             var CategoriesEdit = $('#CategoriesUpdate').val();
             var img = $('#imageUpdateCategory').prop('files')[0];
             var icon = $('#iconUpdateCategory').prop('files')[0];
-            CategoryUpdate(idUpdate, nameUpdate, CategoriesEdit, img, icon);
+            CategoryUpdate(idUpdate, nameUpdate, CategoriesEdit, img, icon, catEditStatus);
         })
         //update Category data using modal
-        function CategoryUpdate(idUpdate, nameUpdate, CategoriesEdit, img, icon) {
+        function CategoryUpdate(idUpdate, nameUpdate, CategoriesEdit, img, icon, catEditStatus) {
             if (nameUpdate.length == 0) {
                 toastr.error('Category name is empty!');
             }  else {
@@ -517,13 +549,14 @@
                 updateData = [{
                     id: idUpdate,
                     name: nameUpdate,
+                    catEditStatus: catEditStatus,
                     products_category_id: CategoriesEdit
                 }];
                 var formData = new FormData();
                 formData.append('data', JSON.stringify(updateData));
                 formData.append('photo', img);
                 formData.append('icon', icon);
-                axios.post('/admin/updateCategory', formData, {
+                axios.post("{{ route('admin.updateCategory') }}", formData, {
                     headers: {
                         'Content-Type': 'multipart/form-data'
                     }

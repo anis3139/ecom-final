@@ -43,6 +43,8 @@ class ProductCategoriesController extends Controller
     {
             $data = json_decode($_POST['data']);
             $name = $data['0']->name;
+            $status = $data['0']->catStatus;
+
             $categories = $data['0']->categories;
             $photoPath =  $request->file('photo')->store('public');
             $photoName = (explode('/', $photoPath))[1];
@@ -64,6 +66,7 @@ class ProductCategoriesController extends Controller
 
             $result = ProductsCategoryModel::insert([
                 'name' => $name,
+                'status' => $status,
                 'parent_id' => $categories,
                 'banner_image' => $location,
                 'icon' => $iconNameLocation,
@@ -115,6 +118,7 @@ class ProductCategoriesController extends Controller
         $data = json_decode($_POST['data']);
         $id = $data['0']->id;
         $name = $data['0']->name;
+        $catEditStatus = $data['0']->catEditStatus;
         $products_category_id = $data['0']->products_category_id;
 
 
@@ -139,7 +143,7 @@ class ProductCategoriesController extends Controller
 
 
 
-            $result = ProductsCategoryModel::where('id', '=', $id)->update(['name' => $name, 'parent_id' => $products_category_id,  'icon' => $icon_location, 'banner_image' => $location]);
+            $result = ProductsCategoryModel::where('id', '=', $id)->update(['name' => $name, 'status' => $catEditStatus, 'parent_id' => $products_category_id,  'icon' => $icon_location, 'banner_image' => $location]);
             if ($result == true) {
                 return 1;
             } else {
@@ -157,7 +161,7 @@ class ProductCategoriesController extends Controller
             $location = "http://" . $host . "/storage/" . $photoName;
 
 
-            $result = ProductsCategoryModel::where('id', '=', $id)->update(['name' => $name, 'parent_id' => $products_category_id, 'banner_image' => $location]);
+            $result = ProductsCategoryModel::where('id', '=', $id)->update(['name' => $name, 'status' => $catEditStatus, 'parent_id' => $products_category_id, 'banner_image' => $location]);
             if ($result == true) {
                 return 1;
             } else {
@@ -176,14 +180,14 @@ class ProductCategoriesController extends Controller
             $icon_location = "http://" . $host . "/storage/" . $iconName;
 
 
-            $result = ProductsCategoryModel::where('id', '=', $id)->update(['name' => $name, 'parent_id' => $products_category_id, 'icon' => $icon_location]);
+            $result = ProductsCategoryModel::where('id', '=', $id)->update(['name' => $name, 'status' => $catEditStatus, 'parent_id' => $products_category_id, 'icon' => $icon_location]);
             if ($result == true) {
                 return 1;
             } else {
                 return 0;
             }
         } else {
-            $result = ProductsCategoryModel::where('id', '=', $id)->update(['name' => $name, 'parent_id' => $products_category_id]);
+            $result = ProductsCategoryModel::where('id', '=', $id)->update(['name' => $name, 'status' => $catEditStatus, 'parent_id' => $products_category_id]);
             if ($result == true) {
                 return 1;
             } else {
@@ -243,7 +247,9 @@ class ProductCategoriesController extends Controller
 }
 
     public function getCategoriesData(){
+
         $result = json_decode(ProductsCategoryModel::with('parent')->orderBy('id', 'desc')->get());
+       
         return $result;
 
     }

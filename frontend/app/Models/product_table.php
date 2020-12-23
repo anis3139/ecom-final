@@ -21,6 +21,10 @@ class product_table extends Model
         return $this->hasOne(ProductsCategoryModel::class,'product_category_id');
     }
 
+    public function cat() {
+        return $this->belongsTo(ProductsCategoryModel::class,'product_category_id', 'id');
+    }
+
     public function brand() {
         return $this->hasOne(ProductsBrandModel::class,'product_brand_id');
     }
@@ -35,6 +39,10 @@ class product_table extends Model
 
     public function image() {
         return $this->hasMany(product_has_images::class,'product_image_id');
+    }
+
+    public function img() {
+        return $this->hasMany(product_has_images::class,'has_images_product_id', 'id');
     }
 
 

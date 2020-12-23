@@ -14,11 +14,13 @@ class HomeController extends Controller
     {
         $sliders = SliderModel::all();
         $categories=ProductsCategoryModel::orderBy('id', 'desc')->where('status', 1)->get();
-       
+
+        $categories=ProductsCategoryModel::orderBy('id', 'desc')->where('status', 1)->limit(5)->get();
+
         return view("client.index", compact('sliders', 'categories'));
     }
 
 
-    
+
 
 }
