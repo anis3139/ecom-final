@@ -3,13 +3,13 @@
 @section('content')
     <!-- catg header banner section -->
     <section id="aa-catg-head-banner">
-        <img src="{{ asset('client') }}/img/fashion/fashion-header-bg-8.jpg" alt="fashion img">
+        <img width="100%"  height="400px" src="@foreach ($productDetails->img as $images) @if ($loop->first) {{$images->image_path}}  @endif @endforeach" alt="{!! $productDetails->product_title !!}">
         <div class="aa-catg-head-banner-area">
             <div class="container">
                 <div class="aa-catg-head-banner-content">
-                    <h2>T-Shirt</h2>
+                    <h2>{!! $productDetails->product_title !!}</h2>
                     <ol class="breadcrumb">
-                        <li><a href="index.html">Home</a></li>
+                        <li><a href="{{route('client.home')}}">Home</a></li>
                         <li><a href="#">Product</a></li>
                         <li class="active">{!! $productDetails->product_title !!}</li>
                     </ol>
@@ -238,16 +238,18 @@
                                     <li>
                                         <figure>
                                             <a class="aa-product-img" href="{{ route('client.showProductDetails', ['slug' => $relProduct->product_slug]) }}">
-                                                @php
-                                                    $i=1;
-                                                @endphp
-                                               @if ($i>0)
-                                               <img src="{{ $relProduct->img->image_path }}" alt="polo shirt img" width="250px" height="300px">
-                                               @endif
+                                              
+                                                @php  $i= 1; @endphp
 
-                                                @php
-                                                     $i--;
-                                                @endphp
+                                            @foreach ($relProduct->img as $images)
+                                               @if ($i > 0)
+                                                  
+                                               <img src="{{$images->image_path}}" alt="polo shirt img" width="250px" height="300px">
+                                              
+                                               @endif
+                                               @php $i--; @endphp
+                                            @endforeach
+
 
                                             </a>
                                             <a class="aa-add-card-btn" href="#"><span class="fa fa-shopping-cart"></span>Add

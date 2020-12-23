@@ -72,6 +72,8 @@
   <script type="text/javascript" src="{{ asset('client/js')}}/nouislider.js"></script>
   <!-- Custom js -->
   <script src="{{ asset('client/js')}}/custom.js"></script>
+<!-- Cart JS -->
+  <script type="text/javascript" src="{{ asset('client/js')}}/cart.js"></script>
   @yield('script')
   </body>
 </html>

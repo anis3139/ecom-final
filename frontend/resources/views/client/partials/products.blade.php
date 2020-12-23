@@ -20,13 +20,17 @@
                       <ul class="aa-product-catg">
                         <!-- start single product item -->
                         @php
-                          $products=App\Models\product_table::where('product_category_id', $catItem->id)->where('product_active', 1)->take(12)->get();
+                          $products=App\Models\product_table::where('product_category_id', $catItem->id)->where('product_active', 1)->take(8)->get();
                         @endphp
                         @foreach ($products as $product)
                               <li>
                                 <figure>
                                   <a class="aa-product-img" href="{{ route('client.showProductDetails', ['slug'=>$product->product_slug]) }}"><img src="{{ asset('client/img')}}/man/polo-shirt-2.png" alt="polo shirt img"></a>
-                                  <a class="aa-add-card-btn"href="{{ $product->id}}"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
+                                <form action="{{route('client.add')}}" id="cartForm">
+                                  @csrf
+                                  <input type="hidden" name="product_id" value="{{$product->id}}">
+                                  <button type="submit" class="aa-add-card-btn"><span class="fa fa-shopping-cart" id="CartAddConfirmBtn"></span>Add To Cart</button>
+                                </form>
                                     <figcaption>
                                     <h4 class="aa-product-title"><a href="{{ route('client.showProductDetails', $product->product_slug)}}">{{ $product->product_title}}</a></h4>
                                     <span class="aa-product-price">${{ $product->product_price}}</span><span class="aa-product-price"><del>${{ $product->product_selling_price}}</del></span>
