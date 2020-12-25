@@ -22,13 +22,15 @@ class cartController extends Controller
     {
         try {
             $this->validate($request, [
-                'id' => 'required|numeric',
+                'product_id' => 'required|numeric',
             ]);
         } catch (ValidationException $e) {
             return redirect()->back();
         }
 
-        $product = product_table::findOrFail($request->input('id'));
+      $foo=  $request->input('product_id');
+      $product = product_table::findOrFail($request->input('product_id'));
+      dd($product);
 
         $cart = session()->has('cart') ? session()->get('cart') : [];
        
