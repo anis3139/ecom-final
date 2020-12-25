@@ -20,20 +20,17 @@ class cartController extends Controller
     public function add(Request $request)
     {
        
-        $data = json_decode($_POST['data']);
-        $product_id = $data['0']->product_id;
-
-        dd($product_id);
         try{
             $this->validate($request,[
-                'product_id' => 'required\numeric',
+                'product_id' => 'required|numeric',
             ]);
         } catch(ValidationException $e){
                 return redirect()->back();
         }
 
         $product=product_table::findOrFail($request->input('product_id'));
-        $cart=session()->session()->has('cart') ? session()->get('cart'):[];
+      
+        $cart=session()->has('cart') ? session()->get('cart') : [] ;
       
         if(array_key_exists($product->id, $cart)){
            $cart[$product->id]['quantity']++ ;
@@ -47,7 +44,7 @@ class cartController extends Controller
 
         session(['cart'=>$cart]);
 
-        session()->flush('massage', $product->title. 'Added To Cart..');
+         session()->flush('massage', $product->title. 'Added To Cart..');
 
         return redirect('cart.show');
 
