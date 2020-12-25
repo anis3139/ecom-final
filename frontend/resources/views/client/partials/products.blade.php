@@ -26,9 +26,9 @@
                               <li>
                                 <figure>
                                   <a class="aa-product-img" href="{{ route('client.showProductDetails', ['slug'=>$product->product_slug]) }}"><img src="{{ asset('client/img')}}/man/polo-shirt-2.png" alt="polo shirt img"></a>
-                                <form action="{{route('client.add')}}" id="cartForm">
+                                <form action="{{route('client.addCart')}}" id="cartForm" method="post">
                                   @csrf
-                                  <input type="hidden" id="product_id" name="product_id" value="{{$product->id}}">
+                                  <input type="hidden" id="id" name="id" value="{{$product->id}}">
                                   <button type="submit" class="aa-add-card-btn"><span class="fa fa-shopping-cart" id="CartAddConfirmBtn"></span>Add To Cart</button>
                                 </form>
                                     <figcaption>

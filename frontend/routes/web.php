@@ -16,6 +16,6 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [App\Http\Controllers\client\HomeController::class, 'index'])->name('client.home');
 Route::get('/product/{slug}', [App\Http\Controllers\client\productController::class, 'showProductDetails'])->name('client.showProductDetails');
-Route::get('/cart', [App\Http\Controllers\client\cartController::class, 'show'])->name('client.show');
-Route::post('/cart', [App\Http\Controllers\client\cartController::class, 'show'])->name('client.add');
+Route::get('/cart', [App\Http\Controllers\client\cartController::class, 'showCart'])->name('client.showCart');
+Route::post('/cart', [App\Http\Controllers\client\cartController::class, 'addToCart'])->name('client.addCart');
 
