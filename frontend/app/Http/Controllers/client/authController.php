@@ -9,6 +9,6 @@ class authController extends Controller
 {
     public function registration()
     {
-    return view(client.)
+        return view('client.pages.registration');
     }
 }
