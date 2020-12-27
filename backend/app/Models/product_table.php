@@ -18,11 +18,19 @@ class product_table extends Model
 
 
     public function category() {
-        return $this->hasOne(ProductsCategoryModel::class,'product_category_id');
+        return $this->belongsTo(ProductsCategoryModel::class,'product_category_id');
     }
 
+    public function getCategory() {
+        return $this->belongsTo(ProductsCategoryModel::class, 'product_category_id', 'id');
+    }
+
+
     public function brand() {
-        return $this->hasOne(ProductsBrandModel::class,'product_brand_id');
+        return $this->belongsTo(ProductsBrandModel::class,'product_brand_id');
+    }
+    public function getBrand() {
+        return $this->belongsTo(ProductsBrandModel::class,'product_brand_id', 'id');
     }
 
     public function masermant() {
@@ -30,11 +38,18 @@ class product_table extends Model
     }
 
     public function vendor() {
-        return $this->belongsTo(Vendor::class,'product_owner_id');
+        return $this->belongsTo(Vendor::class,'product_owner_id', 'id');
     }
 
     public function image() {
-        return $this->hasMany(product_has_images::class,'product_image_id');
+        return $this->hasMany(product_has_images::class,'has_images_product_id', 'id');
+    }
+
+    public function maserment() {
+        return $this->hasMany(meserments::class,'product_id', 'id');
+    }
+    public function color() {
+        return $this->hasMany(product_color::class,'product_color_product_id', 'id');
     }
 
 

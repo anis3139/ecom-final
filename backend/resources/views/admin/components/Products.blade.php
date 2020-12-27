@@ -1,4 +1,5 @@
 @extends('admin.Layouts.app')
+@section('title', 'Home Setting')
 @section('css')
     <style>
         .modal-dialog-full-width {
@@ -30,294 +31,7 @@
 @endsection
 
 @section('content')
-    <div id="mainDivProducts" class="container-fluid d-none">
-        <div class="row">
-            <div class="col-md-12 p-3">
-                {{-- <button id="addBtnproduct" class="btn btn-sm btn-danger my-3">Add
-                    New</button> --}}
-
-                <button id="addBtnproduct" type="button" class="btn btn-danger" data-toggle="modal"
-                    data-target="#exampleModalPreview">
-                    Add New
-                </button>
-
-
-                <table id="productDataTable" class="table table-striped table-bordered" cellspacing="0" width="100%">
-                    <thead>
-                        <tr>
-                            <th class="th-sm">Sl.</th>
-                            <th class="th-sm">Title</th>
-                            <th class="th-sm">Price</th>
-                            <th class="th-sm">Offer</th>
-                            <th class="th-sm">Quantity</th>
-                            <th class="th-sm">Category</th>
-                            <th class="th-sm">Status</th>
-                            <th class="th-sm">View</th>
-                            <th class="th-sm">Edit</th>
-                            <th class="th-sm">Delete</th>
-                        </tr>
-                    </thead>
-                    <tbody id="product_table">
-                    </tbody>
-                </table>
-
-            </div>
-        </div>
-    </div>
-    <div id="loadDivProducts" class="container">
-        <div class="row">
-            <div class="col-md-12 p-5 text-center">
-                <img class="loding-icon m-5" src="{{ asset('loader.svg') }}" alt="">
-            </div>
-        </div>
-    </div>
-    <div id="wrongDivProducts" class="container d-none">
-        <div class="row">
-            <div class="col-md-12 p-5 text-center">
-                <h3>Something Went Wrong!</h3>
-            </div>
-        </div>
-    </div>
-
-    <!-- Products add -->
-
-    <!-- Modal -->
-
-    <div class="modal fade right" id="addProductModal" tabindex="-1" role="dialog"
-        aria-labelledby="exampleModalPreviewLabel" aria-hidden="true">
-        <div class="modal-dialog-full-width modal-dialog momodel modal-fluid" role="document">
-            <div class="modal-content-full-width modal-content ">
-                <div class=" modal-header-full-width   modal-header text-center">
-                    <h5 class="modal-title w-100" id="exampleModalPreviewLabel">Material Design Full Screen Modal</h5>
-                    <button type="button" class="close " data-dismiss="modal" aria-label="Close">
-                        <span style="font-size: 1.3em;" aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <input id="pdName" type="text" id="" class="form-control mb-3" placeholder="Product Name">
-                                <textarea id="pdDescription" type="text" id="" class="form-control mb-3"
-                                    placeholder="Product Description" cols="30" rows="5"></textarea>
-                                <input id="pdPrice" type="number" id="" class="form-control mb-3"
-                                    placeholder="Product Price">
-                                <input id="pdOffer" type="number" id="" class="form-control mb-3" placeholder="Offer Price">
-                                <input id="pdQuantity" type="number" id="" class="form-control mb-3"
-                                    placeholder="Product Quantity">
-                                <select id="pdCategory" style="margin-bottom: 10px;" class="browser-default custom-select">
-                                </select>
-                                <select id="pdBrand" style="margin-bottom: 10px;" class="browser-default custom-select">
-                                </select>
-
-                                <select id="pdStock" style="margin-bottom: 10px;" class="browser-default custom-select">
-                                    <option value="1" selected>Stock In</option>
-                                    <option value="0">Stock Out</option>
-                                </select>
-
-
-                                <div class="form-group">
-                                   <label for="pdFeature">Product Feature ? </label>
-                                    <select id="pdFeature" style="margin-bottom: 10px;" class="browser-default custom-select">
-                                        <option value="1">Yes</option>
-                                        <option value="0" selected>No</option>
-                                    </select>
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="pdFeature">Product Status: </label>
-                                    <select id="pdActive" style="margin-bottom: 10px;" class="browser-default custom-select">
-                                        <option value="1" selected>Publish</option>
-                                        <option value="0">Panding</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-
-                                <div class="card">
-                                    <div class="card-header p-2 font-weight-bold text-center border border-dark">
-                                        Product Images
-                                    </div>
-                                    <div class="card-body p-0">
-                                        <table border="2" cellpadding="10px">
-                                            <thead>
-                                                <tr>
-                                                    <th>Image</th>
-                                                    <th>Preview</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr class="text-center">
-                                                    <td>
-                                                        <input type="file" id="productImageOne" class="form-control mb-3"
-                                                            name="productImage[]">
-                                                    </td>
-                                                    <td>
-                                                        <img id="productImageOnePreview"
-                                                            style="height: 100px !important; width: 200px !important;"
-                                                            class="imgPreview mx-auto"
-                                                            src="{{ asset('admin/images/default-image.png') }}" />
-                                                    </td>
-                                                </tr>
-                                                <tr class="text-center">
-                                                    <td>
-                                                        <input type="file" id="productImageTwo" class="form-control mb-3"
-                                                            name="productImage[]">
-                                                    </td>
-                                                    <td>
-                                                        <img id="productImageTwoPreview"
-                                                            style="height: 100px !important; width: 200px !important;"
-                                                            class="imgPreview mx-auto"
-                                                            src="{{ asset('admin/images/default-image.png') }}" />
-                                                    </td>
-                                                <tr class="text-center">
-                                                    <td>
-                                                        <input type="file" id="productImageThree" class="form-control mb-3"
-                                                            name="productImage[]">
-                                                    </td>
-                                                    <td>
-                                                        <img id="productImageThreePreview"
-                                                            style="height: 100px !important; width: 200px !important;"
-                                                            class="imgPreview mx-auto"
-                                                            src="{{ asset('admin/images/default-image.png') }}" />
-                                                    </td>
-                                                <tr class="text-center">
-                                                    <td>
-                                                        <input type="file" id="productImageFour" class="form-control mb-3"
-                                                            name="productImage[]">
-                                                    </td>
-                                                    <td>
-                                                        <img id="productImageFourPreview"
-                                                            style="height: 100px !important; width: 200px !important;"
-                                                            class="imgPreview mx-auto"
-                                                            src="{{ asset('admin/images/default-image.png') }}" />
-                                                    </td>
-                                                <tr class="text-center">
-                                                    <td>
-                                                        <input type="file" id="productImageFive" class="form-control mb-3"
-                                                            name="productImage[]">
-                                                    </td>
-                                                    <td>
-                                                        <img id="productImageFivePreview"
-                                                            style="height: 100px !important; width: 200px !important;"
-                                                            class="imgPreview mx-auto"
-                                                            src="{{ asset('admin/images/default-image.png') }}" />
-                                                    </td>
-                                                </tr>
-
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer-full-width  modal-footer">
-                    <button type="button" class="btn btn-danger btn-md btn-rounded" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary btn-md btn-rounded" id="productAddConfirmBtn">Save
-                        changes</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-
-    <!-- Modal Delete -->
-    <div class="modal fade" id="productModalDelete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-
-                <div class="modal-body p-3 text-center">
-                    <h5 class="mt-4">Do you want to Delete</h5>
-                    <h5 id="productDeleteId" class="mt-4 d-none"></h5>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-sm btn-primary" data-dismiss="modal">No</button>
-                    <button data-id="" id="confirmDeleteproduct" type="button" class="btn btn-sm btn-danger">Yes</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Modal Delete -->
-
-
-
-    <!-- Products update -->
-    <div class="modal fade" id="updateProductModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Update Product</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body  text-center">
-                    <div id="ProductsEditForm" class="container d-none ">
-                        <h5 id="productEditId" class="mt-4 d-none"></h5>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <input id="pdnameupdate" type="text" id="" class="form-control mb-3"
-                                    placeholder="Product Name">
-                                <textarea id="pddesupdate" type="text" id="" class="form-control mb-3"
-                                    placeholder="Product Description" cols="30" rows="10"></textarea>
-                                <input id="pdpriceupdate" type="number" id="" class="form-control mb-3"
-                                    placeholder="Product Price">
-                                <input id="pdofferupdate" type="number" id="" class="form-control mb-3"
-                                    placeholder="Offer Price">
-                                <input id="pdquantityupdate" type="number" id="" class="form-control mb-3"
-                                    placeholder="Product Quantity">
-
-                            </div>
-                            <div class="col-md-6">
-                                <input id="pdslugupdate" type="text" id="" class="form-control mb-3"
-                                    placeholder="Product slug">
-                                <select id="pdfeatureupdate" style="margin-bottom: 10px;"
-                                    class="browser-default custom-select">
-                                    <option disabled selected>Select Product Feature</option>
-                                    <option value="1">Yes</option>
-                                    <option value="0">No</option>
-
-                                </select>
-                                <select id="pdcategoryupdate" style="margin-bottom: 10px;"
-                                    class="browser-default custom-select">
-
-
-                                </select>
-                                <select id="pdbrandupdate" style="margin-bottom: 10px;"
-                                    class="browser-default custom-select">
-
-
-                                </select>
-
-                                <select name="" id="pdstatusupdate" class="form-control mb-3">
-                                    <option value="1" selected>Publish</option>
-                                    <option value="0">Pending</option>
-                                </select>
-
-                                <input type="file" id="pdimageupdate" class="form-control mb-3">
-                                <img id="imagepreviewproduct" style="height: 100px !important;" class="imgPreview mt-3 "
-                                    src="" />
-
-                            </div>
-                        </div>
-                    </div>
-                    <img id="ProductsLoader" class="loding-icon m-5" src="{{ asset('loader.svg') }}" alt="">
-                    <h3 id="ProductswrongLoader" class="d-none">Something Went Wrong!</h3>
-                </div>
-
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-sm btn-primary" data-dismiss="modal">Cancel</button>
-                    <button id="ProductupdateConfirmBtn" type="button" class="btn  btn-sm  btn-danger">Update</button>
-                </div>
-            </div>
-        </div>
-    </div>
+    @include('admin.partials.productPartisal')
 
 @endsection
 
@@ -346,17 +60,23 @@
 
                         var count = 1;
                         $.each(dataJSON, function(i, item) {
+                            var pdStatus=""
+                            if ( dataJSON[i].product_active==1) {
+                                pdStatus="Publish"
+                            }else{
+                                pdStatus="Panding"
+                            }
                             $('<tr class="text-center">').html(
                                 "<td>" + count++ + " </td>" +
                                 "<td>" + dataJSON[i].product_title + " </td>" +
                                 "<td>" + dataJSON[i].product_price + " </td>" +
                                 "<td>" + dataJSON[i].product_selling_price + " </td>" +
                                 "<td>" + dataJSON[i].product_quantity + " </td>" +
-                                "<td>" + dataJSON[i].product_category_id + " </td>" +
-                                "<td>" + dataJSON[i].product_active + " </td>" +
-                                "<td>" + "<a href=" + dataJSON[i].id + "><i class='fas fa-eye'></i></a>" +
-                                " </td>" +
-
+                                "<td>" + dataJSON[i].get_category.name + " </td>" +
+                                "<td>" + dataJSON[i].get_brand.name + " </td>" +
+                                "<td>" +pdStatus + " </td>" +
+                                "<td><a class='productView' data-id=" + dataJSON[i].id +
+                                "><i class='fas fa-eye'></i></a></td>" +
                                 "<td><a class='productEdit' data-id=" + dataJSON[i].id +
                                 "><i class='fas fa-edit'></i></a> </td>" +
                                 "<td><a class='productDeleteIcon' data-id=" + dataJSON[i].id +
@@ -367,6 +87,7 @@
                         //Products click on delete icon
 
                         $(".productDeleteIcon").click(function() {
+
                             var id = $(this).data('id');
                             $('#productDeleteId').html(id);
                             $('#productModalDelete').modal('show');
@@ -376,12 +97,23 @@
 
                         //Products edit icon click
 
-                        $(".productEdit").click(function() {
+                        $(".productView").click(function() {
+                            var id = $(this).data('id');
+                            $('#productsViewId').html(id);
+                            $('#viewProductModal').modal('show');
+                            ProductsViewDetails(id);
 
+
+                        })
+
+                        //Products edit icon click
+
+                        $(".productEdit").click(function() {
                             var id = $(this).data('id');
                             $('#productEditId').html(id);
+
                             $('#updateProductModal').modal('show');
-                            ProductUpdateDetails(id);
+                            ProductsEditDetails(id);
 
                         })
 
@@ -414,10 +146,6 @@
         });
 
 
-        // Material Select Initialization
-        $(document).ready(function() {
-            $('#pdCategory').material_select();
-        });
 
 
         // Add Category List
@@ -439,10 +167,6 @@
 
 
 
-        // Material Select Initialization
-        $(document).ready(function() {
-            $('#pdBrand').material_select();
-        });
 
 
         // Add Category List
@@ -514,7 +238,7 @@
 
 
 
-        //Category Add
+        //Product Add
         $('#productAddConfirmBtn').click(function() {
             var product_title = $('#pdName').val();
             var product_discription = $('#pdDescription').val();
@@ -527,20 +251,48 @@
             var feture_products = $('#pdFeature').val();
             var product_active = $('#pdActive').val();
             var images = [];
-            console.log(product_active);
             $("input[name='productImage[]']").each(function() {
                 if ($(this).prop('files')[0] !== undefined) {
                     images.push($(this).prop('files')[0]);
                 }
             });
 
+            var selectedmesermentId =  $('#pdmeserment').val();
+            var product_colors=$("input[name='pdcolor[]']").map(function(){return $(this).val();}).get();
+
+
+            if (selectedmesermentId == 1) {
+                pdmesermentValue=[];
+                var pdmesermentValue=$("input[name='sizeValue[]']").map(function(){return $(this).val();}).get();
+            } else if(selectedmesermentId == 2){
+                var wightMesermentValue=$("input[name='WightmesermentValue[]']").map(function(){return $(this).val();}).get();
+                var wightMesermentType=$("input[name='WightmesermentType[]']").map(function(){return $(this).val();}).get();
+                pdmesermentValue=[];
+                for (let m = 0; m < wightMesermentValue.length; m++) {
+                    const element = (wightMesermentValue[m]).toString()+(wightMesermentType[m]).toString();
+                    pdmesermentValue.push(element);
+                }
+
+            }else{
+                pdmesermentValue=[];
+                var diamentionValue=$("input[name='pdmesermentValue[]']").map(function(){return $(this).val();}).get();
+                var diamentiontype=$("input[name='diamentionInput[]']").map(function(){return $(this).val();}).get();
+                for (let d = 0; d < diamentionValue.length; d++) {
+                    const element = (diamentionValue[d]).toString() + diamentiontype[d].toString();
+                    pdmesermentValue.push(element);
+                }
+            }
+
+            console.log(pdmesermentValue);
+
+
             productAdd(product_title, product_discription, product_price, product_selling_price, product_quantity,
                 product_category_id, product_brand_id, product_in_stock, feture_products, product_active,
-                images);
-        })
+                images,pdmesermentValue,product_colors);
+        });
 
         function productAdd(product_title, product_discription, product_price, product_selling_price, product_quantity,
-            product_category_id, product_brand_id, product_in_stock, feture_products, product_active, images) {
+            product_category_id, product_brand_id, product_in_stock, feture_products, product_active, images ,pdmesermentValue ,product_colors) {
 
             if (product_title.length == 0) {
                 toastr.error('Product Title is empty!');
@@ -565,8 +317,9 @@
                     product_brand_id: product_brand_id,
                     product_in_stock: product_in_stock,
                     feture_products: feture_products,
-                    product_active: product_active
-
+                    product_active: product_active,
+                    pdmesermentValue: pdmesermentValue,
+                    product_colors: product_colors
                 }];
                 var fm = new FormData();
                 fm.append('data', JSON.stringify(my_data));
@@ -581,7 +334,8 @@
                         'Content-Type': 'multipart/form-data'
                     }
                 }).then(function(response) {
-                    console.log(response.data)
+                    console.log(response.data);
+
                     $('#productAddConfirmBtn').html("Save");
                     if (response.status = 200) {
                         if (response.data == 1) {
@@ -605,20 +359,8 @@
             }
         }
 
-
-
-
-
-
-
-
-
-
-
-
-
- //  Brands delete modal yes button
- $('#confirmDeleteproduct').click(function() {
+        //  Brands delete modal yes button
+        $('#confirmDeleteproduct').click(function() {
             var id = $('#productDeleteId').html();
             // var id = $(this).data('id');
             DeleteProductsData(id);
@@ -655,6 +397,407 @@
 
 
 
+
+
+
+        function ProductsViewDetails(id) {
+            axios.post("{{ route('admin.getEditProductsData') }}", {
+                    id: id
+                })
+                .then(function(response) {
+                    if (response.status == 200) {
+                        $('#loadDivProducts').addClass('d-none');
+                        $('#ProductsEditForm').removeClass('d-none');
+
+                        var dataJSON = response.data;
+                        console.log(dataJSON);
+                        var productOwner=" ";
+                        if (dataJSON[0].product_owner_id==0) {
+                            productOwner="Admin"
+                        }else{
+                            productOwner=dataJSON[0].product_owner_id
+                        }
+
+                        $('#pdNameShow').html(dataJSON[0].product_title)
+                        $('#pdDesShow').html(dataJSON[0].product_discription)
+                        $('#pdPriceShow').html(dataJSON[0].product_price)
+                        $('#pdSellPrice').html(dataJSON[0].product_selling_price)
+                        $('#product_quantity').html(dataJSON[0].product_quantity)
+                        $('#product_category_id').html(dataJSON[0].get_category.name)
+                        $('#product_brand_id').html(dataJSON[0].get_brand.name)
+                        $('#product_if_has_color').html(dataJSON[0].product_if_has_color)
+                        $('#product_meserment_type').html(dataJSON[0].product_meserment_type)
+                        $('#product_owner_id').html(productOwner);
+
+
+                        var imageViewHtml="";
+                        for (let index = 0; index < dataJSON[0].image.length; index++) {
+                            const element = dataJSON[0].image[index];
+                            imageViewHtml+='<div class="border border-secondary text-center">';
+                            imageViewHtml+='<img clsss="mx-auto d-block" style="width:200px;height:100px"  src="'+element.image_path+'" alt="">';
+                            imageViewHtml+='</div>';
+                            $('.ImageView').html(imageViewHtml);
+                        }
+
+                        var masermentHtml="";
+                        for (let index = 0; index < dataJSON[0].maserment.length; index++) {
+                            const element = dataJSON[0].maserment[index];
+                            masermentHtml+='<li class="border border-secondary text-center p-2 m-1">';
+                            masermentHtml+=element.meserment_value;
+                            console.log(element.meserment_value);
+                            masermentHtml+='</li>';
+                            $('#product_meserment_type').html(masermentHtml);
+                        }
+
+
+                        var colortHtml="";
+                        for (let index = 0; index < dataJSON[0].color.length; index++) {
+                            const element = dataJSON[0].color[index];
+                            colortHtml+='<li class="border border-secondary text-center p-2 m-1" style="border-radius:50%; width:40px; height:40px; background-color:'+element.product_color_code+'">';
+                            colortHtml+='</li>';
+                            $('#product_if_has_color').html(colortHtml);
+                        }
+
+
+
+                    } else {
+                        $('#loadDivProducts').addClass('d-none');
+                        $('#wrongDivProducts').removeClass('d-none');
+                    }
+                }).catch(function(error) {
+                    $('#loadDivProducts').addClass('d-none');
+                    $('#wrongDivProducts').removeClass('d-none');
+                });
+        }
+
+
+
+
+
+
+        // Add Category List
+        axios.get("{{ route('admin.getCategoriesData') }}")
+            .then(function(response) {
+
+                var dataJSON = response.data;
+                $('#pdEditCategory').empty();
+                $('#pdEditCategory').append(
+                    `<option  selected class='p-5 m-5' value='0'>Parent Category</option>`);
+                $.each(dataJSON, function(i, item) {
+                    $('#pdEditCategory').append(
+                        `<option value="${dataJSON[i].id}"> ${dataJSON[i].name} </option>`);
+
+                    $('#pdEditCategory').material_select('refresh');
+                });
+            }).catch(function(error) {
+                alert("There are no Category")
+            });
+
+
+
+
+
+        // Add Category List
+        axios.get("{{ route('admin.getBrandsData') }}")
+            .then(function(response) {
+                var dataJSON = response.data;
+
+                $('#pdEditBrand').empty();
+                $('#pdEditBrand').append(`<option disabled selected >Select Brand</option>`);
+                $.each(dataJSON, function(i, item) {
+
+                    $('#pdEditBrand').append(
+                        `<option value="${dataJSON[i].id}"> ${dataJSON[i].brandName} </option>`);
+
+                    $('#pdEditBrand').material_select('refresh');
+                });
+            }).catch(function(error) {
+                alert("There are no Brand")
+            });
+
+
+
+
+        $('#productEditImageOne').change(function() {
+            var reader = new FileReader();
+            reader.readAsDataURL(this.files[0]);
+            reader.onload = function(event) {
+                var ImgSource = event.target.result;
+                $('#productEditImageOnePreview').attr('src', ImgSource)
+            }
+        })
+
+        $('#productEditImageTwo').change(function() {
+            var reader = new FileReader();
+            reader.readAsDataURL(this.files[0]);
+            reader.onload = function(event) {
+                var ImgSource = event.target.result;
+                $('#productEditImageTwoPreview').attr('src', ImgSource)
+            }
+        })
+
+        $('#productEditImageThree').change(function() {
+            var reader = new FileReader();
+            reader.readAsDataURL(this.files[0]);
+            reader.onload = function(event) {
+                var ImgSource = event.target.result;
+                $('#productEditImageThreePreview').attr('src', ImgSource)
+            }
+        })
+
+        $('#productEditImageFour').change(function() {
+            var reader = new FileReader();
+            reader.readAsDataURL(this.files[0]);
+            reader.onload = function(event) {
+                var ImgSource = event.target.result;
+                $('#productImageEditFourPreview').attr('src', ImgSource)
+            }
+        })
+
+        $('#productEditImageFive').change(function() {
+            var reader = new FileReader();
+            reader.readAsDataURL(this.files[0]);
+            reader.onload = function(event) {
+                var ImgSource = event.target.result;
+                $('#productImageEditFivePreview').attr('src', ImgSource)
+            }
+        })
+
+
+
+        function ProductsEditDetails(id) {
+            axios.post("{{ route('admin.getEditProductsData') }}", {
+                    id: id
+                })
+                .then(function(response) {
+
+
+                    if (response.status == 200) {
+                        $('#loadDivProducts').addClass('d-none');
+                        $('#CategoryEditForm').removeClass('d-none');
+
+                        var jsonData = response.data;
+
+                        $('#pdEditName').val(jsonData[0].product_title);
+
+                        $('#pdEditDescription').val(jsonData[0].product_discription);
+
+                        $('#pdEditPrice').val(jsonData[0].product_price);
+
+                        $('#pdEditOffer').val(jsonData[0].product_selling_price);
+
+
+                        $('#pdEditQuantity').val(jsonData[0].product_quantity);
+
+                        $('#pdEditCategory option[value=' + jsonData[0].product_category_id + ']').prop('selected',
+                            'true');
+
+                        $('#pdEditBrand option[value=' + jsonData[0].product_brand_id + ']').prop('selected', 'true');
+
+                        $('#pdEditStock option[value=' + jsonData[0].product_in_stock + ']').prop('selected', 'true');
+
+                        $('#pdEditFeature option[value=' + jsonData[0].feture_products + ']').prop('selected', 'true');
+
+                        $('#pdEditStatus option[value=' + jsonData[0].product_active + ']').prop('selected', 'true');
+
+
+                        var iconSource = (jsonData[0].image[0].image_path);
+                        $('#productEditImageOnePreview').attr('src', iconSource)
+
+                        var ImgSource = (jsonData[0].image[1].image_path);
+                        $('#productEditImageTwoPreview').attr('src', ImgSource)
+
+                        var ImgSource = (jsonData[0].image[2].image_path);
+                        $('#productEditImageThreePreview').attr('src', ImgSource)
+
+                        var ImgSource = (jsonData[0].image[3].image_path);
+                        $('#productImageEditFourPreview').attr('src', ImgSource)
+
+                        var ImgSource = (jsonData[0].image[4].image_path);
+                        $('#productImageEditFivePreview').attr('src', ImgSource)
+
+                    } else {
+                        $('#loadDivProducts').addClass('d-none');
+                        $('#wrongDivProducts').removeClass('d-none');
+                    }
+                }).catch(function(error) {
+                    $('#loadDivProducts').addClass('d-none');
+                    $('#wrongDivProducts').removeClass('d-none');
+                });
+        }
+
+
+        $('#pdmeserment').change(function () {
+    var pdmesermentId = $('#pdmeserment').val();
+
+
+    var html = "";
+    if (pdmesermentId == 1) {
+        html+='<table class="table table-bordered"><thead clss="text-center"><tr><th>Entry</th><th>Meserments</th><th class="text-center"><button class="btn btn-success btn-sm ml-auto" onclick="addMoreBtnForMesermrntSize();">Add More</button></th></tr></thead><tbody id="MesermrntSize">';
+
+
+    } else if (pdmesermentId == 2) {
+        html+='<table class="table table-bordered"><thead clss="text-center"><tr><th>Entry</th><th>Meserments</th><th class="text-center"><button class="btn btn-success btn-sm ml-auto" onclick="addMoreBtnForMesermrntWight();">Add More</button></th></tr></thead><tbody id="MesermrntWight">';
+
+
+
+
+    } else if (pdmesermentId == 3) {
+        html+='<table class="table table-bordered"><thead clss="text-center"><tr><th>Entry</th><th>Meserments</th><th class="text-center"><button class="btn btn-success btn-sm ml-auto" onclick="addMoreBtnForMesermrntDiamention();">Add More</button></th></tr></thead><tbody id="MesermrntDiamention">';
+
+
+
+
+
+    } else {
+        html += '<h4>No Meserment Selected</h4>';
+    }
+    html+='</tbody><table>'
+
+    $('.meserment_input').html(html);
+    addExtraColum(pdmesermentId);
+});
+
+
+
+var size=0;
+function addMoreBtnForMesermrntSize() {
+    size++;
+
+    var html2="";
+    html2+='<tr class="sizediv'+size+'">';
+    html2+='<td colspan="2">';
+    html2+='<select id="pdmesermentValue'+size+'" onChange="sizeOnChange('+size+')" name="pdmesermentValue[]" style="margin-bottom: 10px;" class="browser-default custom-select">';
+    html2+='<option value="xsm" seclected>Extra Small</option>';
+    html2+='<option selected>Select Type</option>';
+    html2+='<option value="sm">Small</option>';
+    html2+='<option value="m">Medium</option>';
+    html2+='<option value="lg">Large</option>';
+    html2+='<option value="xl">Extra Large</option>';
+    html2+='<option value="xxl">Dubble Extra Large</option>';
+    html2+='</select><input type="hidden" id="sizeValue'+ size +'" name="sizeValue[]" />';
+    html2+='</td>';
+    html2+='<td class="text-center">';
+    html2+='<button class="btn btn-danger btn-sm mt-0" onclick="SizeRemove('+size+')"><i class="fas fa-minus-circle"></i></button>';
+    html2+='</td>';
+    html2+='</tr>';
+
+    $('#MesermrntSize').append(html2);
+
+}
+function SizeRemove(id) {
+    $('.sizediv'+id).remove();
+}
+
+function sizeOnChange(id){
+    console.log(id);
+    var getSizeValueforPushToInput=$('#pdmesermentValue'+id).val();
+    $('#sizeValue'+id).val(getSizeValueforPushToInput);
+
+}
+
+var Wightrow = 0;
+
+function addMoreBtnForMesermrntWight() {
+    Wightrow++;
+
+    var html3 = "";
+    html3 += '<tr class="Wightdiv'+Wightrow+'">';
+    html3 += '<td>';
+    html3 += '<input id="WightmesermentValue" name="WightmesermentValue[]"  type="text" class="form-control" placeholder="Product Wight"/>';
+    html3 += '</td>';
+    html3 += '<td>';
+    html3 += '<select id="WightmesermentType'+Wightrow+'" onChange="setWightInputValue('+Wightrow+');" name="WightmesermentType[]" style="margin-bottom: 10px;" class="browser-default custom-select"><option selected>Select Wight Type</><option value="mg">Mg</option><option value="gm">Gm</option><option value="KG">Kg</option><option value="galon">Galon</option></select>';
+    html3 += '<input type="hidden" id="wightValue'+Wightrow+'" name="WightmesermentType[]"/></td>';
+    html3 += '<td class="text-center">';
+    html3 += '<button class="btn btn-danger btn-sm mt-0" onclick="WightrowRemove('+Wightrow+')"><i class="fas fa-minus-circle"></i></button>';
+    html3 += '</td>';
+    html3 += '</tr>';
+    $('#MesermrntWight').append(html3);
+}
+
+function WightrowRemove(id) {
+    $('.Wightdiv'+id).remove();
+}
+
+
+function setWightInputValue(id) {
+    $('#wightValue'+id).val($('#WightmesermentType'+id).val());
+
+}
+
+var DiamentionRow = 0;
+
+function addMoreBtnForMesermrntDiamention() {
+    DiamentionRow++;
+
+    var html4 = "";
+    html4 += '<tr class="DiamentionRow'+DiamentionRow+'">';
+    html4 += '<td>';
+    html4 += '<input  name="pdmesermentValue[]" type="text" class="form-control" placeholder="Product Dimension"/>';
+    html4 += '</td>';
+    html4 += '<td>';
+    html4 += '<select id="Diamentionmeserment'+DiamentionRow+'" onchange="setDiamentionInputValue('+DiamentionRow+')" style="margin-bottom: 10px;" class="browser-default custom-select"><option>Select Type</option><option value="metter">Metter</option><option value="cm">Centi Metter</option><option value="inc">Inch</option></select>';
+    html4 += '<input type="hidden" id="diamentionValue'+DiamentionRow+'" name="diamentionInput[]" /></td>';
+    html4 += '<td class="text-center">';
+    html4 += '<button class="btn btn-danger btn-sm mt-0" onclick="diamentionRowRemove('+DiamentionRow+');"><i class="fas fa-minus-circle"></i></button>';
+    html4 += '</td>';
+    html4 += '<tr>';
+
+    $('#MesermrntDiamention').append(html4);
+}
+
+function diamentionRowRemove(id) {
+    $('.DiamentionRow'+id).remove();
+}
+
+function setDiamentionInputValue(id) {
+    $('#diamentionValue'+id).val($('#Diamentionmeserment'+id).val());
+}
+
+
+function addExtraColum(id) {
+
+    if (id == 1 ) {
+        addMoreBtnForMesermrntSize();
+    } else if(id == 2){
+        addMoreBtnForMesermrntWight();
+    } else if(id == 3){
+        addMoreBtnForMesermrntDiamention()
+    }else{
+        return;
+    }
+}
+
+
+
+
+            var color = 0;
+
+            function addInput() {
+            color++;
+            var html6 = "";
+            html6+= '<tr id="rowid' + color + '">';
+            html6+= '<td class="text-center">' + color + ' </td>';
+            html6+='<td>';
+            html6+='<div id="input' + color + '" class="input-group" name="colorInput" title="Using input value">';
+            html6+='    <input type="text" class="form-control input-lg" name="pdcolor[]" value="#000000"/>';
+            html6+='    <span class="input-group-append">';
+            html6+='      <span class="input-group-text colorpicker-input-addon"><i></i></span>';
+            html6+='    </span>';
+            html6+='  </div>';
+            html6+='</td>';
+            html6 += '<td class="text-center p-0"> <button onclick="removeColorInput(' + color + ');" class="btn  btn-danger btn-sm p-o"><i class="fas fa-minus-circle fa-2x"></i></button></td>';
+            html6 += '</tr>';
+
+            $('#append_tbody').append(html6);
+            $('#input'+color).colorpicker();
+        }
+
+
+        function removeColorInput(row_id) {
+            $('#rowid' + row_id).remove();
+        }
 
     </script>
 

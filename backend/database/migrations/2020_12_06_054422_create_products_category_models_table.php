@@ -19,8 +19,8 @@ class CreateProductsCategoryModelsTable extends Migration
             $table->string('icon', 128);
             $table->string('banner_image', 128);
             $table->unsignedInteger('parent_id')->default(0);
-            $table->string('slug');
             $table->tinyInteger('status')->default(1);
+            $table->string('slug');
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent();
 

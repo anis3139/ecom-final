@@ -13,6 +13,7 @@
     <link href="{{ asset('admin/css/style.css') }}" rel="stylesheet">
     <link href="{{ asset('admin/css/responsive.css') }}" rel="stylesheet">
     <link href="{{ asset('admin/css/datatables.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('admin/css/bootstrap-colorpicker.css') }}" rel="stylesheet">
     <link href="{{ asset('admin/css/datatables-select.min.css') }}" rel="stylesheet">
     <style>
         .topbar {
@@ -47,6 +48,7 @@
     <script type="text/javascript" src="{{ asset('admin/js/datatables.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('admin/js/datatables-select.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('admin/js/axios.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('admin/js/bootstrap-colorpicker.js') }}"></script>
     <script type="text/javascript" src="{{ asset('admin/js/custom.js') }}"></script>
 
 
