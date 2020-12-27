@@ -26,8 +26,10 @@
  <div class="container">
    <div class="row">
      <div class="col-md-12">
-       
+
       <div class="checkout-area">
+        @include('client.components.massege')
+        @include('client.components.errorMassage')
         <form action="">
           <div class="row">
             <div class="col-md-8">
@@ -60,12 +62,15 @@
                     </div>
                     <div id="collapseTwo" class="panel-collapse collapse">
                       <div class="panel-body">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quaerat voluptatibus modi pariatur qui reprehenderit asperiores fugiat deleniti praesentium enim incidunt.</p>
-                        <input type="text" placeholder="Username or email">
-                        <input type="password" placeholder="Password">
+                        <form action="{{route('client.onlogin')}}" class="aa-login-form registration" method="post">
+                            @csrf
+                        <input name="email"  type="text" placeholder="email"  value="{{old('email')}}">
+                        <input name="password" type="password" placeholder="Password">
                         <button type="submit" class="aa-browse-btn">Login</button>
-                        <label for="rememberme"><input type="checkbox" id="rememberme"> Remember me </label>
+
+                        {{-- <label for="rememberme"><input type="checkbox" id="rememberme"> Remember me </label> --}}
                         <p class="aa-lost-password"><a href="#">Lost your password?</a></p>
+                    </form>
                       </div>
                     </div>
                   </div>

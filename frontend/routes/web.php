@@ -24,6 +24,10 @@ Route::get('/checkout', [App\Http\Controllers\client\cartController::class, 'che
 
 
 
+Route::get('/login', [App\Http\Controllers\client\authController::class, 'showLogin'])->name('client.login');
+Route::post('/onlogin', [App\Http\Controllers\client\authController::class, 'onlogin'])->name('client.onlogin');
+Route::get('/logout', [App\Http\Controllers\client\authController::class, 'logout'])->name('client.logout');
 Route::get('/registration', [App\Http\Controllers\client\authController::class, 'registration'])->name('client.registration');
 Route::post('/addUser', [App\Http\Controllers\client\authController::class, 'addUser'])->name('client.addUser');
+Route::get('/active/{token}', [App\Http\Controllers\client\authController::class, 'userActive'])->name('client.active');
 

@@ -2,12 +2,13 @@
 
 namespace App\Notifications;
 
+use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class registerEmail extends Notification
+class registerEmail extends Notification implements ShouldQueue
 {
     use Queueable;
 
@@ -16,9 +17,9 @@ class registerEmail extends Notification
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(User $user)
     {
-        //
+        $this->user=$user;
     }
 
     /**
@@ -41,9 +42,10 @@ class registerEmail extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
-                    ->line('Thank you for using our application!');
+                    ->line('Welcome'. $this->user->name.'To Our Ecommerce System')
+                    ->line('Please Click The Following Link to Activate Your Account...')
+                    ->action('Click Here', route('client.active', $this->user->email_verification_token))
+                    ->line('Thanks For Choose us');
     }
 
     /**
