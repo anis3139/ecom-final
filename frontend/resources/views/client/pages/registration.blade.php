@@ -1,9 +1,24 @@
 @extends('client.layouts.app')
+@section('css')
+
+<style>
+    .aa-login-form input[type="email"], .aa-login-form input[type="number"]{
+    border: 1px solid #ccc;
+    font-size: 16px;
+    height: 40px;
+    margin-bottom: 15px;
+    padding: 10px;
+    width: 100%;
+    }
+}
+</style>
+
+@endsection
 @section('content')
 
  <!-- catg header banner section -->
  <section id="aa-catg-head-banner">
-    <img src="img/fashion/fashion-header-bg-8.jpg" alt="fashion img">
+    <img src="{{asset('client')}}/img/fashion/fashion-header-bg-8.jpg" alt="fashion img">
     <div class="aa-catg-head-banner-area">
      <div class="container">
       <div class="aa-catg-head-banner-content">
@@ -25,28 +40,20 @@
        <div class="col-md-12">
         <div class="aa-myaccount-area">
             <div class="row">
-              <div class="col-md-6">
-                <div class="aa-myaccount-login">
-                <h4>Login</h4>
-                 <form action="" class="aa-login-form">
-                  <label for="">Username or Email address<span>*</span></label>
-                   <input type="text" placeholder="Username or email">
-                   <label for="">Password<span>*</span></label>
-                    <input type="password" placeholder="Password">
-                    <button type="submit" class="aa-browse-btn">Login</button>
-                    <label class="rememberme" for="rememberme"><input type="checkbox" id="rememberme"> Remember me </label>
-                    <p class="aa-lost-password"><a href="#">Lost your password?</a></p>
-                  </form>
-                </div>
-              </div>
-              <div class="col-md-6">
+              <div class="col-md-12">
+                @include('client.components.errorMassage')
                 <div class="aa-myaccount-register">
                  <h4>Register</h4>
-                 <form action="" class="aa-login-form">
-                    <label for="">Username or Email address<span>*</span></label>
-                    <input type="text" placeholder="Username or email">
+                 <form action="{{route('client.addUser')}}" class="aa-login-form registration" method="post">
+                    @csrf
+                    <label for="">Full Name<span>*</span></label>
+                    <input name="name" type="text" placeholder="Name" value="{{old('name')}}">
+                    <label for="phone">Phone Number<span>*</span></label>
+                    <input name="phone_number" type="number" placeholder="Phone Number" value="{{old('phone_number')}}">
+                    <label for="">Email address<span>*</span></label>
+                    <input name="email" type="email" placeholder="Email" value="{{old('email')}}">
                     <label for="">Password<span>*</span></label>
-                    <input type="password" placeholder="Password">
+                    <input name="password" type="password" placeholder="Password">
                     <button type="submit" class="aa-browse-btn">Register</button>
                   </form>
                 </div>

@@ -25,4 +25,5 @@ Route::get('/checkout', [App\Http\Controllers\client\cartController::class, 'che
 
 
 Route::get('/registration', [App\Http\Controllers\client\authController::class, 'registration'])->name('client.registration');
+Route::post('/addUser', [App\Http\Controllers\client\authController::class, 'addUser'])->name('client.addUser');
 

@@ -26,6 +26,7 @@
  <div class="container">
    <div class="row">
      <div class="col-md-12">
+       
       <div class="checkout-area">
         <form action="">
           <div class="row">
@@ -33,7 +34,7 @@
               <div class="checkout-left">
                 <div class="panel-group" id="accordion">
                   <!-- Coupon section -->
-                  <div class="panel panel-default aa-checkout-coupon">
+                  {{-- <div class="panel panel-default aa-checkout-coupon">
                     <div class="panel-heading">
                       <h4 class="panel-title">
                         <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
@@ -47,7 +48,7 @@
                         <input type="submit" value="Apply Coupon" class="aa-browse-btn">
                       </div>
                     </div>
-                  </div>
+                  </div> --}}
                   <!-- Login section -->
                   <div class="panel panel-default aa-checkout-login">
                     <div class="panel-heading">
