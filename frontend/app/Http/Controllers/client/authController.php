@@ -43,18 +43,22 @@ class authController extends Controller
             return redirect()->back()->withErrors($validator)->withInput();
           }
 
-          $credentials=request()->only(['email', 'password']);
+          $credentials =request()->only(['email', 'password']);
 
-          if (Auth::attempt($credentials)) {
+
+        if (Auth::attempt($credentials)) {
 
             if (auth()->user()->email_verified_at == null) {
 
                 return redirect()->route('client.login')->with('error','Your Account is not Active');
             }
 
-
+            $request->session()->regenerate();
             return redirect()->route('client.home')->with('success','login Successfull');
-          }
+
+        }
+
+         return redirect()->back()->with('warning','The provided credentials do not match our records.');
 
     }
 

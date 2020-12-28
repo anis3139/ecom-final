@@ -28,6 +28,7 @@
             <div class="row">
               <div class="col-md-12">
                 @include('client.components.massege')
+                @include('client.components.errorMassage')
                 <div class="aa-myaccount-register">
                  <h4>Log In</h4>
                  <form action="{{route('client.onlogin')}}" class="aa-login-form registration" method="post">
