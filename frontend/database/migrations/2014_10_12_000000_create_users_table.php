@@ -25,6 +25,7 @@ class CreateUsersTable extends Migration
             $table->string('google_id')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();
+            $table->softDeletes();
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent();
         });

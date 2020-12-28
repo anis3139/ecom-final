@@ -12,6 +12,8 @@ class registerEmail extends Notification implements ShouldQueue
 {
     use Queueable;
 
+    public $user;
+
     /**
      * Create a new notification instance.
      *
@@ -21,6 +23,7 @@ class registerEmail extends Notification implements ShouldQueue
     {
         $this->user=$user;
     }
+
 
     /**
      * Get the notification's delivery channels.

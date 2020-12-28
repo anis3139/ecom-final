@@ -3,12 +3,14 @@
 namespace App\Http\Controllers\client;
 
 use App\Http\Controllers\Controller;
+use App\Mail\registrationVarificationMail;
 use App\Models\User;
 use App\Notifications\registerEmail;
 use Carbon\Carbon;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 use Symfony\Contracts\Service\Attribute\Required;
 
@@ -83,16 +85,13 @@ class authController extends Controller
        if ($validator->fails()) {
           return redirect()->back()->withErrors($validator)->withInput();
         }
-
-
-
             try {
                 $name = $request->Input('name');
                 $phone_number = $request->Input('phone_number');
                 $email =strtolower($request->Input('email'));
                 $password =bcrypt( $request->Input('password'));
 
-            $user= User::insert([
+            $user= User::create([
                 'name'=>$name,
                 'phone_number'=>$phone_number,
                 'email'=>$email,
@@ -101,16 +100,17 @@ class authController extends Controller
 
             ]);
 
-            $user->notify(new registerEmail($user));
+
+            Mail::to($user->email)->send(new registrationVarificationMail($user));
 
             session()->flash('type', 'Success');
-            session()->flash('massage','Registration Successfull');
-            return redirect()->route('client.login');
+            session()->flash('massage','Registration Successfull Please Check Your Mail For Active your Account');
+            return redirect()->route('client.login')->with('success','Log Out Successfull');
 
             } catch (\Exception $th) {
                 session()->flash('type', 'warning');
                 session()->flash('massage', $th->getMessage());
-                return redirect()->back();
+                return redirect()->route('client.login');
             }
 
 
