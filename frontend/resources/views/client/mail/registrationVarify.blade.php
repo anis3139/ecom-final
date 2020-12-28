@@ -8,6 +8,6 @@
 </head>
 <body>
     <h1>Hello Mr. {{$user->name}}</h1>
-    <a href="{{route('client.active', $user->email_verification_token)}}">Click Here</a>
+    <a href="{{ route('client.active', $user->email_verification_token) }}">Click Here</a>
 </body>
 </html>

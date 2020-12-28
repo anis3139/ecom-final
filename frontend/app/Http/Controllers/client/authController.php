@@ -51,16 +51,15 @@ class authController extends Controller
         if (Auth::attempt($credentials)) {
 
             if (auth()->user()->email_verified_at == null) {
-
                 return redirect()->route('client.login')->with('error','Your Account is not Active');
+                auth()->logout();
+            }else {
+                $request->session()->regenerate();
+                return redirect()->route('client.home')->with('success','login Successfull');
             }
 
-            $request->session()->regenerate();
-            return redirect()->route('client.home')->with('success','login Successfull');
-
         }
-
-         return redirect()->back()->with('warning','The provided credentials do not match our records.');
+        return redirect()->back()->with('warning','The provided credentials do not match our records.');
 
     }
 
@@ -74,6 +73,7 @@ class authController extends Controller
     public function addUser(Request $request)
     {
 
+
        $validator=Validator::make(request()->all(),[
         'name'=>'required',
         'email'=>'required | email |unique:users,email',
@@ -85,35 +85,23 @@ class authController extends Controller
        if ($validator->fails()) {
           return redirect()->back()->withErrors($validator)->withInput();
         }
-            try {
                 $name = $request->Input('name');
                 $phone_number = $request->Input('phone_number');
                 $email =strtolower($request->Input('email'));
                 $password =bcrypt( $request->Input('password'));
 
-            $user= User::create([
-                'name'=>$name,
-                'phone_number'=>$phone_number,
-                'email'=>$email,
-                'password'=> $password,
-                'email_verification_token'=>uniqid( time().$email, true).Str::random(40),
-
-            ]);
+                $user=new User();
+                $user->name=$name;
+                $user->phone_number=$phone_number;
+                $user->email=$email;
+                $user->password= $password;
+                $user->email_verification_token= uniqid(time().$email, true).Str::random(40);
+                $user->save();
 
 
             Mail::to($user->email)->send(new registrationVarificationMail($user));
 
-            session()->flash('type', 'Success');
-            session()->flash('massage','Registration Successfull Please Check Your Mail For Active your Account');
-            return redirect()->route('client.login')->with('success','Log Out Successfull');
-
-            } catch (\Exception $th) {
-                session()->flash('type', 'warning');
-                session()->flash('massage', $th->getMessage());
-                return redirect()->route('client.login');
-            }
-
-
+            return redirect()->route('client.registration')->with('success','Registration Successfull! Please Check Your Mail For Active your Account');
 
     }
 
@@ -131,7 +119,7 @@ class authController extends Controller
             $user->email_verified_at=Carbon::now();
             $user->email_verification_token=null;
             $user->save();
-            return redirect()->route('client.checkout')->with('success','Your Account Varified Successfully');
+            return redirect()->route('client.login')->with('success','Your Account Varified Successfully');
         }
 
 

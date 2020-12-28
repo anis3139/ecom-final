@@ -23,7 +23,6 @@ Route::get('/cartClear', [App\Http\Controllers\client\cartController::class, 'cl
 Route::get('/checkout', [App\Http\Controllers\client\cartController::class, 'checkout'])->name('client.checkout');
 
 
-
 Route::get('/login', [App\Http\Controllers\client\authController::class, 'showLogin'])->name('client.login');
 Route::post('/onlogin', [App\Http\Controllers\client\authController::class, 'onlogin'])->name('client.onlogin');
 Route::get('/logout', [App\Http\Controllers\client\authController::class, 'logout'])->name('client.logout');
