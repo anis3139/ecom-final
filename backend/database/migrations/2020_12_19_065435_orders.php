@@ -18,14 +18,16 @@ class Orders extends Migration
             $table->string('customer_name', 128);
             $table->string('customer_phone_number', 32);
             $table->text('address');
-            $table->text('shiping_address');
             $table->string('city', 32);
+            $table->string('district', 32);
             $table->string('country', 32)->default('bangladesh');
             $table->string('postal_code', 32);
             $table->decimal('total_amount',10,2);
             $table->decimal('discount_amount',10,2)->default(0.00);
             $table->decimal('paid_amount',10,2);
+
             $table->string('payment_status', 32)->default('pending');
+            $table->text('payment_details', 32)->nullable();
 
             $table->unsignedInteger('user_id');
             $table->unsignedInteger('processed_by')->nullable();

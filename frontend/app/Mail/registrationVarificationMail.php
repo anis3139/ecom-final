@@ -31,6 +31,6 @@ class registrationVarificationMail extends Mailable
      */
     public function build()
     {
-        return $this->view('client.mail.registrationVarify')->with('user', $this->user);
+        return $this->subject('Verify Registration')->view('client.mail.registrationVarify')->with('user', $this->user);
     }
 }

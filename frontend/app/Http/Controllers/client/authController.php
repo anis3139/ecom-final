@@ -51,11 +51,12 @@ class authController extends Controller
         if (Auth::attempt($credentials)) {
 
             if (auth()->user()->email_verified_at == null) {
-                return redirect()->route('client.login')->with('error','Your Account is not Active');
                 auth()->logout();
+                return redirect()->route('client.login')->with('error','Your Account is not Active. Please Check Your Email');
+
             }else {
                 $request->session()->regenerate();
-                return redirect()->route('client.home')->with('success','login Successfull');
+                return redirect()->route('client.checkout')->with('success','login Successfull');
             }
 
         }
@@ -77,7 +78,7 @@ class authController extends Controller
        $validator=Validator::make(request()->all(),[
         'name'=>'required',
         'email'=>'required | email |unique:users,email',
-        'phone_number'=>'required |min:8| max:16|unique:users,phone_number',
+        'phone_number'=>'required|numeric|min:8| max:16|unique:users,phone_number',
         'password'=>'required |min:8',
 
        ]);
@@ -99,9 +100,13 @@ class authController extends Controller
                 $user->save();
 
 
-            Mail::to($user->email)->send(new registrationVarificationMail($user));
 
-            return redirect()->route('client.registration')->with('success','Registration Successfull! Please Check Your Mail For Active your Account');
+                $user->notify(new registerEmail( $user));
+
+
+        // Mail::to($user->email)->send(new registrationVarificationMail($user));
+
+        return redirect()->route('client.registration')->with('success','Registration Successfull! Please Check Your Mail For Active your Account');
 
     }
 
@@ -124,4 +129,20 @@ class authController extends Controller
 
 
     }
+
+
+public function profile()
+{
+   return view('client.pages.profile');
+}
+
+
+
+
+
+
+
+
+
+
 }

@@ -63,7 +63,8 @@
                                                         </form>
                                                     </td>
 
-                                                    <td><img src="{{ $cartItem['image'] }}" alt=""></td>
+                                                    {{-- <td><img src="{{ $cartItem['image'] }}" alt=""></td> --}}
+                                                    <td></td>
 
                                                     <td><a class="aa-cart-title" href="#">{{ $cartItem['title'] }}</a></td>
 
@@ -116,7 +117,7 @@
 
                                     <!-- Cart Total -->
                                     <div class="cart-view-total" style="margin:0px auto; display:block; width:auto; float:left;">
-                                        <a href="{{route('client.home')}}" class="aa-cart-view-btn" style="background-color:green !important;">Continue Shoping</a>
+                                        <a href="{{route('client.home')}}" class="aa-cart-view-btn" style="background-color:#FF6666 !important;">Continue Shoping</a>
                                     </div>
                         </div>
                     </div>

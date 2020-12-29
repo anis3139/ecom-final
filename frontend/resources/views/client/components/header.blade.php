@@ -54,15 +54,16 @@
                         <!-- / header top left -->
                         <div class="aa-header-top-right">
                             <ul class="aa-head-top-nav-right">
-                                <li><a href="#">My Account</a></li>
                                 <li class="hidden-xs"><a href="#">Wishlist</a></li>
                                 <li class="hidden-xs"><a href="{{ route('client.showCart') }}">My Cart</a></li>
                                 <li class="hidden-xs"><a href="{{ route('client.checkout') }}">Checkout</a></li>
                                 @auth
+                                <li><a href="{{ route('client.profile') }}">My Account</a></li>
                                 <li><a href="{{ route('client.logout') }}">Log Out</a></li>
                                 @endauth
                                 @guest
                                 <li><a href="" data-toggle="modal" data-target="#login-modal">Login</a></li>
+                                <li><a href="{{route('client.registration')}}" >Registration</a></li>
                                 @endguest
 
 

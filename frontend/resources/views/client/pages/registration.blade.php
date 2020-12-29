@@ -60,6 +60,13 @@
                 </div>
               </div>
             </div>
+            <div class="row">
+                @guest
+                    <div class="col-md-12"  style="margin-top: 20px !important">
+                        <p>Have Account? Please <a class="text-primary" href="{{route('client.login')}}"> Login </a> Now</p>
+                    </div>
+                @endguest
+            </div>
          </div>
        </div>
      </div>

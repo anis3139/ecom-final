@@ -45,7 +45,8 @@ class registerEmail extends Notification implements ShouldQueue
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->line('Welcome'. $this->user->name.'To Our Ecommerce System')
+                    ->line('Mr. '. $this->user->name)
+                    ->line('Welcome To Our Ecommerce System')
                     ->line('Please Click The Following Link to Activate Your Account...')
                     ->action('Click Here', route('client.active', $this->user->email_verification_token))
                     ->line('Thanks For Choose us');
@@ -60,7 +61,7 @@ class registerEmail extends Notification implements ShouldQueue
     public function toArray($notifiable)
     {
         return [
-            //
+
         ];
     }
 }

@@ -3,10 +3,14 @@
 namespace App\Http\Controllers\client;
 
 use App\Http\Controllers\Controller;
+use App\Models\Orders;
+use App\Models\OrderProducts;
 use App\Models\product_table;
 use Dotenv\Exception\ValidationException;
 use Illuminate\Contracts\Session\Session;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+
 
 class cartController extends Controller
 {
@@ -51,7 +55,7 @@ class cartController extends Controller
                 'quantity' =>$product->product_quantity,
                 'unit_price' => $unit_price,
                 'total_price' => $unit_price,
-                'image' =>$product->img->first()->image_path,
+                // 'image' =>$product->img->first()->image_path,
 
             ];
 
@@ -99,8 +103,71 @@ class cartController extends Controller
     public function checkout()
     {
 
+        $data = [];
+        $data['cart'] = session()->has('cart') ? session()->get('cart') : [];
+        $data['total']= array_sum( array_column($data['cart'], 'total_price'));
 
-       return view('client.pages.checkout');
+       return view('client.pages.checkout', $data);
     }
+    public function order(Request $request)
+    {
 
+       $validator=Validator::make(request()->all(),[
+        'customer_name'=>'required',
+        'customer_phone_number'=>'required |min:8| max:16|',
+        'address'=>'required',
+        'country'=>'required',
+        'city'=>'required',
+        'district'=>'required',
+        'postal_code'=>'required|numeric',
+
+       ]);
+
+       if ($validator->fails()) {
+          return redirect()->back()->withErrors($validator);
+        }
+
+
+        $cart = session()->has('cart') ? session()->get('cart') : [];
+        $total= array_sum( array_column($cart, 'total_price'));
+
+                $customer_name = $request->Input('customer_name');
+                $customer_phone_number = $request->Input('customer_phone_number');
+                $address =$request->Input('address');
+                $country = $request->Input('country');
+                $city = $request->Input('city');
+                $district = $request->Input('district');
+                $postal_code = $request->Input('postal_code');
+                $payment_details = $request->Input('payment_details');
+
+                $order=new Orders();
+                $order->user_id=auth()->user()->id;
+                $order->customer_name=$customer_name;
+                $order->customer_phone_number=$customer_phone_number;
+                $order->address=$address;
+                $order->country= $country;
+                $order->city= $city;
+                $order->district= $district;
+                $order->postal_code= $postal_code;
+                $order->total_amount= $total;
+                $order->paid_amount= $total;
+                $order->payment_details= $payment_details;
+
+                $order->save();
+
+        foreach ($cart as $product_id => $product)
+        {
+            $order_product=new OrderProducts();
+            $order_product->product_id=$product_id;
+            $order_product->quantity=$product['quantity'];
+            $order_product->price=$product['total_price'];
+            $order_product->order_id= $order->id;
+            $order_product->save();
+
+        }
+        session()->forget(['cart','price']);
+
+        return redirect()->route('client.profile')->with('success','Order send successfully');
+
+    }
 }

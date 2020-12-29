@@ -8,17 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 class meserments extends Model
 {
     use HasFactory;
-    public $table='product_tables';
+    public $table='meserments';
     public $primaryKey = 'id';
     public $incrementing = true;
     public $keyType = 'int';
     public  $timestamps = false;
 
     public function product() {
-        return $this->belongsTo(product_table::class,'product_measurements_id');
+        return $this->belongsTo(product_table::class,'product_id');
     }
-    public function mesermentsDescription() {
-        return $this->hasMany(mesermentrs_disc::class,'mesermentrs_id');
-    }
-
 }
