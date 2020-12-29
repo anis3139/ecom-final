@@ -4,6 +4,7 @@ namespace App\Http\Controllers\client;
 
 use App\Http\Controllers\Controller;
 use App\Mail\registrationVarificationMail;
+use App\Models\Orders;
 use App\Models\User;
 use App\Notifications\registerEmail;
 use Carbon\Carbon;
@@ -78,7 +79,7 @@ class authController extends Controller
        $validator=Validator::make(request()->all(),[
         'name'=>'required',
         'email'=>'required | email |unique:users,email',
-        'phone_number'=>'required|numeric|min:8| max:16|unique:users,phone_number',
+        'phone_number'=>'required|min:8| max:16|unique:users,phone_number',
         'password'=>'required |min:8',
 
        ]);
@@ -133,7 +134,11 @@ class authController extends Controller
 
 public function profile()
 {
-   return view('client.pages.profile');
+
+    $data= [];
+    $data['orders']=Orders::where('user_id', auth()->user()->id)->get();
+
+    return view('client.pages.profile', $data);
 }
 
 

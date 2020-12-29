@@ -1,6 +1,6 @@
 <!-- menu -->
-<section id="menu" style="position: sticky !important; top:10px !important; z-index:9999 !important">
-    <div class="container" style="position: sticky !important; top:10px !important; z-index:9999 !important">
+<section id="menu" style="position: sticky !important; top:0px !important;">
+    <div class="container" >
       <div class="menu-area">
         <!-- Navbar -->
         <div class="navbar navbar-default" role="navigation">

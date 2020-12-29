@@ -23,6 +23,8 @@ Route::get('/cartClear', [App\Http\Controllers\client\cartController::class, 'cl
 Route::get('/checkout', [App\Http\Controllers\client\cartController::class, 'checkout'])->name('client.checkout');
 Route::post('/processOrder', [App\Http\Controllers\client\cartController::class, 'order'])->name('client.processOrder');
 
+Route::get('/orderDetails/{id}', [App\Http\Controllers\client\cartController::class, 'orderDetails'])->name('client.orderDetails');
+
 
 Route::get('/login', [App\Http\Controllers\client\authController::class, 'showLogin'])->name('client.login');
 Route::post('/onlogin', [App\Http\Controllers\client\authController::class, 'onlogin'])->name('client.onlogin');

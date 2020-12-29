@@ -170,4 +170,20 @@ class cartController extends Controller
         return redirect()->route('client.profile')->with('success','Order send successfully');
 
     }
+
+    public function orderDetails($id)
+    {
+        $data=[];
+        $data['orders']=Orders::findOrFail($id);
+        return view('client.pages.orderDetails', $data);
+    }
+
+
+
+
+
+
+
+
+
 }

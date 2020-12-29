@@ -32,6 +32,9 @@ class product_table extends Model
     public function getBrand() {
         return $this->belongsTo(ProductsBrandModel::class,'product_brand_id', 'id');
     }
+    public function orderproduct() {
+        return $this->belongsTo(OrderProducts::class,'product_id', 'id');
+    }
 
     public function masermant() {
         return $this->hasMany(meserments::class,'product_measurements_id');
