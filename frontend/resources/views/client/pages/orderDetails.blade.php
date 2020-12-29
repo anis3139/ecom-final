@@ -24,6 +24,9 @@
                 </thead>
                 <tbody>
                     @foreach ($orders->toArray() as $column => $value)
+                    @if (is_string($value))
+                        
+                   
                     @if($column=='user_id') @continue
                     @elseif ($column=='id') @continue
                     @elseif ($column=='order_product_id') @continue
@@ -33,6 +36,7 @@
                             <td>{{ucwords(str_replace('_',' ', $column))}}</td>
                             <td>{{$value}}</td>
                         </tr>
+                    @endif
                     @endforeach
                 </tbody>
             </table>
@@ -49,9 +53,11 @@
                     </tr>
                 </thead>
                 <tbody>
+                   
                     @foreach ($orders->product as $product)
 
                         <tr>
+
                            
                             <td>{{$product->product->product_title}}</td>
                             <td>{{$product->quantity}}</td>

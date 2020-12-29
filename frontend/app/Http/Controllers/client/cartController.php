@@ -174,7 +174,7 @@ class cartController extends Controller
     public function orderDetails($id)
     {
         $data=[];
-        $data['orders']=Orders::findOrFail($id);
+        $data['orders']=Orders::with('product')->findOrFail($id);
         return view('client.pages.orderDetails', $data);
     }
 
