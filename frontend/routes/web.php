@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,19 +22,21 @@ Route::post('/cart', [App\Http\Controllers\client\cartController::class, 'addToC
 Route::post('/cartRemove', [App\Http\Controllers\client\cartController::class, 'RemoveFromCart'])->name('client.cartRemove');
 Route::get('/cartClear', [App\Http\Controllers\client\cartController::class, 'clearCart'])->name('client.ClearCart');
 Route::get('/checkout', [App\Http\Controllers\client\cartController::class, 'checkout'])->name('client.checkout');
-Route::post('/processOrder', [App\Http\Controllers\client\cartController::class, 'order'])->name('client.processOrder');
 
-Route::get('/orderDetails/{id}', [App\Http\Controllers\client\cartController::class, 'orderDetails'])->name('client.orderDetails');
+
+
 
 
 Route::get('/login', [App\Http\Controllers\client\authController::class, 'showLogin'])->name('client.login');
 Route::post('/onlogin', [App\Http\Controllers\client\authController::class, 'onlogin'])->name('client.onlogin');
-Route::get('/logout', [App\Http\Controllers\client\authController::class, 'logout'])->name('client.logout');
 Route::get('/registration', [App\Http\Controllers\client\authController::class, 'registration'])->name('client.registration');
 Route::post('/addUser', [App\Http\Controllers\client\authController::class, 'addUser'])->name('client.addUser');
 Route::get('/active/{token}', [App\Http\Controllers\client\authController::class, 'userActive'])->name('client.active');
 
 
-
-
-Route::get('/profile', [App\Http\Controllers\client\authController::class, 'profile'])->name('client.profile');
+Route::group(['middleware' => 'auth'], function () {
+    Route::get('/logout', [App\Http\Controllers\client\authController::class, 'logout'])->name('client.logout');
+    Route::get('/profile', [App\Http\Controllers\client\authController::class, 'profile'])->name('client.profile');
+    Route::post('/processOrder', [App\Http\Controllers\client\cartController::class, 'order'])->name('client.processOrder');
+    Route::get('/orderDetails/{id}', [App\Http\Controllers\client\cartController::class, 'orderDetails'])->name('client.orderDetails');
+});

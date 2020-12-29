@@ -13,6 +13,7 @@
     <div class="container">
         <div class="col-md-10 offset-md-1">
             <h2 class=" profile  text-center">Order id: {{ $orders->id }}</h2>
+            @include('client.components.massege')
             <table class="table table-bordered table-hover">
                 <thead>
                     <tr>

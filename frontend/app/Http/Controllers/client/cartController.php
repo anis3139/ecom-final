@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Orders;
 use App\Models\OrderProducts;
 use App\Models\product_table;
+use App\Notifications\orderConfirmNotification;
 use Dotenv\Exception\ValidationException;
 use Illuminate\Contracts\Session\Session;
 use Illuminate\Http\Request;
@@ -165,9 +166,12 @@ class cartController extends Controller
             $order_product->save();
 
         }
+
+        auth()->user()->notify(new orderConfirmNotification($order));
+
         session()->forget(['cart','price']);
 
-        return redirect()->route('client.profile')->with('success','Order send successfully');
+        return redirect()->route('client.orderDetails', $order->id )->with('success','Order send successfully');
 
     }
 
