@@ -120,6 +120,7 @@ Route::group(['prefix' => 'admin'], function () {
         //admin panel Orders
         Route::get('/ordeIndex', [App\Http\Controllers\admin\order\orderController::class,'ordeIndex'])->name('admin.ordeIndex');
         Route::get('/getOrdersData', [App\Http\Controllers\admin\order\orderController::class,'getOrdersData'])->name('admin.getOrdersData');
+        Route::post('/ordersView', [App\Http\Controllers\admin\order\orderController::class,'ordersView'])->name('admin.ordersView');
 
     });
 

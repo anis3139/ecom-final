@@ -19,4 +19,14 @@ class orderController extends Controller
        $orderData=json_decode(Orders::orderBy('id', 'desc')->get());
        return $orderData;
    }
+
+
+   public function ordersView(Request $request)
+   {
+    $id = $request->input('id');
+    $result = Orders::with(['orderProducts', 'customer','orderProducts.product'])->where('id', '=', $id)->get();
+   
+    return $result;
+   }
+
 }

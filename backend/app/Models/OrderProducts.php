@@ -24,4 +24,5 @@ class OrderProducts extends Model
     public function owner() {
         return $this->belongsTo(vendors::class,'product_owner_id');
     }
+    
 }

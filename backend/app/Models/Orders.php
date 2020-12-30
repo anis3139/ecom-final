@@ -17,7 +17,7 @@ class Orders extends Model
     public  $timestamps = false;
 
     public function customer() {
-        return $this->belongsTo(users::class,'user_id');
+        return $this->belongsTo(User::class,'user_id');
     }
 
     public function processor() {
@@ -31,5 +31,11 @@ class Orders extends Model
     public function product() {
         return $this->hasMany(OrderProducts::class,'order_product_id');
     }
+
+
+    public function orderProducts() {
+        return $this->hasMany(OrderProducts::class,'order_id', 'id');
+    }
+
 
 }
