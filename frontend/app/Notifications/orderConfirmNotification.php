@@ -45,10 +45,10 @@ class orderConfirmNotification extends Notification
     {
         return (new MailMessage)
                     ->line('Dear ' . $this->order->customer_name)
-                    ->line('Your Order is pleced successfully')
-                    ->line('Your Order id is '. $this->order->id)
-                    ->action('View Details ', route('client.orderDetails',  $this->order->id))
-                    ->line('Thanks For Choose us');;
+                    ->line('Your order is pleced successfully')
+                    ->line('Your order id is '. $this->order->id)
+                    ->action('View details ', route('client.orderDetails',  $this->order->id))
+                    ->line('Thanks for choose us');;
     }
 
     /**

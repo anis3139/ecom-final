@@ -3,12 +3,28 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\ContactModel;
+use App\Models\Orders;
+use App\Models\product_table;
+use App\Models\ProductsBrandModel;
+use App\Models\ProductsCategoryModel;
+use App\Models\VisitorTable;
 use Illuminate\Http\Request;
+
 
 class homeController extends Controller
 {
     public function adminHome()
     {
-        return view('admin.home');
+
+        $data=[];
+        $data['TotalContact']= ContactModel::count();
+        $data['TotalCategory']=ProductsCategoryModel::count();
+        $data['TotalBrand']=ProductsBrandModel::count();
+        $data['TotalProduct']=product_table::count();
+        $data['TotalVisitor']=VisitorTable::count();
+        $data['Orders']=Orders::count();
+
+        return view('admin.home',  $data);
     }
 }

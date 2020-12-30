@@ -39,12 +39,9 @@
 
     <script>
         getProductsdata();
-
-
         // for Products table
 
         function getProductsdata() {
-
 
             axios.get("{{ route('admin.getProductData') }}")
                 .then(function(response) {

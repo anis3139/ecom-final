@@ -124,7 +124,7 @@
                                                                 </div>
                                                                 <div class="col-md-6">
                                                                     <div class="aa-checkout-single-bill">
-                                                                        <input type="number" placeholder="Postcode / ZIP*"
+                                                                        <input type="text" placeholder="Postcode / ZIP*"
                                                                             name="postal_code">
                                                                     </div>
                                                                 </div>
@@ -165,7 +165,7 @@
                                                                 <div class="col-md-12">
                                                                     <div class="aa-checkout-single-bill">
                                                                         <textarea cols="8" rows="3"
-                                                                            name="shipping_address">Shipping Address*</textarea>
+                                                                            name="shipping_address" placeholder="Shipping Address*"></textarea>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -201,7 +201,7 @@
                                                                 </div>
                                                                 <div class="col-md-6">
                                                                     <div class="aa-checkout-single-bill">
-                                                                        <input type="number" placeholder="Postcode / ZIP*"
+                                                                        <input type="text" placeholder="Postcode / ZIP*"
                                                                             name="shipping_postal_code">
                                                                     </div>
                                                                 </div>

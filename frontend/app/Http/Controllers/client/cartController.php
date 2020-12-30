@@ -113,20 +113,6 @@ class cartController extends Controller
     public function order(Request $request)
     {
 
-       $validator=Validator::make(request()->all(),[
-        'customer_name'=>'required',
-        'customer_phone_number'=>'required |min:8| max:16|',
-        'address'=>'required',
-        'country'=>'required',
-        'city'=>'required',
-        'district'=>'required',
-        'postal_code'=>'required|numeric',
-
-       ]);
-
-       if ($validator->fails()) {
-          return redirect()->back()->withErrors($validator);
-        }
 
 
         $cart = session()->has('cart') ? session()->get('cart') : [];
@@ -141,6 +127,59 @@ class cartController extends Controller
                 $postal_code = $request->Input('postal_code');
                 $payment_details = $request->Input('payment_details');
 
+                $shipping_customer_name = $request->Input('shipping_customer_name');
+                $shipping_customer_phone_number = $request->Input('shipping_customer_phone_number');
+                $shipping_address =$request->Input('shipping_address');
+                $shipping_country = $request->Input('shipping_country');
+                $shipping_city = $request->Input('shipping_city');
+                $shipping_district = $request->Input('shipping_district');
+                $shipping_postal_code = $request->Input('shipping_postal_code');
+
+
+              if (isset($shipping_address)) {
+                $validator=Validator::make(request()->all(),[
+                    'shipping_customer_name'=>'required',
+                    'shipping_customer_phone_number'=>'required |min:8| max:16|',
+                    'shipping_address'=>'required',
+                    'shipping_country'=>'required',
+                    'shipping_city'=>'required',
+                    'shipping_district'=>'required',
+                    'shipping_postal_code'=>'required',
+
+                   ]);
+
+                   if ($validator->fails()) {
+                      return redirect()->back()->withErrors($validator);
+                    }
+                $order=new Orders();
+                $order->user_id=auth()->user()->id;
+                $order->customer_name=$shipping_customer_name;
+                $order->customer_phone_number=$shipping_customer_phone_number;
+                $order->address=$shipping_address;
+                $order->country= $shipping_country;
+                $order->city= $shipping_city;
+                $order->district= $shipping_district;
+                $order->postal_code= $shipping_postal_code;
+                $order->total_amount= $total;
+                $order->paid_amount= $total;
+                $order->payment_details= $payment_details;
+                $order->save();
+              }else {
+                $validator=Validator::make(request()->all(),[
+                    'customer_name'=>'required',
+                    'customer_phone_number'=>'required |min:8| max:16|',
+                    'address'=>'required',
+                    'country'=>'required',
+                    'city'=>'required',
+                    'district'=>'required',
+                    'postal_code'=>'required',
+
+                   ]);
+
+                   if ($validator->fails()) {
+                      return redirect()->back()->withErrors($validator);
+                    }
+
                 $order=new Orders();
                 $order->user_id=auth()->user()->id;
                 $order->customer_name=$customer_name;
@@ -153,8 +192,8 @@ class cartController extends Controller
                 $order->total_amount= $total;
                 $order->paid_amount= $total;
                 $order->payment_details= $payment_details;
-
                 $order->save();
+              }
 
         foreach ($cart as $product_id => $product)
         {
