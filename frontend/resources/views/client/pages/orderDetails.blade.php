@@ -26,8 +26,8 @@
                 <tbody>
                     @foreach ($orders->toArray() as $column => $value)
                     @if (is_string($value))
-                        
-                   
+
+
                     @if($column=='user_id') @continue
                     @elseif ($column=='id') @continue
                     @elseif ($column=='order_product_id') @continue
@@ -54,12 +54,12 @@
                     </tr>
                 </thead>
                 <tbody>
-                   
+
                     @foreach ($orders->product as $product)
 
                         <tr>
 
-                           
+
                             <td>{{$product->product->product_title}}</td>
                             <td>{{$product->quantity}}</td>
                             <td>{{number_format($product->price, 2)}}</td>

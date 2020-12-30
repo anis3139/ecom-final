@@ -46,7 +46,7 @@
                                     <th class="th-xs">City</th>
                                     <th class="th-xs">District</th>
                                     <th class="th-xs">Country</th>
-                                    <th class="th-xs">Postal Code</th>
+                                    <th class="th-xs">Payment Status</th>
                                     <th class="th-xs">paid Amount</th>
                                     <th class="th-xs">View</th>
                                 </tr>
@@ -81,112 +81,136 @@
 
 
 
-<!--View  Modal -->
+    <!--View  Modal -->
 
-<div class="modal fade right" id="viewOrdersModal" tabindex="-1" role="dialog"
-    aria-labelledby="exampleModalPreviewLabel" aria-hidden="true">
-    <div class="modal-dialog-full-width modal-dialog momodel modal-fluid" role="document">
-        <div class="modal-content-full-width modal-content ">
-            <div class=" modal-header-full-width   modal-header text-center">
-                <h5 class="modal-title w-100" id="exampleModalPreviewLabel">Ordered Orders View</h5>
-                <button type="button" class="close " data-dismiss="modal" aria-label="Close">
-                    <span style="font-size: 1.3em;" aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <h5 id="OrdersViewId" class="mt-4 d-none"></h5>
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-6 text-center">
-                            <h2>Order Details</h2>
-                            <table class="table table-bordered">
-                                <tr>
-                                    <td style="max-width:200px !important;">Order ID</td>
-                                    <td id="id"></td>
-                                </tr>
-                                <tr>
-                                    <td style="max-width:200px !important;">User Id </td>
-                                    <td id="user_id"> </td>
-                                </tr>
-                                <tr>
-                                    <td style="max-width:200px !important;">User Name </td>
-                                    <td id="user_Name"> </td>
-                                </tr>
-                                <tr>
-                                    <td style="max-width:200px !important;">Customer Name</td>
-                                    <td id="customer_name"></td>
-                                </tr>
-                                <tr>
-                                    <td style="max-width:200px !important;">Customer Phone no</td>
-                                    <td id="customer_phone_number"></td>
-                                </tr>
-                                <tr>
-                                    <td style="max-width:200px !important;">Shipping Address</td>
-                                    <td id="address"></td>
-                                </tr>
-                                <tr>
-                                    <td style="max-width:200px !important;">Shipping City</td>
-                                    <td id="city"></td>
-                                </tr>
-                                <tr>
-                                    <td style="max-width:200px !important;">Shipping District</td>
-                                    <td id="district"></td>
-                                </tr>
+    <div class="modal fade right" id="viewOrdersModal" tabindex="-1" role="dialog"
+        aria-labelledby="exampleModalPreviewLabel" aria-hidden="true">
+        <div class="modal-dialog-full-width modal-dialog momodel modal-fluid" role="document">
+            <div class="modal-content-full-width modal-content ">
+                <div class=" modal-header-full-width   modal-header text-center">
+                    <h5 class="modal-title w-100" id="exampleModalPreviewLabel">Ordered Orders View</h5>
+                    <button type="button" class="close " data-dismiss="modal" aria-label="Close">
+                        <span style="font-size: 1.3em;" aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <h5 id="OrdersViewId" class="mt-4 d-none"></h5>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-6 text-center">
+                                <h2>Order Details</h2>
+                                <table class="table table-bordered">
+                                    <tr>
+                                        <td style="max-width:200px !important;">Order ID</td>
+                                        <td id="id"></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="max-width:200px !important;">User Id </td>
+                                        <td id="user_id"> </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="max-width:200px !important;">User Name </td>
+                                        <td id="user_Name"> </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="max-width:200px !important;">Customer Name</td>
+                                        <td id="customer_name"></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="max-width:200px !important;">Customer Phone no</td>
+                                        <td id="customer_phone_number"></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="max-width:200px !important;">Shipping Address</td>
+                                        <td id="address"></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="max-width:200px !important;">Shipping City</td>
+                                        <td id="city"></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="max-width:200px !important;">Shipping District</td>
+                                        <td id="district"></td>
+                                    </tr>
 
-                                <tr>
-                                    <td style="max-width:200px !important;">Shipping Country</td>
-                                    <td id="country"></td>
-                                </tr>
+                                    <tr>
+                                        <td style="max-width:200px !important;">Shipping Country</td>
+                                        <td id="country"></td>
+                                    </tr>
 
-                                <tr>
-                                    <td style="max-width:200px !important;">Total Amount</td>
-                                    <td id="total_amount">  </td>
-                                </tr>
-                                <tr>
-                                    <td style="max-width:200px !important;">Discount Amount</td>
-                                    <td id="discount_amount"> </td>
-                                </tr>
-                                <tr>
-                                    <td style="max-width:200px !important;">Paid Amount </td>
-                                    <td id="paid_amount"> </td>
-                                </tr>
-                                <tr>
-                                    <td style="max-width:200px !important;">Payment Status </td>
-                                    <td id="payment_status"> </td>
-                                </tr>
-                                <tr>
-                                    <td style="max-width:200px !important;">Payment Details </td>
-                                    <td id="payment_details"> </td>
-                                </tr>
-                                <tr>
-                                    <td style="max-width:200px !important;">Product Owner </td>
-                                    <td id="product_owner_id"> </td>
-                                </tr>
+                                    <tr>
+                                        <td style="max-width:200px !important;">Total Amount</td>
+                                        <td id="total_amount"> </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="max-width:200px !important;">Discount Amount</td>
+                                        <td id="discount_amount"> </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="max-width:200px !important;">Paid Amount </td>
+                                        <td id="paid_amount"> </td>
+                                    </tr>
 
-                            </table>
+                                    <tr>
+                                        <td style="max-width:200px !important;">Payment Details </td>
+                                        <td id="payment_details"> </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="max-width:200px !important;">Product Owner </td>
+                                        <td id="product_owner_id"> </td>
+                                    </tr>
 
-                        </div>
-                        <div class="col-md-6 text-center">
-                            <h2>Product Details</h2>
-                            <table class="table table-bordered">
-                                <thead>
-                                    <th>Product Id</th>
-                                    <th>Product Name</th>
-                                    <th>Product Quantity</th>
-                                    <th>Product Unit Price</th>
-                                </thead>
-                                <tbody class="OrdersView">
+                                </table>
 
-                                </tbody>
-                            </table>
+                            </div>
+                            <div class="col-md-6 text-center">
+                                <h2>Ordered Product Details</h2>
+                                <table class="table table-bordered table-sm">
+                                    <thead>
+                                        <th>Product Id</th>
+                                        <th>Product Name</th>
+                                        <th>Product Quantity</th>
+                                        <th>Product Unit Price</th>
+                                    </thead>
+                                    <tbody class="OrdersView">
+
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <td colspan="3" class="total_price">Total Price</td>
+                                            <td id="total_price" class="font-weight-bold"></td>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h2>Order Status</h2>
+                                    </div>
+                                    <div class="card-body">
+                                        <form action="{{ route('admin.ordersStatusUpdate') }}" method="post"
+                                            id="product_status_form">
+                                            @csrf
+                                            <div class="form-group">
+                                                <select id="payment_status" style="margin-bottom: 10px;"
+                                                    class="browser-default custom-select">
+                                                    <option value="Pending">Pending</option>
+                                                    <option value="Prograccing">Prograccing</option>
+                                                    <option value="Complete">Complete</option>
+                                                </select>
+                                            </div>
+                                            <input type="hidden" id="payment_status_id" >
+                                            <input type="submit" value="Update" class="btn btn-success btn-block">
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
+            </div>
         </div>
     </div>
-</div>
 
 
 
@@ -228,7 +252,7 @@
                                 "<td style='max-width:100px; overflow-wrap: break-word;'>" + dataJSON[i]
                                 .country + " </td>" +
                                 "<td style='max-width:100px; overflow-wrap: break-word;'>" + dataJSON[i]
-                                .postal_code + " </td>" +
+                                .payment_status + " </td>" +
                                 "<td style='max-width:100px; overflow-wrap: break-word;'>" + dataJSON[i]
                                 .paid_amount + " </td>" +
                                 "<td><a class='OrdersView' data-id=" + dataJSON[i].id +
@@ -288,17 +312,17 @@
                         $('#OrdersEditForm').removeClass('d-none');
 
                         var dataJSON = response.data;
-                        console.log(dataJSON[0].order_products);
 
 
-                        var productOwner=" ";
-                        if (dataJSON[0].product_owner_id==0) {
-                            productOwner="Admin"
-                        }else{
-                            productOwner=dataJSON[0].product_owner_id
+
+                        var productOwner = " ";
+                        if (dataJSON[0].product_owner_id == 0) {
+                            productOwner = "Admin"
+                        } else {
+                            productOwner = dataJSON[0].product_owner_id
                         }
 
-                        $('#id').html(dataJSON[0].id )
+                        $('#id').html(dataJSON[0].id)
                         $('#customer_name').html(dataJSON[0].customer_name)
                         $('#customer_phone_number').html(dataJSON[0].customer_phone_number)
                         $('#address').html(dataJSON[0].address)
@@ -309,45 +333,34 @@
                         $('#total_amount').html(dataJSON[0].total_amount)
                         $('#discount_amount').html(dataJSON[0].discount_amount);
                         $('#paid_amount').html(dataJSON[0].paid_amount);
-                        $('#payment_status').html(dataJSON[0].payment_status);
                         $('#payment_details').html(dataJSON[0].payment_details);
                         $('#product_owner_id').html(productOwner);
                         $('#user_id').html(dataJSON[0].user_id);
                         $('#user_Name').html(dataJSON[0].customer.name);
+                        $('#total_price').html('$' + dataJSON[0].paid_amount);
 
 
-                        var imageViewHtml="";
+
+                        $('#payment_status_id').val(dataJSON[0].id);
+
+                        $('#payment_status option[value=' + dataJSON[0].payment_status + ']').attr('selected', 'selected');
+
+
+
+                        var imageViewHtml = "";
                         for (let index = 0; index < dataJSON[0].order_products.length; index++) {
 
                             const element = dataJSON[0].order_products[index];
-                            console.log(element);
-                            imageViewHtml+='<tr>';
-                            imageViewHtml+='<td clsss="mx-auto" style="width:200px;height:100px" >'+element.product_id+'</td>';
-                            imageViewHtml+='<td clsss="mx-auto" style="width:200px;height:100px" >'+element.product.product_title+'</td>';
-                            imageViewHtml+='<td clsss="mx-auto" style="width:200px;height:100px" >'+element.quantity+'</td>';
-                            imageViewHtml+='<td clsss="mx-auto" style="width:200px;height:100px" >'+element.price+'</td>';
-                            imageViewHtml+='</tr>';
+
+                            imageViewHtml += '<tr>';
+                            imageViewHtml += '<td clsss="mx-auto" >' + element.product_id + '</td>';
+                            imageViewHtml += '<td clsss="mx-auto" >' + element.product.product_title + '</td>';
+                            imageViewHtml += '<td clsss="mx-auto" >' + element.quantity + '</td>';
+                            imageViewHtml += '<td clsss="mx-auto" >$' + element.price + '</td>';
+                            imageViewHtml += '</tr>';
                             $('.OrdersView').html(imageViewHtml);
                         }
 
-                        var masermentHtml="";
-                        for (let index = 0; index < dataJSON[0].maserment.length; index++) {
-                            const element = dataJSON[0].maserment[index];
-                            masermentHtml+='<li class="border border-secondary text-center p-2 m-1">';
-                            masermentHtml+=element.meserment_value;
-
-                            masermentHtml+='</li>';
-                            $('#Orders_meserment_type').html(masermentHtml);
-                        }
-
-
-                        var colortHtml="";
-                        for (let index = 0; index < dataJSON[0].color.length; index++) {
-                            const element = dataJSON[0].color[index];
-                            colortHtml+='<li class="border border-secondary text-center p-2 m-1" style="border-radius:50%; width:40px; height:40px; background-color:'+element.Orders_color_code+'">';
-                            colortHtml+='</li>';
-                            $('#Orders_if_has_color').html(colortHtml);
-                        }
 
 
 
@@ -362,7 +375,26 @@
         }
 
 
+        $('#product_status_form').submit(function(event) {
+            event.preventDefault();
+            var payment_status = $('#payment_status').val()
+            var payment_status_id = $('#payment_status_id').val()
+            let url =" {{ route('admin.ordersStatusUpdate') }}";
+            axios.post(url, {
+                payment_status: payment_status,
+                id: payment_status_id,
+            }).then(function(response) {
 
+                if (response.status == 200 && response.data == 1) {
+                    toastr.success('Update Success.');
+                } else {
+                    toastr.error('Update Fail ! Try Again');
+                }
+
+            }).catch(function(error) {
+                toastr.error('Update Fail ! Try Again');
+            })
+        })
 
     </script>
 

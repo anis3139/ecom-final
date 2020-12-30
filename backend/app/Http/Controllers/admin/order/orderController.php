@@ -25,8 +25,34 @@ class orderController extends Controller
    {
     $id = $request->input('id');
     $result = Orders::with(['orderProducts', 'customer','orderProducts.product'])->where('id', '=', $id)->get();
-   
+
     return $result;
    }
+
+   public function ordersStatusUpdate(Request $request)
+   {
+
+    try {
+        $id=$request->input('id');
+       $payment_status=$request->input("payment_status");
+
+
+
+       $result = Orders::where('id', '=', $id)->update([
+        'payment_status' => $payment_status
+        ]);
+            if ($result == true) {
+                return 1;
+            } else {
+                return 0;
+            }
+    } catch (\Throwable $th) {
+        return response()->json(array('error', $th));
+    }
+
+    }
+
+
+
 
 }
