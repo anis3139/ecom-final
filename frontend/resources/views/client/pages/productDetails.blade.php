@@ -35,11 +35,6 @@
                                     <div class="aa-product-view-slider">
                                         <div id="demo-1" class="simpleLens-gallery-container">
 
-                                            {{-- {{ $productDetails->img[0]->img_path }}
-                                            --}}
-
-
-
                                             <div class="simpleLens-container">
                                                 <div class="simpleLens-big-image-container">
                                                     @foreach ($productDetails->img as $images)
@@ -113,9 +108,17 @@
                                             </p>
                                         </div>
                                         <div class="aa-prod-view-bottom">
-                                            <a class="aa-add-to-cart-btn" href="#">Add To Cart</a>
-                                            <a class="aa-add-to-cart-btn" href="#">Wishlist</a>
-                                            <a class="aa-add-to-cart-btn" href="#">Compare</a>
+                                        <form action="{{ route('client.addCart') }}" id="cartForm"
+                                            method="post">
+                                            @csrf
+                                            <input type="hidden" id="product_id" name="product_id"
+                                                value="{{ $productDetails->id }}">
+                                            <button type="submit" class="aa-add-to-cart-btn">Add To Cart</button>
+                                        </form>
+
+
+                                            {{-- <a class="aa-add-to-cart-btn" href="#">Wishlist</a>
+                                            <a class="aa-add-to-cart-btn" href="#">Compare</a> --}}
                                         </div>
                                     </div>
                                 </div>
@@ -238,14 +241,14 @@
                                     <li>
                                         <figure>
                                             <a class="aa-product-img" href="{{ route('client.showProductDetails', ['slug' => $relProduct->product_slug]) }}">
-                                              
+
                                                 @php  $i= 1; @endphp
 
                                             @foreach ($relProduct->img as $images)
                                                @if ($i > 0)
-                                                  
+
                                                <img src="{{$images->image_path}}" alt="polo shirt img" width="250px" height="300px">
-                                              
+
                                                @endif
                                                @php $i--; @endphp
                                             @endforeach
@@ -264,7 +267,7 @@
                                                     class="aa-product-price"><del>${{ $relProduct->product_selling_price }}</del></span>
                                             </figcaption>
                                         </figure>
-                                        <div class="aa-product-hvr-content">
+                                        {{-- <div class="aa-product-hvr-content">
                                             <a href="#" data-toggle="tooltip" data-placement="top"
                                                 title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
                                             <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span
@@ -272,9 +275,15 @@
                                             <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View"
                                                 data-toggle="modal" data-target="#quick-view-modal"><span
                                                     class="fa fa-search"></span></a>
-                                        </div>
+                                        </div> --}}
                                         <!-- product badge -->
-                                        <span class="aa-badge aa-sale" href="#">SALE!</span>
+                                        @if ($relProduct->product_in_stock)
+                                        <span class="aa-badge aa-sale" href="#">
+                                            SALE!
+                                        </span>
+                                    @else
+                                        <span class="aa-badge aa-sold-out" href="#">Sold Out!</span>
+                                    @endif
                                     </li>
                                 @endforeach
 

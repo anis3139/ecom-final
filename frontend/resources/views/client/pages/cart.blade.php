@@ -40,7 +40,7 @@
                                     <table class="table table-bordered">
                                         <thead>
                                             <tr>
-                                                <th></th>
+                                                <th>Action</th>
                                                 <th>Image</th>
                                                 <th>Product</th>
                                                 <th>Unit Price</th>
@@ -63,8 +63,8 @@
                                                         </form>
                                                     </td>
 
-                                                    {{-- <td><img src="{{ $cartItem['image'] }}" alt=""></td> --}}
-                                                    <td></td>
+                                                    <td><img src="{{ $cartItem['image'] }}" alt=""></td>
+                                                   
 
                                                     <td><a class="aa-cart-title" href="#">{{ $cartItem['title'] }}</a></td>
 

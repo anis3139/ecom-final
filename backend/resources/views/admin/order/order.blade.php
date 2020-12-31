@@ -49,6 +49,7 @@
                                     <th class="th-xs">Payment Status</th>
                                     <th class="th-xs">paid Amount</th>
                                     <th class="th-xs">View</th>
+                                    <th class="th-xs">Print</th>
                                 </tr>
                             </thead>
                             <tbody id="Orders_Table">
@@ -256,7 +257,9 @@
                                 "<td style='max-width:100px; overflow-wrap: break-word;'>" + dataJSON[i]
                                 .paid_amount + " </td>" +
                                 "<td><a class='OrdersView' data-id=" + dataJSON[i].id +
-                                "><i class='fas fa-eye'></i></a></td>"
+                                "><i class='fas fa-eye'></i></a></td>"+
+                                "<td><a class='OrdersView' href=" + dataJSON[i].id +
+                                "><i class='fas fa-print'></i></a></td>"
                             ).appendTo('#Orders_Table');
                         });
 

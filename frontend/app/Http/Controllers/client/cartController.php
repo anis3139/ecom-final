@@ -31,6 +31,9 @@ class cartController extends Controller
 
     public function addToCart(Request $request)
     {
+
+
+
         $cart=[];
 
         try {
@@ -42,6 +45,7 @@ class cartController extends Controller
         }
 
          $product = product_table::with('img')->findOrFail($request->input('product_id'));
+
          $unit_price=($product->product_selling_price !== null && $product->product_selling_price > 0) ? $product->product_selling_price : $product->product_price;
          $cart = session()->has('cart') ? session()->get('cart') : [];
 
@@ -56,7 +60,7 @@ class cartController extends Controller
                 'quantity' =>$product->product_quantity,
                 'unit_price' => $unit_price,
                 'total_price' => $unit_price,
-                // 'image' =>$product->img->first()->image_path,
+                'image' =>$product->img[0]->image_path,
 
             ];
 

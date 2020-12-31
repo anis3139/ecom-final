@@ -23,6 +23,8 @@ Route::post('/cartRemove', [App\Http\Controllers\client\cartController::class, '
 Route::get('/cartClear', [App\Http\Controllers\client\cartController::class, 'clearCart'])->name('client.ClearCart');
 Route::get('/checkout', [App\Http\Controllers\client\cartController::class, 'checkout'])->name('client.checkout');
 
+Route::get('/shop', [App\Http\Controllers\client\shopController::class, 'shopIndex'])->name('client.shop');
+
 
 
 

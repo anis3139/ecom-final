@@ -20,12 +20,22 @@
                       <ul class="aa-product-catg">
                         <!-- start single product item -->
                         @php
-                          $products=App\Models\product_table::where('product_category_id', $catItem->id)->where('product_active', 1)->take(8)->get();
+                          $products=App\Models\product_table::with(['img'])->where('product_category_id', $catItem->id)->where('product_active', 1)->take(8)->get();
                         @endphp
                         @foreach ($products as $product)
                               <li>
+
                                 <figure>
-                                  <a class="aa-product-img" href="{{ route('client.showProductDetails', ['slug'=>$product->product_slug]) }}"><img src="{{ asset('client/img')}}/man/polo-shirt-2.png" alt="polo shirt img"></a>
+                                    @php  $i= 1; @endphp
+                                    @foreach ($product->img as $images)
+                                    @if ($i > 0)
+
+                                    <a class="aa-product-img" href="{{ route('client.showProductDetails', ['slug'=>$product->product_slug]) }}"><img src="{{$images->image_path}}" alt="polo shirt img" width="100%" height="300px" style="background-position: center; background-repeat: no-repeat;background-size: cover;"></a>
+
+                                    @endif
+                                    @php $i--; @endphp
+                                 @endforeach
+
 
 
                                   <form action="{{ route('client.addCart') }}" id="cartForm" method="post">
@@ -40,11 +50,11 @@
                                     <span class="aa-product-price">${{ $product->product_price}}</span><span class="aa-product-price"><del>${{ $product->product_selling_price}}</del></span>
                                   </figcaption>
                                 </figure>
-                                <div class="aa-product-hvr-content">
+                                {{-- <div class="aa-product-hvr-content">
                                   <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
                                   <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a>
-                                  <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>
-                                </div>
+                                  <a href="{{ $product->product_slug}}" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>
+                                </div> --}}
                                 <!-- product badge -->
 
                                   @if($product->product_in_stock)
