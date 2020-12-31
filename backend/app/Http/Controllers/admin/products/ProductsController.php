@@ -65,6 +65,7 @@ class ProductsController extends Controller
         $product_active = $data['0']->product_active;
         $pdmesermentValue = $data['0']->pdmesermentValue;
         $product_colors = $data['0']->product_colors;
+        $selectedmesermentId = $data['0']->selectedmesermentId;
 
         $slug = Str::slug($product_title);
         $next = 2;
@@ -83,12 +84,13 @@ class ProductsController extends Controller
             $result->product_brand_id = $product_brand_id;
             $result->product_in_stock = $product_in_stock;
             $result->feture_products = $feture_products;
+            $result->product_meserment_type = $selectedmesermentId;
             $result->product_active = $product_active;
             $result->product_slug = $slug;
             $result->save();
             $last_id=$result->id;
 
-        try {
+
         if (count($request->images) > 0) {
             $i = 0;
             foreach ($request->images as $image) {
@@ -96,7 +98,7 @@ class ProductsController extends Controller
                 $img = time() . $i . '.' . $image->getClientOriginalExtension();
                 $image->move('storage', $img);
                 $productImageOnehost = $_SERVER['HTTP_HOST'];
-                $productImageOnelocation = "http://" . $productImageOnehost . "/storage/" . $img;
+                $productImageOnelocation = "http://" . $productImageOnehost . "/public/storage/" . $img;
                 $imagemodel= new product_has_images();
                 $imagemodel->image_path="$productImageOnelocation";
                 $imagemodel->has_images_product_id = $last_id;
@@ -131,9 +133,7 @@ class ProductsController extends Controller
         } else {
             return 0;
         }
-        } catch (\Throwable $th) {
-           return response()->json($th);
-        }
+
 
 
 
@@ -172,9 +172,123 @@ class ProductsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+
+
+        $data = json_decode($_POST['data']);
+        $product_id_edit = $data['0']->product_id_edit;
+        $pdEditName = $data['0']->pdEditName;
+        $pdEditDescription = $data['0']->pdEditDescription;
+        $pdEditPrice = $data['0']->pdEditPrice;
+        $pdEditOffer = $data['0']->pdEditOffer;
+        $pdEditQuantity = $data['0']->pdEditQuantity;
+        $pdEditCategory = $data['0']->pdEditCategory;
+        $pdEditBrand = $data['0']->pdEditBrand;
+        $pdEditStock = $data['0']->pdEditStock;
+        $pdEditFeature = $data['0']->pdEditFeature;
+        $pdEditStatus = $data['0']->pdEditStatus;
+        $pdmesermentValueEdit = $data['0']->pdmesermentValueEdit;
+        $editedValueOfColor = $data['0']->editedValueOfColor;
+
+
+        meserments::where('product_id',$product_id_edit)->delete();
+
+        for ($meserments=0; $meserments <count($pdmesermentValueEdit) ; $meserments++) {
+            $data=new meserments();
+            $data->product_id=$product_id_edit;
+            $data->meserment_value=$pdmesermentValueEdit[$meserments];
+            $data->save();
+        }
+
+        product_color::where('product_color_product_id',$product_id_edit)->delete();
+
+        for ($colors=0; $colors <count($editedValueOfColor) ; $colors++) {
+            $dataColor=new product_color();
+            $dataColor->product_color_code=$editedValueOfColor[$colors];
+            $dataColor->product_color_product_id=$product_id_edit;
+            $dataColor->save();
+
+        }
+
+
+        if (count($request->images) > 0) {
+
+            $product_has_images=product_has_images::where('has_images_product_id',$product_id_edit)->get();
+
+            foreach ($product_has_images as  $product_has_images_value) {
+                $delete_old_file = product_has_images::where('id', '=', $product_has_images_value->id)->first();
+                $delete_old_file_name = (explode('/', $delete_old_file->image_path))[4];
+                Storage::delete("public/".$delete_old_file_name);
+                $result2 = $delete_old_file->delete();
+            }
+
+
+
+                $i = 0;
+                foreach ($request->images as $image) {
+                    $img = time() . $i . '.' . $image->getClientOriginalExtension();
+                    $image->move('storage', $img);
+                    $productImageOnehost = $_SERVER['HTTP_HOST'];
+                    $productImageOnelocation = "http://" . $productImageOnehost . "/public/storage/" . $img;
+                    $imagemodel= new product_has_images();
+                    $imagemodel->image_path=$productImageOnelocation;
+                    $imagemodel->has_images_product_id = $product_id_edit;
+                    $imagemodel->save();
+                    $i++;
+                }
+
+
+            $result = product_table::where('id', '=', $product_id_edit)->update([
+                'product_title' => $pdEditName,
+                'product_discription' => $pdEditDescription,
+                'product_price' => $pdEditPrice,
+                'product_selling_price' => $pdEditOffer,
+                'product_quantity' => $pdEditQuantity,
+                'product_category_id' => $pdEditCategory,
+                'product_brand_id' => $pdEditBrand,
+                'product_in_stock' => $pdEditStock,
+                'feture_products' => $pdEditFeature,
+                'product_active' => $pdEditStatus
+                 ]);
+
+
+                 return 1;
+            // if ($result == true) {
+            //     return 1;
+            // } else {
+            //     return 0;
+            // }
+
+        }
+        else {
+            $result = product_table::where('id', '=', $product_id_edit)->update([
+            'product_title' => $pdEditName,
+            'product_discription' => $pdEditDescription,
+            'product_price' => $pdEditPrice,
+            'product_selling_price' => $pdEditOffer,
+            'product_quantity' => $pdEditQuantity,
+            'product_category_id' => $pdEditCategory,
+            'product_brand_id' => $pdEditBrand,
+            'product_in_stock' => $pdEditStock,
+            'feture_products' => $pdEditFeature,
+            'product_active' => $pdEditStatus
+             ]);
+             return 1;
+
+            //  if ($result == true) {
+            //     return 1;
+            // } else {
+            //     return 0;
+            // }
+
+        }
+
+
+
+
+
+
     }
 
     /**

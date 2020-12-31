@@ -143,7 +143,7 @@
                                                     <img id="productImageOnePreview"
                                                         style="height: 100px !important; width: 200px !important;"
                                                         class="imgPreview mx-auto"
-                                                        src="{{ asset('/admin/images/default-image.png') }}" />
+                                                        src="{{ asset('images/default-image.png') }}" />
                                                 </td>
                                             </tr>
                                             <tr class="text-center">
@@ -155,7 +155,7 @@
                                                     <img id="productImageTwoPreview"
                                                         style="height: 100px !important; width: 200px !important;"
                                                         class="imgPreview mx-auto"
-                                                        src="{{ asset('/admin/images/default-image.png') }}" />
+                                                        src="{{ asset('images/default-image.png') }}" />
                                                 </td>
                                             <tr class="text-center">
                                                 <td>
@@ -166,7 +166,7 @@
                                                     <img id="productImageThreePreview"
                                                         style="height: 100px !important; width: 200px !important;"
                                                         class="imgPreview mx-auto"
-                                                        src="{{ asset('/admin/images/default-image.png') }}" />
+                                                        src="{{ asset('images/default-image.png') }}" />
                                                 </td>
                                             <tr class="text-center">
                                                 <td>
@@ -177,7 +177,7 @@
                                                     <img id="productImageFourPreview"
                                                         style="height: 100px !important; width: 200px !important;"
                                                         class="imgPreview mx-auto"
-                                                        src="{{ asset('/admin/images/default-image.png') }}" />
+                                                        src="{{ asset('images/default-image.png') }}" />
                                                 </td>
                                             <tr class="text-center">
                                                 <td>
@@ -188,7 +188,7 @@
                                                     <img id="productImageFivePreview"
                                                         style="height: 100px !important; width: 200px !important;"
                                                         class="imgPreview mx-auto"
-                                                        src="{{ asset('/admin/images/default-image.png') }}" />
+                                                        src="{{ asset('images/default-image.png') }}" />
                                                 </td>
                                             </tr>
 
@@ -205,7 +205,6 @@
                                     <div class="form-group">
                                         <table class="table table-border table-sm">
                                             <thead class="thead-success">
-                                                <th class="text-center">Serial</th>
                                                 <th class="text-center">Input</th>
                                                 <th class="text-center">
                                                     <button onclick="addInput();" class="btn btn-warning btn-sm p-o mx-auto"><i class="fas fa-plus-circle fa-2x"></i></button>
@@ -350,6 +349,8 @@
 </div>
 
 
+
+<!--Edit Modal-->
 <div class="modal fade right" id="updateProductModal" tabindex="-1" role="dialog"
     aria-labelledby="exampleModalPreviewLabel" aria-hidden="true">
     <div class="modal-dialog-full-width modal-dialog momodel modal-fluid" role="document">
@@ -367,6 +368,7 @@
                         <div class="col-md-6">
                             <input id="pdEditName" type="text" id="" class="form-control mb-3"
                                 placeholder="Product Name">
+                                <input type="hidden" id="product_id_edit">
                             <textarea id="pdEditDescription" type="text" id="" class="form-control mb-3"
                                 placeholder="Product Description" cols="30" rows="5"></textarea>
                             <input id="pdEditPrice" type="number" id="" class="form-control mb-3"
@@ -404,6 +406,17 @@
                                 </select>
                             </div>
 
+                            <select id="pdmesermentEdit" style="margin-bottom: 10px;" class="browser-default custom-select">
+                                <option >Select Meserment</option>
+                                <option value="1">Size</option>
+                                <option value="2">Wight</option>
+                                <option value="3">Dimention</option>
+                            </select>
+
+                            <div class="meserment_edit">
+
+                            </div>
+
 
                         </div>
                         <div class="col-md-6">
@@ -413,7 +426,7 @@
                                     Product Images
                                 </div>
                                 <div class="card-body p-0">
-                                    <table border="2" cellpadding="10px">
+                                    <table cellpadding="10px">
                                         <thead>
                                             <tr>
                                                 <th>Image</th>
@@ -430,7 +443,7 @@
                                                     <img id="productEditImageOnePreview"
                                                         style="height: 100px !important; width: 200px !important;"
                                                         class="imgPreview mx-auto"
-                                                        src="{{ asset('/admin/images/default-image.png') }}" />
+                                                        src="{{ asset('images/default-image.png') }}" />
                                                 </td>
                                             </tr>
                                             <tr class="text-center">
@@ -442,7 +455,7 @@
                                                     <img id="productEditImageTwoPreview"
                                                         style="height: 100px !important; width: 200px !important;"
                                                         class="imgPreview mx-auto"
-                                                        src="{{ asset('/admin/images/default-image.png') }}" />
+                                                        src="{{ asset('images/default-image.png') }}" />
                                                 </td>
                                             <tr class="text-center">
                                                 <td>
@@ -453,18 +466,18 @@
                                                     <img id="productEditImageThreePreview"
                                                         style="height: 100px !important; width: 200px !important;"
                                                         class="imgPreview mx-auto"
-                                                        src="{{ asset('/admin/images/default-image.png') }}" />
+                                                        src="{{ asset('images/default-image.png') }}" />
                                                 </td>
                                             <tr class="text-center">
                                                 <td>
                                                     <input type="file" id="productEditImageFour"
-                                                        class="form-control mb-3" name="productImage[]">
+                                                        class="form-control mb-3" name="productEditImage[]">
                                                 </td>
                                                 <td>
                                                     <img id="productImageEditFourPreview"
                                                         style="height: 100px !important; width: 200px !important;"
                                                         class="imgPreview mx-auto"
-                                                        src="{{ asset('/admin/images/default-image.png') }}" />
+                                                        src="{{ asset('images/default-image.png') }}" />
                                                 </td>
                                             <tr class="text-center">
                                                 <td>
@@ -475,15 +488,32 @@
                                                     <img id="productImageEditFivePreview"
                                                         style="height: 100px !important; width: 200px !important;"
                                                         class="imgPreview mx-auto"
-                                                        src="{{ asset('/admin/images/default-image.png') }}" />
+                                                        src="{{ asset('images/default-image.png') }}" />
                                                 </td>
                                             </tr>
 
                                         </tbody>
                                     </table>
+                                </div>
+                            </div>
+                            <div class="card mt-2">
+                                <div class="card-header">
+                                    <h5>Edit Colors</h5>
+                                </div>
+                                <div class="card-body">
+                                    <div class="form-group">
+                                        <table class="table table-border table-sm">
+                                            <thead class="thead-success">
+                                                <th class="text-center">Input</th>
+                                                <th class="text-center">
+                                                    <button onclick="addEditInput();" class="btn btn-warning btn-sm p-o mx-auto"><i class="fas fa-plus-circle fa-2x"></i></button>
+                                                </th>
+                                            </thead>
+                                            <tbody id="addEditColorInput">
 
-
-
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -492,8 +522,7 @@
             </div>
             <div class="modal-footer-full-width  modal-footer">
                 <button type="button" class="btn btn-danger btn-md btn-rounded" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary btn-md btn-rounded" id="productEditConfirmBtn">Save
-                    changes</button>
+                <button type="button" class="btn btn-primary btn-md btn-rounded" id="productEditConfirmBtn">Save Changes</button>
             </div>
         </div>
     </div>

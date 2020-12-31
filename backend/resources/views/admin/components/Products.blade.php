@@ -39,9 +39,12 @@
 
     <script>
         getProductsdata();
+
+
         // for Products table
 
         function getProductsdata() {
+
 
             axios.get("{{ route('admin.getProductData') }}")
                 .then(function(response) {
@@ -255,6 +258,8 @@
             });
 
             var selectedmesermentId =  $('#pdmeserment').val();
+
+            // Producr Color Add
             var product_colors=$("input[name='pdcolor[]']").map(function(){return $(this).val();}).get();
 
 
@@ -266,7 +271,7 @@
                 var wightMesermentType=$("input[name='WightmesermentType[]']").map(function(){return $(this).val();}).get();
                 pdmesermentValue=[];
                 for (let m = 0; m < wightMesermentValue.length; m++) {
-                    const element = (wightMesermentValue[m]).toString()+(wightMesermentType[m]).toString();
+                    const element = (wightMesermentValue[m]).toString()+'-'+(wightMesermentType[m]).toString();
                     pdmesermentValue.push(element);
                 }
 
@@ -275,21 +280,21 @@
                 var diamentionValue=$("input[name='pdmesermentValue[]']").map(function(){return $(this).val();}).get();
                 var diamentiontype=$("input[name='diamentionInput[]']").map(function(){return $(this).val();}).get();
                 for (let d = 0; d < diamentionValue.length; d++) {
-                    const element = (diamentionValue[d]).toString() + diamentiontype[d].toString();
+                    const element = (diamentionValue[d]).toString() +'-'+ diamentiontype[d].toString();
                     pdmesermentValue.push(element);
                 }
             }
 
-            console.log(pdmesermentValue);
+
 
 
             productAdd(product_title, product_discription, product_price, product_selling_price, product_quantity,
                 product_category_id, product_brand_id, product_in_stock, feture_products, product_active,
-                images,pdmesermentValue,product_colors);
+                images,selectedmesermentId,pdmesermentValue,product_colors);
         });
 
         function productAdd(product_title, product_discription, product_price, product_selling_price, product_quantity,
-            product_category_id, product_brand_id, product_in_stock, feture_products, product_active, images ,pdmesermentValue ,product_colors) {
+            product_category_id, product_brand_id, product_in_stock, feture_products, product_active, images,selectedmesermentId,pdmesermentValue ,product_colors) {
 
             if (product_title.length == 0) {
                 toastr.error('Product Title is empty!');
@@ -316,7 +321,8 @@
                     feture_products: feture_products,
                     product_active: product_active,
                     pdmesermentValue: pdmesermentValue,
-                    product_colors: product_colors
+                    product_colors: product_colors,
+                    selectedmesermentId: selectedmesermentId,
                 }];
                 var fm = new FormData();
                 fm.append('data', JSON.stringify(my_data));
@@ -331,7 +337,7 @@
                         'Content-Type': 'multipart/form-data'
                     }
                 }).then(function(response) {
-                    console.log(response.data);
+
 
                     $('#productAddConfirmBtn').html("Save");
                     if (response.status = 200) {
@@ -361,7 +367,8 @@
             var id = $('#productDeleteId').html();
             // var id = $(this).data('id');
             DeleteProductsData(id);
-        })
+        });
+
         //delete Brands function
         function DeleteProductsData(id) {
             $('#confirmDeleteproduct').html(
@@ -396,7 +403,7 @@
 
 
 
-
+// Product Details View
         function ProductsViewDetails(id) {
             axios.post("{{ route('admin.getEditProductsData') }}", {
                     id: id
@@ -407,7 +414,7 @@
                         $('#ProductsEditForm').removeClass('d-none');
 
                         var dataJSON = response.data;
-                        console.log(dataJSON);
+
                         var productOwner=" ";
                         if (dataJSON[0].product_owner_id==0) {
                             productOwner="Admin"
@@ -441,7 +448,7 @@
                             const element = dataJSON[0].maserment[index];
                             masermentHtml+='<li class="border border-secondary text-center p-2 m-1">';
                             masermentHtml+=element.meserment_value;
-                            console.log(element.meserment_value);
+
                             masermentHtml+='</li>';
                             $('#product_meserment_type').html(masermentHtml);
                         }
@@ -561,12 +568,15 @@
         })
 
 
-
+        var colorExistCount=0;
+        var mesermenExitCount=0;
         function ProductsEditDetails(id) {
             axios.post("{{ route('admin.getEditProductsData') }}", {
                     id: id
                 })
                 .then(function(response) {
+
+                    $('#product_id_edit').val(id);
 
 
                     if (response.status == 200) {
@@ -574,6 +584,122 @@
                         $('#CategoryEditForm').removeClass('d-none');
 
                         var jsonData = response.data;
+                         colorExistCount=jsonData[0].color.length;
+                        $('#addEditColorInput').html("")
+
+
+                            for (let x = 0; x < jsonData[0].color.length ; x++) {
+                                const element = jsonData[0].color[x];
+
+
+                            var html7='';
+                                html7+= '<tr id="rowid' + x + '">';
+                                html7+='<td>';
+                                html7+='<div id="inputEdit' + x + '" class="input-group" name="colorInputEdit" title="Using input value">';
+                                html7+='<input type="text" class="form-control input-lg" name="pdcolorEdit[]" value="'+element.product_color_code+'"/>';
+                                html7+='<span class="input-group-append">';
+                                html7+='<span class="input-group-text colorpicker-input-addon"><i></i></span>';
+                                html7+='</span>';
+                                html7+='</div>';
+                                html7+='</td>';
+                                html7 +='<td class="text-center p-0"> <button onclick="removeColorInput(' + x + ');" class="btn  btn-danger btn-sm p-o"><i class="fas fa-minus-circle fa-2x"></i></button></td>';
+                                html7 +='</tr>';
+
+                                $('#addEditColorInput').append(html7);
+                            }
+
+                        for (let y = 0; y < colorExistCount; y++) {
+
+                            $('#inputEdit'+y).colorpicker();
+
+                        }
+
+
+                        mesermenExitCount=jsonData[0].maserment.length;
+
+
+
+                        var html9="";
+
+
+
+                            if (jsonData[0].product_meserment_type == 1) {
+                                html9+='<table class="table table-bordered"><thead clss="text-center"><tr><th>Entry</th><th>Meserments</th><th class="text-center"><button class="btn btn-success btn-sm ml-auto" onclick="addMoreBtnForMesermrntSizeEdit();">Add More</button></th></tr></thead><tbody id="MesermrntSizeEdit">';
+
+                        for (let mesermentExist = 0; mesermentExist < jsonData[0].maserment.length; mesermentExist++) {
+                            const element2 = jsonData[0].maserment[mesermentExist];
+                            html9+='<tr class="sizedivEdit'+mesermentExist+'">';
+                            html9+='<td colspan="2">';
+                            html9+='<select id="pdmesermentValueEdit'+mesermentExist+'" onChange="sizeOnChangeEdit('+size+')" name="pdmesermentValueEdit[]" style="margin-bottom: 10px;" class="browser-default custom-select">';
+                            html9+='<option selected>Select Type</option>';
+                            html9+='<option '+(element2.meserment_value == "xsm" ? 'selected' : '')+' value="xsm" seclected>Extra Small</option>';
+                            html9+='<option '+(element2.meserment_value == "sm" ? 'selected' : '')+' value="xsm" seclected> Small</option>';
+                            html9+='<option '+(element2.meserment_value == "md" ? 'selected' : '')+' value="lg">Large</option>';
+                            html9+='<option '+(element2.meserment_value == "xl" ? 'selected' : '')+' value="xl">Extra Large</option>';
+                            html9+='<option '+(element2.meserment_value == "xxl" ? 'selected' : '')+' value="xxl">Dubble Extra Large</option>';
+                            html9+='</select><input type="hidden" id="sizeValueEdit'+mesermentExist+'" value="'+ element2.meserment_value +'" name="sizeValueEdit[]" />';
+                            html9+='</td>';
+                            html9+='<td class="text-center">';
+                            html9+='<button class="btn btn-danger btn-sm mt-0" onclick="SizeRemoveEdit('+mesermentExist+');"><i class="fas fa-minus-circle"></i></button>';
+                            html9+='</td>';
+                            html9+='</tr>';
+                        }
+                        }else if (jsonData[0].product_meserment_type == 2) {
+
+                        html9+='<table class="table table-bordered"><thead clss="text-center"><tr><th>Entry</th><th>Meserments</th><th class="text-center"><button class="btn btn-success btn-sm ml-auto" onclick="addMoreBtnForMesermrntWeightEdit();">Add More</button></th></tr></thead><tbody id="MesermrntWeightEdit">';
+
+                        for (let mesermentExist = 0; mesermentExist < jsonData[0].maserment.length; mesermentExist++) {
+                            var splitValueForWightMesermrnt=[];
+                            const element2 = jsonData[0].maserment[mesermentExist];
+                            splitValueForWightMesermrnt=(element2.meserment_value).split('-');
+
+                            html9 += '<tr class="WightdivEdit'+mesermentExist+'">';
+                            html9 += '<td>';
+                            html9 += '<input id="WightmesermentValueEdit" name="WightmesermentValueEdit[]" value="'+splitValueForWightMesermrnt[0]+'" type="text" class="form-control" placeholder="Product Wight"/>';
+                            html9 += '</td>';
+                            html9 += '<td>';
+                            html9 += '<select id="WightmesermentTypeEdit'+mesermentExist+'" onChange="setWightInputValueEdit('+mesermentExist+');"  style="margin-bottom: 10px;" class="browser-default custom-select">';
+                            html9 += '<option '+(splitValueForWightMesermrnt[1] == "mg" ? 'selected' : '' )+' value="mg">Mg</option>';
+                            html9 += '<option '+(splitValueForWightMesermrnt[1] == "gm" ? 'selected' : '' )+' value="gm">Gm</option>';
+                            html9 += '<option '+(splitValueForWightMesermrnt[1] == "kg" ? 'selected' : '' )+' value="kg">Kg</option>';
+                            html9 += '<option '+(splitValueForWightMesermrnt[1] == "galon" ? 'selected' : '' )+' value="galon">Galon</option>';
+                            html9 += '<input type="hidden" id="wightValueEdit'+mesermentExist+'" value="'+splitValueForWightMesermrnt[1]+'" name="WightmesermentTypeEdit[]"/></td>';
+                            html9 += '<td class="text-center">';
+                            html9 += '<button class="btn btn-danger btn-sm mt-0" onclick="WightrowRemoveEdit('+mesermentExist+')"><i class="fas fa-minus-circle"></i></button>';
+                            html9 += '</td>';
+                            html9 += '</tr>';
+                        }
+
+                    }else if (jsonData[0].product_meserment_type == 3) {
+                        html9+='<table class="table table-bordered"><thead clss="text-center"><tr><th>Entry</th><th>Meserments</th><th class="text-center"><button class="btn btn-success btn-sm ml-auto" onclick="addMoreBtnForMesermrntDiamentionEdit();">Add More</button></th></tr></thead><tbody id="MesermrntDimentionEdit">';
+
+                        for (let mesermentExist = 0; mesermentExist < jsonData[0].maserment.length; mesermentExist++) {
+                            var splitValueForWightMesermrnt=[];
+                            const element2 = jsonData[0].maserment[mesermentExist];
+                            splitValueForWightMesermrnt=(element2.meserment_value).split('-');
+                        html9 += '<tr class="DiamentionRowedit'+mesermentExist+'">';
+                        html9 += '<td>';
+                        html9 += '<input  name="diamentionValueInputEdit[]" type="text" value="'+splitValueForWightMesermrnt[0]+'" class="form-control" placeholder="Product Dimension"/>';
+                        html9 += '</td>';
+                        html9 += '<td>';
+                        html9 += '<select id="DiamentionmesermentEdit'+mesermentExist+'" onchange="setDiamentionInputValueEdit('+mesermentExist+')" style="margin-bottom: 10px;" class="browser-default custom-select">';
+                        html9 += '<option>Select Type</option>';
+                        html9 += '<option '+(splitValueForWightMesermrnt[1] == "metter" ? 'selected' : '' )+' value="metter">Metter</option>';
+                        html9 += '<option '+(splitValueForWightMesermrnt[1] == "cm" ? 'selected' : '' )+' value="cm">Centi Metter</option>';
+                        html9 += '<option '+(splitValueForWightMesermrnt[1] == "inc" ? 'selected' : '' )+' value="inc">Inch</option>';
+                        html9 += '<option '+(splitValueForWightMesermrnt[1] == "feet" ? 'selected' : '' )+' value="feet">feet</option>';
+                        html9 += '</select><input type="hidden" id="diamentionValueEdit'+mesermentExist+'" value="'+splitValueForWightMesermrnt[1]+'" name="diamentionInputEdit[]" /></td>';
+                        html9 += '<td class="text-center">';
+                        html9 += '<button class="btn btn-danger btn-sm mt-0" onclick="diamentionRowRemoveEdit('+mesermentExist+');"><i class="fas fa-minus-circle"></i></button>';
+                        html9 += '</td>';
+                        html9 += '</tr>';
+
+                        }
+
+                    }
+
+                        html9+='</tbody><table>';
+                        $('.meserment_edit').html(html9);
 
                         $('#pdEditName').val(jsonData[0].product_title);
 
@@ -586,8 +712,7 @@
 
                         $('#pdEditQuantity').val(jsonData[0].product_quantity);
 
-                        $('#pdEditCategory option[value=' + jsonData[0].product_category_id + ']').prop('selected',
-                            'true');
+                        $('#pdEditCategory option[value=' + jsonData[0].product_category_id + ']').prop('selected','true');
 
                         $('#pdEditBrand option[value=' + jsonData[0].product_brand_id + ']').prop('selected', 'true');
 
@@ -596,6 +721,10 @@
                         $('#pdEditFeature option[value=' + jsonData[0].feture_products + ']').prop('selected', 'true');
 
                         $('#pdEditStatus option[value=' + jsonData[0].product_active + ']').prop('selected', 'true');
+
+
+                        $('#pdmesermentEdit option[value=' + jsonData[0].product_meserment_type + ']').prop('selected', 'true');
+
 
 
                         var iconSource = (jsonData[0].image[0].image_path);
@@ -624,8 +753,154 @@
         }
 
 
+
+
+        // Update Product
+        $('#productEditConfirmBtn').click(function () {
+
+            var slelctedmesermentEdit=$('#pdmesermentEdit').val();
+            if (slelctedmesermentEdit == 1) {
+                var pdmesermentValueEdit=[];
+                var pdmesermentValueEdit=$("input[name='sizeValueEdit[]']").map(function(){return $(this).val();}).get();
+
+
+            }else if(slelctedmesermentEdit == 2){
+                var pdmesermentValueEdit=[];
+                var editedValueOfWeight=$("input[name='WightmesermentValueEdit[]']").map(function(){return $(this).val();}).get();
+                var editedValueOfWeightType=$("input[name='WightmesermentTypeEdit[]']").map(function(){return $(this).val();}).get();
+
+
+
+                for (let a = 0; a < editedValueOfWeight.length; a++) {
+                    const element = (editedValueOfWeight[a]).toString()+'-'+(editedValueOfWeightType[a]).toString();
+                    pdmesermentValueEdit.push(element);
+
+                }
+
+
+
+            }else if(slelctedmesermentEdit == 3){
+                var pdmesermentValueEdit=[];
+                var editedValueOfDiamention=$("input[name='diamentionValueInputEdit[]']").map(function(){return $(this).val();}).get();
+                var editedValueOfDiamentionType=$("input[name='diamentionInputEdit[]']").map(function(){return $(this).val();}).get();
+                for (let b = 0; b < editedValueOfDiamention.length; b++) {
+                    const element = (editedValueOfDiamention[b]).toString()+'-'+(editedValueOfDiamentionType[b]).toString();
+                    pdmesermentValueEdit.push(element);
+                }
+
+
+
+            }
+        var editedValueOfColor=$("input[name='pdcolorEdit[]']").map(function(){return $(this).val();}).get();
+        var pdEditName=$('#pdEditName').val();
+        var pdEditDescription=$('#pdEditDescription').val();
+        var pdEditPrice=$('#pdEditPrice').val();
+        var pdEditOffer=$('#pdEditOffer').val();
+        var pdEditQuantity=$('#pdEditQuantity').val();
+        var pdEditCategory=$('#pdEditCategory').val();
+        var pdEditBrand=$('#pdEditBrand').val();
+        var pdEditStock=$('#pdEditStock').val();
+        var pdEditFeature=$('#pdEditFeature').val();
+        var pdEditStatus=$('#pdEditStatus').val();
+
+        var editImagesValue=[];
+
+        $("input[name='productEditImage[]']").each(function() {
+            if ($(this).prop('files')[0] !== undefined) {
+                editImagesValue.push($(this).prop('files')[0]);
+            }
+        });
+
+        var product_id_edit=$('#product_id_edit').val();
+
+
+
+        productUpadate(product_id_edit, pdEditName, pdEditDescription, pdEditPrice, pdEditOffer, pdEditQuantity, pdEditCategory, pdEditBrand, pdEditStock, pdEditFeature, pdEditStatus, editImagesValue, pdmesermentValueEdit, editedValueOfColor)
+
+
+        });
+
+
+        function productUpadate(product_id_edit, pdEditName, pdEditDescription, pdEditPrice, pdEditOffer, pdEditQuantity, pdEditCategory, pdEditBrand, pdEditStock, pdEditFeature, pdEditStatus, editImagesValue, pdmesermentValueEdit, editedValueOfColor) {
+            if (pdEditName.length == 0) {
+                toastr.error('Product Title is empty!');
+                $('#pdName').focus();
+                $('#pdName').css('border', '1px solid red');
+            } else if (pdEditDescription.length == 0) {
+                toastr.error('Product Description is empty!');
+            } else if (pdEditPrice.length == 0) {
+                toastr.error('Product Price is empty!');
+            } else if (pdEditQuantity.length == 0) {
+                toastr.error('Product Quantity is empty!');
+            } else {
+                $('#productEditConfirmBtn').html(
+                    "<div class='spinner-border spinner-border-sm text-primary' role='status'></div>"); //animation
+                my_data = [{
+                    product_id_edit: product_id_edit,
+                    pdEditName: pdEditName,
+                    pdEditDescription: pdEditDescription,
+                    pdEditPrice: pdEditPrice,
+                    pdEditOffer: pdEditOffer,
+                    pdEditQuantity: pdEditQuantity,
+                    pdEditCategory: pdEditCategory,
+                    pdEditBrand: pdEditBrand,
+                    pdEditStock: pdEditStock,
+                    pdEditFeature: pdEditFeature,
+                    pdEditStatus: pdEditStatus,
+                    editedValueOfColor: editedValueOfColor,
+                    pdmesermentValueEdit: pdmesermentValueEdit,
+                }];
+                var fm = new FormData();
+                fm.append('data', JSON.stringify(my_data));
+                let TotalImages = editImagesValue.length; //Total Images
+                editImagesValue.forEach(editImagesValue => {
+                    fm.append('images[]', editImagesValue);
+                })
+
+                axios.post("{{ route('admin.productsUpdate') }}", fm, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
+                    }
+                }).then(function(response) {
+                    console.log(response.data);
+                    $('#productEditConfirmBtn').html("Save");
+                    if (response.status = 200) {
+                        if (response.data == 1) {
+                            $('#updateProductModal').modal('hide');
+                            toastr.success('Add New Success .');
+
+                            getProductsdata();
+                        } else {
+                            $('#updateProductModal').modal('hide');
+                            toastr.error('Add New Failed');
+                            getProductsdata();
+                        }
+                    } else {
+                        $('#updateProductModal').modal('hide');
+                        toastr.error('Something Went Wrong');
+                    }
+                }).catch(function(error) {
+                    $('#updateProductModal').modal('hide');
+                    toastr.error('Something Went Wrong.....');
+                });
+            }
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
         $('#pdmeserment').change(function () {
-    var pdmesermentId = $('#pdmeserment').val();
+        var pdmesermentId = $('#pdmeserment').val();
 
 
     var html = "";
@@ -641,10 +916,6 @@
 
     } else if (pdmesermentId == 3) {
         html+='<table class="table table-bordered"><thead clss="text-center"><tr><th>Entry</th><th>Meserments</th><th class="text-center"><button class="btn btn-success btn-sm ml-auto" onclick="addMoreBtnForMesermrntDiamention();">Add More</button></th></tr></thead><tbody id="MesermrntDiamention">';
-
-
-
-
 
     } else {
         html += '<h4>No Meserment Selected</h4>';
@@ -665,8 +936,8 @@ function addMoreBtnForMesermrntSize() {
     html2+='<tr class="sizediv'+size+'">';
     html2+='<td colspan="2">';
     html2+='<select id="pdmesermentValue'+size+'" onChange="sizeOnChange('+size+')" name="pdmesermentValue[]" style="margin-bottom: 10px;" class="browser-default custom-select">';
-    html2+='<option value="xsm" seclected>Extra Small</option>';
     html2+='<option selected>Select Type</option>';
+    html2+='<option value="xsm" seclected>Extra Small</option>';
     html2+='<option value="sm">Small</option>';
     html2+='<option value="m">Medium</option>';
     html2+='<option value="lg">Large</option>';
@@ -687,7 +958,6 @@ function SizeRemove(id) {
 }
 
 function sizeOnChange(id){
-    console.log(id);
     var getSizeValueforPushToInput=$('#pdmesermentValue'+id).val();
     $('#sizeValue'+id).val(getSizeValueforPushToInput);
 
@@ -734,7 +1004,7 @@ function addMoreBtnForMesermrntDiamention() {
     html4 += '<input  name="pdmesermentValue[]" type="text" class="form-control" placeholder="Product Dimension"/>';
     html4 += '</td>';
     html4 += '<td>';
-    html4 += '<select id="Diamentionmeserment'+DiamentionRow+'" onchange="setDiamentionInputValue('+DiamentionRow+')" style="margin-bottom: 10px;" class="browser-default custom-select"><option>Select Type</option><option value="metter">Metter</option><option value="cm">Centi Metter</option><option value="inc">Inch</option></select>';
+    html4 += '<select id="Diamentionmeserment'+DiamentionRow+'" onchange="setDiamentionInputValue('+DiamentionRow+')" style="margin-bottom: 10px;" class="browser-default custom-select"><option>Select Type</option><option value="metter">Metter</option><option value="cm">Centi Metter</option><option value="inc">Inch</option><option value="feet">feet</option></select>';
     html4 += '<input type="hidden" id="diamentionValue'+DiamentionRow+'" name="diamentionInput[]" /></td>';
     html4 += '<td class="text-center">';
     html4 += '<button class="btn btn-danger btn-sm mt-0" onclick="diamentionRowRemove('+DiamentionRow+');"><i class="fas fa-minus-circle"></i></button>';
@@ -753,6 +1023,33 @@ function setDiamentionInputValue(id) {
 }
 
 
+    var color = 0;
+
+    function addInput() {
+    color++;
+    var html6 = "";
+    html6+= '<tr id="rowid' + color + '">';
+    html6+='<td>';
+    html6+='<div id="input' + color + '" class="input-group" name="colorInput" title="Using input value">';
+    html6+='<input type="text" class="form-control input-lg" name="pdcolor[]" value="#000000"/>';
+    html6+='<span class="input-group-append">';
+    html6+='<span class="input-group-text colorpicker-input-addon"><i></i></span>';
+    html6+='</span>';
+    html6+='</div>';
+    html6+='</td>';
+    html6 +='<td class="text-center p-0"> <button onclick="removeColorInput(' + color + ');" class="btn  btn-danger btn-sm p-o"><i class="fas fa-minus-circle fa-2x"></i></button></td>';
+    html6 +='</tr>';
+
+    $('#append_tbody').append(html6);
+    $('#input'+color).colorpicker();
+    }
+
+
+    function removeColorInput(row_id) {
+    $('#rowid' + row_id).remove();
+    }
+
+
 function addExtraColum(id) {
 
     if (id == 1 ) {
@@ -769,33 +1066,136 @@ function addExtraColum(id) {
 
 
 
-            var color = 0;
 
-            function addInput() {
-            color++;
-            var html6 = "";
-            html6+= '<tr id="rowid' + color + '">';
-            html6+= '<td class="text-center">' + color + ' </td>';
-            html6+='<td>';
-            html6+='<div id="input' + color + '" class="input-group" name="colorInput" title="Using input value">';
-            html6+='    <input type="text" class="form-control input-lg" name="pdcolor[]" value="#000000"/>';
-            html6+='    <span class="input-group-append">';
-            html6+='      <span class="input-group-text colorpicker-input-addon"><i></i></span>';
-            html6+='    </span>';
-            html6+='  </div>';
-            html6+='</td>';
-            html6 += '<td class="text-center p-0"> <button onclick="removeColorInput(' + color + ');" class="btn  btn-danger btn-sm p-o"><i class="fas fa-minus-circle fa-2x"></i></button></td>';
-            html6 += '</tr>';
 
-            $('#append_tbody').append(html6);
-            $('#input'+color).colorpicker();
+
+        function addEditInput() {
+            colorExistCount++;
+            var html8 = "";
+            html8+= '<tr id="rowid' + colorExistCount + '">';
+            html8+='<td>';
+            html8+='<div id="inputEdit' + colorExistCount + '" class="input-group" name="colorInputEdit" title="Using input value">';
+            html8+='<input type="text" class="form-control input-lg" name="pdcolorEdit[]" value="#000000"/>';
+            html8+='<span class="input-group-append">';
+            html8+='<span class="input-group-text colorpicker-input-addon"><i></i></span>';
+            html8+='</span>';
+            html8+='</div>';
+            html8+='</td>';
+            html8 +='<td class="text-center p-0"> <button onclick="removeColorInput(' + colorExistCount + ');" class="btn  btn-danger btn-sm p-o"><i class="fas fa-minus-circle fa-2x"></i></button></td>';
+            html8 +='</tr>';
+
+            $('#addEditColorInput').append(html8);
+            $('#inputEdit'+colorExistCount).colorpicker();
+
         }
 
 
-        function removeColorInput(row_id) {
-            $('#rowid' + row_id).remove();
-        }
 
-    </script>
+function addMoreBtnForMesermrntSizeEdit(){
+    mesermenExitCount++;
+
+    var html10="";
+    html10+='<tr class="sizedivEdit'+mesermenExitCount+'">';
+    html10+='<td colspan="2">';
+    html10+='<select id="pdmesermentValueEdit'+mesermenExitCount+'" onChange="sizeOnChangeEdit('+mesermenExitCount+')" name="pdmesermentValue[]" style="margin-bottom: 10px;" class="browser-default custom-select">';
+    html10+='<option selected>Select Type</option>';
+    html10+='<option value="xsm" seclected>Extra Small</option>';
+    html10+='<option value="sm">Small</option>';
+    html10+='<option value="m">Medium</option>';
+    html10+='<option value="lg">Large</option>';
+    html10+='<option value="xl">Extra Large</option>';
+    html10+='<option value="xxl">Dubble Extra Large</option>';
+    html10+='</select><input type="hidden" id="sizeValueEdit'+ mesermenExitCount +'" name="sizeValueEdit[]" />';
+    html10+='</td>';
+    html10+='<td class="text-center">';
+    html10+='<button class="btn btn-danger btn-sm mt-0" onclick="SizeRemoveEdit('+mesermenExitCount+')"><i class="fas fa-minus-circle"></i></button>';
+    html10+='</td>';
+    html10+='</tr>';
+
+    $('#MesermrntSizeEdit').append(html10);
+
+}
+
+
+function sizeOnChangeEdit(id) {
+    $('#sizeValueEdit'+id).val($('#pdmesermentValueEdit'+id).val());
+}
+
+
+function SizeRemoveEdit(id) {
+
+    $('.sizedivEdit'+id).remove();
+}
+
+function addMoreBtnForMesermrntWeightEdit(){
+var html11="";
+    mesermenExitCount++;
+    html11 += '<tr class="WightdivEdit'+mesermenExitCount+'">';
+    html11 += '<td>';
+    html11 += '<input id="WightmesermentValueEdit" name="WightmesermentValueEdit[]" value="" type="text" class="form-control" placeholder="Product Wight"/>';
+    html11 += '</td>';
+    html11 += '<td>';
+    html11 += '<select id="WightmesermentTypeEdit'+mesermenExitCount+'" onChange="setWightInputValueEdit('+mesermenExitCount+');" name="WightmesermentTypeEdit[]" style="margin-bottom: 10px;" class="browser-default custom-select">';
+    html11 += '<option value="mg">Mg</option>';
+    html11 += '<option value="gm">Gm</option>';
+    html11 += '<option value="kg">Kg</option>';
+    html11 += '<option value="galon">Galon</option>';
+    html11 += '<input type="hidden" id="wightValueEdit'+mesermenExitCount+'" value="" name="WightmesermentTypeEdit[]"/></td>';
+    html11 += '<td class="text-center">';
+    html11 += '<button class="btn btn-danger btn-sm mt-0" onclick="WightrowRemoveEdit('+mesermenExitCount+')"><i class="fas fa-minus-circle"></i></button>';
+    html11 += '</td>';
+    html11 += '</tr>';
+
+    $('#MesermrntWeightEdit').append(html11);
+}
+
+
+function setWightInputValueEdit(id) {
+    $('#wightValueEdit'+id).val($('#WightmesermentTypeEdit'+id).val());
+
+}
+
+
+function WightrowRemoveEdit(id) {
+    $('#WightdivEdit'+id).remove();
+}
+
+
+function addMoreBtnForMesermrntDiamentionEdit() {
+    mesermenExitCount++;
+    var html12="";
+    html12 += '<tr class="DiamentionRowedit'+mesermenExitCount+'">';
+    html12 += '<td>';
+    html12 += '<input  name="diamentionValueInputEdit[]" type="text" value="" class="form-control" placeholder="Product Dimension"/>';
+    html12 += '</td>';
+    html12 += '<td>';
+    html12 += '<select id="DiamentionmesermentEdit'+mesermenExitCount+'" onchange="setDiamentionInputValueEdit('+mesermenExitCount+')" style="margin-bottom: 10px;" class="browser-default custom-select">';
+    html12 += '<option>Select Type</option>';
+    html12 += '<option value="metter">Metter</option>';
+    html12 += '<option value="cm">Centi Metter</option>';
+    html12 += '<option value="inc">Inch</option>';
+    html12 += '<option value="feet">feet</option>';
+    html12 += '</select><input type="hidden" id="diamentionValueEdit'+mesermenExitCount+'" value="" name="diamentionInputEdit[]" /></td>';
+    html12 += '<td class="text-center">';
+    html12 += '<button class="btn btn-danger btn-sm mt-0" onclick="diamentionRowRemoveEdit('+mesermenExitCount+');"><i class="fas fa-minus-circle"></i></button>';
+    html12 += '</td>';
+    html12 += '</tr>';
+    $('#MesermrntDimentionEdit').append(html12)
+
+}
+
+
+
+function setDiamentionInputValueEdit(id) {
+    $('#diamentionValueEdit'+id).val($('#DiamentionmesermentEdit'+id).val());
+}
+
+function diamentionRowRemoveEdit(id) {
+    $('.DiamentionRowedit'+id).remove();
+}
+
+
+
+</script>
 
 @endsection
