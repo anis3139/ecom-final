@@ -234,10 +234,10 @@
                             <h3>Category</h3>
                             <ul class="aa-catg-nav">
                                 @foreach (App\Models\ProductsCategoryModel::orderby('name', 'asc')
-            ->where('parent_id', 0)
-            ->get()
-        as $parentCat)
-                                    <li><a href="#">{{ $parentCat->name }}</a></li>
+                                                                ->where('parent_id', 0)
+                                                                ->get()
+                                                            as $parentCat)
+                                    <li><a href="{{ route('client.category', $parentCat->slug) }}">{{ $parentCat->name }}</a></li>
                                 @endforeach
                             </ul>
                         </div>
@@ -288,7 +288,7 @@
                             </div>
                         </div> --}}
                         <!-- single sidebar -->
-                        <div class="aa-sidebar-widget">
+                        {{-- <div class="aa-sidebar-widget">
                             <h3>Popular Product</h3>
                             <div class="aa-recently-views">
                                 <ul>
@@ -315,7 +315,7 @@
                                     @endforeach
                                 </ul>
                             </div>
-                        </div>
+                        </div> --}}
                         <!-- single sidebar -->
                         <div class="aa-sidebar-widget">
                             <h3>Top Rated Products</h3>
