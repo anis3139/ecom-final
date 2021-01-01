@@ -102,7 +102,7 @@
                                                         href="#">{{ $allProduct->product_title }}</a></h4>
                                                 <span class="aa-product-price">${{ $allProduct->product_price }}</span><span
                                                     class="aa-product-price"><del>${{ $allProduct->product_selling_price }}</del></span>
-                                                <p class="aa-product-descrip">{{ $allProduct->product_discription }}</p>
+                                                <p class="aa-product-descrip">{!! nl2br(e( $allProduct->product_discription)) !!}</p>
                                             </figcaption>
                                         </figure>
                                         {{-- <div class="aa-product-hvr-content">

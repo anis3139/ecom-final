@@ -76,7 +76,7 @@
                                                     @endif
                                                 </span></p>
                                         </div>
-                                        <p> {!! $productDetails->product_discription !!}</p>
+                                        <p> {!! nl2br(e( $allProduct->product_discription)) !!}</p>
                                         <h4>Size</h4>
                                         <div class="aa-prod-view-size">
                                             <a href="#">S</a>

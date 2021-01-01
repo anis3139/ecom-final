@@ -1,10 +1,9 @@
 @php
-$others=App\Models\OthersModel::all();
-
+$others=App\Models\OthersModel::first();
 @endphp
-@foreach ($others as $other)
+
 <section id="aa-catg-head-banner">
-    <img src="{{$other->hero_banner}}" alt="fashion">
+    <img src="{{$others->hero_banner}}" alt="fashion">
     <div class="aa-catg-head-banner-area">
         <div class="container">
             <div class="aa-catg-head-banner-content">
@@ -18,5 +17,5 @@ $others=App\Models\OthersModel::all();
     </div>
 </section>
 
-@endforeach
+
 

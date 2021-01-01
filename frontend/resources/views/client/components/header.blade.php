@@ -1,3 +1,6 @@
+@php
+$others=App\Models\OthersModel::first();
+@endphp
 <!-- Start header section -->
 <header id="aa-header">
     <!-- start header top  -->
@@ -47,7 +50,14 @@
                             <!-- / currency -->
                             <!-- start cellphone -->
                             <div class="cellphone hidden-xs">
-                                <p><span class="fa fa-phone"></span>00-62-658-658</p>
+                                <p><span class="fa fa-phone"></span>
+                                   <a href="tel:@if ($others)
+                                   {{$others->phone}}
+                                   @endif"> 
+                                   @if ($others)
+                                   {{$others->phone}}
+                                   @endif</a>
+                                </p>
                             </div>
                             <!-- / cellphone -->
                         </div>
@@ -84,15 +94,21 @@
                     <div class="aa-header-bottom-area">
                         <!-- logo  -->
                         <div class="aa-logo">
-                            <!-- Text based logo -->
-                            <a href="{{ route('client.home') }}">
-                                {{-- <span class="fa fa-shopping-cart"></span>
-                                <p>daily<strong>Shop</strong> <span>Your Shopping Partner</span></p>
-                                --}}
+                            @if ($others)
+                            <a href="{{ route('client.home') }}"><img src=" 
+                                @if ($others)
+                                {{$others->logo}}
+                                @endif
+                              
+                                " alt="logo img"></a>
+                            @else
+                             <!-- Text based logo -->
+                             <a href="{{ route('client.home') }}">
+                                <span class="fa fa-shopping-cart"></span>
+                                <p>Rainy<strong>Forest</strong> <span>Your Shopping Partner</span></p>
                             </a>
                             <!-- img based logo -->
-                            <a href="{{ route('client.home') }}"><img src="{{ asset('client/img') }}/logo.jpg"
-                                    alt="logo img"></a>
+                            @endif
                         </div>
                         <!-- / logo  -->
                         <!-- cart box -->
