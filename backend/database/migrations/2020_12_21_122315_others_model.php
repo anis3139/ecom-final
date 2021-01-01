@@ -16,6 +16,7 @@ class OthersModel extends Migration
         Schema::create('others', function (Blueprint $table) {
             $table->increments('id');
             $table->string('logo')->nullable();
+            $table->string('hero_banner')->nullable();
             $table->string('title')->nullable();
             $table->string('phone')->nullable();
             $table->string('email')->nullable();

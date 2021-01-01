@@ -114,6 +114,7 @@ Route::group(['prefix' => 'admin'], function () {
         Route::post('/title', [\App\Http\Controllers\admin\OthersSettingsController::class,'addTitle'])->name('admin.title');
         Route::post('/gmap', [\App\Http\Controllers\admin\OthersSettingsController::class,'addGmap'])->name('admin.gmap');
         Route::post('/logo', [\App\Http\Controllers\admin\OthersSettingsController::class,'logoAdd'])->name('admin.logo');
+        Route::post('/Banner', [\App\Http\Controllers\admin\OthersSettingsController::class,'BannerAdd'])->name('admin.Banner');
 
 
 

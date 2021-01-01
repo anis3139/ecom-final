@@ -139,7 +139,7 @@ class ProductCategoriesController extends Controller
             $iconPath =  $request->file('icon')->store('public');
             $iconName = (explode('/', $iconPath))[1];
             $host = $_SERVER['HTTP_HOST'];
-            $icon_location = "http://" . $host . "/storage/" . $iconName;
+            $icon_location = "http://" . $host ."/storage/" . $iconName;
 
 
 

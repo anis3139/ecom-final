@@ -22,14 +22,14 @@
 
     <!-- catg header banner section -->
     <section id="aa-catg-head-banner">
-        <img src="{{ asset('client') }}/img/fashion/fashion-header-bg-8.jpg" alt="fashion img">
+        <img src="{{$category->banner_image}}" alt="fashion img">
         <div class="aa-catg-head-banner-area">
             <div class="container">
                 <div class="aa-catg-head-banner-content">
-                    <h2>Fashion</h2>
+                    <h2>{{$category->name}}</h2>
                     <ol class="breadcrumb">
-                        <li><a href="index.html">Home</a></li>
-                        <li class="active">Women</li>
+                        <li><a href="{{route('client.home')}}">Home</a></li>
+                        <li class="active">{{$category->name}}</li>
                     </ol>
                 </div>
             </div>
