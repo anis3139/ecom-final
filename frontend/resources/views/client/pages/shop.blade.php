@@ -21,20 +21,7 @@
 @section('content')
 
     <!-- catg header banner section -->
-    <section id="aa-catg-head-banner">
-        <img src="{{ asset('client') }}/img/fashion/fashion-header-bg-8.jpg" alt="fashion img">
-        <div class="aa-catg-head-banner-area">
-            <div class="container">
-                <div class="aa-catg-head-banner-content">
-                    <h2>Fashion</h2>
-                    <ol class="breadcrumb">
-                        <li><a href="index.html">Home</a></li>
-                        <li class="active">Women</li>
-                    </ol>
-                </div>
-            </div>
-        </div>
-    </section>
+  @include('client.components.hero')
     <!-- / catg header banner section -->
 
     <!-- product category -->
@@ -102,8 +89,8 @@
                                                         href="#">{{ $allProduct->product_title }}</a></h4>
                                                 <span class="aa-product-price">${{ $allProduct->product_price }}</span><span
                                                     class="aa-product-price"><del>${{ $allProduct->product_selling_price }}</del></span>
-                                                <p class="aa-product-descrip">{{ $allProduct->product_discription }}</p>
-                                            </figcaption>
+                                                <p class="aa-product-descrip">{!! nl2br(e( $allProduct->product_discription)) !!}</p>
+                                            </figcaption> 
                                         </figure>
                                         {{-- <div class="aa-product-hvr-content">
                                             <a href="#" data-toggle="tooltip" data-placement="top"

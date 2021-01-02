@@ -143,7 +143,7 @@
                                                     <img id="productImageOnePreview"
                                                         style="height: 100px !important; width: 200px !important;"
                                                         class="imgPreview mx-auto"
-                                                        src="{{ asset('images/default-image.png') }}" />
+                                                        src="{{ asset('admin/images/default-image.png') }}" />
                                                 </td>
                                             </tr>
                                             <tr class="text-center">
@@ -155,7 +155,7 @@
                                                     <img id="productImageTwoPreview"
                                                         style="height: 100px !important; width: 200px !important;"
                                                         class="imgPreview mx-auto"
-                                                        src="{{ asset('images/default-image.png') }}" />
+                                                        src="{{ asset('admin/images/default-image.png') }}" />
                                                 </td>
                                             <tr class="text-center">
                                                 <td>
@@ -166,7 +166,7 @@
                                                     <img id="productImageThreePreview"
                                                         style="height: 100px !important; width: 200px !important;"
                                                         class="imgPreview mx-auto"
-                                                        src="{{ asset('images/default-image.png') }}" />
+                                                        src="{{ asset('admin/images/default-image.png') }}" />
                                                 </td>
                                             <tr class="text-center">
                                                 <td>
@@ -177,7 +177,7 @@
                                                     <img id="productImageFourPreview"
                                                         style="height: 100px !important; width: 200px !important;"
                                                         class="imgPreview mx-auto"
-                                                        src="{{ asset('images/default-image.png') }}" />
+                                                        src="{{ asset('admin/images/default-image.png') }}" />
                                                 </td>
                                             <tr class="text-center">
                                                 <td>
@@ -188,7 +188,7 @@
                                                     <img id="productImageFivePreview"
                                                         style="height: 100px !important; width: 200px !important;"
                                                         class="imgPreview mx-auto"
-                                                        src="{{ asset('images/default-image.png') }}" />
+                                                        src="{{ asset('admin/images/default-image.png') }}" />
                                                 </td>
                                             </tr>
 
@@ -250,7 +250,6 @@
     </div>
 </div>
 <!-- Modal Delete -->
-
 
 
 
@@ -443,7 +442,7 @@
                                                     <img id="productEditImageOnePreview"
                                                         style="height: 100px !important; width: 200px !important;"
                                                         class="imgPreview mx-auto"
-                                                        src="{{ asset('images/default-image.png') }}" />
+                                                        src="{{ asset('admin/images/default-image.png') }}" />
                                                 </td>
                                             </tr>
                                             <tr class="text-center">
@@ -455,7 +454,7 @@
                                                     <img id="productEditImageTwoPreview"
                                                         style="height: 100px !important; width: 200px !important;"
                                                         class="imgPreview mx-auto"
-                                                        src="{{ asset('images/default-image.png') }}" />
+                                                        src="{{ asset('admin/images/default-image.png') }}" />
                                                 </td>
                                             <tr class="text-center">
                                                 <td>
@@ -466,7 +465,7 @@
                                                     <img id="productEditImageThreePreview"
                                                         style="height: 100px !important; width: 200px !important;"
                                                         class="imgPreview mx-auto"
-                                                        src="{{ asset('images/default-image.png') }}" />
+                                                        src="{{ asset('admin/images/default-image.png') }}" />
                                                 </td>
                                             <tr class="text-center">
                                                 <td>
@@ -477,7 +476,7 @@
                                                     <img id="productImageEditFourPreview"
                                                         style="height: 100px !important; width: 200px !important;"
                                                         class="imgPreview mx-auto"
-                                                        src="{{ asset('images/default-image.png') }}" />
+                                                        src="{{ asset('admin/images/default-image.png') }}" />
                                                 </td>
                                             <tr class="text-center">
                                                 <td>
@@ -488,7 +487,7 @@
                                                     <img id="productImageEditFivePreview"
                                                         style="height: 100px !important; width: 200px !important;"
                                                         class="imgPreview mx-auto"
-                                                        src="{{ asset('images/default-image.png') }}" />
+                                                        src="{{ asset('admin/images/default-image.png') }}" />
                                                 </td>
                                             </tr>
 

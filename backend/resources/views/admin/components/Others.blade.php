@@ -42,6 +42,29 @@
                         <tr>
                             <td>
                                 <div class="form-group mb-2">
+                                    <h3>Banner Upload:</h3>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="form-group mx-sm-3 mb-2 text-center">
+                                    <label for="Banner" class="sr-only">Image</label>
+                                    <input id="Banner" required type="file" class="form-control ">
+                                    <hr>
+                                  
+                                            <img id="BannerImg"
+                                            style="height: 100px !important; width: 200px !important;"
+                                            class="imgPreview mx-auto"
+                                            src="{{ asset('admin/images/default-image.png') }}" />
+
+                                </div>
+                            </td>
+                            <td>
+                                <button id="submitBanner" type="submit" class="btn btn-primary mb-2">Update</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="form-group mb-2">
                                     <h3>Title:</h3>
                                 </div>
                             </td>
@@ -391,6 +414,68 @@
             }).then(function(response) {
 
                 $('#submitLogo').html("Update");
+
+                if (response.status = 200) {
+                    if (response.data == 1) {
+
+                        toastr.success('Updated Success .');
+
+                    } else {
+
+                        toastr.error('Updated Failed');
+
+                    }
+                } else {
+
+                    toastr.error('Something Went Wrong');
+                }
+
+
+            }).catch(function(error) {
+
+
+                toastr.error('Something Went Wrong');
+
+            });
+
+
+
+        }
+
+        //Logo Add  save button
+
+        $('#submitBanner').click(function() {
+            var Banner = $('#Banner').prop('files')[0];
+            addBanner(Banner);
+        })
+
+        $('#Banner').change(function() {
+            var reader = new FileReader();
+            reader.readAsDataURL(this.files[0]);
+            reader.onload = function(event) {
+                var ImgSource = event.target.result;
+                $('#BannerImg').attr('src', ImgSource)
+            }
+        })
+
+
+        function addBanner(Banner) {
+
+
+            $('#submitBanner').html(
+                "<div class='spinner-border spinner-border-sm text-primary' role='status'></div>"); //animation
+
+           
+            var formData = new FormData();
+            formData.append('Banner', Banner);
+
+            axios.post("{{ route('admin.Banner') }}", formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            }).then(function(response) {
+
+                $('#submitBanner').html("Update");
 
                 if (response.status = 200) {
                     if (response.data == 1) {

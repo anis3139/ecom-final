@@ -158,6 +158,27 @@ class OthersSettingsController extends Controller
     }
 
 
+    function BannerAdd(Request $req)
+    {
+
+        $valuecheckBanner = (OthersModel::orderBy('id', 'desc')->get());
+        $BannerPath =  $req->file('Banner')->store('public');
+        $BannerName = (explode('/', $BannerPath))[1];
+        $hostBanner = $_SERVER['HTTP_HOST'];
+        $locationBanner = "http://" . $hostBanner . "/public/storage/" . $BannerName;
+        if( count($valuecheckBanner)>0){
+        $result = OthersModel::where('id', '=',  $valuecheckBanner['0']->id)->update(['hero_banner' => $locationBanner]);
+        } else{
+            $result = OthersModel::insert(['hero_banner' => $locationBanner]);
+        }
+        if ($result == true) {
+            return 1;
+        } else {
+            return 0;
+        }
+    }
+
+
 
 
 

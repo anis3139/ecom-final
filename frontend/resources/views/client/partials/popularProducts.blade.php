@@ -31,7 +31,7 @@
                                                     @if ($i > 0)
                                                         <a class="aa-product-img"
                                                             href="{{ route('client.showProductDetails', ['slug' => $popular_product->product->product_slug]) }}"><img
-                                                                src="{{ $images->image_path }}" alt="polo shirt img"
+                                                                src="{{ $images->image_path }}" alt="{{ $popular_product->product->product_title }}"
                                                                 width="100%" height="300px"></a>
                                                     @endif
                                                     @php $i--; @endphp
@@ -96,7 +96,7 @@
                                                     @if ($i > 0)
                                                         <a class="aa-product-img"
                                                             href="{{ route('client.showProductDetails', ['slug' => $featureProduct->product_slug]) }}"><img
-                                                                src="{{ $images->image_path }}" alt="polo shirt img"
+                                                                src="{{ $images->image_path }}" alt="{{ $featureProduct->product_title}}"
                                                                 width="100%" height="300px"></a>
                                                     @endif
                                                     @php $i--; @endphp

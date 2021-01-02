@@ -52,7 +52,7 @@ class ProductBrandController extends Controller
         $photoPath =  $request->file('photo')->store('public');
         $photoName = (explode('/', $photoPath))[1];
         $host = $_SERVER['HTTP_HOST'];
-        $location = "http://" . $host . "/storage/" . $photoName;
+        $location = "http://" . $host . "/public/storage/" . $photoName;
 
         $result = ProductsBrandModel::insert([
             'name' => $name,
@@ -136,12 +136,12 @@ class ProductBrandController extends Controller
     public function getBrandData()
     {
         $brand_result =DB::select("SELECT
-            Products_brand.id,
-            Products_brand.name AS brandName,
-            Products_brand.image,
-            Products_brand.products_category_id,
-            Products_category.id AS categoryId,
-            Products_category.name AS categoryName
+            products_brand.id,
+            products_brand.name AS brandName,
+            products_brand.image,
+            products_brand.products_category_id,
+            products_category.id AS categoryId,
+            products_category.name AS categoryName
         FROM
         products_brand
                 LEFT JOIN
@@ -178,7 +178,7 @@ class ProductBrandController extends Controller
             $photoPath =  $request->file('photo')->store('public');
             $photoName = (explode('/', $photoPath))[1];
             $host = $_SERVER['HTTP_HOST'];
-            $location = "http://" . $host . "/storage/" . $photoName;
+            $location = "http://" . $host . "/public/storage/" . $photoName;
 
 
             $result = ProductsBrandModel::where('id', '=', $id)->update(['name' => $name, 'products_category_id' => $products_category_models_id, 'image' => $location]);
