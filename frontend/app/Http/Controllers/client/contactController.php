@@ -50,7 +50,8 @@ class contactController extends Controller
     
         $contact->notify(new ContactReplyNotification( $contact));
         
-        return redirect()->back()->with('success','Message Send Successfull!');
+        session()->flash('success', 'Message Send Successfull!');
+        return redirect()->back();
       
     }
 }
