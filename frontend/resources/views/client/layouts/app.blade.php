@@ -20,6 +20,8 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('client/css')}}/nouislider.css">
     <!-- Theme color -->
     <link id="switcher" href="{{ asset('client/css')}}/theme-color/default-theme.css" rel="stylesheet">
+
+    <link id="switcher" href="{{ asset('client/css')}}/toastr.min.css" rel="stylesheet">
     <!-- <link id="switcher" href="{{ asset('client/css')}}/theme-color/bridge-theme.css" rel="stylesheet"> -->
     <!-- Top Slider CSS -->
     <link href="{{ asset('client/css')}}/sequence-theme.modern-slide-in.css" rel="stylesheet" media="all">
@@ -57,12 +59,14 @@
 @include('client.components.header')
 @include('client.components.menu')
 
-  @yield('content')
+@yield('content')
 
 
 @include('client.components.newslatter')
 @include('client.components.footer')
 @include('client.components.loginModal')
+
+
   <!-- jQuery library -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
   <!-- Include all compiled plugins (below), or include individual files as needed -->
@@ -84,9 +88,14 @@
   <!-- Custom js -->
    <script src="{{ asset('client/js')}}/axios.min.js"></script>
    
-  <script src="{{ asset('client/js')}}/custom.js"></script>
-<!-- Cart JS -->
-  <script type="text/javascript" src="{{ asset('client/js')}}/cart.js"></script>
+   <script src="{{ asset('client/js')}}/custom.js"></script>
+   <!-- Cart JS -->
+   <script type="text/javascript" src="{{ asset('client/js')}}/cart.js"></script>
+
+   <script src="{{ asset('client/js')}}/toastr.min.js"></script>
+   @include('client.components.toastr')
+
+  
   @yield('script')
   </body>
 </html>

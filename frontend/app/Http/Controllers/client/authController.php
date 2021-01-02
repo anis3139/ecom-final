@@ -8,6 +8,7 @@ use App\Models\Orders;
 use App\Models\User;
 use App\Notifications\registerEmail;
 use Carbon\Carbon;
+use Illuminate\Contracts\Session\Session as SessionSession;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -15,6 +16,8 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 use Symfony\Contracts\Service\Attribute\Required;
 
+use Symfony\Component\HttpFoundation\Session\Session as HttpFoundationSessionSession;
+use Session;
 class authController extends Controller
 {
 
@@ -53,15 +56,18 @@ class authController extends Controller
 
             if (auth()->user()->email_verified_at == null) {
                 auth()->logout();
-                return redirect()->route('client.login')->with('error','Your Account is not Active. Please Check Your Email');
+                session()->flash('warning', 'Your Account is not Active. Please Check Your Email');
+                return redirect()->route('client.login');
 
             }else {
                 $request->session()->regenerate();
-                return redirect()->route('client.checkout')->with('success','login Successfull');
+                session()->flash('success', 'Login Success');
+                return redirect()->route('client.checkout');
             }
 
         }
-        return redirect()->back()->with('warning','The provided credentials do not match our records.');
+        session()->flash('error', 'The provided credentials do not match our records.');
+        return redirect()->back();
 
     }
 
@@ -69,7 +75,8 @@ class authController extends Controller
     {
 
        auth()->logout();
-        return redirect()->route('client.home')->with('success','Log Out Successfull');
+       session()->flash('success', 'Logout Success');
+        return redirect()->route('client.home');
     }
 
     public function addUser(Request $request)
@@ -106,8 +113,8 @@ class authController extends Controller
 
 
         // Mail::to($user->email)->send(new registrationVarificationMail($user));
-
-        return redirect()->route('client.registration')->with('success','Registration Successfull! Please Check Your Mail For Active your Account');
+        session()->flash('success', 'Registration Successfull! Please Check Your Mail For Active your Account');
+        return redirect()->route('client.registration');
 
     }
 
@@ -125,7 +132,8 @@ class authController extends Controller
             $user->email_verified_at=Carbon::now();
             $user->email_verification_token=null;
             $user->save();
-            return redirect()->route('client.login')->with('success','Your Account Varified Successfully');
+            session()->flash('success', 'Your Account Varified Successfully');
+            return redirect()->route('client.login');
         }
 
 
