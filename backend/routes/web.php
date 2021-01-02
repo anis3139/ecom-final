@@ -124,6 +124,46 @@ Route::group(['prefix' => 'admin'], function () {
         Route::post('/ordersStatusUpdate', [App\Http\Controllers\admin\order\orderController::class,'ordersStatusUpdate'])->name('admin.ordersStatusUpdate');
         Route::get('/ordersPrint/{id}', [App\Http\Controllers\admin\order\orderController::class,'ordersPrint'])->name('admin.ordersPrint');
 
+
+
+
+    // Home page Extra
+
+
+        Route::get('/homePage', [App\Http\Controllers\admin\HomePageController::class,'homeAboutIndex'])->name('admin.homePage');
+        Route::post('/addHAtitle', [App\Http\Controllers\admin\HomePageController::class,'addTitle'])->name('admin.addHAtitle');
+        Route::post('/addHADescription', [App\Http\Controllers\admin\HomePageController::class,'addDescription'])->name('admin.addHADescription');
+        Route::post('/addHAimage', [App\Http\Controllers\admin\HomePageController::class,'imageAdd'])->name('admin.addHAimage');
+        Route::post('/addHAimage2', [App\Http\Controllers\admin\HomePageController::class,'imageAdd2'])->name('admin.addHAimage2');
+        Route::post('/addHAimage3', [App\Http\Controllers\admin\HomePageController::class,'imageAdd3'])->name('admin.addHAimage3');
+        Route::post('/addResturantMenuimage', [App\Http\Controllers\admin\HomePageController::class,'imageResturantMenuAdd'])->name('admin.addResturantMenuimage');
+        Route::post('/addEXPimage', [App\Http\Controllers\admin\HomePageController::class,'imageEXPAdd'])->name('admin.addEXPimage');
+
+
+
+        Route::get('/getFSdata', [App\Http\Controllers\admin\HomePageController::class,'getHomeFeaturedSpecialsData'])->name('admin.getFSdata');
+        Route::post('/addFSdata', [App\Http\Controllers\admin\HomePageController::class,'homeSFAdd'])->name('admin.addFSdata');
+        Route::post('/homeFSdelete', [App\Http\Controllers\admin\HomePageController::class,'HomeFSDelete'])->name('admin.homeFSdelete');
+        Route::post('/HomeFSEdit', [App\Http\Controllers\admin\HomePageController::class,'HomeFSEdit'])->name('admin.HomeFSEdit');
+        Route::post('/HomeFSUpdate', [App\Http\Controllers\admin\HomePageController::class,'HomeFSUpdate'])->name('admin.HomeFSUpdate');
+
+
+        Route::get('/getEXPdata', [App\Http\Controllers\admin\HomePageController::class,'getHomeExclusiveSpecialsData'])->name('admin.getEXPdata');
+        Route::post('/homeEXPAdd', [App\Http\Controllers\admin\HomePageController::class,'homeEXPAdd'])->name('admin.homeEXPAdd');
+        Route::post('/HomeEXFDelete', [App\Http\Controllers\admin\HomePageController::class,'HomeEXFDelete'])->name('admin.HomeEXFDelete');
+        Route::post('/HomeEXPEdit', [App\Http\Controllers\admin\HomePageController::class,'HomeEXPEdit'])->name('admin.HomeEXPEdit');
+        Route::post('/HomeEXPUpdate', [App\Http\Controllers\admin\HomePageController::class,'HomeEXPUpdate'])->name('admin.HomeEXPUpdate');
+
+
+
+        Route::get('/getTestimonialData', [App\Http\Controllers\admin\HomePageController::class,'getHomeTestimonialData'])->name('admin.getTestimonialData');
+        Route::post('/TestimonialAdd', [App\Http\Controllers\admin\HomePageController::class,'TestimonialAdd'])->name('admin.TestimonialAdd');
+        Route::post('/TestimonialDelete', [App\Http\Controllers\admin\HomePageController::class,'HomeTestimonialDelete'])->name('admin.TestimonialDelete');
+        Route::post('/getTestimonialEditData', [App\Http\Controllers\admin\HomePageController::class,'HomeTestimonialEdit'])->name('admin.getTestimonialEditData');
+        Route::post('/TestimonilaUpdate', [App\Http\Controllers\admin\HomePageController::class,'TestimonilaUpdate'])->name('admin.TestimonilaUpdate');
+
+
+
     });
 
 
