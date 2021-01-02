@@ -1,13 +1,14 @@
 @php
 $others=App\Models\OthersModel::first();
-@endphp
 
+@endphp
+@if($others)
 <section id="aa-catg-head-banner">
-    <img src="{{$others->hero_banner}}" alt="fashion">
+    <img src="{{$others->hero_banner}}" alt="image"  width="100%" height="500px">
     <div class="aa-catg-head-banner-area">
         <div class="container">
             <div class="aa-catg-head-banner-content">
-                <h2></h2>
+                <h2>Asulsis</h2>
                 <ol class="breadcrumb">
                     <li><a href="{{ route('client.home') }}">Home</a></li>
                     <li class="active">Shop</li>
@@ -16,6 +17,4 @@ $others=App\Models\OthersModel::first();
         </div>
     </div>
 </section>
-
-
-
+@endif

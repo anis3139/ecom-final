@@ -23,15 +23,26 @@
                                 </div>
                             </td>
                             <td>
+
                                 <div class="form-group mx-sm-3 mb-2 text-center">
                                     <label for="facebook" class="sr-only">logo</label>
                                     <input id="addLogo" required type="file" class="form-control ">
                                     <hr>
-                                  
+
                                             <img id="addimagepreview"
                                             style="height: 100px !important; width: 200px !important;"
                                             class="imgPreview mx-auto"
-                                            src="{{ asset('admin/images/default-image.png') }}" />
+                                            src="
+                                        @if($results)
+                                            @isset($results)
+                                            {{ $results->logo }}
+                                            @endisset
+                                        @else
+                                            @empty($records)
+                                                            {{ asset('admin/images/default-image.png') }}
+                                            @endempty
+                                        @endif
+                                        " />
 
                                 </div>
                             </td>
@@ -50,16 +61,125 @@
                                     <label for="Banner" class="sr-only">Image</label>
                                     <input id="Banner" required type="file" class="form-control ">
                                     <hr>
-                                  
+
                                             <img id="BannerImg"
                                             style="height: 100px !important; width: 200px !important;"
                                             class="imgPreview mx-auto"
-                                            src="{{ asset('admin/images/default-image.png') }}" />
+                                            src="@if($results)
+                                            @isset($results)
+                                            {{ $results->hero_banner }}
+                                            @endisset
+                                        @else
+                                            @empty($records)
+                                                            {{ asset('admin/images/default-image.png') }}
+                                            @endempty
+                                        @endif
+                                        " />
 
                                 </div>
                             </td>
                             <td>
                                 <button id="submitBanner" type="submit" class="btn btn-primary mb-2">Update</button>
+                            </td>
+                        </tr>
+                                   <tr>
+                            <td>
+                                <div class="form-group mb-2">
+                                    <h3>Promo Image One:</h3>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="form-group mx-sm-3 mb-2 text-center">
+                                    <label for="promoImageOne" class="sr-only">Image</label>
+                                    <input id="promoImageOne" required type="file" class="form-control ">
+                                    <hr>
+
+                                            <img id="promoImageOneImg"
+                                            style="height: 100px !important; width: 200px !important;"
+                                            class="imgPreview mx-auto"
+                                            src="
+                                            @if($results)
+                                            @isset($results)
+                                            {{ $results->promo_image_one }}
+                                            @endisset
+                                        @else
+                                            @empty($records)
+                                                            {{ asset('admin/images/default-image.png') }}
+                                            @endempty
+                                        @endif
+                                            " />
+
+                                </div>
+                            </td>
+                            <td>
+                                <button id="submitpromoImageOne" type="submit" class="btn btn-primary mb-2">Update</button>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <div class="form-group mb-2">
+                                    <h3>Promo Image Two:</h3>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="form-group mx-sm-3 mb-2 text-center">
+                                    <label for="promoImageTwo" class="sr-only">Image</label>
+                                    <input id="promoImageTwo" required type="file" class="form-control ">
+                                    <hr>
+
+                                            <img id="promoImageTwoImg"
+                                            style="height: 100px !important; width: 200px !important;"
+                                            class="imgPreview mx-auto"
+                                            src="
+                                            @if($results)
+                                            @isset($results)
+                                            {{ $results->promo_image_two }}
+                                            @endisset
+                                        @else
+                                            @empty($records)
+                                                            {{ asset('admin/images/default-image.png') }}
+                                            @endempty
+                                        @endif
+                                            " />
+
+                                </div>
+                            </td>
+                            <td>
+                                <button id="submitpromoImageTwo" type="submit" class="btn btn-primary mb-2">Update</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="form-group mb-2">
+                                    <h3>Promo Image Three:</h3>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="form-group mx-sm-3 mb-2 text-center">
+                                    <label for="promoImageThree" class="sr-only">Image</label>
+                                    <input id="promoImageThree" required type="file" class="form-control ">
+                                    <hr>
+
+                                            <img id="promoImageThreeImg"
+                                            style="height: 100px !important; width: 200px !important;"
+                                            class="imgPreview mx-auto"
+                                            src="
+                                            @if($results)
+                                            @isset($results)
+                                            {{ $results->promo_image_three }}
+                                            @endisset
+                                        @else
+                                            @empty($records)
+                                                            {{ asset('admin/images/default-image.png') }}
+                                            @endempty
+                                        @endif
+                                            " />
+
+                                </div>
+                            </td>
+                            <td>
+                                <button id="submitpromoImageThree" type="submit" class="btn btn-primary mb-2">Update</button>
                             </td>
                         </tr>
                         <tr>
@@ -465,7 +585,7 @@
             $('#submitBanner').html(
                 "<div class='spinner-border spinner-border-sm text-primary' role='status'></div>"); //animation
 
-           
+
             var formData = new FormData();
             formData.append('Banner', Banner);
 
@@ -503,6 +623,198 @@
 
 
         }
+
+
+
+
+        //promoImageOne Add  save button
+
+        $('#submitpromoImageOne').click(function() {
+            var promoImageOne = $('#promoImageOne').prop('files')[0];
+           addpromoImageOne(promoImageOne)
+        })
+
+        $('#promoImageOne').change(function() {
+            var reader = new FileReader();
+            reader.readAsDataURL(this.files[0]);
+            reader.onload = function(event) {
+                var ImgSource = event.target.result;
+                $('#promoImageOneImg').attr('src', ImgSource)
+            }
+        })
+
+
+        function addpromoImageOne(promoImageOne) {
+
+
+            $('#submitBanner').html(
+                "<div class='spinner-border spinner-border-sm text-primary' role='status'></div>"); //animation
+
+
+            var formData = new FormData();
+            formData.append('promoImageOne', promoImageOne);
+
+            axios.post("{{ route('admin.promoImageOne') }}", formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            }).then(function(response) {
+  console.log(response.data);
+                $('#submitpromoImageOne').html("Update");
+
+                if (response.status = 200) {
+                    if (response.data == 1) {
+
+                        toastr.success('Updated Success .');
+
+                    } else {
+
+                        toastr.error('Updated Failed');
+
+                    }
+                } else {
+
+                    toastr.error('Something Went Wrong');
+                }
+
+
+            }).catch(function(error) {
+
+
+                toastr.error('Something Went Wrong');
+
+            });
+
+
+
+        }
+
+
+
+         //promoImageTwo Add  save button
+
+         $('#submitpromoImageTwo').click(function() {
+            var promoImageTwo = $('#promoImageTwo').prop('files')[0];
+            addpromoImageTwo(promoImageTwo);
+        })
+
+        $('#promoImageTwo').change(function() {
+            var reader = new FileReader();
+            reader.readAsDataURL(this.files[0]);
+            reader.onload = function(event) {
+                var ImgSource = event.target.result;
+                $('#promoImageTwoImg').attr('src', ImgSource)
+            }
+        })
+
+
+        function addpromoImageTwo(promoImageTwo) {
+
+            $('#submitBanner').html(
+                "<div class='spinner-border spinner-border-sm text-primary' role='status'></div>"); //animation
+
+
+            var formData = new FormData();
+            formData.append('promoImageTwo', promoImageTwo);
+
+            axios.post("{{ route('admin.promoImageTwo') }}", formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            }).then(function(response) {
+
+                $('#submitpromoImageTwo').html("Update");
+
+                if (response.status = 200) {
+                    if (response.data == 1) {
+
+                        toastr.success('Updated Success .');
+
+                    } else {
+
+                        toastr.error('Updated Failed');
+
+                    }
+                } else {
+
+                    toastr.error('Something Went Wrong');
+                }
+
+
+            }).catch(function(error) {
+
+
+                toastr.error('Something Went Wrong');
+
+            });
+
+
+
+        }
+
+
+         //promoImageThree Add  save button
+
+         $('#submitpromoImageThree').click(function() {
+            var promoImageThree = $('#promoImageThree').prop('files')[0];
+            addpromoImageThree(promoImageThree);
+        })
+
+        $('#promoImageThree').change(function() {
+            var reader = new FileReader();
+            reader.readAsDataURL(this.files[0]);
+            reader.onload = function(event) {
+                var ImgSource = event.target.result;
+                $('#promoImageThreeImg').attr('src', ImgSource)
+            }
+        })
+
+
+        function addpromoImageThree(promoImageThree) {
+
+
+            $('#submitBanner').html(
+                "<div class='spinner-border spinner-border-sm text-primary' role='status'></div>"); //animation
+
+
+            var formData = new FormData();
+            formData.append('promoImageThree', promoImageThree);
+
+            axios.post("{{ route('admin.promoImageThree') }}", formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            }).then(function(response) {
+
+                $('#submitpromoImageThree').html("Update");
+
+                if (response.status = 200) {
+                    if (response.data == 1) {
+
+                        toastr.success('Updated Success .');
+
+                    } else {
+
+                        toastr.error('Updated Failed');
+
+                    }
+                } else {
+
+                    toastr.error('Something Went Wrong');
+                }
+
+
+            }).catch(function(error) {
+
+
+                toastr.error('Something Went Wrong');
+
+            });
+
+
+
+        }
+
 
     </script>
 @endsection

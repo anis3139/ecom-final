@@ -258,6 +258,7 @@
 
 
 
+
 <!--View  Modal -->
 
 <div class="modal fade right" id="viewProductModal" tabindex="-1" role="dialog"

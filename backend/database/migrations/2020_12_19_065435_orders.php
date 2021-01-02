@@ -34,6 +34,7 @@ class Orders extends Migration
             $table->unsignedInteger('order_product_id')->nullable();
             $table->unsignedInteger('product_owner_id')->default(0);
 
+            $table->softDeletes();
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent();
 

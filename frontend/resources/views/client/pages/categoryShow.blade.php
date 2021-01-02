@@ -21,7 +21,7 @@
 @section('content')
 
     <!-- catg header banner section -->
-    <section id="aa-catg-head-banner">
+     <section id="aa-catg-head-banner">
         <img src="{{$category->banner_image}}" alt="fashion img">
         <div class="aa-catg-head-banner-area">
             <div class="container">

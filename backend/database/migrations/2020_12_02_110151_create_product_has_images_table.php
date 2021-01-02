@@ -17,6 +17,7 @@ class CreateProductHasImagesTable extends Migration
             $table->id();
             $table->integer('has_images_product_id');
             $table->string('image_path');
+            $table->softDeletes();
             $table->timestamps();
 
             // $table->foreign('has_images_product_id')->references('id')->on('product_tables')->onDelete('cascade');

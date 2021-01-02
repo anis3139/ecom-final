@@ -21,6 +21,7 @@ class OrderProducts extends Migration
             $table->unsignedInteger('order_id');
             $table->unsignedInteger('product_id')->nullable();
             $table->unsignedInteger('product_owner_id')->default(0);
+            $table->softDeletes();
 
             // $table->foreign('order_id')->references('id')->on('order')->onDelete('cascade');
             // $table->foreign('product_id')->references('id')->on('product_tables')->onDelete('cascade');
@@ -35,6 +36,6 @@ class OrderProducts extends Migration
      */
     public function down()
     {
-        //
+       
     }
 }

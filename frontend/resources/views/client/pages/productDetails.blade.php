@@ -2,21 +2,7 @@
 
 @section('content')
     <!-- catg header banner section -->
-    <section id="aa-catg-head-banner">
-        <img width="100%"  height="400px" src="@foreach ($productDetails->img as $images) @if ($loop->first) {{$images->image_path}}  @endif @endforeach" alt="{!! $productDetails->product_title !!}">
-        <div class="aa-catg-head-banner-area">
-            <div class="container">
-                <div class="aa-catg-head-banner-content">
-                    <h2>{!! $productDetails->product_title !!}</h2>
-                    <ol class="breadcrumb">
-                        <li><a href="{{route('client.home')}}">Home</a></li>
-                        <li><a href="#">Product</a></li>
-                        <li class="active">{!! $productDetails->product_title !!}</li>
-                    </ol>
-                </div>
-            </div>
-        </div>
-    </section>
+   @include('client.components.hero')
     <!-- / catg header banner section -->
 
     <!-- product category -->

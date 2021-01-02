@@ -2,25 +2,12 @@
 
 @section('content')
     <!-- catg header banner section -->
-    <section id="aa-catg-head-banner">
-        <img src="{{ asset('client') }}/img/fashion/fashion-header-bg-8.jpg" alt="fashion img">
-        <div class="aa-catg-head-banner-area">
-            <div class="container">
-                <div class="aa-catg-head-banner-content">
-                    <h2>Cart Page</h2>
-                    <ol class="breadcrumb">
-                        <li><a href="{{ route('client.home') }}">Home</a></li>
-                        <li class="active">Cart</li>
-                    </ol>
-                </div>
-            </div>
-        </div>
-    </section>
+  @include('client.components.hero')
     <!-- / catg header banner section -->
 
 
     <!-- Cart view section -->
-    <section id="cart-view">
+    <section id="cart-view" style="margin:0px 0px 20px 0px">
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
@@ -70,8 +57,7 @@
 
                                                     <td>${{ number_format($cartItem['unit_price']) }} </td>
 
-                                                    <td><input class="aa-cart-quantity" type="number"
-                                                            value="{{ $cartItem['quantity'] }}"></td>
+                                                    <td>{{ $cartItem['quantity'] }}</td>
 
                                                     <td>${{ number_format($cartItem['total_price'], 2) }}
                                                     </td>
@@ -117,7 +103,7 @@
 
                                     <!-- Cart Total -->
                                     <div class="cart-view-total" style="margin:0px auto; display:block; width:auto; float:left;">
-                                        <a href="{{route('client.home')}}" class="aa-cart-view-btn" style="background-color:#FF6666 !important;">Continue Shoping</a>
+                                        <a href="{{route('client.shop')}}" class="aa-cart-view-btn" style="background-color:#FF6666 !important;">Continue Shoping</a>
                                     </div>
                         </div>
                     </div>

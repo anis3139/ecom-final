@@ -20,7 +20,7 @@ $socialData=App\Models\SocialModel::first();
                     <li><a href="{{ route('client.home') }}">Home</a></li>
                     <li><a href="{{ route('client.shop') }}">Shop</a></li>
                     <li><a href="{{ route('client.shop') }}">About us</a></li>
-                    <li><a href="{{ route('client.shop') }}">Contact</a></li>
+                    <li><a href="{{ route('client.contact') }}">Contact</a></li>
                   </ul>
                 </div>
               </div>
@@ -69,9 +69,11 @@ $socialData=App\Models\SocialModel::first();
                         @endif"> @if ($others)
                         {{$others->phone}}
                         @endif</a></p>
-                      <p><span class="fa fa-envelope"></span> @if ($others)
+                      <p><span class="fa fa-envelope"></span><a href="mailto: @if ($others)
                         {{$others->email}}
-                        @endif</p>
+                        @endif"> @if ($others)
+                        {{$others->email}}
+                        @endif</a></p>
                     </address>
                     <div class="aa-footer-social">
                       <a href="@if ($socialData)
@@ -90,7 +92,7 @@ $socialData=App\Models\SocialModel::first();
                   </div>
                 </div>
               </div>
-            </div>
+            </div> 
           </div>
         </div>
       </div>
@@ -102,7 +104,7 @@ $socialData=App\Models\SocialModel::first();
         <div class="row">
         <div class="col-md-12">
           <div class="aa-footer-bottom-area">
-            <p>Developed by <a href="https://www.facebook.com/anis3139//">Anis Arronno</a></p>
+            <p>Developed by <a href="https://www.facebook.com/anis3139">Anis Arronno</a></p>
             <div class="aa-footer-payment">
               <span class="fa fa-cc-mastercard"></span>
               <span class="fa fa-cc-visa"></span>

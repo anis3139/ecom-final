@@ -13,7 +13,7 @@
                   <div class="aa-promo-banner">                    
                     <img src="{{$category->icon}}" alt="img">                    
                     <div class="aa-prom-content">
-                      <h4><a href="#">{{$category->name}}</a></h4>                      
+                      <h4><a href="{{ route('client.category', $category->slug) }}">{{$category->name}}</a></h4>                      
                     </div>
                   </div>
                 </div>

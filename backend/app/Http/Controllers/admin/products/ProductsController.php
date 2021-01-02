@@ -98,7 +98,7 @@ class ProductsController extends Controller
                 $img = time() . $i . '.' . $image->getClientOriginalExtension();
                 $image->move('storage', $img);
                 $productImageOnehost = $_SERVER['HTTP_HOST'];
-                $productImageOnelocation = "http://" . $productImageOnehost . "/public/storage/" . $img;
+                $productImageOnelocation = "http://" . $productImageOnehost . "/storage/" . $img;
                 $imagemodel= new product_has_images();
                 $imagemodel->image_path="$productImageOnelocation";
                 $imagemodel->has_images_product_id = $last_id;
@@ -230,7 +230,7 @@ class ProductsController extends Controller
                     $img = time() . $i . '.' . $image->getClientOriginalExtension();
                     $image->move('storage', $img);
                     $productImageOnehost = $_SERVER['HTTP_HOST'];
-                    $productImageOnelocation = "http://" . $productImageOnehost . "/public/storage/" . $img;
+                    $productImageOnelocation = "http://" . $productImageOnehost . "/storage/" . $img;
                     $imagemodel= new product_has_images();
                     $imagemodel->image_path=$productImageOnelocation;
                     $imagemodel->has_images_product_id = $product_id_edit;

@@ -157,8 +157,7 @@ class OthersSettingsController extends Controller
         }
     }
 
-
-    function BannerAdd(Request $req)
+ function BannerAdd(Request $req)
     {
 
         $valuecheckBanner = (OthersModel::orderBy('id', 'desc')->get());
@@ -179,6 +178,66 @@ class OthersSettingsController extends Controller
     }
 
 
+     function promoImageOne(Request $req)
+    {
+
+        $valuecheckpromoImageOne = (OthersModel::orderBy('id', 'desc')->get());
+        $promoImageOnePath =  $req->file('promoImageOne')->store('public');
+        $promoImageOneName = (explode('/', $promoImageOnePath))[1];
+        $hostpromoImageOne = $_SERVER['HTTP_HOST'];
+        $locationpromoImageOne = "http://" . $hostpromoImageOne . "/public/storage/" . $promoImageOneName;
+        if( count($valuecheckpromoImageOne)>0){
+        $result = OthersModel::where('id', '=',  $valuecheckpromoImageOne['0']->id)->update(['promo_image_one' => $locationpromoImageOne]);
+        } else{
+            $result = OthersModel::insert(['promo_image_one' => $locationpromoImageOne]);
+        }
+        if ($result == true) {
+            return 1;
+        } else {
+            return 0;
+        }
+    }
+
+   function promoImageTwo(Request $req)
+    {
+
+        $valuecheckpromoImageTwo = (OthersModel::orderBy('id', 'desc')->get());
+        $promoImageTwoPath =  $req->file('promoImageTwo')->store('public');
+        $promoImageTwoName = (explode('/', $promoImageTwoPath))[1];
+        $hostpromoImageTwo = $_SERVER['HTTP_HOST'];
+        $locationpromoImageTwo = "http://" . $hostpromoImageTwo . "/public/storage/" . $promoImageTwoName;
+        if( count($valuecheckpromoImageTwo)>0){
+        $result = OthersModel::where('id', '=',  $valuecheckpromoImageTwo['0']->id)->update(['promo_image_two' => $locationpromoImageTwo]);
+        } else{
+            $result = OthersModel::insert(['promo_image_two' => $locationpromoImageTwo]);
+        }
+        if ($result == true) {
+            return 1;
+        } else {
+            return 0;
+        }
+    }
+
+
+    function promoImageThree(Request $req)
+    {
+
+        $valuecheckpromoImageThree = (OthersModel::orderBy('id', 'desc')->get());
+        $promoImageThreePath =  $req->file('promoImageThree')->store('public');
+        $promoImageThreeName = (explode('/', $promoImageThreePath))[1];
+        $hostpromoImageThree = $_SERVER['HTTP_HOST'];
+        $locationpromoImageThree = "http://" . $hostpromoImageThree . "/public/storage/" . $promoImageThreeName;
+        if( count($valuecheckpromoImageThree)>0){
+        $result = OthersModel::where('id', '=',  $valuecheckpromoImageThree['0']->id)->update(['promo_image_three' => $locationpromoImageThree]);
+        } else{
+            $result = OthersModel::insert(['promo_image_three' => $locationpromoImageThree]);
+        }
+        if ($result == true) {
+            return 1;
+        } else {
+            return 0;
+        }
+    }
 
 
 

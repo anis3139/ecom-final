@@ -18,6 +18,7 @@ class CreateProducrtsBrandModelsTable extends Migration
             $table->string('name');
             $table->string('image');
             $table->string('products_category_id');
+            $table->softDeletes();
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent();
 

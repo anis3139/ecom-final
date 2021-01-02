@@ -66,9 +66,18 @@
                                 <input id="addImage" required type="file" class="form-control ">
                                 <hr>
                                 <img id="addimagepreview" style="width: 200px; height:120px !important;"
-                                    class="imgPreview mt-3 border rounded" src="<?php if ($results) {
-                                            echo $results->image1;
-                                        } ?>" />
+                                    class="imgPreview mt-3 border rounded" src="
+                                    @if($results)
+                                    @isset($results)
+                                    {{ $results->image1 }}
+                                    @endisset
+                                @else
+                                    @empty($records)
+                                                    {{ asset('admin/images/default-image.png') }}
+                                    @endempty
+                                @endif
+
+                                    " />
 
                             </div>
                         </td>
@@ -89,9 +98,16 @@
                                 <input id="addImage2" required type="file" class="form-control ">
                                 <hr>
                                 <img id="addimagepreview2" style="width: 200px; height:120px !important;"
-                                    class="imgPreview mt-3 border rounded" src="<?php if ($results) {
-                                            echo $results->image2;
-                                        } ?>" />
+                                    class="imgPreview mt-3 border rounded" src="
+                                    @if($results)
+                                    @isset($results)
+                                    {{ $results->image2 }}
+                                    @endisset
+                                @else
+                                    @empty($records)
+                                                    {{ asset('admin/images/default-image.png') }}
+                                    @endempty
+                                @endif " />
 
                             </div>
                         </td>
@@ -112,9 +128,18 @@
                                 <input id="addImage3" required type="file" class="form-control ">
                                 <hr>
                                 <img id="addimagepreview3" style="width: 200px; height:120px !important;"
-                                    class="imgPreview mt-3 border rounded" src="<?php if ($results) {
-                                            echo $results->image3;
-                                        } ?>" />
+                                    class="imgPreview mt-3 border rounded" src="
+
+                                                                     @if($results)
+                                                                     @isset($results)
+                                                                     {{ $results->image3 }}
+                                                                     @endisset
+                                                                 @else
+                                                                     @empty($records)
+                                                                                     {{ asset('admin/images/default-image.png') }}
+                                                                     @endempty
+                                                                 @endif
+                                                                 " />
 
                             </div>
                         </td>

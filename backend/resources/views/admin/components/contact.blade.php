@@ -12,6 +12,7 @@
                             <th class="th-sm">Name</th>
                             <th class="th-sm">Mobile</th>
                             <th class="th-sm">Email</th>
+                            <th class="th-sm">Subject</th>
                             <th class="th-sm">Message</th>
                             <th class="th-sm">Delete</th>
                         </tr>
@@ -98,6 +99,7 @@ axios.get("{{ route('admin.getContactData') }}")
                     "<td>" + dataJSON[i].name + " </td>" +
                     "<td>" + dataJSON[i].mobile + " </td>" +
                     "<td>" + dataJSON[i].email + " </td>" +
+                     "<td>" + dataJSON[i].subject + " </td>" +
                     "<td>" + dataJSON[i].msg + " </td>" +
                     "<td><a class='delDataMessage' data-id=" + dataJSON[i].id + " ><i class='fas fa-trash-alt'></i></a> </td>"
 

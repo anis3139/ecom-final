@@ -5,20 +5,7 @@
 
 
     <!-- catg header banner section -->
-    <section id="aa-catg-head-banner">
-        <img src="{{ asset('client') }}/img/fashion/fashion-header-bg-8.jpg" alt="fashion img">
-        <div class="aa-catg-head-banner-area">
-            <div class="container">
-                <div class="aa-catg-head-banner-content">
-                    <h2>Checkout Page</h2>
-                    <ol class="breadcrumb">
-                        <li><a href="index.html">Home</a></li>
-                        <li class="active">Checkout</li>
-                    </ol>
-                </div>
-            </div>
-        </div>
-    </section>
+ @include('client.components.hero')
     <!-- / catg header banner section -->
 
     <!-- Cart view section -->
@@ -96,8 +83,7 @@
                                                                 <div class="col-md-6">
                                                                     <div class="aa-checkout-single-bill">
                                                                         <select name="country">
-                                                                            <option value="0">Select Your Country</option>
-                                                                            <option value="Span">Span</option>
+                                                                            <option value="Span" selected>Span</option>
                                                                             <option value="Bangladesh">Bangladesh</option>
                                                                             <option value="China">China</option>
                                                                             <option value="India">India</option>
@@ -173,8 +159,7 @@
                                                                 <div class="col-md-6">
                                                                     <div class="aa-checkout-single-bill">
                                                                         <select name="shipping_country">
-                                                                            <option value="0">Select Your Country</option>
-                                                                            <option value="Span">Span</option>
+                                                                            <option value="Span" selected>Span</option>
                                                                             <option value="Bangladesh">Bangladesh</option>
                                                                             <option value="China">China</option>
                                                                             <option value="India">India</option>
@@ -241,15 +226,12 @@
                                                         </tr>
                                                         <tr>
                                                             <th>Tax</th>
-                                                            <td>10%</td>
+                                                            <td>21%</td>
                                                         </tr>
-                                                        <tr>
-                                                            <th>Delivary Charge</th>
-                                                            <td>$5</td>
-                                                        </tr>
+                                                      
                                                         <tr>
                                                             <th>Total</th>
-                                                            <td>${{ number_format(  ($total*10)/100 + $total+5, 2) }}</td>
+                                                            <td>${{ number_format(  ($total*21)/100 + $total, 2) }}</td>
                                                         </tr>
                                                     </tfoot>
                                                 </table>
@@ -265,14 +247,18 @@
                                                 <img src="https://www.paypalobjects.com/webstatic/mktg/logo/AM_mc_vs_dc_ae.jpg"
                                                     border="0" alt="PayPal Acceptance Mark">
 
+                                                @IF($total>0)
                                                 <input type="submit" value="Place Order" class="aa-browse-btn">
+                                                @ELSE
+                                                 <input  value="Your Cart is empty" class="aa-browse-btn">
+                                                @ENDIF
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </form>
                             <div class="cart-view-total" style="margin:0px auto; display:block; width:auto; float:left;">
-                                <a href="{{ route('client.home') }}" class="aa-cart-view-btn"
+                                <a href="{{ route('client.shop') }}" class="aa-cart-view-btn"
                                     style="background-color:#FF6666 !important;">Continue Shoping</a>
                             </div>
                         @endauth

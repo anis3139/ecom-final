@@ -17,6 +17,7 @@ class CreateMesermentsTable extends Migration
             $table->id();
             $table->string('product_id');
             $table->string('meserment_value');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

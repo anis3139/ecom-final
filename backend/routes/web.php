@@ -39,14 +39,13 @@ Route::group(['prefix' => 'admin'], function () {
         Route::post('/adminDataUpdate', [App\Http\Controllers\admin\adminController::class, 'adminDataUpdate'])->name('admin.adminDataUpdate');
 
         // Slider Section
-        Route::get('/slider', [\App\Http\Controllers\Admin\HomeSliderController::class,'SliderIndex'])->name('admin.slider');
-        Route::get('/slider', [\App\Http\Controllers\Admin\HomeSliderController::class,'SliderIndex'])->name('admin.slider');
-        Route::post('/addslider', [\App\Http\Controllers\Admin\HomeSliderController::class, 'SliderAdd'])->name('admin.addslider');
-        Route::get('/getsliderdata', [\App\Http\Controllers\Admin\HomeSliderController::class, 'SliderData'])->name('admin.getsliderdata');
-        Route::post('/sliderdelete', [\App\Http\Controllers\Admin\HomeSliderController::class, 'SliderDelete'])->name('admin.sliderdelete');
-        Route::post('/sliderdetails', [\App\Http\Controllers\Admin\HomeSliderController::class, 'SliderDetailEdit'])->name('admin.sliderdetails');
-        Route::post('/sliderupdate', [\App\Http\Controllers\Admin\HomeSliderController::class, 'SliderUpdate'])->name('admin.sliderupdate');
 
+        Route::get('/slider', [\App\Http\Controllers\admin\HomeSliderController::class,'SliderIndex'])->name('admin.slider');
+        Route::post('/addslider', [\App\Http\Controllers\admin\HomeSliderController::class, 'SliderAdd'])->name('admin.addslider');
+        Route::get('/getsliderdata', [\App\Http\Controllers\admin\HomeSliderController::class, 'SliderData'])->name('admin.getsliderdata');
+        Route::post('/sliderdelete', [\App\Http\Controllers\admin\HomeSliderController::class, 'SliderDelete'])->name('admin.sliderdelete');
+        Route::post('/sliderdetails', [\App\Http\Controllers\admin\HomeSliderController::class, 'SliderDetailEdit'])->name('admin.sliderdetails');
+        Route::post('/sliderupdate', [\App\Http\Controllers\admin\HomeSliderController::class, 'SliderUpdate'])->name('admin.sliderupdate');
 
         // Brand  Section
         Route::resource('brand', \App\Http\Controllers\admin\products\ProductBrandController::class,[
@@ -76,11 +75,6 @@ Route::group(['prefix' => 'admin'], function () {
          Route::post('/delete', [\App\Http\Controllers\admin\products\ProductsController::class,'destroy'])->name('admin.delete');
          Route::post('/getEditProductsData', [\App\Http\Controllers\admin\products\ProductsController::class,'edit'])->name('admin.getEditProductsData');
          Route::post('/productsUpdate', [\App\Http\Controllers\admin\products\ProductsController::class,'update'])->name('admin.productsUpdate');
-
-
-
-
-
 
 
 
@@ -115,7 +109,9 @@ Route::group(['prefix' => 'admin'], function () {
         Route::post('/gmap', [\App\Http\Controllers\admin\OthersSettingsController::class,'addGmap'])->name('admin.gmap');
         Route::post('/logo', [\App\Http\Controllers\admin\OthersSettingsController::class,'logoAdd'])->name('admin.logo');
         Route::post('/Banner', [\App\Http\Controllers\admin\OthersSettingsController::class,'BannerAdd'])->name('admin.Banner');
-
+      Route::post('/promoImageOne', [\App\Http\Controllers\admin\OthersSettingsController::class,'promoImageOne'])->name('admin.promoImageOne');
+        Route::post('/promoImageTwo', [\App\Http\Controllers\admin\OthersSettingsController::class,'promoImageTwo'])->name('admin.promoImageTwo');
+        Route::post('/promoImageThree', [\App\Http\Controllers\admin\OthersSettingsController::class,'promoImageThree'])->name('admin.promoImageThree');
 
 
         //admin panel Orders
@@ -128,41 +124,41 @@ Route::group(['prefix' => 'admin'], function () {
 
 
 
-    // Home page Extra
+
+         // Home page Extra
 
 
-        Route::get('/homePage', [App\Http\Controllers\admin\HomePageController::class,'homeAboutIndex'])->name('admin.homePage');
-        Route::post('/addHAtitle', [App\Http\Controllers\admin\HomePageController::class,'addTitle'])->name('admin.addHAtitle');
-        Route::post('/addHADescription', [App\Http\Controllers\admin\HomePageController::class,'addDescription'])->name('admin.addHADescription');
-        Route::post('/addHAimage', [App\Http\Controllers\admin\HomePageController::class,'imageAdd'])->name('admin.addHAimage');
-        Route::post('/addHAimage2', [App\Http\Controllers\admin\HomePageController::class,'imageAdd2'])->name('admin.addHAimage2');
-        Route::post('/addHAimage3', [App\Http\Controllers\admin\HomePageController::class,'imageAdd3'])->name('admin.addHAimage3');
-        Route::post('/addResturantMenuimage', [App\Http\Controllers\admin\HomePageController::class,'imageResturantMenuAdd'])->name('admin.addResturantMenuimage');
-        Route::post('/addEXPimage', [App\Http\Controllers\admin\HomePageController::class,'imageEXPAdd'])->name('admin.addEXPimage');
-
-
-
-        Route::get('/getFSdata', [App\Http\Controllers\admin\HomePageController::class,'getHomeFeaturedSpecialsData'])->name('admin.getFSdata');
-        Route::post('/addFSdata', [App\Http\Controllers\admin\HomePageController::class,'homeSFAdd'])->name('admin.addFSdata');
-        Route::post('/homeFSdelete', [App\Http\Controllers\admin\HomePageController::class,'HomeFSDelete'])->name('admin.homeFSdelete');
-        Route::post('/HomeFSEdit', [App\Http\Controllers\admin\HomePageController::class,'HomeFSEdit'])->name('admin.HomeFSEdit');
-        Route::post('/HomeFSUpdate', [App\Http\Controllers\admin\HomePageController::class,'HomeFSUpdate'])->name('admin.HomeFSUpdate');
-
-
-        Route::get('/getEXPdata', [App\Http\Controllers\admin\HomePageController::class,'getHomeExclusiveSpecialsData'])->name('admin.getEXPdata');
-        Route::post('/homeEXPAdd', [App\Http\Controllers\admin\HomePageController::class,'homeEXPAdd'])->name('admin.homeEXPAdd');
-        Route::post('/HomeEXFDelete', [App\Http\Controllers\admin\HomePageController::class,'HomeEXFDelete'])->name('admin.HomeEXFDelete');
-        Route::post('/HomeEXPEdit', [App\Http\Controllers\admin\HomePageController::class,'HomeEXPEdit'])->name('admin.HomeEXPEdit');
-        Route::post('/HomeEXPUpdate', [App\Http\Controllers\admin\HomePageController::class,'HomeEXPUpdate'])->name('admin.HomeEXPUpdate');
+         Route::get('/homePage', [App\Http\Controllers\admin\HomePageController::class,'homeAboutIndex'])->name('admin.homePage');
+         Route::post('/addHAtitle', [App\Http\Controllers\admin\HomePageController::class,'addTitle'])->name('admin.addHAtitle');
+         Route::post('/addHADescription', [App\Http\Controllers\admin\HomePageController::class,'addDescription'])->name('admin.addHADescription');
+         Route::post('/addHAimage', [App\Http\Controllers\admin\HomePageController::class,'imageAdd'])->name('admin.addHAimage');
+         Route::post('/addHAimage2', [App\Http\Controllers\admin\HomePageController::class,'imageAdd2'])->name('admin.addHAimage2');
+         Route::post('/addHAimage3', [App\Http\Controllers\admin\HomePageController::class,'imageAdd3'])->name('admin.addHAimage3');
+         Route::post('/addResturantMenuimage', [App\Http\Controllers\admin\HomePageController::class,'imageResturantMenuAdd'])->name('admin.addResturantMenuimage');
+         Route::post('/addEXPimage', [App\Http\Controllers\admin\HomePageController::class,'imageEXPAdd'])->name('admin.addEXPimage');
 
 
 
-        Route::get('/getTestimonialData', [App\Http\Controllers\admin\HomePageController::class,'getHomeTestimonialData'])->name('admin.getTestimonialData');
-        Route::post('/TestimonialAdd', [App\Http\Controllers\admin\HomePageController::class,'TestimonialAdd'])->name('admin.TestimonialAdd');
-        Route::post('/TestimonialDelete', [App\Http\Controllers\admin\HomePageController::class,'HomeTestimonialDelete'])->name('admin.TestimonialDelete');
-        Route::post('/getTestimonialEditData', [App\Http\Controllers\admin\HomePageController::class,'HomeTestimonialEdit'])->name('admin.getTestimonialEditData');
-        Route::post('/TestimonilaUpdate', [App\Http\Controllers\admin\HomePageController::class,'TestimonilaUpdate'])->name('admin.TestimonilaUpdate');
+         Route::get('/getFSdata', [App\Http\Controllers\admin\HomePageController::class,'getHomeFeaturedSpecialsData'])->name('admin.getFSdata');
+         Route::post('/addFSdata', [App\Http\Controllers\admin\HomePageController::class,'homeSFAdd'])->name('admin.addFSdata');
+         Route::post('/homeFSdelete', [App\Http\Controllers\admin\HomePageController::class,'HomeFSDelete'])->name('admin.homeFSdelete');
+         Route::post('/HomeFSEdit', [App\Http\Controllers\admin\HomePageController::class,'HomeFSEdit'])->name('admin.HomeFSEdit');
+         Route::post('/HomeFSUpdate', [App\Http\Controllers\admin\HomePageController::class,'HomeFSUpdate'])->name('admin.HomeFSUpdate');
 
+
+         Route::get('/getEXPdata', [App\Http\Controllers\admin\HomePageController::class,'getHomeExclusiveSpecialsData'])->name('admin.getEXPdata');
+         Route::post('/homeEXPAdd', [App\Http\Controllers\admin\HomePageController::class,'homeEXPAdd'])->name('admin.homeEXPAdd');
+         Route::post('/HomeEXFDelete', [App\Http\Controllers\admin\HomePageController::class,'HomeEXFDelete'])->name('admin.HomeEXFDelete');
+         Route::post('/HomeEXPEdit', [App\Http\Controllers\admin\HomePageController::class,'HomeEXPEdit'])->name('admin.HomeEXPEdit');
+         Route::post('/HomeEXPUpdate', [App\Http\Controllers\admin\HomePageController::class,'HomeEXPUpdate'])->name('admin.HomeEXPUpdate');
+
+
+
+         Route::get('/getTestimonialData', [App\Http\Controllers\admin\HomePageController::class,'getHomeTestimonialData'])->name('admin.getTestimonialData');
+         Route::post('/TestimonialAdd', [App\Http\Controllers\admin\HomePageController::class,'TestimonialAdd'])->name('admin.TestimonialAdd');
+         Route::post('/TestimonialDelete', [App\Http\Controllers\admin\HomePageController::class,'HomeTestimonialDelete'])->name('admin.TestimonialDelete');
+         Route::post('/getTestimonialEditData', [App\Http\Controllers\admin\HomePageController::class,'HomeTestimonialEdit'])->name('admin.getTestimonialEditData');
+         Route::post('/TestimonilaUpdate', [App\Http\Controllers\admin\HomePageController::class,'TestimonilaUpdate'])->name('admin.TestimonilaUpdate');
 
 
     });
@@ -170,3 +166,57 @@ Route::group(['prefix' => 'admin'], function () {
 
 
 });
+
+
+
+
+
+//Clear Cache facade value:
+Route::get('/optimize', function() {
+    $exitCode = Artisan::call('optimize:clear');
+    return '<h1>optimize cleared</h1>';
+});
+
+
+
+
+//Clear View cache:
+Route::get('/view-clear', function() {
+    $exitCode = Artisan::call('view:clear');
+    return '<h1>View cache cleared</h1>';
+});
+
+//Clear Config cache:
+Route::get('/config-cache', function() {
+    $exitCode = Artisan::call('config:cache');
+    return '<h1>Clear Config cleared</h1>';
+});
+
+//Clear Cache facade value:
+Route::get('/clear-cache', function() {
+    $exitCode = Artisan::call('cache:clear');
+    return '<h1>Cache facade value cleared</h1>';
+});
+
+
+
+//Clear Route cache:
+Route::get('/route-clear', function() {
+    $exitCode = Artisan::call('route:clear');
+    return '<h1>Route cache cleared</h1>';
+});
+
+//Clear Config cache:
+Route::get('/Storage-link', function() {
+    $exitCode = Artisan::call('storage:link');
+    return '<h1>Storage Link Created</h1>';
+});
+
+
+
+//Clear Config cache:
+// Route::get('/Create-controller', function() {
+//     $exitCode = Artisan::call('make:controller admin/HomeSliderController');
+//     return '<h1>Controller Created</h1>';
+// });
+

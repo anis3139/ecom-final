@@ -20,7 +20,7 @@
     <h1>Hello Mr. {{$user->name}}</h1>
     <p>Welcome To Our Ecommerce System</p>
     <p>Please Click The Following Link to Activate Your Account...</p>
-    <a href="{{ route('client.active', $user->email_verification_token) }}"><button>Verify Account</button></a>
+   
     <h3>Thanks For Registration</h3>
 </body>
 </html>

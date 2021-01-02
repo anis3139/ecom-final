@@ -21,7 +21,7 @@
 @section('content')
 
     <!-- catg header banner section -->
-  @include('client.components.hero')
+   @include('client.components.hero')
     <!-- / catg header banner section -->
 
     <!-- product category -->
@@ -90,7 +90,7 @@
                                                 <span class="aa-product-price">${{ $allProduct->product_price }}</span><span
                                                     class="aa-product-price"><del>${{ $allProduct->product_selling_price }}</del></span>
                                                 <p class="aa-product-descrip">{!! nl2br(e( $allProduct->product_discription)) !!}</p>
-                                            </figcaption> 
+                                            </figcaption>
                                         </figure>
                                         {{-- <div class="aa-product-hvr-content">
                                             <a href="#" data-toggle="tooltip" data-placement="top"
@@ -224,7 +224,7 @@
             ->where('parent_id', 0)
             ->get()
         as $parentCat)
-                                    <li><a href="#">{{ $parentCat->name }}</a></li>
+                                    <li><a href="{{ route('client.category', $parentCat->slug) }}">{{ $parentCat->name }}</a></li>
                                 @endforeach
                             </ul>
                         </div>

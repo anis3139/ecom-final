@@ -31,7 +31,7 @@
                                                     @if ($i > 0)
                                                         <a class="aa-product-img"
                                                             href="{{ route('client.showProductDetails', ['slug' => $popular_product->product->product_slug]) }}"><img
-                                                                src="{{ $images->image_path }}" alt="{{ $popular_product->product->product_title }}"
+                                                                src="{{ $images->image_path }}" alt="polo shirt img"
                                                                 width="100%" height="300px"></a>
                                                     @endif
                                                     @php $i--; @endphp
@@ -79,7 +79,7 @@
                                     <!-- end single product item -->
 
                                 </ul>
-                                <a class="aa-browse-btn" href="#">Browse all Product <span
+                                <a class="aa-browse-btn" href="{{route('client.shop')}}">Browse all Product <span
                                         class="fa fa-long-arrow-right"></span></a>
                             </div>
                             <!-- / popular product category -->
@@ -96,7 +96,7 @@
                                                     @if ($i > 0)
                                                         <a class="aa-product-img"
                                                             href="{{ route('client.showProductDetails', ['slug' => $featureProduct->product_slug]) }}"><img
-                                                                src="{{ $images->image_path }}" alt="{{ $featureProduct->product_title}}"
+                                                                src="{{ $images->image_path }}" alt="polo shirt img"
                                                                 width="100%" height="300px"></a>
                                                     @endif
                                                     @php $i--; @endphp
@@ -135,7 +135,7 @@
                                                     SALE!
                                                 </span>
                                             @else
-                                                <span class="aa-badge aa-sold-out" href="#">Sold Out!</span>
+                                                <span class="aa-badge aa-sold-out" href="{{route('client.shop')}}">Sold Out!</span>
                                             @endif
                                         </li>
                                         <!-- start single product item -->
@@ -202,7 +202,7 @@
                                         <!-- end single product item -->
                                     @endforeach
                                 </ul>
-                                <a class="aa-browse-btn" href="#">Browse all Product <span
+                                <a class="aa-browse-btn" href="{{route('client.shop')}}">Browse all Product <span
                                         class="fa fa-long-arrow-right"></span></a>
                             </div>
                             <!-- / latest product category -->

@@ -8,7 +8,7 @@
             <div class="row">
                 <div class="col-md-12 p-2">
                     <h1 class="text-center">Exclusive Special Feature Section</h1>
-                  
+
                         {{-- Exclusive Image Table --}}
 
                         <table class="table table-striped table-bordered mt-2" cellspacing="0" width="100%">
@@ -31,11 +31,22 @@
                                             <label for="addImageEXP" class="sr-only">Image</label>
                                             <input id="addImageEXP" required type="file" class="form-control ">
                                             <hr>
-                                            <img id="addimagepreviewEXP" style="width: 200px; height:120px !important;"
-                                                class="imgPreview mt-3 border rounded" src="<?php if ($results) {
-                                                        echo $results->exp_image;
-                                                    } ?>" />
-                        
+                                            <img id="addimagepreviewEXP" style="width: 200px; height:120px !important;" class="imgPreview mt-3 border rounded" src="
+                                            @if($results)
+                                                @isset($results)
+                                                {{ $results->exp_image }}
+                                                @endisset
+                                            @else
+                                                @empty($records)
+                                                                {{ asset('admin/images/default-image.png') }}
+                                                @endempty
+                                            @endif
+                                                " />
+
+
+
+
+
                                         </div>
                                     </td>
                                     <td>
@@ -66,7 +77,7 @@
                             </tr>
                         </thead>
                         <tbody id="EXF_table">
-                            
+
                         </tbody>
                     </table>
                 </div>

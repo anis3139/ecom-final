@@ -1,5 +1,5 @@
 <!-- menu -->
-<section id="menu" style="position: sticky !important; top:0px !important;">
+<section id="menu" style="position: sticky !important; top:0px !important; z-index:999;">
     <div class="container">
         <div class="menu-area">
             <!-- Navbar -->
@@ -28,7 +28,7 @@
                             </li>
                         @endforeach
 
-
+  <li><a href="{{ route('client.contact') }}">Contact</a></li>
                     </ul>
                 </div>
                 <!--/.nav-collapse -->

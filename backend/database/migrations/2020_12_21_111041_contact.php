@@ -19,6 +19,7 @@ class Contact extends Migration
             $table->string('mobile');
             $table->string('email');
             $table->string('msg');
+            $table->string('subject');
 
         });
     }
