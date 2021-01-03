@@ -31,30 +31,23 @@
                 @include('client.components.massege')
                 @include('client.components.errorMassage')
                 <div class="aa-myaccount-register">
-                 <h4>Register</h4>
-                 <form action="{{route('client.addUser')}}" class="aa-login-form registration" method="post">
+                 <h4>Hello, Mr. {{$user->name}}.... <br> Please Reset Your Password</h4>
+
+                 <form action="{{route('client.updatePassword')}}" class="aa-login-form registration" method="post">
                     @csrf
-                    <label for="">Full Name<span>*</span></label>
-                    <input name="name" type="text" placeholder="Name" value="{{old('name')}}">
-                    <label for="phone">Phone Number<span>*</span></label>
-                    <input name="phone_number" type="number" placeholder="Phone Number" value="{{old('phone_number')}}">
                     <label for="">Email address<span>*</span></label>
-                    <input name="email" type="email" placeholder="Email" value="{{old('email')}}">
-                    <label for="">Password<span>*</span></label>
+                    <input name="email" readonly type="email" placeholder="Email" value="{{$user->email}}">
+                    <label for="">New Password<span>*</span></label>
                     <input name="password" type="password" placeholder="Password">
                     <label for="">Confirm Password<span>*</span></label>
                     <input name="password_confirmation" type="password" placeholder="Confirm Password">
-                    <button type="submit" class="aa-browse-btn">Register</button>
+                    <button type="submit" class="aa-browse-btn">Reset Password</button>
                   </form>
                 </div>
               </div>
             </div>
             <div class="row">
-                @guest
-                    <div class="col-md-12"  style="margin-top: 20px !important">
-                        <p>Have Account? Please <a class="text-primary" href="{{route('client.login')}}"> Login </a> Now</p>
-                    </div>
-                @endguest
+
             </div>
          </div>
        </div>

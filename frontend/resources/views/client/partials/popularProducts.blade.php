@@ -52,8 +52,8 @@
                                                             href="{{ route('client.showProductDetails', ['slug' => $popular_product->product->product_slug]) }}">{{ $popular_product->product->product_title }}</a>
                                                     </h4>
                                                     <span
-                                                        class="aa-product-price">${{ $popular_product->product->product_selling_price }}</span><span
-                                                        class="aa-product-price"><del>${{ $popular_product->product->product_price }}</del></span>
+                                                        class="aa-product-price">&euro; &nbsp;{{ $popular_product->product->product_selling_price }}</span><span
+                                                        class="aa-product-price"><del>&euro; &nbsp;{{ $popular_product->product->product_price }}</del></span>
                                                 </figcaption>
                                             </figure>
                                             {{-- <div class="aa-product-hvr-content">
@@ -176,8 +176,8 @@
                                             </form>
                                                 <figcaption>
                                                     <h4 class="aa-product-title"><a href="{{ route('client.showProductDetails', ['slug' => $latestProduct->product_slug]) }}">{{ $latestProduct->product_title }}</a></h4>
-                                                    <span class="aa-product-price">${{ $latestProduct->product_selling_price }}</span><span
-                                                        class="aa-product-price"><del>${{ $latestProduct->product_price }}</del></span>
+                                                    <span class="aa-product-price">&euro; &nbsp;{{ $latestProduct->product_selling_price }}</span><span
+                                                        class="aa-product-price"><del>&euro; &nbsp;{{ $latestProduct->product_price }}</del></span>
                                                 </figcaption>
                                             </figure>
                                             {{-- <div class="aa-product-hvr-content">

@@ -53,7 +53,7 @@
                                     <div class="aa-product-view-content">
                                         <h3>{!! $productDetails->product_title !!}</h3>
                                         <div class="aa-price-block">
-                                            <span class="aa-product-view-price">${{ $productDetails->product_price }}</span>
+                                            <span class="aa-product-view-price">&euro; &nbsp;{{ $productDetails->product_price }}</span>
                                             <p class="aa-product-avilability">Avilability: <span>
                                                     @if ($productDetails->product_in_stock == 1)
                                                         {{ 'In Stock' }}
@@ -62,7 +62,7 @@
                                                     @endif
                                                 </span></p>
                                         </div>
-                                        <p> {!! nl2br(e( $allProduct->product_discription)) !!}</p>
+                                        <p> {!! nl2br(e( $productDetails->product_discription)) !!}</p>
                                         <h4>Size</h4>
                                         <div class="aa-prod-view-size">
                                             <a href="#">S</a>
@@ -249,8 +249,8 @@
                                                 <h4 class="aa-product-title"><a
                                                         href="{{ route('client.showProductDetails', ['slug' => $relProduct->product_slug]) }}">{!!
                                                         $relProduct->product_title !!}</a></h4>
-                                                <span class="aa-product-price">${{ $relProduct->product_price }}</span><span
-                                                    class="aa-product-price"><del>${{ $relProduct->product_selling_price }}</del></span>
+                                                <span class="aa-product-price">&euro; &nbsp;{{ $relProduct->product_price }}</span><span
+                                                    class="aa-product-price"><del>&euro; &nbsp;{{ $relProduct->product_selling_price }}</del></span>
                                             </figcaption>
                                         </figure>
                                         {{-- <div class="aa-product-hvr-content">

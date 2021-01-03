@@ -99,8 +99,8 @@
                                             <figcaption>
                                                 <h4 class="aa-product-title"><a
                                                         href="#">{{ $allProduct->product_title }}</a></h4>
-                                                <span class="aa-product-price">${{ $allProduct->product_price }}</span><span
-                                                    class="aa-product-price"><del>${{ $allProduct->product_selling_price }}</del></span>
+                                                <span class="aa-product-price">&euro; &nbsp;{{ $allProduct->product_price }}</span><span
+                                                    class="aa-product-price"><del>&euro; &nbsp;{{ $allProduct->product_selling_price }}</del></span>
                                                 <p class="aa-product-descrip">{!! nl2br(e( $allProduct->product_discription)) !!}</p>
                                             </figcaption>
                                         </figure>
@@ -308,7 +308,7 @@
                                                 <h4><a
                                                         href="{{ route('client.showProductDetails', ['slug' => $popular_product->product->product_slug]) }}">{{ $popular_product->product->product_title }}</a>
                                                 </h4>
-                                                <p>1 x ${{ $popular_product->product->product_selling_price }}</p>
+                                                <p>1 x &euro; &nbsp;{{ $popular_product->product->product_selling_price }}</p>
                                             </div>
                                         </li>
                                     @endforeach
@@ -335,7 +335,7 @@
 
                                             <div class="aa-cartbox-info">
                                                 <h4><a href="#">{{$topRatedProduct->product_title}}</a></h4>
-                                                <p>1 x ${{$topRatedProduct->product_price}}</p>
+                                                <p>1 x &euro; &nbsp;{{$topRatedProduct->product_price}}</p>
                                             </div>
                                         </li>
                                     @endforeach

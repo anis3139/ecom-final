@@ -113,7 +113,7 @@ class authController extends Controller
                 $user->notify(new registerEmail( $user));
 
 
-        // Mail::to($user->email)->send(new registrationVarificationMail($user));
+
         session()->flash('success', 'Registration Successfull! Please Check Your Mail For Active your Account');
         return redirect()->route('client.registration');
 
@@ -152,11 +152,62 @@ public function profile()
 
 
 
+public function forgot()
+{
+    return view('client.pages.forgot');
+}
+
+
+public function forgotPassword(Request $request)
+{
+
+    $user=User::where('email', $request->email)->first();
+
+    if($user == null){
+        return redirect()->back()->with('error', 'Email not Exist !');
+    }
+
+    Mail::to($user->email)->send(new registrationVarificationMail($user));
+
+    return redirect()->back()->with('success', 'Please Check your Mail For new Password !');
+
+
+}
 
 
 
+public function recoverPassWord($id)
+{
+
+    $recoveryTocken = $id;
+    $email = (explode('-', $recoveryTocken))[0];
+
+    $data=[];
+    $data['user']=User::where('email',$email)->first();
+
+    return view('client.pages.recoverPassword',  $data);
+}
 
 
+public function updatePassword(Request $request)
+{
+    $validator=Validator::make(request()->all(),[
 
+        'email'=>'required | email',
+        'password' => 'min:6|required_with:password_confirmation|same:password_confirmation',
+        'password_confirmation' => 'min:6'
+       ]);
+
+       if ($validator->fails()) {
+          return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        $data=User::where('email',$request->email)->first();
+
+        $data->password= bcrypt( $request->Input('password'));
+        $data->save();
+
+        return redirect()->route('client.login')->with('success', 'Password Reset Successfully');
+}
 
 }

@@ -19,8 +19,11 @@
 <body>
     <h1>Hello Mr. {{$user->name}}</h1>
     <p>Welcome To Our Ecommerce System</p>
-    <p>Please Click The Following Link to Activate Your Account...</p>
-   
+    <p>Please Click The Following Link to Reset Your Password</p>
+    @php
+         $passRecoveryTokentoken=$user->email."-".Str::random(40);
+    @endphp
+    <a href="{{route('client.recoverPassWord',  $passRecoveryTokentoken)}}"><button>Click Here</button></a>
     <h3>Thanks For Registration</h3>
 </body>
 </html>

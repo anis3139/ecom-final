@@ -214,7 +214,7 @@
                                                             <tr>
                                                                 <td>{{ $product['title'] }} <strong> x
                                                                         {{ $product['quantity'] }}</strong></td>
-                                                                <td>${{ number_format($product['total_price'], 2)  }}</td>
+                                                                <td>&euro; &nbsp;{{ number_format($product['total_price'], 2)  }}</td>
                                                             </tr>
                                                         @endforeach
 
@@ -222,16 +222,16 @@
                                                     <tfoot>
                                                         <tr>
                                                             <th>Subtotal</th>
-                                                            <td>${{ number_format($total, 2)}}</td>
+                                                            <td>&euro; &nbsp;{{ number_format($total, 2)}}</td>
                                                         </tr>
                                                         <tr>
                                                             <th>Tax</th>
                                                             <td>21%</td>
                                                         </tr>
-                                                      
+
                                                         <tr>
                                                             <th>Total</th>
-                                                            <td>${{ number_format(  ($total*21)/100 + $total, 2) }}</td>
+                                                            <td>&euro; &nbsp;{{ number_format(  ($total*21)/100 + $total, 2) }}</td>
                                                         </tr>
                                                     </tfoot>
                                                 </table>
