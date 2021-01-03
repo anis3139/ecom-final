@@ -21,7 +21,7 @@
                             @if (empty($cart))
                                 <div class="table-responsive">
                                     <div class="alert alert-info alert-block">
-                                        <p>Please Add Some Product On Your Cart. <a href=""> Go Shop Page</a></p>
+                                        <p>Please Add Some Product On Your Cart. <a class="text-primary" href="{{route('client.shop')}}"> Go Shop Page</a></p>
                                     </div>
                                 @else
                                     <table class="table table-bordered">
@@ -51,7 +51,7 @@
                                                     </td>
 
                                                     <td><img src="{{ $cartItem['image'] }}" alt=""></td>
-                                                   
+
 
                                                     <td><a class="aa-cart-title" href="#">{{ $cartItem['title'] }}</a></td>
 

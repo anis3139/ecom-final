@@ -24,6 +24,8 @@
                     <input name="email" type="email" placeholder="Email" value="{{old('email')}}">
                     <label for="">Password<span>*</span></label>
                     <input name="password" type="password" placeholder="Password">
+                    <label for="">Confirm Password<span>*</span></label>
+                    <input name="password_confirmation" type="password" placeholder="Confirm Password">
                     <button type="submit" class="aa-browse-btn">Log In</button>
                   </form>
                 </div>

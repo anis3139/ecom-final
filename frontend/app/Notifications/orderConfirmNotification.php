@@ -48,7 +48,7 @@ class orderConfirmNotification extends Notification
                     ->line('Your order is pleced successfully')
                     ->line('Your order id is '. $this->order->id)
                     ->action('View details ', route('client.orderDetails',  $this->order->id))
-                    ->line('Thanks for choose us');;
+                    ->line('Thanks for choose us');
     }
 
     /**

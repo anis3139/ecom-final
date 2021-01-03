@@ -78,7 +78,6 @@
                                             @php $i= 1; @endphp
                                             @foreach ($allProduct->img as $images)
                                                 @if ($i > 0)
-
                                                     <a class="aa-product-img"
                                                         href="{{ route('client.showProductDetails', ['slug' => $allProduct->product_slug]) }}"><img
                                                             src="{{ $images->image_path }}" alt="polo shirt img"

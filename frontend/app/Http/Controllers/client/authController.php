@@ -87,7 +87,8 @@ class authController extends Controller
         'name'=>'required',
         'email'=>'required | email |unique:users,email',
         'phone_number'=>'required|min:8| max:16|unique:users,phone_number',
-        'password'=>'required |min:8',
+        'password' => 'min:6|required_with:password_confirmation|same:password_confirmation',
+        'password_confirmation' => 'min:6'
 
        ]);
 
