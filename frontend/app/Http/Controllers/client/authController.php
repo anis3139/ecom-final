@@ -166,26 +166,31 @@ public function forgotPassword(Request $request)
     if($user == null){
         return redirect()->back()->with('error', 'Email not Exist !');
     }
+    
 
     Mail::to($user->email)->send(new registrationVarificationMail($user));
 
     return redirect()->back()->with('success', 'Please Check your Mail For new Password !');
 
-
 }
 
 
-
-public function recoverPassWord($id)
+public function recoverPassWord($id = null)
 {
+
+    if ($id == null) {
+        session()->flash('error', 'Wrong varification Token');
+        return redirect()->route('client.home');
+    }
 
     $recoveryTocken = $id;
     $email = (explode('-', $recoveryTocken))[0];
-
-    $data=[];
-    $data['user']=User::where('email',$email)->first();
-
-    return view('client.pages.recoverPassword',  $data);
+    $user=User::where('email',$email)->firstOrFail();
+    if($user){
+        return view('client.pages.recoverPassword')->with([ 'user'=> $user]);
+     }
+             
+    
 }
 
 

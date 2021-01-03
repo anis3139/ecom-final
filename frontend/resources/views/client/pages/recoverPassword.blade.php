@@ -30,6 +30,8 @@
               <div class="col-md-12">
                 @include('client.components.massege')
                 @include('client.components.errorMassage')
+
+                @if($user)
                 <div class="aa-myaccount-register">
                  <h4>Hello, Mr. {{$user->name}}.... <br> Please Reset Your Password</h4>
 
@@ -38,12 +40,14 @@
                     <label for="">Email address<span>*</span></label>
                     <input name="email" readonly type="email" placeholder="Email" value="{{$user->email}}">
                     <label for="">New Password<span>*</span></label>
-                    <input name="password" type="password" placeholder="Password">
+                    <input required name="password" type="password" placeholder="Password">
                     <label for="">Confirm Password<span>*</span></label>
-                    <input name="password_confirmation" type="password" placeholder="Confirm Password">
+                    <input required name="password_confirmation" type="password" placeholder="Confirm Password">
                     <button type="submit" class="aa-browse-btn">Reset Password</button>
                   </form>
                 </div>
+                
+                @endif
               </div>
             </div>
             <div class="row">

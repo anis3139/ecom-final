@@ -14,8 +14,8 @@
                                     <h4>Log In</h4>
                                     <form action="{{ route('client.onlogin') }}" class="aa-login-form registration"
                                         method="post"> @csrf <label for="">Email address<span>*</span></label> <input
-                                            name="email" type="email" placeholder="Email" value="{{ old('email') }}"> <label
-                                            for="">Password<span>*</span></label> <input name="password" type="password"
+                                            name="email" required type="email" placeholder="Email" value="{{ old('email') }}"> <label
+                                            for="">Password<span>*</span></label> <input required name="password" type="password"
                                             placeholder="Password"> <button type="submit" class="aa-browse-btn">Log
                                             In</button> </form>
                                 </div>

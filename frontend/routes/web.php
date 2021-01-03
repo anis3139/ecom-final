@@ -40,6 +40,8 @@ Route::post('/onlogin', [App\Http\Controllers\client\authController::class, 'onl
 Route::get('/registration', [App\Http\Controllers\client\authController::class, 'registration'])->name('client.registration');
 Route::post('/addUser', [App\Http\Controllers\client\authController::class, 'addUser'])->name('client.addUser');
 Route::get('/active/{token}', [App\Http\Controllers\client\authController::class, 'userActive'])->name('client.active');
+
+//reset password
 Route::get('/forgot', [App\Http\Controllers\client\authController::class, 'forgot'])->name('client.forgot');
 Route::post('/forgotPassword', [App\Http\Controllers\client\authController::class, 'forgotPassword'])->name('client.forgotPassword');
 Route::get('/recoverPassWord/{id}', [App\Http\Controllers\client\authController::class, 'recoverPassWord'])->name('client.recoverPassWord');

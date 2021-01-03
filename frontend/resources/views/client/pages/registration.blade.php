@@ -35,15 +35,15 @@
                  <form action="{{route('client.addUser')}}" class="aa-login-form registration" method="post">
                     @csrf
                     <label for="">Full Name<span>*</span></label>
-                    <input name="name" type="text" placeholder="Name" value="{{old('name')}}">
+                    <input required name="name" type="text" placeholder="Name" value="{{old('name')}}">
                     <label for="phone">Phone Number<span>*</span></label>
-                    <input name="phone_number" type="number" placeholder="Phone Number" value="{{old('phone_number')}}">
+                    <input required name="phone_number" type="number" placeholder="Phone Number" value="{{old('phone_number')}}">
                     <label for="">Email address<span>*</span></label>
-                    <input name="email" type="email" placeholder="Email" value="{{old('email')}}">
+                    <input required name="email" type="email" placeholder="Email" value="{{old('email')}}">
                     <label for="">Password<span>*</span></label>
-                    <input name="password" type="password" placeholder="Password">
+                    <input required name="password" type="password" placeholder="Password">
                     <label for="">Confirm Password<span>*</span></label>
-                    <input name="password_confirmation" type="password" placeholder="Confirm Password">
+                    <input required name="password_confirmation" type="password" placeholder="Confirm Password">
                     <button type="submit" class="aa-browse-btn">Register</button>
                   </form>
                 </div>

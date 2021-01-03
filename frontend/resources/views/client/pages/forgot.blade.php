@@ -20,7 +20,7 @@
                  <form action="{{route('client.forgotPassword')}}" class="aa-login-form registration" method="post">
                     @csrf
                     <label for="">Please Enter Your Email<span>*</span></label>
-                    <input name="email" type="email" placeholder="Email" value="{{old('email')}}">
+                    <input required name="email" type="email" placeholder="Email" value="{{old('email')}}">
                     <button type="submit" class="aa-browse-btn">Submit</button>
                   </form>
                 </div>

@@ -47,6 +47,7 @@ class ContactReplyNotification extends Notification implements ShouldQueue
         return (new MailMessage)
                      ->line('Mr. '. $this->contact->name)
                     ->line('Welcome To Our Ecommerce System')
+                    ->line('We recive your massage')
                     ->line('Click The Following Link to Shoping ...')
                    ->action('Click Here', route('client.shop'))
                     ->line('Thanks For Choose us');
