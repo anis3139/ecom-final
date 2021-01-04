@@ -34,6 +34,9 @@ Route::get('/shop', [App\Http\Controllers\client\shopController::class, 'shopInd
 Route::get('/contact', [App\Http\Controllers\client\contactController::class, 'contactIndex'])->name('client.contact');
 Route::post('/contactSend', [App\Http\Controllers\client\contactController::class, 'contactSend'])->name('client.contactSend');
 
+//About Page
+Route::get('/about', [App\Http\Controllers\client\aboutPageController::class, 'aboutIndex'])->name('client.about');
+
 //Login
 Route::get('/login', [App\Http\Controllers\client\authController::class, 'showLogin'])->name('client.login');
 Route::post('/onlogin', [App\Http\Controllers\client\authController::class, 'onlogin'])->name('client.onlogin');

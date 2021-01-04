@@ -27,7 +27,7 @@
                                 </ul>
                             </li>
                         @endforeach
-
+                        <li><a href="{{ route('client.about') }}">About us</a></li>
   <li><a href="{{ route('client.contact') }}">Contact</a></li>
                     </ul>
                 </div>
