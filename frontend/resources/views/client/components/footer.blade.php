@@ -4,7 +4,7 @@ $socialData=App\Models\SocialModel::first();
 
 @endphp
 
-<!-- footer -->  
+<!-- footer -->
 <footer id="aa-footer">
     <!-- footer bottom -->
     <div class="aa-footer-top">
@@ -77,7 +77,7 @@ $socialData=App\Models\SocialModel::first();
                     </address>
                     <div class="aa-footer-social">
                       <a href="@if ($socialData)
-                                   {{$socialData}}
+                                   {{$socialData->facebook}}
                                    @endif"><span class="fa fa-facebook"></span></a>
                       <a href="@if ($socialData)
                                    {{$socialData->twitter}}
@@ -92,7 +92,7 @@ $socialData=App\Models\SocialModel::first();
                   </div>
                 </div>
               </div>
-            </div> 
+            </div>
           </div>
         </div>
       </div>
@@ -119,4 +119,3 @@ $socialData=App\Models\SocialModel::first();
   </footer>
   <!-- / footer -->
 
-  

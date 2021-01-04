@@ -52,7 +52,7 @@ $others=App\Models\OthersModel::first();
                             <div class="cellphone hidden-xs">
                                 <p><span class="fa fa-phone"></span>  <a href="tel:@if ($others)
                                    {{$others->phone}}
-                                   @endif"> 
+                                   @endif">
                                    @if ($others)
                                    {{$others->phone}}
                                    @endif</a></p>
@@ -93,7 +93,9 @@ $others=App\Models\OthersModel::first();
                         <!-- logo  -->
                         <div class="aa-logo">
                            @if ($others)
-                            <a href="{{ route('client.home') }}"><img src=" {{$others->logo}}" alt="logo img" width="100px" height="60px"></a>
+                            <a href="{{ route('client.home') }}"><img src="@if ($others)
+                                {{$others->logo}}
+                                @endif" alt="logo img" width="100px" height="60px"></a>
                             @else
                              <!-- Text based logo -->
                              <a href="{{ route('client.home') }}">
