@@ -1,4 +1,4 @@
-@extends('admin.Layouts.app')
+@extends('admin.layouts.app')
 @section('css')
     <style>
         .modal-dialog-full-width {
@@ -105,14 +105,14 @@
                                         <td style="max-width:200px !important;">Order ID</td>
                                         <td id="id"></td>
                                     </tr>
-                                    <tr>
+                                    {{-- <tr>
                                         <td style="max-width:200px !important;">User Id </td>
                                         <td id="user_id"> </td>
                                     </tr>
                                     <tr>
                                         <td style="max-width:200px !important;">User Name </td>
                                         <td id="user_Name"> </td>
-                                    </tr>
+                                    </tr> --}}
                                     <tr>
                                         <td style="max-width:200px !important;">Customer Name</td>
                                         <td id="customer_name"></td>
@@ -199,7 +199,7 @@
                                                     <option value="Complete">Complete</option>
                                                 </select>
                                             </div>
-                                            <input type="hidden" id="payment_status_id" >
+                                            <input type="hidden" id="payment_status_id">
                                             <input type="submit" value="Update" class="btn btn-success btn-block">
                                         </form>
                                     </div>
@@ -258,8 +258,7 @@
                                 .paid_amount + " </td>" +
                                 "<td><a class='OrdersView' data-id=" + dataJSON[i].id +
                                 "><i class='fas fa-eye'></i></a></td>"+
-                                "<td><a class='OrdersView' href=" + dataJSON[i].id +
-                                "><i class='fas fa-print'></i></a></td>"
+                                "<td><a  href='ordersPrint/"+ dataJSON[i].id +"'><i class='fas fa-print'></i></a></td>"
                             ).appendTo('#Orders_Table');
                         });
 
@@ -299,24 +298,17 @@
 
 
 
-
-
-
-
-
         function OrdersViewDetails(id) {
             axios.post("{{ route('admin.ordersView') }}", {
                     id: id
                 })
                 .then(function(response) {
-
+                        console.log(response.data);
                     if (response.status == 200) {
                         $('#loadDivOrders').addClass('d-none');
                         $('#OrdersEditForm').removeClass('d-none');
 
                         var dataJSON = response.data;
-
-
 
                         var productOwner = " ";
                         if (dataJSON[0].product_owner_id == 0) {
@@ -338,8 +330,10 @@
                         $('#paid_amount').html(dataJSON[0].paid_amount);
                         $('#payment_details').html(dataJSON[0].payment_details);
                         $('#product_owner_id').html(productOwner);
-                        $('#user_id').html(dataJSON[0].user_id);
-                        $('#user_Name').html(dataJSON[0].customer.name);
+
+                        // $('#user_id').html(dataJSON[0].user_id);
+                        // $('#user_Name').html(dataJSON[0].customer.name);
+
                         $('#total_price').html('$' + dataJSON[0].paid_amount);
 
 
@@ -347,7 +341,6 @@
                         $('#payment_status_id').val(dataJSON[0].id);
 
                         $('#payment_status option[value=' + dataJSON[0].payment_status + ']').attr('selected', 'selected');
-
 
 
                         var imageViewHtml = "";
@@ -363,17 +356,16 @@
                             imageViewHtml += '</tr>';
                             $('.OrdersView').html(imageViewHtml);
                         }
-
-
-
-
+                        getOrdersdata();
                     } else {
                         $('#loadDivOrders').addClass('d-none');
                         $('#wrongDivOrders').removeClass('d-none');
+                        getOrdersdata();
                     }
                 }).catch(function(error) {
                     $('#loadDivOrders').addClass('d-none');
                     $('#wrongDivOrders').removeClass('d-none');
+
                 });
         }
 
@@ -383,15 +375,21 @@
             var payment_status = $('#payment_status').val()
             var payment_status_id = $('#payment_status_id').val()
             let url =" {{ route('admin.ordersStatusUpdate') }}";
+
             axios.post(url, {
                 payment_status: payment_status,
                 id: payment_status_id,
             }).then(function(response) {
-
+                        // gj
                 if (response.status == 200 && response.data == 1) {
                     toastr.success('Update Success.');
+                    $('#viewOrdersModal').modal('hide');
+                    getOrdersdata();
+
                 } else {
                     toastr.error('Update Fail ! Try Again');
+                    $('#viewOrdersModal').modal('hide');
+                    getOrdersdata();
                 }
 
             }).catch(function(error) {
