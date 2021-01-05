@@ -356,11 +356,11 @@
                             imageViewHtml += '</tr>';
                             $('.OrdersView').html(imageViewHtml);
                         }
-                        getOrdersdata();
+
                     } else {
                         $('#loadDivOrders').addClass('d-none');
                         $('#wrongDivOrders').removeClass('d-none');
-                        getOrdersdata();
+                       
                     }
                 }).catch(function(error) {
                     $('#loadDivOrders').addClass('d-none');
@@ -380,16 +380,14 @@
                 payment_status: payment_status,
                 id: payment_status_id,
             }).then(function(response) {
-                        // gj
                 if (response.status == 200 && response.data == 1) {
                     toastr.success('Update Success.');
-                    $('#viewOrdersModal').modal('hide');
-                    getOrdersdata();
+
+
 
                 } else {
                     toastr.error('Update Fail ! Try Again');
-                    $('#viewOrdersModal').modal('hide');
-                    getOrdersdata();
+
                 }
 
             }).catch(function(error) {
