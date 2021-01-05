@@ -32,6 +32,8 @@
                                                 <th>Product</th>
                                                 <th>Unit Price</th>
                                                 <th>Quantity</th>
+                                                <th>Color</th>
+                                                <th>Meserment</th>
                                                 <th>Total Price</th>
 
                                             </tr>
@@ -58,6 +60,8 @@
                                                     <td>&euro; &nbsp;{{ number_format($cartItem['unit_price']) }} </td>
 
                                                     <td>{{ $cartItem['quantity'] }}</td>
+                                                    <td style="display:flex; justify-content:center; align-items: center; height:20vh;"><div style=" width:20px; height:20px; border:1px solid #000; border-radius:50%; background-color: {{ $cartItem['color'] }};"></div></td>
+                                                    <td>{{ $cartItem['maserment'] }}</td>
 
                                                     <td>&euro; &nbsp;{{ number_format($cartItem['total_price'], 2) }}
                                                     </td>

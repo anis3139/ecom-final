@@ -29,8 +29,8 @@ class product_table extends Model
         return $this->hasOne(ProductsBrandModel::class,'product_brand_id');
     }
 
-    public function masermant() {
-        return $this->hasMany(meserments::class,'product_measurements_id');
+    public function maserment() {
+        return $this->hasMany(meserments::class,'product_id', 'id');
     }
 
     public function vendor() {
@@ -43,6 +43,9 @@ class product_table extends Model
 
     public function img() {
         return $this->hasMany(product_has_images::class,'has_images_product_id', 'id');
+    }
+    public function color() {
+        return $this->hasMany(product_color::class,'product_color_product_id', 'id');
     }
 
 

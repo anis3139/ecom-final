@@ -12,8 +12,8 @@ class productController extends Controller
     public function showProductDetails($slug){
         $singleData=[];
 
-        $singleData['productDetails']=product_table::with('cat', 'img')->where('product_slug', $slug)->where('product_active', 1)->first();
-
+        $singleData['productDetails']=product_table::with('cat', 'img', 'maserment', 'color')->where('product_slug', $slug)->where('product_active', 1)->first();
+       
         if( $singleData['productDetails'] == null){
             return redirect()->route('client.home');
         }

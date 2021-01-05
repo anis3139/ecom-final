@@ -23,7 +23,7 @@ class cartController extends Controller
         $data['cart'] = session()->has('cart') ? session()->get('cart') : [];
         $data['total']= array_sum( array_column($data['cart'], 'total_price'));
 
-
+      
 
 
         return view('client.pages.cart', $data);
@@ -48,20 +48,22 @@ class cartController extends Controller
 
          $unit_price=($product->product_selling_price !== null && $product->product_selling_price > 0) ? $product->product_selling_price : $product->product_price;
          $cart = session()->has('cart') ? session()->get('cart') : [];
+        $quantity= $request->quantity ?? $product->product_quantity;
 
         if (array_key_exists($product->id, $cart)) {
-            $cart[$product->id]['quantity']++;
+            $cart[$product->id]['quantity'] +=  $quantity;
             $cart[$product->id]['total_price']= $cart[$product->id]['quantity'] *  $cart[$product->id]['unit_price'];
 
 
         } else {
             $cart[$product->id] = [
                 'title' => $product->product_title,
-                'quantity' =>$product->product_quantity,
+                'quantity' => $quantity,
                 'unit_price' => $unit_price,
                 'total_price' => $unit_price,
-                'image' =>$product->img[0]->image_path,
-
+                'color' =>$request->color,
+                'maserment' =>$request->maserment,
+                'image'=>$product->img[0]->image_path,
             ];
 
 

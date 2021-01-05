@@ -1,5 +1,7 @@
 @extends('client.layouts.app')
-
+@section('css')
+@include('client.css.productViewCss')
+@endsection
 @section('content')
     <!-- catg header banner section -->
    @include('client.components.hero')
@@ -63,32 +65,55 @@
                                                 </span></p>
                                         </div>
                                         <p> {!! nl2br(e( $productDetails->product_discription)) !!}</p>
-                                        <h4>Size</h4>
-                                        <div class="aa-prod-view-size">
-                                            <a href="#">S</a>
-                                            <a href="#">M</a>
-                                            <a href="#">L</a>
-                                            <a href="#">XL</a>
+
+
+                         <form action="{{ route('client.addCart') }}" id="cartForm" method="post">
+
+
+                                   @if(count($productDetails->color)>0)
+                                        <!-- Product Color -->
+                                        <div class="product-color">
+                                            <span >Color</span>
+
+                                            <div class="color-choose mt-5">
+                                                @foreach ($productDetails->color as $color)
+                                                <div>
+                                                    <input type="radio" id="{{$color->product_color_code}}" name="color" @if($loop->first){{"checked"}} @endif value="{{$color->product_color_code}}" >
+                                                    <label for="{{$color->product_color_code}}"><span  style="background-color:{{$color->product_color_code}} "></span></label>
+                                                </div>
+                                                @endforeach
+
+
                                         </div>
-                                        <h4>Color</h4>
-                                        <div class="aa-color-tag">
-                                            <a href="#" class="aa-color-green"></a>
-                                            <a href="#" class="aa-color-yellow"></a>
-                                            <a href="#" class="aa-color-pink"></a>
-                                            <a href="#" class="aa-color-black"></a>
-                                            <a href="#" class="aa-color-white"></a>
-                                        </div>
+                                    @endif
+
+                                    <!-- Cable Configuration -->
+                                    @if(count($productDetails->maserment)>0)
+                                    <div class="product-color">
+                                        <span >Mezerment</span>
+
+                                        <div class="meserment-choose mt-5">
+                                            @foreach ($productDetails->maserment as $maserment)
+                                            <div>
+                                                <input type="radio" id="{{$maserment->meserment_value}}" name="maserment" @if($loop->first){{"checked"}} @endif value="{{$maserment->meserment_value}}" >
+                                                <label for="{{$maserment->meserment_value}}"><span style="background-color:#000;"></span></label>
+                                                <span >{{$maserment->meserment_value}}</span>&ensp;
+                                            </div>
+                                            @endforeach
+                                    </div>
+                                    @endif
+
                                         <div class="aa-prod-quantity">
-                                            <form action="">
-                                                <select id="" name="">
-                                                    <option selected="1" value="0">1</option>
-                                                    <option value="1">2</option>
-                                                    <option value="2">3</option>
-                                                    <option value="3">4</option>
-                                                    <option value="4">5</option>
-                                                    <option value="5">6</option>
+                                            <label for="quantity">Quantity:&ensp;</label>
+                                                <select id="quantity" name="quantity">
+                                                    <option value="1" selected>1</option>
+                                                    <option value="2">2</option>
+                                                    <option value="3">3</option>
+                                                    <option value="4">4</option>
+                                                    <option value="5">5</option>
+                                                    <option value="10">10</option>
                                                 </select>
-                                            </form>
+
                                             <p class="aa-prod-category">
                                                 Category: <a href="#">{{ $productDetails->cat->name }}</a>
                                             </p>
@@ -100,7 +125,11 @@
                                             <input type="hidden" id="product_id" name="product_id"
                                                 value="{{ $productDetails->id }}">
                                             <button type="submit" class="aa-add-to-cart-btn">Add To Cart</button>
-                                        </form>
+
+
+
+
+                        </form>
 
 
                                             {{-- <a class="aa-add-to-cart-btn" href="#">Wishlist</a>
