@@ -60,8 +60,19 @@
                                                     <td>&euro; &nbsp;{{ number_format($cartItem['unit_price']) }} </td>
 
                                                     <td>{{ $cartItem['quantity'] }}</td>
-                                                    <td style="display:flex; justify-content:center; align-items: center; height:20vh;"><div style=" width:20px; height:20px; border:1px solid #000; border-radius:50%; background-color: {{ $cartItem['color'] }};"></div></td>
-                                                    <td>{{ $cartItem['maserment'] }}</td>
+                                                    <td style="display:flex; justify-content:center; align-items: center; height:20vh;">
+                                                        @if( $cartItem['maserment'])
+                                                     
+                                                        <div style=" width:20px; height:20px; border:1px solid #000; border-radius:50%; background-color: {{ $cartItem['color'] }};"></div>
+                                                        @else
+                                                        {{"N/A"}}
+                                                    @endif
+                                                    </td>
+                                                    <td>@if( $cartItem['maserment'])
+                                                        {{ $cartItem['maserment'] }}
+                                                        @else
+                                                        {{"N/A"}}
+                                                    @endif</td>
 
                                                     <td>&euro; &nbsp;{{ number_format($cartItem['total_price'], 2) }}
                                                     </td>
@@ -77,7 +88,7 @@
                                                 <td style="font-weight: bold; text-align:center;">
                                                     <a href="{{ route('client.ClearCart') }}" class="btn btn-danger">Clear All Cart</a>
                                                 </td>
-                                                <td colspan="4" style="font-weight: bold; text-align:center;">
+                                                <td colspan="6" style="font-weight: bold; text-align:center;">
                                                     Total
                                                 </td>
                                                 <td style="font-weight: bold; text-align:center;">

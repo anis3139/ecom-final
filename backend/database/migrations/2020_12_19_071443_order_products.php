@@ -16,6 +16,10 @@ class OrderProducts extends Migration
         Schema::create('order_products', function (Blueprint $table) {
             $table->id();
             $table->integer('quantity');
+            
+            $table->string('color')->nullable();
+            $table->string('maserment')->nullable();
+
             $table->decimal('price',10,2);
 
             $table->unsignedInteger('order_id');
@@ -36,6 +40,6 @@ class OrderProducts extends Migration
      */
     public function down()
     {
-       
+
     }
 }

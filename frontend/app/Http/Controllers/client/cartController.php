@@ -23,7 +23,7 @@ class cartController extends Controller
         $data['cart'] = session()->has('cart') ? session()->get('cart') : [];
         $data['total']= array_sum( array_column($data['cart'], 'total_price'));
 
-      
+
 
 
         return view('client.pages.cart', $data);
@@ -44,7 +44,7 @@ class cartController extends Controller
             return redirect()->back();
         }
 
-         $product = product_table::with('img')->findOrFail($request->input('product_id'));
+         $product = product_table::with('img','color')->findOrFail($request->input('product_id'));
 
          $unit_price=($product->product_selling_price !== null && $product->product_selling_price > 0) ? $product->product_selling_price : $product->product_price;
          $cart = session()->has('cart') ? session()->get('cart') : [];
@@ -207,6 +207,8 @@ class cartController extends Controller
             $order_product->product_id=$product_id;
             $order_product->quantity=$product['quantity'];
             $order_product->price=$product['total_price'];
+            $order_product->color=$product['color'];
+            $order_product->maserment=$product['maserment'];
             $order_product->order_id= $order->id;
             $order_product->save();
 

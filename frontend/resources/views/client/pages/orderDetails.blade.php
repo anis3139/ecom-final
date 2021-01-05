@@ -5,6 +5,25 @@
 .profile{
     margin: 20px 0px!important;
 }
+.profile-link{
+    position: fixed;
+    top: 200px;
+    right: 5px;
+    background-color:#FF6666;
+    color:#fff;
+    padding: 10px;
+    border-radius: 20px;
+    display: inline-block;
+    animation-name: profile-link;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+    }
+    @keyframes profile-link {
+  0%   {background-color: red;}
+  50%  {background-color: #FF6666;}
+  100% {background-color: rgb(228, 122, 23);}
+}
+
 </style>
 
 @endsection
@@ -12,6 +31,7 @@
 @section('content')
     <div class="container">
         <div class="col-md-10 offset-md-1">
+            <a class="profile-link" href="{{route('client.profile')}}">Go Your Profile</a>
             <h2 class=" profile  text-center">Order id: {{ $orders->id }}</h2>
             @include('client.components.massege')
             <table class="table table-bordered table-hover">
@@ -47,9 +67,11 @@
                 <thead>
                     <tr>
 
-                        <th>Product Title</th>
-                        <th>Quantity</th>
-                        <th>Total Price</th>
+                        <th class="text-center">Product Title</th>
+                        <th class="text-center">Quantity</th>
+                        <th class="text-center">Color</th>
+                        <th class="text-center">Maserment</th>
+                        <th class="text-center">Total Price</th>
 
                     </tr>
                 </thead>
@@ -58,11 +80,24 @@
                     @foreach ($orders->product as $product)
 
                         <tr>
+                            <td class="text-center">{{$product->product->product_title}}</td>
+                            <td class="text-center">{{$product->quantity}}</td>
 
+                            <td style="display:flex; justify-content:center; align-items: center;">
+                                @if($product->color)
 
-                            <td>{{$product->product->product_title}}</td>
-                            <td>{{$product->quantity}}</td>
-                            <td>{{number_format($product->price, 2)}}</td>
+                               <div style=" width:20px; height:20px; border:1px solid #000; border-radius:50%; background-color: {{$product->color}};"></div>
+                                @else
+                                {{"N/A"}}
+                            @endif
+
+                            </td>
+                            <td class="text-center">@if($product->maserment)
+                               {{$product->maserment}}
+                                @else
+                                {{"N/A"}}
+                            @endif</td>
+                            <td class="text-center">&euro;&nbsp;{{number_format($product->price, 2)}}</td>
                         </tr>
                     @endforeach
                 </tbody>

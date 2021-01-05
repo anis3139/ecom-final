@@ -56,6 +56,7 @@ class orderController extends Controller
     public function ordersPrint(Request $request, $id)
     {
         $orders = Orders::with(['orderProducts', 'orderProducts.product'])->findOrFail($id);
+     
         $pdf = PDF::loadView('admin.order.printOrder', compact('orders') );
         return $pdf->download('invoice.pdf');
         return $pdf->stream('invoice.pdf');

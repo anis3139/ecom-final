@@ -78,10 +78,12 @@
         <table class="table table-bordered" border="2" cellpadding="10px">
             <thead>
                 <tr>
-                    <th>Product Id</th>
-                    <th>Product Name</th>
-                    <th>Product Quantity</th>
-                    <th>Product Unit Price</th>
+                    <th style="text-align: center;">Product Id</th>
+                    <th style="text-align: center;">Product Name</th>
+                    <th style="text-align: center;">Product Color</th>
+                    <th style="text-align: center;">Product Maserment</th>
+                    <th style="text-align: center;">Product Quantity</th>
+                    <th style="text-align: center;">Product Unit Price</th>
                 </tr>
 
             </thead>
@@ -89,17 +91,28 @@
                 @foreach ($orders->orderProducts as $Product)
                     <tr>
 
-                        <td>{{ $Product->product->id }}</td>
-                        <td>{{ $Product->product->product_title }}</td>
-                        <td>{{ $Product->product->product_quantity }}</td>
-                        <td>{{ $Product->product->product_selling_price }}</td>
+                        <td style="text-align: center;">{{ $Product->product->id }}</td>
+                        <td style="text-align: center;">{{ $Product->product->product_title }}</td>
+                        <td style="text-align: center;">@if($Product->color)
+                            <div style=" width:20px; height:20px; border:1px solid #000; margin:0px auto; border-radius:50%; background-color: {{$Product->color}};"></div>
+
+                             @else
+                             {{"N/A"}}
+                         @endif</td>
+                        <td style="text-align: center;">@if($Product->maserment)
+                            {{ $Product->maserment }}
+                             @else
+                             {{"N/A"}}
+                         @endif</td>
+                        <td style="text-align: center;">{{ $Product->product->product_quantity }}</td>
+                        <td style="text-align: center;">{{ $Product->product->product_selling_price }}</td>
                     </tr>
                 @endforeach
             </tbody>
             <tfoot>
                 <tr>
-                    <td colspan="3"><center>Total Price</center></td>
-                    <td> {{ $orders->paid_amount }}</td>
+                    <td style="text-align: center;" colspan="5"><center>Total Price</center></td>
+                    <td style="text-align: center;"> {{ $orders->paid_amount }}</td>
                 </tr>
 
             </tfoot>

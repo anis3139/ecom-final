@@ -170,6 +170,8 @@
                                     <thead>
                                         <th>Product Id</th>
                                         <th>Product Name</th>
+                                        <th>Product Color</th>
+                                        <th>Product Maserment</th>
                                         <th>Product Quantity</th>
                                         <th>Product Unit Price</th>
                                     </thead>
@@ -178,7 +180,7 @@
                                     </tbody>
                                     <tfoot>
                                         <tr>
-                                            <td colspan="3" class="total_price">Total Price</td>
+                                            <td colspan="5" class="total_price">Total Price</td>
                                             <td id="total_price" class="font-weight-bold"></td>
                                         </tr>
                                     </tfoot>
@@ -334,7 +336,7 @@
                         // $('#user_id').html(dataJSON[0].user_id);
                         // $('#user_Name').html(dataJSON[0].customer.name);
 
-                        $('#total_price').html('$' + dataJSON[0].paid_amount);
+                        $('#total_price').html('&euro;' + dataJSON[0].paid_amount);
 
 
 
@@ -347,12 +349,22 @@
                         for (let index = 0; index < dataJSON[0].order_products.length; index++) {
 
                             const element = dataJSON[0].order_products[index];
-
                             imageViewHtml += '<tr>';
                             imageViewHtml += '<td clsss="mx-auto" >' + element.product_id + '</td>';
                             imageViewHtml += '<td clsss="mx-auto" >' + element.product.product_title + '</td>';
+                            if (element.color) {
+                            imageViewHtml += '<td style="display:flex; justify-content:center; align-items: center;"><div style=" width:20px; height:20px; border:1px solid #000; border-radius:50%; background-color: '+element.color+';"></div></td>';
+                            }else{
+                                imageViewHtml += '<td clsss="mx-auto" >N/A</td>';
+                            }
+                                if (element.maserment) {
+                                    imageViewHtml += '<td clsss="mx-auto" >' + element.maserment + '</td>';
+                                }else{
+                                    imageViewHtml += '<td clsss="mx-auto" >N/A</td>';
+                                }
+
                             imageViewHtml += '<td clsss="mx-auto" >' + element.quantity + '</td>';
-                            imageViewHtml += '<td clsss="mx-auto" >$' + element.price + '</td>';
+                            imageViewHtml += '<td clsss="mx-auto" >&euro;' + element.price + '</td>';
                             imageViewHtml += '</tr>';
                             $('.OrdersView').html(imageViewHtml);
                         }
@@ -360,7 +372,7 @@
                     } else {
                         $('#loadDivOrders').addClass('d-none');
                         $('#wrongDivOrders').removeClass('d-none');
-                       
+
                     }
                 }).catch(function(error) {
                     $('#loadDivOrders').addClass('d-none');
