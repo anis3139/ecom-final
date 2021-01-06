@@ -1,5 +1,4 @@
 @extends('admin.Layouts.app')
-@section('title', 'Home Setting')
 @section('css')
     <style>
         .modal-dialog-full-width {
@@ -462,11 +461,12 @@
                             $('#product_if_has_color').html(colortHtml);
                         }
 
-
+                        getProductsdata();
 
                     } else {
                         $('#loadDivProducts').addClass('d-none');
                         $('#wrongDivProducts').removeClass('d-none');
+                        getProductsdata();
                     }
                 }).catch(function(error) {
                     $('#loadDivProducts').addClass('d-none');
@@ -634,7 +634,8 @@
                             html9+='<option selected>Select Type</option>';
                             html9+='<option '+(element2.meserment_value == "xsm" ? 'selected' : '')+' value="xsm" seclected>Extra Small</option>';
                             html9+='<option '+(element2.meserment_value == "sm" ? 'selected' : '')+' value="xsm" seclected> Small</option>';
-                            html9+='<option '+(element2.meserment_value == "md" ? 'selected' : '')+' value="lg">Large</option>';
+                            html9+='<option '+(element2.meserment_value == "md" ? 'selected' : '')+' value="md">Large</option>';
+                            html9+='<option '+(element2.meserment_value == "lg" ? 'selected' : '')+' value="lg">Large</option>';
                             html9+='<option '+(element2.meserment_value == "xl" ? 'selected' : '')+' value="xl">Extra Large</option>';
                             html9+='<option '+(element2.meserment_value == "xxl" ? 'selected' : '')+' value="xxl">Dubble Extra Large</option>';
                             html9+='</select><input type="hidden" id="sizeValueEdit'+mesermentExist+'" value="'+ element2.meserment_value +'" name="sizeValueEdit[]" />';
@@ -726,21 +727,16 @@
                         $('#pdmesermentEdit option[value=' + jsonData[0].product_meserment_type + ']').prop('selected', 'true');
 
 
+                        var image_path=['One','Two', 'Three', 'Four', 'Five' ]
 
-                        var iconSource = (jsonData[0].image[0].image_path);
-                        $('#productEditImageOnePreview').attr('src', iconSource)
+                        for (let index = 0; index < jsonData[0].image.length; index++) {
+                            var ImgSource = (jsonData[0].image[index].image_path);
 
-                        var ImgSource = (jsonData[0].image[1].image_path);
-                        $('#productEditImageTwoPreview').attr('src', ImgSource)
+                        $('#productEditImage'+image_path[index]+'Preview').attr('src', ImgSource)
+                        }
 
-                        var ImgSource = (jsonData[0].image[2].image_path);
-                        $('#productEditImageThreePreview').attr('src', ImgSource)
 
-                        var ImgSource = (jsonData[0].image[3].image_path);
-                        $('#productImageEditFourPreview').attr('src', ImgSource)
 
-                        var ImgSource = (jsonData[0].image[4].image_path);
-                        $('#productImageEditFivePreview').attr('src', ImgSource)
 
                     } else {
                         $('#loadDivProducts').addClass('d-none');
@@ -749,6 +745,7 @@
                 }).catch(function(error) {
                     $('#loadDivProducts').addClass('d-none');
                     $('#wrongDivProducts').removeClass('d-none');
+
                 });
         }
 
@@ -862,17 +859,17 @@
                         'Content-Type': 'multipart/form-data'
                     }
                 }).then(function(response) {
-                    console.log(response.data);
+
                     $('#productEditConfirmBtn').html("Save");
                     if (response.status = 200) {
                         if (response.data == 1) {
                             $('#updateProductModal').modal('hide');
-                            toastr.success('Add New Success .');
+                            toastr.success('Update Success .');
 
                             getProductsdata();
                         } else {
                             $('#updateProductModal').modal('hide');
-                            toastr.error('Add New Failed');
+                            toastr.error('Update Failed');
                             getProductsdata();
                         }
                     } else {
@@ -882,6 +879,7 @@
                 }).catch(function(error) {
                     $('#updateProductModal').modal('hide');
                     toastr.error('Something Went Wrong.....');
+
                 });
             }
 
@@ -939,7 +937,7 @@ function addMoreBtnForMesermrntSize() {
     html2+='<option selected>Select Type</option>';
     html2+='<option value="xsm" seclected>Extra Small</option>';
     html2+='<option value="sm">Small</option>';
-    html2+='<option value="m">Medium</option>';
+    html2+='<option value="md">Medium</option>';
     html2+='<option value="lg">Large</option>';
     html2+='<option value="xl">Extra Large</option>';
     html2+='<option value="xxl">Dubble Extra Large</option>';
@@ -1101,7 +1099,7 @@ function addMoreBtnForMesermrntSizeEdit(){
     html10+='<option selected>Select Type</option>';
     html10+='<option value="xsm" seclected>Extra Small</option>';
     html10+='<option value="sm">Small</option>';
-    html10+='<option value="m">Medium</option>';
+    html10+='<option value="md">Medium</option>';
     html10+='<option value="lg">Large</option>';
     html10+='<option value="xl">Extra Large</option>';
     html10+='<option value="xxl">Dubble Extra Large</option>';

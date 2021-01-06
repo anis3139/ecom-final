@@ -74,21 +74,21 @@ class ProductsController extends Controller
             $next++;
         }
 
-            $result =new product_table();
-            $result->product_title = $product_title;
-            $result->product_discription = $product_discription;
-            $result->product_price = $product_price;
-            $result->product_selling_price = $product_selling_price;
-            $result->product_quantity = $product_quantity;
-            $result->product_category_id = $product_category_id;
-            $result->product_brand_id = $product_brand_id;
-            $result->product_in_stock = $product_in_stock;
-            $result->feture_products = $feture_products;
-            $result->product_meserment_type = $selectedmesermentId;
-            $result->product_active = $product_active;
-            $result->product_slug = $slug;
-            $result->save();
-            $last_id=$result->id;
+        $result = new product_table();
+        $result->product_title = $product_title;
+        $result->product_discription = $product_discription;
+        $result->product_price = $product_price;
+        $result->product_selling_price = $product_selling_price;
+        $result->product_quantity = $product_quantity;
+        $result->product_category_id = $product_category_id;
+        $result->product_brand_id = $product_brand_id;
+        $result->product_in_stock = $product_in_stock;
+        $result->feture_products = $feture_products;
+        $result->product_meserment_type = $selectedmesermentId;
+        $result->product_active = $product_active;
+        $result->product_slug = $slug;
+        $result->save();
+        $last_id = $result->id;
 
 
         if (count($request->images) > 0) {
@@ -98,31 +98,33 @@ class ProductsController extends Controller
                 $img = time() . $i . '.' . $image->getClientOriginalExtension();
                 $image->move('storage', $img);
                 $productImageOnehost = $_SERVER['HTTP_HOST'];
-                $productImageOnelocation = "http://" . $productImageOnehost . "/storage/" . $img;
-                $imagemodel= new product_has_images();
-                $imagemodel->image_path="$productImageOnelocation";
+                $host = $_SERVER['HTTP_HOST'];
+                $protocol = $_SERVER['PROTOCOL'] = isset($_SERVER['HTTPS']) && !empty($_SERVER['HTTPS']) ? 'https://' : 'http://';
+                $productImageOnelocation = $protocol . $productImageOnehost .  "/storage/" . $img;
+                $imagemodel = new product_has_images();
+                $imagemodel->image_path = "$productImageOnelocation";
                 $imagemodel->has_images_product_id = $last_id;
-				$imagemodel->save();
+                $imagemodel->save();
                 $i++;
             }
         }
 
         if (count($pdmesermentValue) > 0) {
 
-            for ($mersement=0; $mersement < count($pdmesermentValue) ; $mersement++) {
-            $pdmeserment= new meserments();
-            $pdmeserment->product_id=$last_id;
-            $pdmeserment->meserment_value=$pdmesermentValue[$mersement];
-            $pdmeserment->save();
+            for ($mersement = 0; $mersement < count($pdmesermentValue); $mersement++) {
+                $pdmeserment = new meserments();
+                $pdmeserment->product_id = $last_id;
+                $pdmeserment->meserment_value = $pdmesermentValue[$mersement];
+                $pdmeserment->save();
             }
         }
         if (count($product_colors) > 0) {
 
-            for ($color=0; $color < count($product_colors) ; $color++) {
-            $pdmeserment= new product_color();
-            $pdmeserment->product_color_product_id=$last_id;
-            $pdmeserment->product_color_code=$product_colors[$color];
-            $pdmeserment->save();
+            for ($color = 0; $color < count($product_colors); $color++) {
+                $pdmeserment = new product_color();
+                $pdmeserment->product_color_product_id = $last_id;
+                $pdmeserment->product_color_code = $product_colors[$color];
+                $pdmeserment->save();
             }
         }
 
@@ -133,10 +135,6 @@ class ProductsController extends Controller
         } else {
             return 0;
         }
-
-
-
-
     }
 
 
@@ -192,103 +190,99 @@ class ProductsController extends Controller
         $editedValueOfColor = $data['0']->editedValueOfColor;
 
 
-        meserments::where('product_id',$product_id_edit)->delete();
+        if($pdmesermentValueEdit !== null){
+        meserments::where('product_id', $product_id_edit)->delete();
 
-        for ($meserments=0; $meserments <count($pdmesermentValueEdit) ; $meserments++) {
-            $data=new meserments();
-            $data->product_id=$product_id_edit;
-            $data->meserment_value=$pdmesermentValueEdit[$meserments];
+        for ($meserments = 0; $meserments < count($pdmesermentValueEdit); $meserments++) {
+            $data = new meserments();
+            $data->product_id = $product_id_edit;
+            $data->meserment_value = $pdmesermentValueEdit[$meserments];
             $data->save();
         }
+        }
 
-        product_color::where('product_color_product_id',$product_id_edit)->delete();
+        if(isset( $editedValueOfColor)){
+        product_color::where('product_color_product_id', $product_id_edit)->delete();
 
-        for ($colors=0; $colors <count($editedValueOfColor) ; $colors++) {
-            $dataColor=new product_color();
-            $dataColor->product_color_code=$editedValueOfColor[$colors];
-            $dataColor->product_color_product_id=$product_id_edit;
+        for ($colors = 0; $colors < count($editedValueOfColor); $colors++) {
+            $dataColor = new product_color();
+            $dataColor->product_color_code = $editedValueOfColor[$colors];
+            $dataColor->product_color_product_id = $product_id_edit;
             $dataColor->save();
-
+        }
         }
 
 
+        if(isset($request->images)){
         if (count($request->images) > 0) {
 
-            $product_has_images=product_has_images::where('has_images_product_id',$product_id_edit)->get();
-
+            $product_has_images = product_has_images::where('has_images_product_id', $product_id_edit)->get();
             foreach ($product_has_images as  $product_has_images_value) {
                 $delete_old_file = product_has_images::where('id', '=', $product_has_images_value->id)->first();
                 $delete_old_file_name = (explode('/', $delete_old_file->image_path))[4];
-                Storage::delete("public/".$delete_old_file_name);
-                $result2 = $delete_old_file->delete();
+                Storage::delete("public/" . $delete_old_file_name);
+                $delete_old_file->delete();
             }
 
 
 
-                $i = 0;
-                foreach ($request->images as $image) {
-                    $img = time() . $i . '.' . $image->getClientOriginalExtension();
-                    $image->move('storage', $img);
-                    $productImageOnehost = $_SERVER['HTTP_HOST'];
-                    $productImageOnelocation = "http://" . $productImageOnehost . "/storage/" . $img;
-                    $imagemodel= new product_has_images();
-                    $imagemodel->image_path=$productImageOnelocation;
-                    $imagemodel->has_images_product_id = $product_id_edit;
-                    $imagemodel->save();
-                    $i++;
+            $i = 0;
+            foreach ($request->images as $image) {
+                $img = time() . $i . '.' . $image->getClientOriginalExtension();
+                $image->move('storage', $img);
+                $productImageOnehost = $_SERVER['HTTP_HOST'];
+                $protocol = $_SERVER['PROTOCOL'] = isset($_SERVER['HTTPS']) && !empty($_SERVER['HTTPS']) ? 'https://' : 'http://';
+
+                $productImageOnelocation = $protocol . $productImageOnehost .  "/storage/" . $img;
+                $imagemodel = new product_has_images();
+                $imagemodel->image_path = $productImageOnelocation;
+                $imagemodel->has_images_product_id = $product_id_edit;
+                $imagemodel->save();
+                $i++;
+            }
+
+
+                $result = product_table::where('id', '=', $product_id_edit)->first();
+                 $result->product_title = $pdEditName;
+                 $result->product_discription = $pdEditDescription;
+                 $result->product_price = $pdEditPrice;
+                 $result->product_selling_price = $pdEditOffer;
+                 $result->product_quantity = $pdEditQuantity;
+                 $result->product_category_id = $pdEditCategory;
+                 $result->product_brand_id = $pdEditBrand;
+                 $result->product_in_stock = $pdEditStock;
+                 $result->feture_products = $pdEditFeature;
+                 $result->product_active = $pdEditStatus;
+                 $status=$result->save();
+
+            if ($status == true) {
+                return 1;
+            } else {
+                return 0;
+            }
+
+        }
+    } else {
+            $result = product_table::where('id', '=', $product_id_edit)->first();
+                $result->product_title = $pdEditName;
+                $result->product_discription = $pdEditDescription;
+                $result->product_price = $pdEditPrice;
+                $result->product_selling_price = $pdEditOffer;
+                $result->product_quantity = $pdEditQuantity;
+                $result->product_category_id = $pdEditCategory;
+                $result->product_brand_id = $pdEditBrand;
+                $result->product_in_stock = $pdEditStock;
+                $result->feture_products = $pdEditFeature;
+                $result->product_active = $pdEditStatus;
+                $status =$result->save();
+
+                if ($status == true) {
+                    return 1;
+                } else {
+                    return 0;
                 }
 
-
-            $result = product_table::where('id', '=', $product_id_edit)->update([
-                'product_title' => $pdEditName,
-                'product_discription' => $pdEditDescription,
-                'product_price' => $pdEditPrice,
-                'product_selling_price' => $pdEditOffer,
-                'product_quantity' => $pdEditQuantity,
-                'product_category_id' => $pdEditCategory,
-                'product_brand_id' => $pdEditBrand,
-                'product_in_stock' => $pdEditStock,
-                'feture_products' => $pdEditFeature,
-                'product_active' => $pdEditStatus
-                 ]);
-
-
-                 return 1;
-            // if ($result == true) {
-            //     return 1;
-            // } else {
-            //     return 0;
-            // }
-
         }
-        else {
-            $result = product_table::where('id', '=', $product_id_edit)->update([
-            'product_title' => $pdEditName,
-            'product_discription' => $pdEditDescription,
-            'product_price' => $pdEditPrice,
-            'product_selling_price' => $pdEditOffer,
-            'product_quantity' => $pdEditQuantity,
-            'product_category_id' => $pdEditCategory,
-            'product_brand_id' => $pdEditBrand,
-            'product_in_stock' => $pdEditStock,
-            'feture_products' => $pdEditFeature,
-            'product_active' => $pdEditStatus
-             ]);
-             return 1;
-
-            //  if ($result == true) {
-            //     return 1;
-            // } else {
-            //     return 0;
-            // }
-
-        }
-
-
-
-
-
-
     }
 
     /**
@@ -300,19 +294,18 @@ class ProductsController extends Controller
     public function destroy(Request $request)
     {
         $id = $request->input('id');
-        $product_has_images=product_has_images::where('has_images_product_id',$id)->get();
+        $product_has_images = product_has_images::where('has_images_product_id', $id)->get();
 
         foreach ($product_has_images as  $product_has_images_value) {
 
             $delete_old_file = product_has_images::where('id', '=', $product_has_images_value->id)->first();
-
-
             $delete_old_file_name = (explode('/', $delete_old_file->image_path))[4];
-            Storage::delete("public/".$delete_old_file_name);
+
+            Storage::delete("public/" . $delete_old_file_name);
             $result2 = $delete_old_file->delete();
         }
 
-        $product_maserments=meserments::where('product_id',$id)->get();
+        $product_maserments = meserments::where('product_id', $id)->get();
         foreach ($product_maserments as  $product_maserment) {
 
             $delete_old_meserment_data = meserments::where('id', '=', $product_maserment->id)->first();
@@ -320,7 +313,7 @@ class ProductsController extends Controller
             $result3 = $delete_old_meserment_data->delete();
         }
 
-        $product_colors=product_color::where('product_color_product_id',$id)->get();
+        $product_colors = product_color::where('product_color_product_id', $id)->get();
         foreach ($product_colors as  $product_color) {
 
             $delete_old_color_data = product_color::where('id', '=', $product_color->id)->first();
@@ -328,8 +321,8 @@ class ProductsController extends Controller
             $result4 = $delete_old_color_data->delete();
         }
 
-        $data=product_table::where('id','=' ,$id)->first();
-        $result=$data->delete();
+        $data = product_table::where('id', '=', $id)->first();
+        $result = $data->delete();
         if ($result == true) {
             return 1;
         } else {
