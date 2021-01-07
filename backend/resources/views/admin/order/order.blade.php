@@ -264,7 +264,7 @@
                         $(".OrdersView").click(function() {
                             var id = $(this).data('id');
                             $('#OrdersViewId').html(id);
-                            OrdersViewDetails();
+                           
                             $('#viewOrdersModal').modal('show');
                             OrdersViewDetails(id);
 
