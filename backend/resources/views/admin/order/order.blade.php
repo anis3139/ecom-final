@@ -1,4 +1,4 @@
-@extends('admin.layouts.app')
+@extends('admin.layouts.admin')
 @section('css')
     <style>
         .modal-dialog-full-width {
@@ -105,14 +105,7 @@
                                         <td style="max-width:200px !important;">Order ID</td>
                                         <td id="id"></td>
                                     </tr>
-                                    {{-- <tr>
-                                        <td style="max-width:200px !important;">User Id </td>
-                                        <td id="user_id"> </td>
-                                    </tr>
-                                    <tr>
-                                        <td style="max-width:200px !important;">User Name </td>
-                                        <td id="user_Name"> </td>
-                                    </tr> --}}
+
                                     <tr>
                                         <td style="max-width:200px !important;">Customer Name</td>
                                         <td id="customer_name"></td>
@@ -168,6 +161,7 @@
                                 <h2>Ordered Product Details</h2>
                                 <table class="table table-bordered table-sm">
                                     <thead>
+                                        <th>SL</th>
                                         <th>Product Id</th>
                                         <th>Product Name</th>
                                         <th>Product Color</th>
@@ -175,12 +169,12 @@
                                         <th>Product Quantity</th>
                                         <th>Product Unit Price</th>
                                     </thead>
-                                    <tbody class="OrdersView">
+                                    <tbody id="OrdersView">
 
                                     </tbody>
                                     <tfoot>
                                         <tr>
-                                            <td colspan="5" class="total_price">Total Price</td>
+                                            <td colspan="6" class="total_price">Total Price</td>
                                             <td id="total_price" class="font-weight-bold"></td>
                                         </tr>
                                     </tfoot>
@@ -305,20 +299,12 @@
                     id: id
                 })
                 .then(function(response) {
-                        console.log(response.data);
+
                     if (response.status == 200) {
                         $('#loadDivOrders').addClass('d-none');
                         $('#OrdersEditForm').removeClass('d-none');
 
                         var dataJSON = response.data;
-
-                        var productOwner = " ";
-                        if (dataJSON[0].product_owner_id == 0) {
-                            productOwner = "Admin"
-                        } else {
-                            productOwner = dataJSON[0].product_owner_id
-                        }
-
                         $('#id').html(dataJSON[0].id)
                         $('#customer_name').html(dataJSON[0].customer_name)
                         $('#customer_phone_number').html(dataJSON[0].customer_phone_number)
@@ -331,43 +317,60 @@
                         $('#discount_amount').html(dataJSON[0].discount_amount);
                         $('#paid_amount').html(dataJSON[0].paid_amount);
                         $('#payment_details').html(dataJSON[0].payment_details);
-                        $('#product_owner_id').html(productOwner);
 
-                        // $('#user_id').html(dataJSON[0].user_id);
-                        // $('#user_Name').html(dataJSON[0].customer.name);
+                        var productOwner = " ";
+                        if (dataJSON[0].product_owner_id == 0) {
+                            productOwner = "Admin"
+                        } else {
+                            productOwner = dataJSON[0].product_owner_id
+                        }
+
+                        $('#product_owner_id').html(productOwner);
 
                         $('#total_price').html('&euro;' + dataJSON[0].paid_amount);
 
 
 
-                        $('#payment_status_id').val(dataJSON[0].id);
 
                         $('#payment_status option[value=' + dataJSON[0].payment_status + ']').attr('selected', 'selected');
 
 
-                        var imageViewHtml = "";
-                        for (let index = 0; index < dataJSON[0].order_products.length; index++) {
+                        $('#payment_status_id').val(dataJSON[0].id);
 
-                            const element = dataJSON[0].order_products[index];
-                            imageViewHtml += '<tr>';
-                            imageViewHtml += '<td clsss="mx-auto" >' + element.product_id + '</td>';
-                            imageViewHtml += '<td clsss="mx-auto" >' + element.product.product_title + '</td>';
-                            if (element.color) {
-                            imageViewHtml += '<td style="display:flex; justify-content:center; align-items: center;"><div style=" width:20px; height:20px; border:1px solid #000; border-radius:50%; background-color: '+element.color+';"></div></td>';
-                            }else{
-                                imageViewHtml += '<td clsss="mx-auto" >N/A</td>';
-                            }
-                                if (element.maserment) {
-                                    imageViewHtml += '<td clsss="mx-auto" >' + element.maserment + '</td>';
+
+
+
+                        var count = 1;
+                        $.each(dataJSON[0].order_products, function(i, item) {
+                            var maserment="";
+                                if(dataJSON[0].order_products[i].maserment){
+                                    maserment=dataJSON[0].order_products[i].maserment
                                 }else{
-                                    imageViewHtml += '<td clsss="mx-auto" >N/A</td>';
+                                    maserment="N/A"
                                 }
+                                var color="";
+                                if(dataJSON[0].order_products[i].color){
+                                    color= "<td style='display:flex; justify-content:center; align-items: center;'><div style=' width:20px; height:20px; border:1px solid #000; border-radius:50%; background-color:"+dataJSON[0].order_products[i].color+";'></div></td>"
+                                }else{
 
-                            imageViewHtml += '<td clsss="mx-auto" >' + element.quantity + '</td>';
-                            imageViewHtml += '<td clsss="mx-auto" >&euro;' + element.price + '</td>';
-                            imageViewHtml += '</tr>';
-                            $('.OrdersView').html(imageViewHtml);
-                        }
+                                    color=  "<td clsss='mx-auto' >N/A</td>"
+                                }
+                            $('<tr class="text-center">').html(
+
+                                "<td style='max-width:100px; overflow-wrap: break-word;'>" + count++ +
+                                " </td>"+
+                                "<td style='max-width:100px; overflow-wrap: break-word;'>" +dataJSON[0].order_products[i].product_id +
+                                " </td>"+
+                                "<td style='max-width:100px; overflow-wrap: break-word;'>" +dataJSON[0].order_products[i].product.product_title +
+                                " </td>"+
+                                color
+                                +"<td clsss='mx-auto' >" +maserment + "</td>"+
+
+                                "<td clsss='mx-auto' >" + dataJSON[0].order_products[i].quantity + "</td>"+
+                                "<td clsss='mx-auto' >&euro;" + dataJSON[0].order_products[i].price + "</td>"
+                            ).appendTo('#OrdersView');
+                        });
+
 
                     } else {
                         $('#loadDivOrders').addClass('d-none');
@@ -377,7 +380,7 @@
                 }).catch(function(error) {
                     $('#loadDivOrders').addClass('d-none');
                     $('#wrongDivOrders').removeClass('d-none');
-
+                    console.log(error);
                 });
         }
 
@@ -395,13 +398,12 @@
                 if (response.status == 200 && response.data == 1) {
                     toastr.success('Update Success.');
 
-
+                    $('#viewOrdersModal').modal('hide');
+                    getOrdersdata();
 
                 } else {
                     toastr.error('Update Fail ! Try Again');
-
                 }
-
             }).catch(function(error) {
                 toastr.error('Update Fail ! Try Again');
             })
