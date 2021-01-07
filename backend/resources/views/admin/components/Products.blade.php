@@ -1,4 +1,5 @@
 @extends('admin.Layouts.app')
+
 @section('css')
     <style>
         .modal-dialog-full-width {
@@ -634,7 +635,7 @@
                             html9+='<option selected>Select Type</option>';
                             html9+='<option '+(element2.meserment_value == "xsm" ? 'selected' : '')+' value="xsm" seclected>Extra Small</option>';
                             html9+='<option '+(element2.meserment_value == "sm" ? 'selected' : '')+' value="xsm" seclected> Small</option>';
-                            html9+='<option '+(element2.meserment_value == "md" ? 'selected' : '')+' value="md">Large</option>';
+                            html9+='<option '+(element2.meserment_value == "md" ? 'selected' : '')+' value="md">Medium</option>';
                             html9+='<option '+(element2.meserment_value == "lg" ? 'selected' : '')+' value="lg">Large</option>';
                             html9+='<option '+(element2.meserment_value == "xl" ? 'selected' : '')+' value="xl">Extra Large</option>';
                             html9+='<option '+(element2.meserment_value == "xxl" ? 'selected' : '')+' value="xxl">Dubble Extra Large</option>';
@@ -654,12 +655,14 @@
                             const element2 = jsonData[0].maserment[mesermentExist];
                             splitValueForWightMesermrnt=(element2.meserment_value).split('-');
 
-                            html9 += '<tr class="WightdivEdit'+mesermentExist+'">';
+                            html9 += '<tr id="WightdivEdit'+mesermentExist+'">';
                             html9 += '<td>';
                             html9 += '<input id="WightmesermentValueEdit" name="WightmesermentValueEdit[]" value="'+splitValueForWightMesermrnt[0]+'" type="text" class="form-control" placeholder="Product Wight"/>';
                             html9 += '</td>';
                             html9 += '<td>';
                             html9 += '<select id="WightmesermentTypeEdit'+mesermentExist+'" onChange="setWightInputValueEdit('+mesermentExist+');"  style="margin-bottom: 10px;" class="browser-default custom-select">';
+
+                            html9 += '<option">Select Type</option>';
                             html9 += '<option '+(splitValueForWightMesermrnt[1] == "mg" ? 'selected' : '' )+' value="mg">Mg</option>';
                             html9 += '<option '+(splitValueForWightMesermrnt[1] == "gm" ? 'selected' : '' )+' value="gm">Gm</option>';
                             html9 += '<option '+(splitValueForWightMesermrnt[1] == "kg" ? 'selected' : '' )+' value="kg">Kg</option>';
@@ -788,6 +791,11 @@
 
 
             }
+
+
+            console.log(pdmesermentValueEdit);
+
+
         var editedValueOfColor=$("input[name='pdcolorEdit[]']").map(function(){return $(this).val();}).get();
         var pdEditName=$('#pdEditName').val();
         var pdEditDescription=$('#pdEditDescription').val();
@@ -812,13 +820,13 @@
 
 
 
-        productUpadate(product_id_edit, pdEditName, pdEditDescription, pdEditPrice, pdEditOffer, pdEditQuantity, pdEditCategory, pdEditBrand, pdEditStock, pdEditFeature, pdEditStatus, editImagesValue, pdmesermentValueEdit, editedValueOfColor)
+        productUpadate(product_id_edit, pdEditName, pdEditDescription, pdEditPrice, pdEditOffer, pdEditQuantity, pdEditCategory, pdEditBrand, pdEditStock, pdEditFeature, pdEditStatus, editImagesValue, pdmesermentValueEdit, editedValueOfColor,slelctedmesermentEdit)
 
 
         });
 
 
-        function productUpadate(product_id_edit, pdEditName, pdEditDescription, pdEditPrice, pdEditOffer, pdEditQuantity, pdEditCategory, pdEditBrand, pdEditStock, pdEditFeature, pdEditStatus, editImagesValue, pdmesermentValueEdit, editedValueOfColor) {
+        function productUpadate(product_id_edit, pdEditName, pdEditDescription, pdEditPrice, pdEditOffer, pdEditQuantity, pdEditCategory, pdEditBrand, pdEditStock, pdEditFeature, pdEditStatus, editImagesValue, pdmesermentValueEdit, editedValueOfColor,slelctedmesermentEdit) {
             if (pdEditName.length == 0) {
                 toastr.error('Product Title is empty!');
                 $('#pdName').focus();
@@ -846,6 +854,7 @@
                     pdEditStatus: pdEditStatus,
                     editedValueOfColor: editedValueOfColor,
                     pdmesermentValueEdit: pdmesermentValueEdit,
+                    slelctedmesermentEdit:slelctedmesermentEdit
                 }];
                 var fm = new FormData();
                 fm.append('data', JSON.stringify(my_data));
@@ -859,6 +868,7 @@
                         'Content-Type': 'multipart/form-data'
                     }
                 }).then(function(response) {
+                    console.log(response.data);
 
                     $('#productEditConfirmBtn').html("Save");
                     if (response.status = 200) {
@@ -877,6 +887,7 @@
                         toastr.error('Something Went Wrong');
                     }
                 }).catch(function(error) {
+                    console.log(error);
                     $('#updateProductModal').modal('hide');
                     toastr.error('Something Went Wrong.....');
 
@@ -1128,12 +1139,13 @@ function SizeRemoveEdit(id) {
 function addMoreBtnForMesermrntWeightEdit(){
 var html11="";
     mesermenExitCount++;
-    html11 += '<tr class="WightdivEdit'+mesermenExitCount+'">';
+    html11 += '<tr id="WightdivEdit'+mesermenExitCount+'">';
     html11 += '<td>';
     html11 += '<input id="WightmesermentValueEdit" name="WightmesermentValueEdit[]" value="" type="text" class="form-control" placeholder="Product Wight"/>';
     html11 += '</td>';
     html11 += '<td>';
     html11 += '<select id="WightmesermentTypeEdit'+mesermenExitCount+'" onChange="setWightInputValueEdit('+mesermenExitCount+');" name="WightmesermentTypeEdit[]" style="margin-bottom: 10px;" class="browser-default custom-select">';
+    html11 += '<option selected disable>Slect Width</option>';
     html11 += '<option value="mg">Mg</option>';
     html11 += '<option value="gm">Gm</option>';
     html11 += '<option value="kg">Kg</option>';
@@ -1155,6 +1167,7 @@ function setWightInputValueEdit(id) {
 
 
 function WightrowRemoveEdit(id) {
+    console.log(id);
     $('#WightdivEdit'+id).remove();
 }
 
@@ -1192,7 +1205,25 @@ function diamentionRowRemoveEdit(id) {
     $('.DiamentionRowedit'+id).remove();
 }
 
+$('#pdmesermentEdit').change(function(){
+var pdmesermentEdit= $('#pdmesermentEdit').val();
+    var html13="";
 
+    if (pdmesermentEdit==1) {
+    html13+='<table class="table table-bordered"><thead clss="text-center"><tr><th>Entry</th><th>Meserments</th><th class="text-center"><button class="btn btn-success btn-sm ml-auto" onclick="addMoreBtnForMesermrntSizeEdit();">Add More</button></th></tr></thead><tbody id="MesermrntSizeEdit">';
+
+    } else if (pdmesermentEdit==2){
+    html13+='<table class="table table-bordered"><thead clss="text-center"><tr><th>Entry</th><th>Meserments</th><th class="text-center"><button class="btn btn-success btn-sm ml-auto" onclick="addMoreBtnForMesermrntWeightEdit();">Add More</button></th></tr></thead><tbody id="MesermrntWeightEdit">';
+
+
+    }else if (pdmesermentEdit==3){
+    html13+='<table class="table table-bordered"><thead clss="text-center"><tr><th>Entry</th><th>Meserments</th><th class="text-center"><button class="btn btn-success btn-sm ml-auto" onclick="addMoreBtnForMesermrntDiamentionEdit();">Add More</button></th></tr></thead><tbody id="MesermrntDimentionEdit">';
+
+    }
+
+    $('.meserment_edit').html(html13);
+
+});
 
 </script>
 

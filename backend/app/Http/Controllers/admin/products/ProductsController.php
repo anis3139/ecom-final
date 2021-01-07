@@ -187,7 +187,10 @@ class ProductsController extends Controller
         $pdEditFeature = $data['0']->pdEditFeature;
         $pdEditStatus = $data['0']->pdEditStatus;
         $pdmesermentValueEdit = $data['0']->pdmesermentValueEdit;
+        $slelctedmesermentEdit = $data['0']->slelctedmesermentEdit;
         $editedValueOfColor = $data['0']->editedValueOfColor;
+
+
 
 
         if($pdmesermentValueEdit !== null){
@@ -213,8 +216,9 @@ class ProductsController extends Controller
         }
 
 
-        if(isset($request->images)){
-        if (count($request->images) > 0) {
+
+
+        if ($request->has('images')) {
 
             $product_has_images = product_has_images::where('has_images_product_id', $product_id_edit)->get();
             foreach ($product_has_images as  $product_has_images_value) {
@@ -253,6 +257,7 @@ class ProductsController extends Controller
                  $result->product_in_stock = $pdEditStock;
                  $result->feture_products = $pdEditFeature;
                  $result->product_active = $pdEditStatus;
+                 $result->product_meserment_type = $slelctedmesermentEdit;
                  $status=$result->save();
 
             if ($status == true) {
@@ -261,8 +266,9 @@ class ProductsController extends Controller
                 return 0;
             }
 
-        }
+
     } else {
+
             $result = product_table::where('id', '=', $product_id_edit)->first();
                 $result->product_title = $pdEditName;
                 $result->product_discription = $pdEditDescription;
@@ -274,6 +280,7 @@ class ProductsController extends Controller
                 $result->product_in_stock = $pdEditStock;
                 $result->feture_products = $pdEditFeature;
                 $result->product_active = $pdEditStatus;
+                $result->product_meserment_type = $slelctedmesermentEdit;
                 $status =$result->save();
 
                 if ($status == true) {
@@ -283,7 +290,8 @@ class ProductsController extends Controller
                 }
 
         }
-    }
+
+}
 
     /**
      * Remove the specified resource from storage.
