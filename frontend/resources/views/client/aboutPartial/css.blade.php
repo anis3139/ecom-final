@@ -8,29 +8,14 @@
  img{
      max-width: 100%;
  }
- body{
+ 
+ .main-div{
+     background: linear-gradient(to left, #ffffcc 0%, #ffffcc 100%);
      box-sizing: border-box;
      font-family: 'Raleway', sans-serif;
  }
- .main-div{
-     background: linear-gradient(to left, #ffffcc 0%, #ffffcc 100%);
- }
- .slider-area{
-     padding: 0;
-     margin: 0;
-     overflow: hidden;
- }
- .carousel-inner{
-    max-height: 400px;
-    max-width:1000px;
- 
- }
- .carousel-inner img {
-     width: 100% ;
-     height: auto ;
-   }
- 
- /* carousel end */
+
+
  
  /* about-section */
  
@@ -128,7 +113,7 @@
      width: 198px;
      background-color: #8d8d5fe6;
      display: inline-block;
-     top: 52px;
+     top: 60px;
  }
  
  .right-details{
@@ -145,10 +130,12 @@
      list-style: none;
  }
  .isotope-section{
+    margin: 0  auto;
      margin-top: 50px;
      padding-bottom: 50px;
      overflow: hidden;
      max-width: 1200px;
+     
      background: linear-gradient(to top right, #ffff99 50%, #ffffff 100%);
      text-align: center;
  }
