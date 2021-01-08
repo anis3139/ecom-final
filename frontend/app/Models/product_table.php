@@ -4,10 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class product_table extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
     public $table='product_tables';
     const CREATED_AT = 'create_time';
     const UPDATED_AT = 'update_time';

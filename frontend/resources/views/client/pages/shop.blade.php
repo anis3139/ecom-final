@@ -92,15 +92,15 @@
                                                 <p class="aa-product-descrip">{!! nl2br(e( $allProduct->product_discription)) !!}</p>
                                             </figcaption>
                                         </figure>
-                                        {{-- <div class="aa-product-hvr-content">
+                                        <div class="aa-product-hvr-content">
                                             <a href="#" data-toggle="tooltip" data-placement="top"
                                                 title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
                                             <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span
                                                     class="fa fa-exchange"></span></a>
-                                            <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View"
+                                            <a onclick="productDetailsModal($allProduct->id)" href="{{ $allProduct->id }}" data-toggle2="tooltip" data-placement="top" title="Quick View"
                                                 data-toggle="modal" data-target="#quick-view-modal"><span
                                                     class="fa fa-search"></span></a>
-                                        </div> --}}
+                                        </div>
                                         <!-- product badge -->
                                         @if ($allProduct->product_in_stock)
                                             <span class="aa-badge aa-sale" href="#">
@@ -164,13 +164,13 @@
                                                 <!-- Modal view content -->
                                                 <div class="col-md-6 col-sm-6 col-xs-12">
                                                     <div class="aa-product-view-content">
-                                                        <h3>T-Shirt</h3>
+                                                        <h3 id="pdTitle">T-Shirt</h3>
                                                         <div class="aa-price-block">
                                                             <span class="aa-product-view-price">$34.99</span>
                                                             <p class="aa-product-avilability">Avilability: <span>In
                                                                     stock</span></p>
                                                         </div>
-                                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                                                        <p id="pdDes">Lorem ipsum dolor sit amet, consectetur adipisicing elit.
                                                             Officiis animi, veritatis quae repudiandae quod nulla porro
                                                             quidem, itaque quis quaerat!</p>
                                                         <h4>Size</h4>
@@ -339,5 +339,31 @@
         </div>
     </section>
     <!-- / product category -->
+
+@endsection
+
+@section('script')
+    
+<script>
+      //each Slider  Details data show for edit
+      function productDetailsModal(id) {
+            axios.post('{{route('client.getsingleProductdata')}}', {
+                    id: id
+                })
+                .then(function(response) {
+                    if (response.status == 200) {
+                        var jsonData = response.data;
+                        console.log(jsonData);
+                        $('#pdTitle').html(jsonData[0].product_title);
+                        $('#pdDes').val(jsonData[0].product_discription);
+                       
+                    } else {
+                        
+                    }
+                }).catch(function(error) {
+                
+                });
+        }
+</script>
 
 @endsection

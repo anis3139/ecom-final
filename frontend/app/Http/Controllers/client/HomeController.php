@@ -31,7 +31,7 @@ class HomeController extends Controller
         $featureProducts=product_table::with(['img'])->where('feture_products', 1)->where('product_active', 1)->take(8)->get();
         $latestProducts=product_table::with(['img'])->where('product_active', 1)->orderBy('id', 'desc')->take(8)->get();
 
- $promo_categories=ProductsCategoryModel::orderBy('id', 'asc')->where('status', 1)->limit(5)->get();
+        $promo_categories=ProductsCategoryModel::orderBy('id', 'asc')->where('status', 1)->limit(5)->get();
 
        $popular_products= OrderProducts::with('product')
             ->select('product_id', DB::raw('COUNT(product_id) as maxSell'))

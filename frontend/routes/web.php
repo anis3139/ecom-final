@@ -28,7 +28,7 @@ Route::get('/checkout', [App\Http\Controllers\client\cartController::class, 'che
 
 //shop page
 Route::get('/shop', [App\Http\Controllers\client\shopController::class, 'shopIndex'])->name('client.shop');
-
+Route::post('/getsingleProductdata', [App\Http\Controllers\client\shopController::class, 'getsingleProductdata'])->name('client.getsingleProductdata');
 
 //Contact Page
 Route::get('/contact', [App\Http\Controllers\client\contactController::class, 'contactIndex'])->name('client.contact');
