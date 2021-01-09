@@ -1,4 +1,4 @@
-@extends('admin.layouts.admin')
+@extends('admin.layouts.app')
 @section('css')
     <style>
         .modal-dialog-full-width {
@@ -231,32 +231,27 @@
                         $('#Orders_table').empty();
                         var dataJSON = response.data;
 
-                        var count = 1;
-                        $.each(dataJSON, function(i, item) {
-                            $('<tr class="text-center">').html(
-                                "<td style='max-width:100px; overflow-wrap: break-word;'>" + count++ +
-                                " </td>" +
-                                "<td style='max-width:100px; overflow-wrap: break-word;'>" + dataJSON[i]
-                                .customer_name + " </td>" +
-                                "<td style='max-width:100px; overflow-wrap: break-word;'>" + dataJSON[i]
-                                .customer_phone_number + " </td>" +
-                                "<td style='max-width:100px; overflow-wrap: break-word;'>" + dataJSON[i]
-                                .address + " </td>" +
-                                "<td style='max-width:100px; overflow-wrap: break-word;'>" + dataJSON[i]
-                                .city + " </td>" +
-                                "<td style='max-width:100px; overflow-wrap: break-word;'>" + dataJSON[i]
-                                .district + " </td>" +
-                                "<td style='max-width:100px; overflow-wrap: break-word;'>" + dataJSON[i]
-                                .country + " </td>" +
-                                "<td style='max-width:100px; overflow-wrap: break-word;'>" + dataJSON[i]
-                                .payment_status + " </td>" +
-                                "<td style='max-width:100px; overflow-wrap: break-word;'>" + dataJSON[i]
-                                .paid_amount + " </td>" +
-                                "<td><a class='OrdersView' data-id=" + dataJSON[i].id +
-                                "><i class='fas fa-eye'></i></a></td>"+
-                                "<td><a  href='ordersPrint/"+ dataJSON[i].id +"'><i class='fas fa-print'></i></a></td>"
-                            ).appendTo('#Orders_Table');
-                        });
+
+
+                        var table="";
+                        for (let trableData = 0; trableData < dataJSON.length; trableData++) {
+                            const element = dataJSON[trableData];
+                            table+='<tr>';
+                            table+='<td style="max-width:100px; overflow-wrap: break-word;">'+(trableData+1)+'</td>';
+                            table+='<td style="max-width:100px; overflow-wrap: break-word;">'+element.customer_name+'</td>';
+                            table+='<td style="max-width:100px; overflow-wrap: break-word;">'+element.customer_phone_number+'</td>';
+                            table+='<td style="max-width:100px; overflow-wrap: break-word;">'+element.address+'</td>';
+                            table+='<td style="max-width:100px; overflow-wrap: break-word;">'+element.city+'</td>';
+                            table+='<td style="max-width:100px; overflow-wrap: break-word;">'+element.district+'</td>';
+                            table+='<td style="max-width:100px; overflow-wrap: break-word;">'+element.country+'</td>';
+                            table+='<td style="max-width:100px; overflow-wrap: break-word;">'+element.payment_status+'</td>';
+                            table+='<td style="max-width:100px; overflow-wrap: break-word;">'+element.paid_amount+'</td>';
+                            table+='<td><a class="OrdersView" data-id=' + element.id +'><i class="fas fa-eye"></i></a></td>';
+                            table+='<td><a href="ordersPrint/'+ element.id +'"  class="OrdersView"><i class="fas fa-print"></i></a></td>';
+                            table+='</tr>'
+                        }
+                        $('#Orders_Table').html(table);
+
 
 
                         //Orders View icon click
@@ -264,11 +259,8 @@
                         $(".OrdersView").click(function() {
                             var id = $(this).data('id');
                             $('#OrdersViewId').html(id);
-                           
                             $('#viewOrdersModal').modal('show');
                             OrdersViewDetails(id);
-
-
                         })
                         $('#OrdersDataTable').DataTable({
                             "order": true
@@ -282,6 +274,7 @@
 
                     }
                 }).catch(function(error) {
+                    console.log(error);
 
                     $('#wrongDivOrders').removeClass('d-none');
                     $('#loadDivOrders').addClass('d-none');
@@ -299,8 +292,9 @@
                     id: id
                 })
                 .then(function(response) {
-
+                    console.log(response.data);
                     if (response.status == 200) {
+
                         $('#loadDivOrders').addClass('d-none');
                         $('#OrdersEditForm').removeClass('d-none');
 
@@ -330,46 +324,35 @@
                         $('#total_price').html('&euro;' + dataJSON[0].paid_amount);
 
 
-
+                        $('#payment_status_id').val(dataJSON[0].id);
 
                         $('#payment_status option[value=' + dataJSON[0].payment_status + ']').attr('selected', 'selected');
 
 
-                        $('#payment_status_id').val(dataJSON[0].id);
 
 
-
-
-                        var count = 1;
-                        $.each(dataJSON[0].order_products, function(i, item) {
-                            var maserment="";
-                                if(dataJSON[0].order_products[i].maserment){
-                                    maserment=dataJSON[0].order_products[i].maserment
+                        var imageViewHtml = "";
+                        for (let index = 0; index < dataJSON[0].order_products.length; index++) {
+                            const element = dataJSON[0].order_products[index];
+                            imageViewHtml += '<tr>';
+                            imageViewHtml += '<td>'+(index+1)+'</td>';
+                            imageViewHtml += '<td clsss="mx-auto" >' + element.product_id + '</td>';
+                            imageViewHtml += '<td clsss="mx-auto" >' + element.product.product_title + '</td>';
+                            if (element.color) {
+                            imageViewHtml += '<td style="display:flex; justify-content:center; align-items: center;"><div style=" width:20px; height:20px; border:1px solid #000; border-radius:50%; background-color: '+element.color+';"></div></td>';
+                            }else{
+                                imageViewHtml += '<td clsss="mx-auto" >N/A</td>';
+                            }
+                                if (element.maserment) {
+                                    imageViewHtml += '<td clsss="mx-auto" >' + element.maserment + '</td>';
                                 }else{
-                                    maserment="N/A"
+                                    imageViewHtml += '<td clsss="mx-auto" >N/A</td>';
                                 }
-                                var color="";
-                                if(dataJSON[0].order_products[i].color){
-                                    color= "<td style='display:flex; justify-content:center; align-items: center;'><div style=' width:20px; height:20px; border:1px solid #000; border-radius:50%; background-color:"+dataJSON[0].order_products[i].color+";'></div></td>"
-                                }else{
-
-                                    color=  "<td clsss='mx-auto' >N/A</td>"
-                                }
-                            $('<tr class="text-center">').html(
-
-                                "<td style='max-width:100px; overflow-wrap: break-word;'>" + count++ +
-                                " </td>"+
-                                "<td style='max-width:100px; overflow-wrap: break-word;'>" +dataJSON[0].order_products[i].product_id +
-                                " </td>"+
-                                "<td style='max-width:100px; overflow-wrap: break-word;'>" +dataJSON[0].order_products[i].product.product_title +
-                                " </td>"+
-                                color
-                                +"<td clsss='mx-auto' >" +maserment + "</td>"+
-
-                                "<td clsss='mx-auto' >" + dataJSON[0].order_products[i].quantity + "</td>"+
-                                "<td clsss='mx-auto' >&euro;" + dataJSON[0].order_products[i].price + "</td>"
-                            ).appendTo('#OrdersView');
-                        });
+                            imageViewHtml += '<td clsss="mx-auto" >' + element.quantity + '</td>';
+                            imageViewHtml += '<td clsss="mx-auto" >&euro;' + element.price + '</td>';
+                            imageViewHtml += '</tr>';
+                        }
+                        $('#OrdersView').html(imageViewHtml);
 
 
                     } else {
@@ -380,7 +363,7 @@
                 }).catch(function(error) {
                     $('#loadDivOrders').addClass('d-none');
                     $('#wrongDivOrders').removeClass('d-none');
-                    console.log(error);
+                        console.log(error);
                 });
         }
 
@@ -403,6 +386,7 @@
 
                 } else {
                     toastr.error('Update Fail ! Try Again');
+                    getOrdersdata();
                 }
             }).catch(function(error) {
                 toastr.error('Update Fail ! Try Again');

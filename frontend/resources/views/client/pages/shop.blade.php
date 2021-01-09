@@ -21,7 +21,7 @@
 @section('content')
 
     <!-- catg header banner section -->
-   @include('client.components.hero')
+    @include('client.components.hero')
     <!-- / catg header banner section -->
 
     <!-- product category -->
@@ -86,10 +86,14 @@
                                             </form>
                                             <figcaption>
                                                 <h4 class="aa-product-title"><a
-                                                        href="{{ route('client.showProductDetails', ['slug' => $allProduct->product_slug]) }}">{{ $allProduct->product_title }}</a></h4>
-                                                <span class="aa-product-price">&euro; &nbsp;{{ $allProduct->product_price }}</span><span
-                                                    class="aa-product-price"><del>&euro; &nbsp;{{ $allProduct->product_selling_price }}</del></span>
-                                                <p class="aa-product-descrip">{!! nl2br(e( $allProduct->product_discription)) !!}</p>
+                                                        href="{{ route('client.showProductDetails', ['slug' => $allProduct->product_slug]) }}">{{ $allProduct->product_title }}</a>
+                                                </h4>
+                                                <span class="aa-product-price">&euro;
+                                                    &nbsp;{{ $allProduct->product_price }}</span><span
+                                                    class="aa-product-price"><del>&euro;
+                                                        &nbsp;{{ $allProduct->product_selling_price }}</del></span>
+                                                <p class="aa-product-descrip">{!! nl2br(e($allProduct->product_discription))
+                                                    !!}</p>
                                             </figcaption>
                                         </figure>
                                         <div class="aa-product-hvr-content">
@@ -97,8 +101,9 @@
                                                 title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
                                             <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span
                                                     class="fa fa-exchange"></span></a>
-                                            <a onclick="productDetailsModal($allProduct->id)" href="{{ $allProduct->id }}" data-toggle2="tooltip" data-placement="top" title="Quick View"
-                                                data-toggle="modal" data-target="#quick-view-modal"><span
+                                            <a onclick="productDetailsModal({{ $allProduct->id }})"
+                                                href="{{ $allProduct->id }}" data-toggle2="tooltip" data-placement="top"
+                                                title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span
                                                     class="fa fa-search"></span></a>
                                         </div>
                                         <!-- product badge -->
@@ -164,41 +169,57 @@
                                                 <!-- Modal view content -->
                                                 <div class="col-md-6 col-sm-6 col-xs-12">
                                                     <div class="aa-product-view-content">
-                                                        <h3 id="pdTitle">T-Shirt</h3>
+                                                        <h3 id="pdTitle"></h3>
                                                         <div class="aa-price-block">
-                                                            <span class="aa-product-view-price">$34.99</span>
-                                                            <p class="aa-product-avilability">Avilability: <span>In
-                                                                    stock</span></p>
+                                                            <span id="pdPrice" class="aa-product-view-price"></span>
+                                                            <p class="aa-product-avilability">Avilability: <span
+                                                                    id="inStock"></span></p>
                                                         </div>
-                                                        <p id="pdDes">Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                                                            Officiis animi, veritatis quae repudiandae quod nulla porro
-                                                            quidem, itaque quis quaerat!</p>
-                                                        <h4>Size</h4>
-                                                        <div class="aa-prod-view-size">
-                                                            <a href="#">S</a>
-                                                            <a href="#">M</a>
-                                                            <a href="#">L</a>
-                                                            <a href="#">XL</a>
+
+                                                        <!-- Cable Configuration -->
+                                            <form action="{{ route('client.addCart') }}" id="cartForm" method="post">
+                                                @csrf
+                                                        <div class="product-color">
+                                                            <span>Mezerment:</span>
+                                                            <div class="meserment-choose mt-5">
+
+                                                            </div>
                                                         </div>
+
+                                                        <div class="product-color">
+                                                            <span >Color</span>
+
+                                                            <div class="color-choose mt-5">
+
+                                                                <div>
+
+                                                                </div>
+
+
+
+                                                        </div>
+
                                                         <div class="aa-prod-quantity">
-                                                            <form action="">
-                                                                <select name="" id="">
-                                                                    <option value="0" selected="1">1</option>
-                                                                    <option value="1">2</option>
-                                                                    <option value="2">3</option>
-                                                                    <option value="3">4</option>
-                                                                    <option value="4">5</option>
-                                                                    <option value="5">6</option>
+
+                                                                <select name="quantity" id="quantity">
+                                                                    <option value="1" selected>1</option>
+                                                                    <option value="2">2</option>
+                                                                    <option value="3">3</option>
+                                                                    <option value="4">4</option>
+                                                                    <option value="5">5</option>
+                                                                    <option value="10">10</option>
                                                                 </select>
-                                                            </form>
+
                                                             <p class="aa-prod-category">
-                                                                Category: <a href="#">Polo T-Shirt</a>
+                                                                Category: <a href="#" id="pdCategory"></a>
                                                             </p>
                                                         </div>
                                                         <div class="aa-prod-view-bottom">
-                                                            <a href="#" class="aa-add-to-cart-btn"><span
-                                                                    class="fa fa-shopping-cart"></span>Add To Cart</a>
-                                                            <a href="#" class="aa-add-to-cart-btn">View Details</a>
+                                                <input type="hidden" id="product_ids" name="product_id" value="" >
+                                                <button type="submit" class="aa-add-to-cart-btn"><span class="fa fa-shopping-cart"></span>Add To Cart</button>
+
+                                            </form>
+                                                <a href="" id="modalSingleView" class="aa-add-to-cart-btn">View Details</a>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -224,7 +245,9 @@
             ->where('parent_id', 0)
             ->get()
         as $parentCat)
-                                    <li><a href="{{ route('client.category', $parentCat->slug) }}">{{ $parentCat->name }}</a></li>
+                                    <li><a
+                                            href="{{ route('client.category', $parentCat->slug) }}">{{ $parentCat->name }}</a>
+                                    </li>
                                 @endforeach
                             </ul>
                         </div>
@@ -296,7 +319,8 @@
                                                 <h4><a
                                                         href="{{ route('client.showProductDetails', ['slug' => $popular_product->product->product_slug]) }}">{{ $popular_product->product->product_title }}</a>
                                                 </h4>
-                                                <p>1 x &euro; &nbsp;{{ $popular_product->product->product_selling_price }}</p>
+                                                <p>1 x &euro; &nbsp;{{ $popular_product->product->product_selling_price }}
+                                                </p>
                                             </div>
                                         </li>
                                     @endforeach
@@ -322,8 +346,10 @@
                                             @endforeach
 
                                             <div class="aa-cartbox-info">
-                                                <h4><a href="{{ route('client.showProductDetails', ['slug' => $topRatedProduct->product_slug]) }}">{{$topRatedProduct->product_title}}</a></h4>
-                                                <p>1 x &euro; &nbsp;{{$topRatedProduct->product_price}}</p>
+                                                <h4><a
+                                                        href="{{ route('client.showProductDetails', ['slug' => $topRatedProduct->product_slug]) }}">{{ $topRatedProduct->product_title }}</a>
+                                                </h4>
+                                                <p>1 x &euro; &nbsp;{{ $topRatedProduct->product_price }}</p>
                                             </div>
                                         </li>
                                     @endforeach
@@ -343,27 +369,84 @@
 @endsection
 
 @section('script')
-    
-<script>
-      //each Slider  Details data show for edit
-      function productDetailsModal(id) {
-            axios.post('{{route('client.getsingleProductdata')}}', {
-                    id: id
-                })
+
+    <script>
+        //each Slider  Details data show for edit
+        function productDetailsModal(id) {
+                        console.log(id);
+            axios.post('{{ route('client.getsingleProductdata') }}', {
+                        id: id
+                    })
                 .then(function(response) {
                     if (response.status == 200) {
                         var jsonData = response.data;
-                        console.log(jsonData);
+                        var url= `product/${jsonData[0].product_slug}`;
+
+                        var inStock = '';
+                        if (jsonData[0].product_in_stock == 0) {
+                            inStock = "STOCK OUT!"
+                        } else {
+                            inStock = "SALE!"
+                        }
                         $('#pdTitle').html(jsonData[0].product_title);
-                        $('#pdDes').val(jsonData[0].product_discription);
-                       
+                        $('#pdPrice').html("&euro; " + jsonData[0].product_selling_price);
+                        $('#inStock').html(inStock);
+                        $('#pdCategory').html(jsonData[0].cat.name);
+                        $('#product_ids').val(id);
+                        $('#modalSingleView').attr("href" , url );
+
+
+                        var maserment="";
+                        for (let index = 0; index < jsonData[0].maserment.length; index++) {
+                            const element =  jsonData[0].maserment[index];
+                            checked=""
+                            if (index==0) {
+                                checked="checked"
+                            }else{
+                                checked=""
+                            }
+
+                            maserment+='<div>';
+                            maserment+='<input type="radio" id="'+element.meserment_value+'" name="maserment" '+checked+' value="'+element.meserment_value+'">';
+                            maserment+='<label for="'+element.meserment_value+'"><span style="background-color:#000;"></span></label>';
+                            maserment+='<span>'+element.meserment_value+'</span>&nbsp;';
+                            maserment+='</div>';
+
+                        }
+
+                        $('.meserment-choose').html(maserment);
+
+
+
+
+                        var color="";
+                        for (let index = 0; index < jsonData[0].color.length; index++) {
+                            const elementColor =  jsonData[0].color[index];
+                            console.log(elementColor.product_color_code);
+                            colorChecked=""
+                            if (index==0) {
+                                colorChecked="checked"
+                            }else{
+                                colorChecked=""
+                            }
+                            color+='<div>';
+                            color+='<input type="radio" id="'+elementColor.product_color_code+'" name="color" '+colorChecked+' value="'+elementColor.product_color_code+'">';
+                            color+='<label for="'+elementColor.product_color_code+'"><span style="background-color:'+elementColor.product_color_code+';"></span></label>';
+                            color+='</div>';
+
+                        }
+
+                        $('.color-choose').html(color);
+
+
                     } else {
-                        
+
                     }
                 }).catch(function(error) {
-                
+
                 });
         }
-</script>
+
+    </script>
 
 @endsection

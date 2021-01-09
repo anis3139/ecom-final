@@ -32,12 +32,13 @@ class shopController extends Controller
    }
 
 
-   
+
    function getsingleProductdata(Request $req)
    {
-     dd($req);
+
        $id = $req->input('id');
        $result = product_table::with('cat', 'img', 'maserment', 'color')->where('product_active', 1)->where('id', '=', $id)->get();
+     
        return $result;
    }
 
