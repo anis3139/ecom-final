@@ -84,7 +84,7 @@
                                                         class="fa fa-shopping-cart" id="CartAddConfirmBtn"></span>Add To
                                                     Cart</a>
 
-                                    
+
 
                                             <figcaption>
                                                 <h4 class="aa-product-title"><a
@@ -440,6 +440,7 @@
 
                         }
                         $('.simpleLens-thumbnails-container').html(img);
+
 
                     } else {
 

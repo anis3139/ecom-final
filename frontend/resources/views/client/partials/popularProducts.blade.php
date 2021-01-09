@@ -37,15 +37,11 @@
                                                     @php $i--; @endphp
                                                 @endforeach
 
-                                                <form action="{{ route('client.addCart') }}" id="cartForm"
-                                                    method="post">
-                                                    @csrf
-                                                    <input type="hidden" id="product_id" name="product_id"
-                                                        value="{{ $popular_product->product->id }}">
-                                                    <button type="submit" class="aa-add-card-btn"><span
-                                                            class="fa fa-shopping-cart"
-                                                            id="CartAddConfirmBtn"></span>Add To Cart</button>
-                                                </form>
+                                                <a  class="aa-add-card-btn"  onclick="productDetailsModal({{ $popular_product->id }})"
+                                                    href="" data-toggle2="tooltip" data-placement="top"
+                                                   data-toggle="modal" data-target="#quick-view-modal"><span
+                                                                class="fa fa-shopping-cart" id="CartAddConfirmBtn"></span>Add To
+                                                            Cart</a>
 
                                                 <figcaption>
                                                     <h4 class="aa-product-title"><a
@@ -56,16 +52,16 @@
                                                         class="aa-product-price"><del>&euro; &nbsp;{{ $popular_product->product->product_price }}</del></span>
                                                 </figcaption>
                                             </figure>
-                                            {{-- <div class="aa-product-hvr-content">
-                                                <a href="#" data-toggle="tooltip" data-placement="top"
+                                            <div class="aa-product-hvr-content">
+                                                {{-- <a href="#" data-toggle="tooltip" data-placement="top"
                                                     title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
                                                 <a href="#" data-toggle="tooltip" data-placement="top"
-                                                    title="Compare"><span class="fa fa-exchange"></span></a>
-                                                <a href="#" data-toggle2="tooltip" data-placement="top"
-                                                    title="Quick View" data-toggle="modal"
-                                                    data-target="#quick-view-modal"><span
-                                                        class="fa fa-search"></span></a>
-                                            </div> --}}
+                                                    title="Compare"><span class="fa fa-exchange"></span></a> --}}
+                                                    <a onclick="productDetailsModal({{ $popular_product->id }})"
+                                                        data-toggle2="tooltip" data-placement="top"
+                                                        title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span
+                                                            class="fa fa-search"></span></a>
+                                            </div>
                                             <!-- product badge -->
                                             @if ($popular_product->product->product_in_stock)
                                                 <span class="aa-badge aa-sale" href="#">
@@ -101,15 +97,11 @@
                                                     @endif
                                                     @php $i--; @endphp
                                                 @endforeach
-                                                <form action="{{ route('client.addCart') }}" id="cartForm"
-                                                    method="post">
-                                                    @csrf
-                                                    <input type="hidden" id="product_id" name="product_id"
-                                                        value="{{ $featureProduct->id }}">
-                                                    <button type="submit" class="aa-add-card-btn"><span
-                                                            class="fa fa-shopping-cart"
-                                                            id="CartAddConfirmBtn"></span>Add To Cart</button>
-                                                </form>
+                                                <a  class="aa-add-card-btn"  onclick="productDetailsModal({{ $featureProduct->id }})"
+                                                    href="" data-toggle2="tooltip" data-placement="top"
+                                                   data-toggle="modal" data-target="#quick-view-modal"><span
+                                                                class="fa fa-shopping-cart" id="CartAddConfirmBtn"></span>Add To
+                                                            Cart</a>
                                                 <figcaption>
                                                     <h4 class="aa-product-title"><a
                                                             href="{{ $featureProduct->product_slug }}">{{ $featureProduct->product_title }}</a>
@@ -119,16 +111,16 @@
                                                         class="aa-product-price"><del>{{ $featureProduct->product_price }}</del></span>
                                                 </figcaption>
                                             </figure>
-                                            {{-- <div class="aa-product-hvr-content">
-                                                <a href="#" data-toggle="tooltip" data-placement="top"
+                                            <div class="aa-product-hvr-content">
+                                                {{-- <a href="#" data-toggle="tooltip" data-placement="top"
                                                     title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
                                                 <a href="#" data-toggle="tooltip" data-placement="top"
-                                                    title="Compare"><span class="fa fa-exchange"></span></a>
-                                                <a href="#" data-toggle2="tooltip" data-placement="top"
-                                                    title="Quick View" data-toggle="modal"
-                                                    data-target="#quick-view-modal"><span
-                                                        class="fa fa-search"></span></a>
-                                            </div> --}}
+                                                    title="Compare"><span class="fa fa-exchange"></span></a> --}}
+                                                    <a onclick="productDetailsModal({{ $featureProduct->id }})"
+                                                        data-toggle2="tooltip" data-placement="top"
+                                                        title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span
+                                                            class="fa fa-search"></span></a>
+                                            </div>
                                             <!-- product badge -->
                                             @if ($featureProduct->product_in_stock)
                                                 <span class="aa-badge aa-sale" href="#">
@@ -165,31 +157,27 @@
                                                     @endif
                                                     @php $i--; @endphp
                                                 @endforeach
-                                                <form action="{{ route('client.addCart') }}" id="cartForm"
-                                                method="post">
-                                                @csrf
-                                                <input type="hidden" id="product_id" name="product_id"
-                                                    value="{{ $latestProduct->id }}">
-                                                <button type="submit" class="aa-add-card-btn"><span
-                                                        class="fa fa-shopping-cart"
-                                                        id="CartAddConfirmBtn"></span>Add To Cart</button>
-                                            </form>
+                                                <a  class="aa-add-card-btn"  onclick="productDetailsModal({{ $latestProduct->id }})"
+                                                    href="" data-toggle2="tooltip" data-placement="top"
+                                                   data-toggle="modal" data-target="#quick-view-modal"><span
+                                                                class="fa fa-shopping-cart" id="CartAddConfirmBtn"></span>Add To
+                                                            Cart</a>
                                                 <figcaption>
                                                     <h4 class="aa-product-title"><a href="{{ route('client.showProductDetails', ['slug' => $latestProduct->product_slug]) }}">{{ $latestProduct->product_title }}</a></h4>
                                                     <span class="aa-product-price">&euro; &nbsp;{{ $latestProduct->product_selling_price }}</span><span
                                                         class="aa-product-price"><del>&euro; &nbsp;{{ $latestProduct->product_price }}</del></span>
                                                 </figcaption>
                                             </figure>
-                                            {{-- <div class="aa-product-hvr-content">
-                                                <a href="#" data-toggle="tooltip" data-placement="top"
+                                            <div class="aa-product-hvr-content">
+                                                {{-- <a href="#" data-toggle="tooltip" data-placement="top"
                                                     title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
                                                 <a href="#" data-toggle="tooltip" data-placement="top"
-                                                    title="Compare"><span class="fa fa-exchange"></span></a>
-                                                <a href="#" data-toggle2="tooltip" data-placement="top"
-                                                    title="Quick View" data-toggle="modal"
-                                                    data-target="#quick-view-modal"><span
-                                                        class="fa fa-search"></span></a>
-                                            </div> --}}
+                                                    title="Compare"><span class="fa fa-exchange"></span></a> --}}
+                                                    <a onclick="productDetailsModal({{ $latestProduct->id }})"
+                                                        data-toggle2="tooltip" data-placement="top"
+                                                        title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span
+                                                            class="fa fa-search"></span></a>
+                                            </div>
                                             <!-- product badge -->
                                             @if ($latestProduct->product_in_stock)
                                                 <span class="aa-badge aa-sale" href="#">

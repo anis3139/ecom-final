@@ -38,11 +38,11 @@
 
 
 
-                                  <form action="{{ route('client.addCart') }}" id="cartForm" method="post">
-                                  @csrf
-                                  <input type="hidden" id="product_id" name="product_id" value="{{$product->id}}">
-                                  <button type="submit" class="aa-add-card-btn"><span class="fa fa-shopping-cart" id="CartAddConfirmBtn"></span>Add To Cart</button>
-                                </form>
+                                 <a  class="aa-add-card-btn"  onclick="productDetailsModal({{ $product->id }})"
+                                    href="" data-toggle2="tooltip" data-placement="top"
+                                   data-toggle="modal" data-target="#quick-view-modal"><span
+                                                class="fa fa-shopping-cart" id="CartAddConfirmBtn"></span>Add To
+                                            Cart</a>
 
 
                                     <figcaption>
@@ -50,11 +50,14 @@
                                     <span class="aa-product-price">&euro; &nbsp;{{ $product->product_price}}</span><span class="aa-product-price"><del>&euro; &nbsp;{{ $product->product_selling_price}}</del></span>
                                   </figcaption>
                                 </figure>
-                                {{-- <div class="aa-product-hvr-content">
-                                  <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
-                                  <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a>
-                                  <a href="{{ $product->product_slug}}" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>
-                                </div> --}}
+                                <div class="aa-product-hvr-content">
+                                  {{-- <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
+                                  <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a> --}}
+                                  <a onclick="productDetailsModal({{ $product->id }})"
+                                    data-toggle2="tooltip" data-placement="top"
+                                    title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span
+                                        class="fa fa-search"></span></a>
+                                </div>
                                 <!-- product badge -->
 
                                   @if($product->product_in_stock)
@@ -77,87 +80,98 @@
 
 
 
-                  <!-- quick view modal -->
-                  <div class="modal fade" id="quick-view-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                      <div class="modal-content">
-                        <div class="modal-body">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                          <div class="row">
-                            <!-- Modal view slider -->
-                            <div class="col-md-6 col-sm-6 col-xs-12">
-                              <div class="aa-product-view-slider">
-                                <div class="simpleLens-gallery-container" id="demo-1">
-                                  <div class="simpleLens-container">
-                                      <div class="simpleLens-big-image-container">
-                                          <a class="simpleLens-lens-image" data-lens-image="{{ asset('client/img')}}/view-slider/large/polo-shirt-1.png">
-                                              <img src="{{ asset('client/img')}}/view-slider/medium/polo-shirt-1.png" class="simpleLens-big-image">
-                                          </a>
-                                      </div>
-                                  </div>
-                                  <div class="simpleLens-thumbnails-container">
-                                      <a href="#" class="simpleLens-thumbnail-wrapper"
-                                         data-lens-image="{{ asset('client/img')}}/view-slider/large/polo-shirt-1.png"
-                                         data-big-image="{{ asset('client/img')}}/view-slider/medium/polo-shirt-1.png">
-                                          <img src="{{ asset('client/img')}}/view-slider/thumbnail/polo-shirt-1.png">
-                                      </a>
-                                      <a href="#" class="simpleLens-thumbnail-wrapper"
-                                         data-lens-image="{{ asset('client/img')}}/view-slider/large/polo-shirt-3.png"
-                                         data-big-image="{{ asset('client/img')}}/view-slider/medium/polo-shirt-3.png">
-                                          <img src="{{ asset('client/img')}}/view-slider/thumbnail/polo-shirt-3.png">
-                                      </a>
+                   <!-- quick view modal -->
+                   <div class="modal fade" id="quick-view-modal" tabindex="-1" role="dialog"
+                   aria-labelledby="myModalLabel" aria-hidden="true">
+                   <div class="modal-dialog">
+                       <div class="modal-content">
+                           <div class="modal-body">
+                               <button type="button" class="close" data-dismiss="modal"
+                                   aria-hidden="true">&times;</button>
+                               <div class="row">
+                                   <!-- Modal view slider -->
+                                   <div class="col-md-6 col-sm-6 col-xs-12">
+                                       <div class="aa-product-view-slider">
+                                           <div class="simpleLens-gallery-container" id="demo-1">
+                                               <div class="simpleLens-container">
+                                                   <div class="simpleLens-big-image-container">
+                                                       <a class="simpleLens-lens-image" id="simpleLensImage"
+                                                           data-lens-image="">
+                                                           <img src=""
+                                                               class="simpleLens-big-image" id="simpleLensBigImage">
+                                                       </a>
+                                                   </div>
+                                               </div>
+                                               <div class="simpleLens-thumbnails-container">
 
-                                      <a href="#" class="simpleLens-thumbnail-wrapper"
-                                         data-lens-image="{{ asset('client/img')}}/view-slider/large/polo-shirt-4.png"
-                                         data-big-image="{{ asset('client/img')}}/view-slider/medium/polo-shirt-4.png">
-                                          <img src="{{ asset('client/img')}}/view-slider/thumbnail/polo-shirt-4.png">
-                                      </a>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                            <!-- Modal view content -->
-                            <div class="col-md-6 col-sm-6 col-xs-12">
-                              <div class="aa-product-view-content">
-                                <h3>T-Shirt</h3>
-                                <div class="aa-price-block">
-                                  <span class="aa-product-view-price">$34.99</span>
-                                  <p class="aa-product-avilability">Avilability: <span>In stock</span></p>
-                                </div>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officiis animi, veritatis quae repudiandae quod nulla porro quidem, itaque quis quaerat!</p>
-                                <h4>Size</h4>
-                                <div class="aa-prod-view-size">
-                                  <a href="#">S</a>
-                                  <a href="#">M</a>
-                                  <a href="#">L</a>
-                                  <a href="#">XL</a>
-                                </div>
-                                <div class="aa-prod-quantity">
-                                  <form action="">
-                                    <select name="" id="">
-                                      <option value="0" selected="1">1</option>
-                                      <option value="1">2</option>
-                                      <option value="2">3</option>
-                                      <option value="3">4</option>
-                                      <option value="4">5</option>
-                                      <option value="5">6</option>
-                                    </select>
-                                  </form>
-                                  <p class="aa-prod-category">
-                                    Category: <a href="#">Polo T-Shirt</a>
-                                  </p>
-                                </div>
-                                <div class="aa-prod-view-bottom">
-                                  <a href="#" class="aa-add-to-cart-btn"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
-                                  <a href="#" class="aa-add-to-cart-btn">View Details</a>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div><!-- /.modal-content -->
-                    </div><!-- /.modal-dialog -->
-                  </div><!-- / quick view modal -->
+                                               </div>
+                                           </div>
+                                       </div>
+                                   </div>
+                                   <!-- Modal view content -->
+                                   <div class="col-md-6 col-sm-6 col-xs-12">
+                                       <div class="aa-product-view-content">
+                                           <h3 id="pdTitle"></h3>
+                                           <div class="aa-price-block">
+                                               <span id="pdPrice" class="aa-product-view-price"></span>
+                                               <p class="aa-product-avilability">Avilability: <span
+                                                       id="inStock"></span></p>
+                                           </div>
+
+                                           <!-- Cable Configuration -->
+                               <form action="{{ route('client.addCart') }}" id="cartForm" method="post">
+                                   @csrf
+                                           <div class="product-color">
+                                               <span>Mezerment:</span>
+                                               <div class="meserment-choose mt-5">
+
+                                               </div>
+                                           </div>
+
+                                           <div class="product-color">
+                                               <span >Color</span>
+
+                                               <div class="color-choose mt-5">
+
+
+
+                                                   </div>
+
+
+
+                                           </div>
+
+                                           <div class="aa-prod-quantity">
+
+                                                   <select name="quantity" id="quantity">
+                                                       <option value="1" selected>1</option>
+                                                       <option value="2">2</option>
+                                                       <option value="3">3</option>
+                                                       <option value="4">4</option>
+                                                       <option value="5">5</option>
+                                                       <option value="10">10</option>
+                                                   </select>
+
+                                               <p class="aa-prod-category">
+                                                   Category: <a href="#" id="pdCategory"></a>
+                                               </p>
+                                           </div>
+                                           <div class="aa-prod-view-bottom">
+                                   <input type="hidden" id="product_ids" name="product_id" value="" >
+                                   <button type="submit" class="aa-add-to-cart-btn"><span class="fa fa-shopping-cart"></span>Add To Cart</button>
+
+
+                                   <a href="" id="modalSingleView" class="aa-add-to-cart-btn">View Details</a>
+                                           </div>
+                       </form>
+                                       </div>
+                                   </div>
+                               </div>
+                           </div>
+                       </div><!-- /.modal-content -->
+                   </div><!-- /.modal-dialog -->
+               </div>
+               <!-- / quick view modal -->
               </div>
             </div>
           </div>

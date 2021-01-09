@@ -1,5 +1,93 @@
 @extends('client.layouts.app')
+@section('css')
 
+<style>
+
+    /* Product Color */
+    .product-color {
+      margin-bottom: 20px;
+    }
+
+    .color-choose div {
+      display: inline-block;
+      margin-top: 10px;
+    }
+
+    .color-choose input[type="radio"] {
+      display: none;
+    }
+
+    .color-choose input[type="radio"] + label span {
+      display: inline-block;
+      width: 40px;
+      height: 40px;
+      margin: -1px 4px 0 0;
+      vertical-align: middle;
+      cursor: pointer;
+      border-radius: 50%;
+    }
+
+    .color-choose input[type="radio"] + label span {
+      border: 2px solid #FFFFFF;
+      box-shadow: 0 1px 3px 0 rgba(0,0,0,0.33);
+    }
+
+
+
+    .color-choose input[type="radio"]:checked + label span {
+      background-image: url(/client/img/check-icn.svg);
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+
+
+
+
+
+    /* Product Size */
+    .product-color {
+      margin-bottom: 20px;
+    }
+
+    .meserment-choose div {
+      display: inline-block;
+      margin-top: 10px;
+    }
+
+    .meserment-choose input[type="radio"] {
+      display: none;
+    }
+
+    .meserment-choose input[type="radio"] + label span {
+      display: inline-block;
+      width: 30px;
+      height: 30px;
+      margin: -1px 4px 0 0;
+      vertical-align: middle;
+      cursor: pointer;
+      border-radius: 50%;
+    }
+
+    .meserment-choose input[type="radio"] + label span {
+      border: 2px solid #FFFFFF;
+      box-shadow: 0 1px 3px 0 rgba(0,0,0,0.33);
+    }
+
+
+
+    .meserment-choose input[type="radio"]:checked + label span {
+      background-image: url(/client/img/check-icn.svg);
+     background-size: 15px;
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+
+
+
+
+    </style>
+
+@endsection
 @section('content')
     <!-- catg header banner section -->
    @include('client.components.hero')
@@ -117,8 +205,8 @@
                                             </p>
                                         </div>
                                         <div class="aa-prod-view-bottom">
-                                        {{-- <form action="{{ route('client.addCart') }}" id="cartForm"
-                                            method="post"> --}}
+                                        <form action="{{ route('client.addCart') }}" id="cartForm"
+                                            method="post">
                                             @csrf
                                             <input type="hidden" id="product_id" name="product_id"
                                                 value="{{ $productDetails->id }}">
@@ -268,10 +356,12 @@
 
 
                                             </a>
-                                            <a class="aa-add-card-btn" href="#"><span class="fa fa-shopping-cart"></span>Add
-                                                To
-                                                Cart
-                                            </a>
+
+                                        <a  class="aa-add-card-btn"  onclick="productDetailsModal({{ $relProduct->id }})"
+                                            href="" data-toggle2="tooltip" data-placement="top"
+                                           data-toggle="modal" data-target="#quick-view-modal"><span
+                                                        class="fa fa-shopping-cart" id="CartAddConfirmBtn"></span>Add To
+                                                    Cart</a>
                                             <figcaption>
                                                 <h4 class="aa-product-title"><a
                                                         href="{{ route('client.showProductDetails', ['slug' => $relProduct->product_slug]) }}">{!!
@@ -280,15 +370,16 @@
                                                     class="aa-product-price"><del>&euro; &nbsp;{{ $relProduct->product_selling_price }}</del></span>
                                             </figcaption>
                                         </figure>
-                                        {{-- <div class="aa-product-hvr-content">
-                                            <a href="#" data-toggle="tooltip" data-placement="top"
+                                        <div class="aa-product-hvr-content">
+                                            {{-- <a href="#" data-toggle="tooltip" data-placement="top"
                                                 title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
                                             <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span
-                                                    class="fa fa-exchange"></span></a>
-                                            <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View"
-                                                data-toggle="modal" data-target="#quick-view-modal"><span
-                                                    class="fa fa-search"></span></a>
-                                        </div> --}}
+                                                    class="fa fa-exchange"></span></a> --}}
+                                                    <a onclick="productDetailsModal({{ $relProduct->id }})"
+                                                        data-toggle2="tooltip" data-placement="top"
+                                                        title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span
+                                                            class="fa fa-search"></span></a>
+                                        </div>
                                         <!-- product badge -->
                                         @if ($relProduct->product_in_stock)
                                         <span class="aa-badge aa-sale" href="#">
@@ -319,33 +410,15 @@
                                                         <div class="simpleLens-gallery-container" id="demo-1">
                                                             <div class="simpleLens-container">
                                                                 <div class="simpleLens-big-image-container">
-                                                                    <a class="simpleLens-lens-image"
-                                                                        data-lens-image="{{ asset('client') }}/img/view-slider/large/polo-shirt-1.png">
-                                                                        <img src="{{ asset('client') }}/img/view-slider/medium/polo-shirt-1.png"
-                                                                            class="simpleLens-big-image">
+                                                                    <a class="simpleLens-lens-image" id="simpleLensImage"
+                                                                        data-lens-image="">
+                                                                        <img src=""
+                                                                            class="simpleLens-big-image" id="simpleLensBigImage">
                                                                     </a>
                                                                 </div>
                                                             </div>
                                                             <div class="simpleLens-thumbnails-container">
-                                                                <a href="#" class="simpleLens-thumbnail-wrapper"
-                                                                    data-lens-image="{{ asset('client') }}/img/view-slider/large/polo-shirt-1.png"
-                                                                    data-big-image="{{ asset('client') }}/img/view-slider/medium/polo-shirt-1.png">
-                                                                    <img
-                                                                        src="{{ asset('client') }}/img/view-slider/thumbnail/polo-shirt-1.png">
-                                                                </a>
-                                                                <a href="#" class="simpleLens-thumbnail-wrapper"
-                                                                    data-lens-image="{{ asset('client') }}/img/view-slider/large/polo-shirt-3.png"
-                                                                    data-big-image="{{ asset('client') }}/img/view-slider/medium/polo-shirt-3.png">
-                                                                    <img
-                                                                        src="{{ asset('client') }}/img/view-slider/thumbnail/polo-shirt-3.png">
-                                                                </a>
 
-                                                                <a href="#" class="simpleLens-thumbnail-wrapper"
-                                                                    data-lens-image="{{ asset('client') }}/img/view-slider/large/polo-shirt-4.png"
-                                                                    data-big-image="{{ asset('client') }}/img/view-slider/medium/polo-shirt-4.png">
-                                                                    <img
-                                                                        src="{{ asset('client') }}/img/view-slider/thumbnail/polo-shirt-4.png">
-                                                                </a>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -353,42 +426,59 @@
                                                 <!-- Modal view content -->
                                                 <div class="col-md-6 col-sm-6 col-xs-12">
                                                     <div class="aa-product-view-content">
-                                                        <h3>T-Shirt</h3>
+                                                        <h3 id="pdTitle"></h3>
                                                         <div class="aa-price-block">
-                                                            <span class="aa-product-view-price">$34.99</span>
-                                                            <p class="aa-product-avilability">Avilability: <span>In
-                                                                    stock</span></p>
+                                                            <span id="pdPrice" class="aa-product-view-price"></span>
+                                                            <p class="aa-product-avilability">Avilability: <span
+                                                                    id="inStock"></span></p>
                                                         </div>
-                                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                                                            Officiis animi, veritatis quae repudiandae quod nulla porro
-                                                            quidem, itaque quis quaerat!</p>
-                                                        <h4>Size</h4>
-                                                        <div class="aa-prod-view-size">
-                                                            <a href="#">S</a>
-                                                            <a href="#">M</a>
-                                                            <a href="#">L</a>
-                                                            <a href="#">XL</a>
+
+                                                        <!-- Cable Configuration -->
+                                            <form action="{{ route('client.addCart') }}" id="cartForm" method="post">
+                                                @csrf
+                                                        <div class="product-color">
+                                                            <span>Mezerment:</span>
+                                                            <div class="meserment-choose mt-5">
+
+                                                            </div>
                                                         </div>
+
+                                                        <div class="product-color">
+                                                            <span >Color</span>
+
+                                                            <div class="color-choose mt-5">
+
+
+
+                                                                </div>
+
+
+
+                                                        </div>
+
                                                         <div class="aa-prod-quantity">
-                                                            <form action="">
-                                                                <select name="" id="">
-                                                                    <option value="0" selected="1">1</option>
-                                                                    <option value="1">2</option>
-                                                                    <option value="2">3</option>
-                                                                    <option value="3">4</option>
-                                                                    <option value="4">5</option>
-                                                                    <option value="5">6</option>
+
+                                                                <select name="quantity" id="quantity">
+                                                                    <option value="1" selected>1</option>
+                                                                    <option value="2">2</option>
+                                                                    <option value="3">3</option>
+                                                                    <option value="4">4</option>
+                                                                    <option value="5">5</option>
+                                                                    <option value="10">10</option>
                                                                 </select>
-                                                            </form>
+
                                                             <p class="aa-prod-category">
-                                                                Category: <a href="#">Polo T-Shirt</a>
+                                                                Category: <a href="#" id="pdCategory"></a>
                                                             </p>
                                                         </div>
                                                         <div class="aa-prod-view-bottom">
-                                                            <a href="#" class="aa-add-to-cart-btn"><span
-                                                                    class="fa fa-shopping-cart"></span>Add To Cart</a>
-                                                            <a href="#" class="aa-add-to-cart-btn">View Details</a>
+                                                <input type="hidden" id="product_ids" name="product_id" value="" >
+                                                <button type="submit" class="aa-add-to-cart-btn"><span class="fa fa-shopping-cart"></span>Add To Cart</button>
+
+
+                                                <a href="" id="modalSingleView" class="aa-add-to-cart-btn">View Details</a>
                                                         </div>
+                                    </form>
                                                     </div>
                                                 </div>
                                             </div>
@@ -404,5 +494,114 @@
         </div>
     </section>
     <!-- / product category -->
+
+@endsection
+
+@section('script')
+
+    <script>
+        //each Slider  Details data show for edit
+        function productDetailsModal(id) {
+
+            axios.post('{{ route('client.getsingleProductdata') }}', {
+                        id: id
+                    })
+                .then(function(response) {
+                    if (response.status == 200) {
+                        var jsonData = response.data;
+
+
+
+
+
+                        var simpleLensImageUrl = jsonData[0].img[0].image_path;
+
+
+                        var inStock = '';
+                        if (jsonData[0].product_in_stock == 0) {
+                            inStock = "STOCK OUT!"
+                        } else {
+                            inStock = "SALE!"
+                        }
+
+                        $('#pdTitle').html(jsonData[0].product_title);
+                        $('#pdPrice').html("&euro; " + jsonData[0].product_selling_price);
+                        $('#inStock').html(inStock);
+                        $('#pdCategory').html(jsonData[0].cat.name);
+                        $('#product_ids').val(id);
+                        $('#simpleLensImage').attr("data-lens-image" , simpleLensImageUrl );
+                        $('#simpleLensBigImage').attr("src" , simpleLensImageUrl );
+
+
+
+
+                        var maserment="";
+                        for (let index = 0; index < jsonData[0].maserment.length; index++) {
+                            const element =  jsonData[0].maserment[index];
+                            checked=""
+                            if (index==0) {
+                                checked="checked"
+                            }else{
+                                checked=""
+                            }
+
+                            maserment+='<div>';
+                            maserment+='<input type="radio" id="'+element.meserment_value+'" name="maserment" '+checked+' value="'+element.meserment_value+'">';
+                            maserment+='<label for="'+element.meserment_value+'"><span style="background-color:#000;"></span></label>';
+                            maserment+='<span>'+element.meserment_value+'</span>&nbsp;';
+                            maserment+='</div>';
+
+                        }
+
+                        $('.meserment-choose').html(maserment);
+
+
+
+
+                        var color="";
+                        for (let index = 0; index < jsonData[0].color.length; index++) {
+                            const elementColor =  jsonData[0].color[index];
+
+                            colorChecked=""
+                            if (index==0) {
+                                colorChecked="checked"
+                            }else{
+                                colorChecked=""
+                            }
+                            color+='<div>';
+                            color+='<input type="radio" id="'+elementColor.product_color_code+'" name="color" '+colorChecked+' value="'+elementColor.product_color_code+'">';
+                            color+='<label for="'+elementColor.product_color_code+'"><span style="background-color:'+elementColor.product_color_code+';"></span></label>';
+                            color+='</div>';
+
+                        }
+
+                        $('.color-choose').html(color);
+
+                        var img="";
+                        for (let i = 0; i < jsonData[0].img.length; i++) {
+                            const elementImg =  jsonData[0].img[i];
+
+                            img+='<a  href="'+elementImg.image_path+'" class="simpleLens-thumbnail-wrapper"  data-lens-image="'+elementImg.image_path+'"  data-big-image="'+elementImg.image_path+'" ><img width="50px" height="50px" src="'+elementImg.image_path+'"></a>';
+
+                        }
+                        $('.simpleLens-thumbnails-container').html(img);
+
+
+
+
+                        var SingleUrl= document.location.href("{{ route('client.getsingleProductdata') }}?slug="+jsonData[0].product_slug);
+                        
+                        $('#modalSingleView').attr("href" , SingleUrl );
+
+
+                    } else {
+
+                    }
+                }).catch(function(error) {
+
+                });
+        }
+
+    </script>
 
 @endsection
