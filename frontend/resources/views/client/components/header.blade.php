@@ -14,21 +14,8 @@ $others=App\Models\OthersModel::first();
                             <!-- start language -->
                             <div class="aa-language">
                                 <div class="dropdown">
-                                    <a class="btn dropdown-toggle" href="#" type="button" id="dropdownMenu1"
-                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                        <img src="{{ asset('client/img') }}/flag/english.jpg" alt="english flag">ENGLISH
-                                        <span class="caret"></span>
-                                    </a>
-                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                                        <li><a href="#"><img src="{{ asset('client/img') }}/flag/french.jpg"
-                                                    alt="">SPANISH</a></li>
-                                        <li><a href="#"><img src="{{ asset('client/img') }}/flag/english.jpg"
-                                                    alt="">ENGLISH</a></li>
-                                        <li><a href="#"><img src="{{ asset('client/img') }}/flag/english.jpg"
-                                                    alt="">BANGLA</a></li>
-                                        <li><a href="#"><img src="{{ asset('client/img') }}/flag/english.jpg"
-                                                    alt="">CHINA</a></li>
-                                    </ul>
+                                   
+                                    <p className="mt-1" id="google_translate_element"></p>
                                 </div>
                             </div>
                             <!-- / language -->

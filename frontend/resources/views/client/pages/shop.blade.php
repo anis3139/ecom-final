@@ -76,14 +76,16 @@
                                                 @php $i--; @endphp
                                             @endforeach
 
-                                            <form action="{{ route('client.addCart') }}" id="cartForm" method="post">
-                                                @csrf
-                                                <input type="hidden" id="product_id" name="product_id"
-                                                    value="{{ $allProduct->id }}">
-                                                <button type="submit" class="aa-add-card-btn"><span
+
+
+                                        <a  class="aa-add-card-btn"  onclick="productDetailsModal({{ $allProduct->id }})"
+                                            href="{{ $allProduct->id }}" data-toggle2="tooltip" data-placement="top"
+                                           data-toggle="modal" data-target="#quick-view-modal"><span
                                                         class="fa fa-shopping-cart" id="CartAddConfirmBtn"></span>Add To
-                                                    Cart</button>
-                                            </form>
+                                                    Cart</a>
+
+                                    
+
                                             <figcaption>
                                                 <h4 class="aa-product-title"><a
                                                         href="{{ route('client.showProductDetails', ['slug' => $allProduct->product_slug]) }}">{{ $allProduct->product_title }}</a>
@@ -97,10 +99,10 @@
                                             </figcaption>
                                         </figure>
                                         <div class="aa-product-hvr-content">
-                                            <a href="#" data-toggle="tooltip" data-placement="top"
+                                            {{-- <a href="#" data-toggle="tooltip" data-placement="top"
                                                 title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
                                             <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span
-                                                    class="fa fa-exchange"></span></a>
+                                                    class="fa fa-exchange"></span></a> --}}
                                             <a onclick="productDetailsModal({{ $allProduct->id }})"
                                                 href="{{ $allProduct->id }}" data-toggle2="tooltip" data-placement="top"
                                                 title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span
@@ -135,33 +137,15 @@
                                                         <div class="simpleLens-gallery-container" id="demo-1">
                                                             <div class="simpleLens-container">
                                                                 <div class="simpleLens-big-image-container">
-                                                                    <a class="simpleLens-lens-image"
-                                                                        data-lens-image="{{ asset('client') }}/img/view-slider/large/polo-shirt-1.png">
-                                                                        <img src="{{ asset('client') }}/img/view-slider/medium/polo-shirt-1.png"
-                                                                            class="simpleLens-big-image">
+                                                                    <a class="simpleLens-lens-image" id="simpleLensImage"
+                                                                        data-lens-image="">
+                                                                        <img src=""
+                                                                            class="simpleLens-big-image" id="simpleLensBigImage">
                                                                     </a>
                                                                 </div>
                                                             </div>
                                                             <div class="simpleLens-thumbnails-container">
-                                                                <a href="#" class="simpleLens-thumbnail-wrapper"
-                                                                    data-lens-image="{{ asset('client') }}/img/view-slider/large/polo-shirt-1.png"
-                                                                    data-big-image="{{ asset('client') }}/img/view-slider/medium/polo-shirt-1.png">
-                                                                    <img
-                                                                        src="{{ asset('client') }}/img/view-slider/thumbnail/polo-shirt-1.png">
-                                                                </a>
-                                                                <a href="#" class="simpleLens-thumbnail-wrapper"
-                                                                    data-lens-image="{{ asset('client') }}/img/view-slider/large/polo-shirt-3.png"
-                                                                    data-big-image="{{ asset('client') }}/img/view-slider/medium/polo-shirt-3.png">
-                                                                    <img
-                                                                        src="{{ asset('client') }}/img/view-slider/thumbnail/polo-shirt-3.png">
-                                                                </a>
 
-                                                                <a href="#" class="simpleLens-thumbnail-wrapper"
-                                                                    data-lens-image="{{ asset('client') }}/img/view-slider/large/polo-shirt-4.png"
-                                                                    data-big-image="{{ asset('client') }}/img/view-slider/medium/polo-shirt-4.png">
-                                                                    <img
-                                                                        src="{{ asset('client') }}/img/view-slider/thumbnail/polo-shirt-4.png">
-                                                                </a>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -191,7 +175,7 @@
 
                                                             <div class="color-choose mt-5">
 
-                                                                <div>
+
 
                                                                 </div>
 
@@ -218,9 +202,10 @@
                                                 <input type="hidden" id="product_ids" name="product_id" value="" >
                                                 <button type="submit" class="aa-add-to-cart-btn"><span class="fa fa-shopping-cart"></span>Add To Cart</button>
 
-                                            </form>
+
                                                 <a href="" id="modalSingleView" class="aa-add-to-cart-btn">View Details</a>
                                                         </div>
+                                                    </form>
                                                     </div>
                                                 </div>
                                             </div>
@@ -373,14 +358,18 @@
     <script>
         //each Slider  Details data show for edit
         function productDetailsModal(id) {
-                        console.log(id);
+
             axios.post('{{ route('client.getsingleProductdata') }}', {
                         id: id
                     })
                 .then(function(response) {
                     if (response.status == 200) {
                         var jsonData = response.data;
+
+
                         var url= `product/${jsonData[0].product_slug}`;
+                        var simpleLensImageUrl = jsonData[0].img[0].image_path;
+
 
                         var inStock = '';
                         if (jsonData[0].product_in_stock == 0) {
@@ -388,12 +377,17 @@
                         } else {
                             inStock = "SALE!"
                         }
+
                         $('#pdTitle').html(jsonData[0].product_title);
                         $('#pdPrice').html("&euro; " + jsonData[0].product_selling_price);
                         $('#inStock').html(inStock);
                         $('#pdCategory').html(jsonData[0].cat.name);
                         $('#product_ids').val(id);
                         $('#modalSingleView').attr("href" , url );
+                        $('#simpleLensImage').attr("data-lens-image" , simpleLensImageUrl );
+                        $('#simpleLensBigImage').attr("src" , simpleLensImageUrl );
+
+
 
 
                         var maserment="";
@@ -422,7 +416,7 @@
                         var color="";
                         for (let index = 0; index < jsonData[0].color.length; index++) {
                             const elementColor =  jsonData[0].color[index];
-                            console.log(elementColor.product_color_code);
+
                             colorChecked=""
                             if (index==0) {
                                 colorChecked="checked"
@@ -438,6 +432,14 @@
 
                         $('.color-choose').html(color);
 
+                        var img="";
+                        for (let i = 0; i < jsonData[0].img.length; i++) {
+                            const elementImg =  jsonData[0].img[i];
+
+                            img+='<a  href="'+elementImg.image_path+'" class="simpleLens-thumbnail-wrapper"  data-lens-image="'+elementImg.image_path+'"  data-big-image="'+elementImg.image_path+'" ><img width="50px" height="50px" src="'+elementImg.image_path+'"></a>';
+
+                        }
+                        $('.simpleLens-thumbnails-container').html(img);
 
                     } else {
 

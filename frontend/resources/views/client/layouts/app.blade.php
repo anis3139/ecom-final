@@ -87,7 +87,7 @@
   <script type="text/javascript" src="{{ asset('client/js')}}/nouislider.js"></script>
   <!-- Custom js -->
    <script src="{{ asset('client/js')}}/axios.min.js"></script>
-   
+
    <script src="{{ asset('client/js')}}/custom.js"></script>
    <!-- Cart JS -->
    <script type="text/javascript" src="{{ asset('client/js')}}/cart.js"></script>
@@ -95,7 +95,24 @@
    <script src="{{ asset('client/js')}}/toastr.min.js"></script>
    @include('client.components.toastr')
 
-  
+
+   {{-- languages --}}
+   <script>
+    function googleTranslateElementInit() {
+      var config={
+        pageLanguage:'es',
+        includedLanguages:'bn,en,hi,es',
+        layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+      };
+      var langOptionsID="google_translate_element";
+      new google.translate.TranslateElement(config,langOptionsID);
+    }
+  </script>
+  <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+
+
+
   @yield('script')
   </body>
 </html>

@@ -4273,4 +4273,15 @@ img {
 
 
 
-
+/* Google Translator */
+.goog-te-banner-frame {
+    top:initial;
+    bottom: 0;
+    display: none;
+}
+#google_translate_element{
+    margin:5px 0px !important;
+}
+body{
+   position: relative; min-height: 100%; top: 0px !important;
+}
