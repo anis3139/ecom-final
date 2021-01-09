@@ -60,7 +60,8 @@
                                                     <a onclick="productDetailsModal({{ $popular_product->id }})"
                                                         data-toggle2="tooltip" data-placement="top"
                                                         title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span
-                                                            class="fa fa-search"></span></a>
+                                                            class="fa fa-search"></span>
+                                                    </a>
                                             </div>
                                             <!-- product badge -->
                                             @if ($popular_product->product->product_in_stock)
