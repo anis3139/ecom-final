@@ -35,7 +35,7 @@
 @section('script')
 
     <script>
-        //each Slider  Details data show for edit
+
         function productDetailsModal(id) {
 
             axios.post('{{ route('client.getsingleProductdata') }}', {
@@ -128,6 +128,13 @@
 
                 });
         }
+
+
+
+
+
+
+
 
     </script>
 

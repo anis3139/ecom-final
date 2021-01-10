@@ -200,7 +200,7 @@
                                                         </div>
                                                         <div class="aa-prod-view-bottom">
                                                 <input type="hidden" id="product_ids" name="product_id" value="" >
-                                                <button type="submit" class="aa-add-to-cart-btn"><span class="fa fa-shopping-cart"></span>Add To Cart</button>
+                                                <button type="submit" class="aa-add-to-cart-btn" ><span class="fa fa-shopping-cart"></span>Add To Cart</button>
 
 
                                                 <a href="" id="modalSingleView" class="aa-add-to-cart-btn">View Details</a>

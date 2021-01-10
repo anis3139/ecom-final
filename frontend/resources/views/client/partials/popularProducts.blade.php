@@ -23,6 +23,7 @@
                             <div class="tab-pane fade in active" id="popular">
                                 <ul class="aa-product-catg aa-popular-slider">
                                     <!-- start single product item -->
+
                                     @foreach ($popular_products as $popular_product)
                                         <li>
                                             <figure>
@@ -37,7 +38,7 @@
                                                     @php $i--; @endphp
                                                 @endforeach
 
-                                                <a  class="aa-add-card-btn"  onclick="productDetailsModal({{ $popular_product->id }})"
+                                                <a  class="aa-add-card-btn"  onclick="productDetailsModal({{ $popular_product->product_id }})"
                                                     href="" data-toggle2="tooltip" data-placement="top"
                                                    data-toggle="modal" data-target="#quick-view-modal"><span
                                                                 class="fa fa-shopping-cart" id="CartAddConfirmBtn"></span>Add To
@@ -57,7 +58,7 @@
                                                     title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
                                                 <a href="#" data-toggle="tooltip" data-placement="top"
                                                     title="Compare"><span class="fa fa-exchange"></span></a> --}}
-                                                    <a onclick="productDetailsModal({{ $popular_product->id }})"
+                                                    <a onclick="productDetailsModal({{ $popular_product->product_id }})"
                                                         data-toggle2="tooltip" data-placement="top"
                                                         title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span
                                                             class="fa fa-search"></span>
