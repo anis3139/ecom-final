@@ -20,6 +20,11 @@ class CreateUsersTable extends Migration
             $table->string('phone_number')->unique();
             $table->string('password');
             $table->string('image')->nullable();
+            $table->string('address')->nullable();
+            $table->string('city')->nullable();
+            $table->string('district')->nullable();
+            $table->string('postal_code')->nullable();
+            $table->decimal('wallet', 8, 2)->nullable();
             $table->string('email_verification_token')->nullable();
             $table->string('facebook_id')->nullable();
             $table->string('google_id')->nullable();
