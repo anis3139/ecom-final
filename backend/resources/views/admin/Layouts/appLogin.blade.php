@@ -39,7 +39,6 @@
 <script type="text/javascript" src="{{asset('admin/js/custom.min-2.js')}}"></script>
 <script type="text/javascript" src="{{asset('admin/js/datatables.min.js')}}"></script>
 <script type="text/javascript" src="{{asset('admin/js/datatables-select.min.js')}}"></script>
-
 <script type="text/javascript" src="{{asset('admin/js/custom.js')}}"></script>
 <script type="text/javascript" src="{{asset('admin/js/axios.min.js')}}"></script>
 
