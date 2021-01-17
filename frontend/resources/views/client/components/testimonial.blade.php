@@ -1,50 +1,33 @@
 
-
-<section id="aa-testimonial">
+ @php
+ $HomeAboutSectionData= json_decode(App\Models\HomeAboutSecTionModel::orderBy('id', 'desc')->get()->first());
+@endphp
+<section id="aa-testimonial" style="background-image: url('@if($HomeAboutSectionData){{$HomeAboutSectionData->exp_image}}@endif')">
     <div class="container">
       <div class="row">
         <div class="col-md-12">
           <div class="aa-testimonial-area">
             <ul class="aa-testimonial-slider">
+              @php
+                    $HomeTestimonialDatas= json_decode(App\Models\TestimonialModel::orderBy('id', 'desc')->limit(3)->get());
+              @endphp
               <!-- single slide -->
+              @foreach ($HomeTestimonialDatas as $HomeTestimonialData)
+                  
+          
               <li>
                 <div class="aa-testimonial-single">
-                <img class="aa-testimonial-img" src="{{ asset('client/img')}}/testimonial-img-2.jpg" alt="testimonial img">
+                <img class="aa-testimonial-img" src="@if($HomeAboutSectionData){{ $HomeTestimonialData->image}}@endif" alt="testimonial img">
                   <span class="fa fa-quote-left aa-testimonial-quote"></span>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt distinctio omnis possimus, facere, quidem qui!consectetur adipisicing elit. Sunt distinctio omnis possimus, facere, quidem qui.</p>
+                  <p>@if($HomeAboutSectionData){!! nl2br(e( $HomeTestimonialData->description)) !!}@endif</p>
                   <div class="aa-testimonial-info">
-                    <p>Allison</p>
-                    <span>Designer</span>
-                    <a href="#">Dribble.com</a>
+                    <p>@if($HomeAboutSectionData){{ $HomeTestimonialData->name}}@endif</p>
+                    <span>@if($HomeAboutSectionData){{ $HomeTestimonialData->date}}@endif</span>
+                    
                   </div>
                 </div>
               </li>
-              <!-- single slide -->
-              <li>
-                <div class="aa-testimonial-single">
-                <img class="aa-testimonial-img" src="{{ asset('client/img')}}/testimonial-img-1.jpg" alt="testimonial img">
-                  <span class="fa fa-quote-left aa-testimonial-quote"></span>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt distinctio omnis possimus, facere, quidem qui!consectetur adipisicing elit. Sunt distinctio omnis possimus, facere, quidem qui.</p>
-                  <div class="aa-testimonial-info">
-                    <p>KEVIN MEYER</p>
-                    <span>CEO</span>
-                    <a href="#">Alphabet</a>
-                  </div>
-                </div>
-              </li>
-               <!-- single slide -->
-              <li>
-                <div class="aa-testimonial-single">
-                <img class="aa-testimonial-img" src="{{ asset('client/img')}}/testimonial-img-3.jpg" alt="testimonial img">
-                  <span class="fa fa-quote-left aa-testimonial-quote"></span>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt distinctio omnis possimus, facere, quidem qui!consectetur adipisicing elit. Sunt distinctio omnis possimus, facere, quidem qui.</p>
-                  <div class="aa-testimonial-info">
-                    <p>Luner</p>
-                    <span>COO</span>
-                    <a href="#">Kinatic Solution</a>
-                  </div>
-                </div>
-              </li>
+              @endforeach
             </ul>
           </div>
         </div>

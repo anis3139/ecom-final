@@ -239,8 +239,8 @@
                             <div class="tab-content">
                                 <div class="tab-pane fade in active" id="description">
                                     <p>
-
-                                        {!! $productDetails->product_discription !!}
+                                        {!! nl2br(e( $productDetails->product_discription)) !!}
+                                       
                                     </p>
                                 </div>
                                 <div class="tab-pane fade " id="review">
