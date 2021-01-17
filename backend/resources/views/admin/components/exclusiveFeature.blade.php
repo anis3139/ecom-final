@@ -7,7 +7,7 @@
         <div id="mainDivEXP" class="container-fluid d-none">
             <div class="row">
                 <div class="col-md-12 p-2">
-                    <h1 class="text-center">Exclusive Special Feature Section</h1>
+                    <h1 class="text-center">Testimonial Background Image</h1>
 
                         {{-- Exclusive Image Table --}}
 
@@ -23,7 +23,7 @@
                                 <tr>
                                     <td>
                                         <div class="form-group mb-2">
-                                            <h3>Exclusive Image:</h3>
+                                            <h3>Testimonial Image:</h3>
                                         </div>
                                     </td>
                                     <td>
@@ -60,26 +60,6 @@
 
                   {{-- Exclusive Image Table --}}
 
-
-
-
-
-
-                    {{-- <button id="addbtnexclusiveSpecials" class="btn btn-sm btn-danger my-3 mt-5">Add New</button> --}}
-                    <table id="EXPDataTable" class="table table-striped table-bordered mt-5" cellspacing="0" width="100%">
-                        <thead>
-                            <tr>
-                                <th class="th-sm">Sl.</th>
-                                <th class="th-sm">Title</th>
-                                <th class="th-sm">Description</th>
-                                <th class="th-sm text-center">Edit</th>
-                                {{-- <th class="th-sm">Delete</th> --}}
-                            </tr>
-                        </thead>
-                        <tbody id="EXF_table">
-
-                        </tbody>
-                    </table>
                 </div>
             </div>
         </div>

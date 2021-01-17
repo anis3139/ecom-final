@@ -61,8 +61,8 @@
                     <div class="container">
                         <div class="row">
                             <input id="TestimonioalName" type="text" class="form-control mb-3" placeholder="Testimonioal Name">
-                            <input id="TestimonioalDate" type="date"  class="form-control mb-3"
-                                placeholder="Testimonioal Description">
+                            <input id="TestimonioalDate" type="text"  class="form-control mb-3"
+                                placeholder="Testimonioal Designation">
                             <textarea name="" id="TestimonioalDes" cols="30" rows="10" class="form-control mb-3" placeholder="Testimonioal Description"></textarea>
                             <input type="file" id="Testimonioalimg" class="form-control mb-3" name="text-input">
                             <img id="addimagepreviewTestimonioal" style="height: 100px !important;" class="imgPreview mt-3 "
@@ -122,8 +122,8 @@
                             <div class="col-md-6">
                                 <input id="TestimonialNameIdUpdate" type="text" id="" class="form-control mb-3"
                                     placeholder="Testimonial Name">
-                                <input id="TestimonialDateIdUpdate" type="date" id="" class="form-control mb-3"
-                                    placeholder="Testimonial Date">
+                                <input id="TestimonialDateIdUpdate" type="text" id="" class="form-control mb-3"
+                                    placeholder="Testimonial Designation">
                                     <textarea name="" id="TestimonioalDesIdUpdate" cols="30" rows="10" class="form-control mb-3" placeholder="Testimonioal Description"></textarea>
                             </div>
                             <div class="col-md-6">
