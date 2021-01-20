@@ -1,6 +1,6 @@
 @extends('client.layouts.app')
 @section('css')
-
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.css">
 <style>
 
     /* Product Color */
@@ -240,86 +240,29 @@
                                 <div class="tab-pane fade in active" id="description">
                                     <p>
                                         {!! nl2br(e( $productDetails->product_discription)) !!}
-                                       
+
                                     </p>
                                 </div>
                                 <div class="tab-pane fade " id="review">
                                     <div class="aa-product-review-area">
-                                        <h4>2 Reviews for T-Shirt</h4>
-                                        <ul class="aa-review-nav">
-                                            <li>
-                                                <div class="media">
-                                                    <div class="media-left">
-                                                        <a href="#">
-                                                            <img class="media-object"
-                                                                src="{{ asset('client') }}/img/testimonial-img-3.jpg"
-                                                                alt="girl image">
-                                                        </a>
-                                                    </div>
-                                                    <div class="media-body">
-                                                        <h4 class="media-heading"><strong>Marla Jobs</strong> - <span>March
-                                                                26, 2016</span></h4>
-                                                        <div class="aa-product-rating">
-                                                            <span class="fa fa-star"></span>
-                                                            <span class="fa fa-star"></span>
-                                                            <span class="fa fa-star"></span>
-                                                            <span class="fa fa-star"></span>
-                                                            <span class="fa fa-star-o"></span>
-                                                        </div>
-                                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="media">
-                                                    <div class="media-left">
-                                                        <a href="#">
-                                                            <img class="media-object"
-                                                                src="{{ asset('client') }}/img/testimonial-img-3.jpg"
-                                                                alt="girl image">
-                                                        </a>
-                                                    </div>
-                                                    <div class="media-body">
-                                                        <h4 class="media-heading"><strong>Marla Jobs</strong> - <span>March
-                                                                26, 2016</span></h4>
-                                                        <div class="aa-product-rating">
-                                                            <span class="fa fa-star"></span>
-                                                            <span class="fa fa-star"></span>
-                                                            <span class="fa fa-star"></span>
-                                                            <span class="fa fa-star"></span>
-                                                            <span class="fa fa-star-o"></span>
-                                                        </div>
-                                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-                                                    </div>
-                                                </div>
-                                            </li>
+                                        <h4><span id="reviewCount"></span> Reviews for {!! $productDetails->product_title !!}</h4>
+                                        <ul class="aa-review-nav" id="reviewResult" style="max-height: 500px; overflow:scroll; overflow-x:hidden;">
+
+
                                         </ul>
                                         <h4>Add a review</h4>
                                         <div class="aa-your-rating">
                                             <p>Your Rating</p>
-                                            <a href="#"><span class="fa fa-star-o"></span></a>
-                                            <a href="#"><span class="fa fa-star-o"></span></a>
-                                            <a href="#"><span class="fa fa-star-o"></span></a>
-                                            <a href="#"><span class="fa fa-star-o"></span></a>
-                                            <a href="#"><span class="fa fa-star-o"></span></a>
+                                            <div id="rateYo"></div>
                                         </div>
                                         <!-- review form -->
-                                        <form action="" class="aa-review-form">
+                                        <form action="" class="aa-review-form"  id="reating">
                                             <div class="form-group">
-                                                <label for="message">Your Review</label>
-                                                <textarea class="form-control" rows="3" id="message"></textarea>
+                                                <label for="message" id="reviewEmpty">Your Review</label>
+                                                <textarea class="form-control" rows="3" id="massage"  wrap="hard"></textarea>
                                             </div>
-                                            <div class="form-group">
-                                                <label for="name">Name</label>
-                                                <input type="text" class="form-control" id="name" placeholder="Name">
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="email">Email</label>
-                                                <input type="email" class="form-control" id="email"
-                                                    placeholder="example@gmail.com">
-                                            </div>
-
                                             <button type="submit" class="btn btn-default aa-review-submit">Submit</button>
+                                            <p id="messegeview"></p>
                                         </form>
                                     </div>
                                 </div>
@@ -498,8 +441,151 @@
 @endsection
 
 @section('script')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.js"></script>
+<script>
+    $(function () {
 
-    <script>
+$("#rateYo").rateYo({
+starWidth: "22px",
+ratedFill: "#FF6600",
+rating:5.00,
+halfStar:true,
+
+});
+
+});
+
+
+
+
+$('#reating').submit(function(e){
+    e.preventDefault();
+    var $rateYo = $("#rateYo").rateYo();
+    var rating = $rateYo.rateYo("rating");
+    var review= $('#massage').val();
+    var product_id=$('#product_id').val();
+
+
+
+if(review.length == 0){
+
+    $('#massage').focus();
+    var html="";
+
+    html+='<p class="text-capitalize text-warning">Please Type Your Review</p>';
+
+    $('#reviewEmpty').html(html,
+        setTimeout(function(){
+            $('#reviewEmpty').html("Your Review");
+        },5000)
+    );
+
+}else{ axios.post("{{ route('clint.reatingReview' )}}",{
+                    rating:rating,
+                    review:review,
+                    product_id:product_id
+                }).then(function(response) {
+
+
+                    if (response.data) {
+
+                        var html="";
+
+                        html+='<div class="alert alert-success" role="alert"><p class="text-capitalize">Thanks for your rate and review.</p></div>';
+
+                        $('#messegeview').html(html,
+                            setTimeout(function(){
+                                $('#messegeview').html("");
+                            },5000)
+                        );
+
+                        $('#reating')[0].reset();
+                        getReviewData();
+
+                    } else {
+                        html+='<div class="alert alert-danger" role="alert">Incomplete Review</div>';
+
+                        $('#messegeview').html(html,
+                            setTimeout(function(){
+                                $('#messegeview').html("");
+                            },5000)
+                        );
+
+                    }
+                }).catch(function(error){
+                    console.log(error);
+                })
+}
+
+});
+
+
+$(document).ready(function(){
+getReviewData();
+});
+
+
+
+
+function getReviewData() {
+     var product_id=$('#product_id').val();
+            axios.post("{{route('getproductreating')}}",{
+                product_id:product_id
+            }).then(function(respones){
+
+
+                var jsonData=respones.data.review;
+
+                $('#reviewCount').html(jsonData.length);
+
+                var html="";
+                for (let rv = 0; rv < jsonData.length; rv++) {
+                    const element = jsonData[rv];
+                    var date=new Date(element.created_at);
+                    var convertedDate=date.toLocaleDateString('es-ES');
+                    var reviewData=element.product_review.substring(0,100).replace(/\r?\n/g, '<br />');
+
+                    html+='<li>';
+                    html+='<div class="media">';
+                    html+='<div class="media-left">';
+                    html+='<a href="#"><img class="media-object" src="'+element.image+'" alt="girl image"></a>';
+                    html+='</div>';
+                    html+='<div class="media-body">';
+                    html+='<h4 class="media-heading"><strong>'+element.name+'</strong> - <span> '+convertedDate+' </span></h4>';
+                    html+='<div class="aa-product-rating'+rv+'" style="padding:0px"> </div>';
+                    html+='<p>'+reviewData+'</p>';
+                    html+='</div>';
+                    html+='</div>';
+                    html+='</li>';
+
+
+                }
+
+                $('#reviewResult').html(html);
+
+
+                for (let rate = 0; rate < jsonData.length; rate++) {
+                    const element2 = jsonData[rate];
+
+                    $(".aa-product-rating"+rate).rateYo({
+                        rating: element2.star_reating,
+                        readOnly: true,
+                        starWidth: "15px"
+                    });
+
+                }
+
+
+
+
+
+            }).catch(function(error){
+                console.log(error);
+            });
+}
+
+
+
         //each Slider  Details data show for edit
         function productDetailsModal(id) {
 
@@ -590,7 +676,7 @@
 
 
                         var SingleUrl= document.location.href("{{ route('client.getsingleProductdata') }}?slug="+jsonData[0].product_slug);
-                        
+
                         $('#modalSingleView').attr("href" , SingleUrl );
 
 

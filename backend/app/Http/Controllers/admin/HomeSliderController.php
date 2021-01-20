@@ -30,7 +30,7 @@ class HomeSliderController extends Controller
         $photoPath =  $req->file('photo')->store('public');
         $photoName = (explode('/', $photoPath))[1];
         $host = $_SERVER['HTTP_HOST'];
-        $location = "http://" . $host . "/public/storage/" . $photoName;
+        $location = "http://" . $host . "/storage/" . $photoName;
         $result = SliderModel::insert([
             'title' => $name,
             'sub_title' => $description,
@@ -75,7 +75,7 @@ class HomeSliderController extends Controller
             $photoPath =  $req->file('photo')->store('public');
             $photoName = (explode('/', $photoPath))[1];
             $host = $_SERVER['HTTP_HOST'];
-            $location = "http://" . $host . "/public/storage/" . $photoName;
+            $location = "http://" . $host . "/storage/" . $photoName;
 
             $result = SliderModel::where('id', '=', $id)->update(['title' => $name, 'sub_title' => $description, 'image' => $location]);
             if ($result == true) {

@@ -50,6 +50,10 @@ Route::post('/forgotPassword', [App\Http\Controllers\client\authController::clas
 Route::get('/recoverPassWord/{id}', [App\Http\Controllers\client\authController::class, 'recoverPassWord'])->name('client.recoverPassWord');
 Route::post('/updatePassword', [App\Http\Controllers\client\authController::class, 'updatePassword'])->name('client.updatePassword');
 
+//Rating
+Route::post('/getproductreating', [\App\Http\Controllers\client\ReatingReviewController::class, 'getallreview'])->name('getproductreating');
+
+
 // logout & Profile & Order
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/logout', [App\Http\Controllers\client\authController::class, 'logout'])->name('client.logout');
@@ -58,6 +62,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/upadeteProfile/{id}', [App\Http\Controllers\client\authController::class, 'upadeteProfile'])->name('client.upadeteProfile');
     Route::post('/processOrder', [App\Http\Controllers\client\cartController::class, 'order'])->name('client.processOrder');
     Route::get('/orderDetails/{id}', [App\Http\Controllers\client\cartController::class, 'orderDetails'])->name('client.orderDetails');
+    Route::post('/reating', [\App\Http\Controllers\client\ReatingReviewController::class, 'store'])->name('clint.reatingReview');
 });
 
 
