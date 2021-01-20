@@ -245,9 +245,9 @@
                                 </div>
                                 <div class="tab-pane fade " id="review">
                                     <div class="aa-product-review-area">
-                                        <h4><span id="reviewCount"></span> Reviews for {!! $productDetails->product_title !!}</h4>
+                                        <h4> <span id="reviewCount" style="font-weight:bold; color:red; font-size:30px;"> </span>  Reviews for {!! $productDetails->product_title !!}</h4>
                                         <ul class="aa-review-nav" id="reviewResult" style="max-height: 500px; overflow:scroll; overflow-x:hidden;">
-
+ 
 
                                         </ul>
                                         <h4>Add a review</h4>
@@ -258,7 +258,7 @@
                                         <!-- review form -->
                                         <form action="" class="aa-review-form"  id="reating">
                                             <div class="form-group">
-                                                <label for="message" id="reviewEmpty">Your Review</label>
+                                                <label for="message" id="reviewEmpty">Your Review <span style="color:red">*</span></label>
                                                 <textarea class="form-control" rows="3" id="massage"  wrap="hard"></textarea>
                                             </div>
                                             <button type="submit" class="btn btn-default aa-review-submit">Submit</button>
@@ -465,11 +465,11 @@ if(review.length == 0){
     $('#massage').focus();
     var html="";
 
-    html+='<p class="text-capitalize text-warning">Please Type Your Review</p>';
+    html+='<p class="text-capitalize" style="color:red">Please Type Your Review *</p>';
 
     $('#reviewEmpty').html(html,
         setTimeout(function(){
-            $('#reviewEmpty').html("Your Review");
+            $('#reviewEmpty').html("Your Review <span style='color:red'> *</span>");
         },3000)
     );
 
