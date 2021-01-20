@@ -388,15 +388,8 @@
 
                                                         <div class="product-color">
                                                             <span >Color</span>
-
                                                             <div class="color-choose mt-5">
-
-
-
-                                                                </div>
-
-
-
+                                                            </div>
                                                         </div>
 
                                                         <div class="aa-prod-quantity">
@@ -477,8 +470,9 @@ if(review.length == 0){
     $('#reviewEmpty').html(html,
         setTimeout(function(){
             $('#reviewEmpty').html("Your Review");
-        },5000)
+        },3000)
     );
+
 
 }else{ axios.post("{{ route('clint.reatingReview' )}}",{
                     rating:rating,
