@@ -250,12 +250,14 @@
 
 
                                         </ul>
+                                        @auth
                                         <h4>Add a review</h4>
                                         <div class="aa-your-rating">
                                             <p>Your Rating</p>
                                             <div id="rateYo"></div>
                                         </div>
                                         <!-- review form -->
+
                                         <form action="" class="aa-review-form"  id="reating">
                                             <div class="form-group">
                                                 <label for="message" id="reviewEmpty">Your Review <span style="color:red">*</span></label>
@@ -264,6 +266,12 @@
                                             <button type="submit" class="btn btn-default aa-review-submit">Submit</button>
                                             <p id="messegeview"></p>
                                         </form>
+                                        @endauth
+                                        @guest
+
+                                            <h2 style="color: #FF6666; font-weight:bold; text-align:center;">Please <a href="{{ route('client.login') }}" class="text-center text-decoration-none text-primary" >Login</a>  For Reating And Review</h2>
+
+                                        @endguest
                                     </div>
                                 </div>
                             </div>
