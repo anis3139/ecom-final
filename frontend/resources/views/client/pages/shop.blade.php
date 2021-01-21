@@ -91,9 +91,9 @@
                                                         href="{{ route('client.showProductDetails', ['slug' => $allProduct->product_slug]) }}">{{ $allProduct->product_title }}</a>
                                                 </h4>
                                                 <span class="aa-product-price">&euro;
-                                                    &nbsp;{{ $allProduct->product_price }}</span><span
+                                                    &nbsp;{{ $allProduct->product_selling_price }}</span><span
                                                     class="aa-product-price"><del>&euro;
-                                                        &nbsp;{{ $allProduct->product_selling_price }}</del></span>
+                                                        &nbsp;{{ $allProduct->product_price}}</del></span>
                                                 <p class="aa-product-descrip">{!! nl2br(e($allProduct->product_discription))
                                                     !!}</p>
                                             </figcaption>

@@ -247,7 +247,7 @@
                                     <div class="aa-product-review-area">
                                         <h4> <span id="reviewCount" style="font-weight:bold; color:red; font-size:30px;"> </span>  Reviews for {!! $productDetails->product_title !!}</h4>
                                         <ul class="aa-review-nav" id="reviewResult" style="max-height: 500px; overflow:scroll; overflow-x:hidden;">
- 
+
 
                                         </ul>
                                         <h4>Add a review</h4>
@@ -377,8 +377,8 @@
                                                         </div>
 
                                                         <!-- Cable Configuration -->
-                                            <form action="{{ route('client.addCart') }}" id="cartForm" method="post">
-                                                @csrf
+                                                         <form action="{{ route('client.addCart') }}" id="cartForm" method="post">
+                                                            @csrf
                                                         <div class="product-color">
                                                             <span>Mezerment:</span>
                                                             <div class="meserment-choose mt-5">
@@ -414,7 +414,7 @@
 
                                                 <a href="" id="modalSingleView" class="aa-add-to-cart-btn">View Details</a>
                                                         </div>
-                                    </form>
+                                                     </form>
                                                     </div>
                                                 </div>
                                             </div>
