@@ -1,5 +1,27 @@
 @extends('client.layouts.app')
+@section('css')
+<style>
+    @media only screen and (max-width: 600px) {
+  #cartTable {
+        overflow:auto;
+        display:block;
+        min-width:300px;
+  }
+  .cart-view-total a{
+      display: block;
+      margin: 20px;
+      padding: 10px;
+      font-size: 15px;
+      float: none;
 
+  }
+
+
+}
+</style>
+
+
+@endsection
 @section('content')
     <!-- catg header banner section -->
   @include('client.components.hero')
@@ -24,7 +46,7 @@
                                         <p>Please Add Some Product On Your Cart. <a class="text-primary" href="{{route('client.shop')}}"> Go Shop Page</a></p>
                                     </div>
                                 @else
-                                    <table class="table table-bordered">
+                                    <table class="table table-bordered" id="cartTable">
                                         <thead>
                                             <tr>
                                                 <th>Action</th>
@@ -35,7 +57,6 @@
                                                 <th>Color</th>
                                                 <th>Meserment</th>
                                                 <th>Total Price</th>
-
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -62,7 +83,7 @@
                                                     <td>{{ $cartItem['quantity'] }}</td>
                                                     <td style="display:flex; justify-content:center; align-items: center; height:20vh;">
                                                         @if( $cartItem['maserment'])
-                                                     
+
                                                         <div style=" width:20px; height:20px; border:1px solid #000; border-radius:50%; background-color: {{ $cartItem['color'] }};"></div>
                                                         @else
                                                         {{"N/A"}}

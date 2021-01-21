@@ -19,7 +19,8 @@
                                             placeholder="Password"> <button type="submit" class="aa-browse-btn">Log
                                             In</button> </form>
                                 </div>
-                                <div class="row"> @guest <div class="col-md-12" style="margin-top: 20px !important"> <a
+                                <br><br>
+                                <div class="row"> @guest <div class="col-md-12" style="margin-top: 20px !important; display:block !important;"> <a
                                                 class="text-primary" href="{{ route('client.forgot') }}">Forgot Password?</a>
                                             <p>Don't have an account? <a class="text-primary"
                                                     href="{{ route('client.registration') }}"> Register now! </a></p>
