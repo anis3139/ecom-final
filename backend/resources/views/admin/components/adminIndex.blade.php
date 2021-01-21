@@ -1,5 +1,5 @@
 @extends('admin.Layouts.app')
-
+@section('title', 'Admin')
 @section('content')
 
 <div id="mainDivAdmin" class="container-fluid d-none">

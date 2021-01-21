@@ -393,7 +393,7 @@
                 toastr.error('email url is empty!');
 
             } else {
-                $('#submitTitle').html(
+                $('#submitEmail').html(
                     "<div class='spinner-border spinner-border-sm text-primary' role='status'></div>"); //animation
                 axios.post("{{ route('admin.email') }}", {
                         email: email
@@ -647,7 +647,7 @@
         function addpromoImageOne(promoImageOne) {
 
 
-            $('#submitBanner').html(
+            $('#submitpromoImageOne').html(
                 "<div class='spinner-border spinner-border-sm text-primary' role='status'></div>"); //animation
 
 
@@ -710,7 +710,7 @@
 
         function addpromoImageTwo(promoImageTwo) {
 
-            $('#submitBanner').html(
+            $('#submitpromoImageTwo').html(
                 "<div class='spinner-border spinner-border-sm text-primary' role='status'></div>"); //animation
 
 
@@ -773,7 +773,7 @@
         function addpromoImageThree(promoImageThree) {
 
 
-            $('#submitBanner').html(
+            $('#submitpromoImageThree').html(
                 "<div class='spinner-border spinner-border-sm text-primary' role='status'></div>"); //animation
 
 

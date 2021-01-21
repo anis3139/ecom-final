@@ -1,4 +1,5 @@
 @extends('admin.Layouts.app')
+@section('title', 'Slider')
 @section('content')
     <div class="row mt-5">
         <div class="col-md-10 offset-md-1 border border-dark">

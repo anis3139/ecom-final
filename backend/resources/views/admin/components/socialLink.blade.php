@@ -1,5 +1,5 @@
 @extends('admin.Layouts.app')
-@section('title', 'Home Setting')
+@section('title', 'Social Setting')
 
 @section('content')
 <div class="container">

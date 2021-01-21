@@ -13,7 +13,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <img  src="{{auth()->user()->image}}" alt="{{auth()->user()->name}}" width="150px" height="150px" style="border-radius:50%; margin:20px  auto !important; display:block;">
+                <img  src="{{auth()->user()->image ?? asset('/default-image.png')}}" alt="{{auth()->user()->name}}" width="150px" height="150px" style="border-radius:50%; margin:20px  auto !important; display:block;">
                 <table class="table table-borderless table-hover" style="padding:10px;">
                     <tr>
                         <td>name:</td>

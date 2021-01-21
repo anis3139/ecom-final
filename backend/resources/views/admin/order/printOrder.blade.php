@@ -104,7 +104,7 @@
                              @else
                              {{"N/A"}}
                          @endif</td>
-                        <td style="text-align: center;">{{ $Product->product->product_quantity }}</td>
+                        <td style="text-align: center;">{{ $Product->quantity }}</td>
                         <td style="text-align: center;">{{ $Product->product->product_selling_price }}</td>
                     </tr>
                 @endforeach

@@ -7,26 +7,20 @@
 @include('client.partials.promo')
 @include('client.partials.products')
 
-  <!-- / Promo section -->
-  @include('client.partials.promoOne')
-  <!-- / Products section -->
-  <!-- banner section -->
 
-  <!-- popular section -->
+  @include('client.partials.promoOne')
+
   @include('client.partials.popularProducts')
-  <!-- / popular section -->
+
 
   @include('client.components.specialFeatureSection')
-  <!-- / Support section -->
-  <!-- Testimonial -->
+ 
   @include('client.components.testimonial')
 
 
-  @include('client.partials.latestBlog')
-  <!-- / Latest Blog -->
 
 
-@include('client.components.client')
+<!--@include('client.components.client')-->
 
 
 @endsection

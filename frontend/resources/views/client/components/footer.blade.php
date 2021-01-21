@@ -64,12 +64,12 @@ $socialData=App\Models\SocialModel::first();
                       <p> @if ($others)
                         {!! nl2br(e($others->address)) !!}
                         @endif</p>
-                      <p><span class="fa fa-phone"></span><a href="tel: @if ($others)
+                      <p><span class="fa fa-phone"></span><a style="color:#888888" href="tel: @if ($others)
                         {{$others->phone}}
                         @endif"> @if ($others)
                         {{$others->phone}}
                         @endif</a></p>
-                      <p><span class="fa fa-envelope"></span><a href="mailto: @if ($others)
+                      <p><span class="fa fa-envelope"></span><a style="color:#888888" href="mailto: @if ($others)
                         {{$others->email}}
                         @endif"> @if ($others)
                         {{$others->email}}

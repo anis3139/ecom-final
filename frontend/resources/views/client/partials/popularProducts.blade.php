@@ -29,10 +29,11 @@
                                             <figure>
                                                 @php $i= 1; @endphp
                                                 @foreach ($popular_product->product->img as $images)
+                                              
                                                     @if ($i > 0)
                                                         <a class="aa-product-img"
                                                             href="{{ route('client.showProductDetails', ['slug' => $popular_product->product->product_slug]) }}"><img
-                                                                src="{{ $images->image_path }}" alt="polo shirt img"
+                                                                src="{{ $images['image_path'] }}" alt="polo shirt img"
                                                                 width="100%" height="300px"></a>
                                                     @endif
                                                     @php $i--; @endphp

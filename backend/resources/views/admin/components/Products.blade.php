@@ -1,5 +1,5 @@
 @extends('admin.Layouts.app')
-
+@section('title', 'Products')
 @section('css')
     <style>
         .modal-dialog-full-width {

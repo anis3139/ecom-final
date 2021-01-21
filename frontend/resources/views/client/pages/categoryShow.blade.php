@@ -334,7 +334,7 @@
                                             @endforeach
 
                                             <div class="aa-cartbox-info">
-                                                <h4><a href="#">{{$topRatedProduct->product_title}}</a></h4>
+                                                <h4><a href="{{ route('client.showProductDetails', ['slug' => $topRatedProduct->product_slug]) }}">{{$topRatedProduct->product_title}}</a></h4>
                                                 <p>1 x &euro; &nbsp;{{$topRatedProduct->product_price}}</p>
                                             </div>
                                         </li>

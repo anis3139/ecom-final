@@ -166,7 +166,7 @@ public function forgotPassword(Request $request)
     if($user == null){
         return redirect()->back()->with('error', 'Email not Exist !');
     }
-    
+
 
     Mail::to($user->email)->send(new registrationVarificationMail($user));
 
@@ -189,8 +189,8 @@ public function recoverPassWord($id = null)
     if($user){
         return view('client.pages.recoverPassword')->with([ 'user'=> $user]);
      }
-             
-    
+
+
 }
 
 
@@ -215,8 +215,6 @@ public function updatePassword(Request $request)
         return redirect()->route('client.login')->with('success', 'Password Reset Successfully');
 }
 
-
-
 public function profileEdit($id)
 {
     $data=[];
@@ -224,7 +222,6 @@ public function profileEdit($id)
 
     return view('client.pages.profileEdit', $data);
 }
-
 
 
 public function upadeteProfile(Request $request, $id)
@@ -236,8 +233,7 @@ public function upadeteProfile(Request $request, $id)
         'postal_code'=>'required',
         'email'=>'required | email',
         'phone_number'=>'required|min:8| max:16',
-        'password' => 'min:6|required_with:password_confirmation|same:password_confirmation',
-        'password_confirmation' => 'min:6'
+
        ]);
 
        if ($validator->fails()) {
@@ -250,7 +246,7 @@ public function upadeteProfile(Request $request, $id)
                 $district = $request->Input('district');
                 $postal_code = $request->Input('postal_code');
                 $email =strtolower($request->Input('email'));
-                $password =bcrypt( $request->Input('password'));
+
 
 
 
@@ -265,7 +261,7 @@ public function upadeteProfile(Request $request, $id)
                 $photoName = (explode('/', $photoPath))[1];
                 $host = $_SERVER['HTTP_HOST'];
                 $protocol = $_SERVER['PROTOCOL'] = isset($_SERVER['HTTPS']) && !empty($_SERVER['HTTPS']) ? 'https://' : 'http://';
-                $location = $protocol . $host .  "/storage/" . $photoName;
+                $location = $protocol . $host .  "/public/storage/" . $photoName;
                 $user->image=$location;
             }
 
@@ -273,14 +269,24 @@ public function upadeteProfile(Request $request, $id)
                 $user->city=$city;
                 $user->district=$district;
                 $user->postal_code=$postal_code;
-                $user->password= $password;
-                $user->email_verification_token= uniqid(time().$email, true).Str::random(40);
                 $user->save();
 
                 session()->flash('success', 'Profile Updated Successfully');
                 return redirect()->route('client.profile');
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

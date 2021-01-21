@@ -1,4 +1,5 @@
-@extends('admin.layouts.app')
+@extends('admin.Layouts.app')
+@section('title', 'Order')
 @section('css')
     <style>
         .modal-dialog-full-width {
@@ -89,7 +90,7 @@
         <div class="modal-dialog-full-width modal-dialog momodel modal-fluid" role="document">
             <div class="modal-content-full-width modal-content ">
                 <div class=" modal-header-full-width   modal-header text-center">
-                    <h5 class="modal-title w-100" id="exampleModalPreviewLabel">Ordered Orders View</h5>
+                    <h5 class="modal-title w-100" id="exampleModalPreviewLabel">Products Order View</h5>
                     <button type="button" class="close " data-dismiss="modal" aria-label="Close">
                         <span style="font-size: 1.3em;" aria-hidden="true">&times;</span>
                     </button>
@@ -247,7 +248,7 @@
                             table+='<td style="max-width:100px; overflow-wrap: break-word;">'+element.payment_status+'</td>';
                             table+='<td style="max-width:100px; overflow-wrap: break-word;">'+element.paid_amount+'</td>';
                             table+='<td><a class="OrdersView" data-id=' + element.id +'><i class="fas fa-eye"></i></a></td>';
-                            table+='<td><a href="ordersPrint/'+ element.id +'"  class="OrdersView"><i class="fas fa-print"></i></a></td>';
+                            table+='<td><a href="ordersPrint/'+ element.id +'"><i class="fas fa-print"></i></a></td>';
                             table+='</tr>'
                         }
                         $('#Orders_Table').html(table);

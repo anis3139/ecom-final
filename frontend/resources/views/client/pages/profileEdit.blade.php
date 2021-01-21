@@ -22,7 +22,7 @@
                 <form action="{{route('client.upadeteProfile', $user->id)}}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <img id="profileImage" style="height: 150px !important; width: 150px !important; height:150px; border-radius:50%; margin:20px auto; display:block;"
-                        class="imgPreview mx-auto d-block" src="@if($user)@isset($user){{$user->image}}@endisset @else @empty($records) {{asset('/default-image.png')}} @endempty @endif" />
+                        class="imgPreview mx-auto d-block" src="{{$user->image ?? asset('/default-image.png')}}" />
                     <div class="form-group my-4">
 
                         <input type="file" class="form-control login" name="image" id="image" >

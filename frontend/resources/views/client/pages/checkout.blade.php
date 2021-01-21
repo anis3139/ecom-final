@@ -75,7 +75,7 @@
                                                                 <div class="col-md-12">
                                                                     <div class="aa-checkout-single-bill">
                                                                         <textarea cols="8" rows="3"
-                                                                            name="address" placeholder="Address*"></textarea>
+                                                                            name="address" placeholder="Address*">{{ auth()->user()->address }}</textarea>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -97,7 +97,7 @@
                                                                 <div class="col-md-6">
                                                                     <div class="aa-checkout-single-bill">
                                                                         <input type="text" placeholder="City / Town*"
-                                                                            name="city">
+                                                                            name="city" value="{{ auth()->user()->city }}">
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -105,13 +105,13 @@
                                                                 <div class="col-md-6">
                                                                     <div class="aa-checkout-single-bill">
                                                                         <input type="text" placeholder="District*"
-                                                                            name="district">
+                                                                            name="district" value="{{ auth()->user()->district }}">
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-md-6">
                                                                     <div class="aa-checkout-single-bill">
                                                                         <input type="text" placeholder="Postcode / ZIP*"
-                                                                            name="postal_code">
+                                                                            name="postal_code" value="{{ auth()->user()->postal_code}}">
                                                                     </div>
                                                                 </div>
                                                             </div>

@@ -1,4 +1,5 @@
 @extends('admin.Layouts.app')
+@section('title', 'Categories')
 @section('css')
     <style>
         .dropdown-content {
