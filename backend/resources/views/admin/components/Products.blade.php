@@ -345,7 +345,41 @@
                             $('#addProductModal').modal('hide');
                             toastr.success('Add New Success .');
 
+                            $('#pdName').val("");
+                            $('#pdDescription').val("");
+                            $('#pdPrice').val("");
+                            $('#pdOffer').val("");
+                            $('#pdQuantity').val("1");
+                            $('#pdCategory option').prop('selected', function() {
+                                     return this.defaultSelected;
+                            });
+                            $('#pdBrand option').prop('selected', function() {
+                                     return this.defaultSelected;
+                            });
+                            $('#pdStock option').prop('selected', function() {
+                                     return this.defaultSelected;
+                            });
+                            $('#pdFeature option').prop('selected', function() {
+                                     return this.defaultSelected;
+                            });
+                            $('#pdActive option').prop('selected', function() {
+                                     return this.defaultSelected;
+                            });
+                            $('#pdmeserment option').prop('selected', function() {
+                                     return this.defaultSelected;
+                            });
+                            $('.meserment_input').html("");
+                            $('#append_tbody').html("");
+
+                            var image_path=['One','Two', 'Three', 'Four', 'Five' ];
+                            for (let index = 0; index < image_path.length; index++) {
+                            $('#productImage'+image_path[index]+'Preview').attr('src',  window.location.protocol +
+                                "//" +  window.document.location.host + "/admin/images/default-image.png");
+                            $('#productImage'+image_path[index]).val("");
+                            };
+
                             getProductsdata();
+
                         } else {
                             $('#addProductModal').modal('hide');
                             toastr.error('Add New Failed');

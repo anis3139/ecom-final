@@ -57,7 +57,7 @@
     <div class="modal-dialog-full-width modal-dialog momodel modal-fluid" role="document">
         <div class="modal-content-full-width modal-content ">
             <div class=" modal-header-full-width   modal-header text-center">
-                <h5 class="modal-title w-100" id="exampleModalPreviewLabel">Material Design Full Screen Modal</h5>
+                <h5 class="modal-title w-100" id="exampleModalPreviewLabel">Product Add</h5>
                 <button type="button" class="close " data-dismiss="modal" aria-label="Close">
                     <span style="font-size: 1.3em;" aria-hidden="true">&times;</span>
                 </button>
@@ -71,10 +71,10 @@
                             <textarea id="pdDescription" type="text" id="" class="form-control mb-3"
                                 placeholder="Product Description" cols="30" rows="5"></textarea>
                             <input id="pdPrice" type="number" id="" class="form-control mb-3"
-                                placeholder="Product Price">
-                            <input id="pdOffer" type="number" id="" class="form-control mb-3" placeholder="Offer Price">
+                                placeholder="Product Price"   min="0" onkeydown="javascript: return event.keyCode === 8 || event.keyCode === 46 ? true : !isNaN(Number(event.key))">
+                            <input id="pdOffer" type="number" id="" class="form-control mb-3" placeholder="Offer Price" min="0" onkeydown="javascript: return event.keyCode === 8 || event.keyCode === 46 ? true : !isNaN(Number(event.key))">
                             <input id="pdQuantity" type="number" id="" class="form-control mb-3"
-                                placeholder="Product Quantity">
+                                placeholder="Product Quantity" value="1" min="1" max="1000" onkeydown="javascript: return event.keyCode === 8 || event.keyCode === 46 ? true : !isNaN(Number(event.key))">
                             <select id="pdCategory" style="margin-bottom: 10px;" class="browser-default custom-select">
                             </select>
                             <select id="pdBrand" style="margin-bottom: 10px;" class="browser-default custom-select">
@@ -266,7 +266,7 @@
     <div class="modal-dialog-full-width modal-dialog momodel modal-fluid" role="document">
         <div class="modal-content-full-width modal-content ">
             <div class=" modal-header-full-width   modal-header text-center">
-                <h5 class="modal-title w-100" id="exampleModalPreviewLabel">Material Design Full Screen Modal</h5>
+                <h5 class="modal-title w-100" id="exampleModalPreviewLabel">Product View</h5>
                 <button type="button" class="close " data-dismiss="modal" aria-label="Close">
                     <span style="font-size: 1.3em;" aria-hidden="true">&times;</span>
                 </button>
@@ -356,7 +356,7 @@
     <div class="modal-dialog-full-width modal-dialog momodel modal-fluid" role="document">
         <div class="modal-content-full-width modal-content ">
             <div class=" modal-header-full-width   modal-header text-center">
-                <h5 class="modal-title w-100" id="exampleModalPreviewLabel">Material Design Full Screen Modal</h5>
+                <h5 class="modal-title w-100" id="exampleModalPreviewLabel">Product Update</h5>
                 <button type="button" class="close " data-dismiss="modal" aria-label="Close">
                     <span style="font-size: 1.3em;" aria-hidden="true">&times;</span>
                 </button>
@@ -372,10 +372,10 @@
                             <textarea id="pdEditDescription" type="text" id="" class="form-control mb-3"
                                 placeholder="Product Description" cols="30" rows="5"></textarea>
                             <input id="pdEditPrice" type="number" id="" class="form-control mb-3"
-                                placeholder="Product Price">
-                            <input id="pdEditOffer" type="number" id="" class="form-control mb-3" placeholder="Offer Price">
+                                placeholder="Product Price"  min="0" onkeydown="javascript: return event.keyCode === 8 || event.keyCode === 46 ? true : !isNaN(Number(event.key))">
+                            <input id="pdEditOffer" type="number" id="" class="form-control mb-3" placeholder="Offer Price"  min="0" onkeydown="javascript: return event.keyCode === 8 || event.keyCode === 46 ? true : !isNaN(Number(event.key))">
                             <input id="pdEditQuantity" type="number" id="" class="form-control mb-3"
-                                placeholder="Product Quantity">
+                                placeholder="Product Quantity"  min="0" max="1000" onkeydown="javascript: return event.keyCode === 8 || event.keyCode === 46 ? true : !isNaN(Number(event.key))">
                             <select id="pdEditCategory" style="margin-bottom: 10px;"
                                 class="browser-default custom-select">
                             </select>

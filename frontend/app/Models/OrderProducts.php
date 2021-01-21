@@ -4,10 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class OrderProducts extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
     public $table='order_products';
     public $primaryKey = 'id';
     public $incrementing = true;

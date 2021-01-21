@@ -208,9 +208,10 @@ class ProductCategoriesController extends Controller
         $id = $request->input('id');
         $category = ProductsCategoryModel::find($id);
 
-        if ($category->parent_id==0) {
+        if ($category->parent_id ==0) {
 
-            $sub_categories = ProductsCategoryModel::orderBy('name', 'desc')->where('parent_id', $category->id) ->orWhere('parent_id', 0)->get();
+            $sub_categories = ProductsCategoryModel::orderBy('name', 'desc')->where('parent_id', $category->id) ->orWhere('id', $category->id)->get();
+
             foreach ($sub_categories as $sub) {
                 $delete_old_file_image = (explode('/', $sub->banner_image))[4];
                 $delete_old_file_icon = (explode('/', $sub->icon))[4];
@@ -249,7 +250,7 @@ class ProductCategoriesController extends Controller
     public function getCategoriesData(){
 
         $result = json_decode(ProductsCategoryModel::with('parent')->orderBy('id', 'desc')->get());
-       
+
         return $result;
 
     }

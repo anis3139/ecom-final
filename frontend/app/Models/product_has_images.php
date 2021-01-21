@@ -4,10 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class product_has_images extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
     public $table='product_has_images';
     public $primaryKey = 'id';
     public $incrementing = true;
