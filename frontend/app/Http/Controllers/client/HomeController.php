@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\client;
 
+use Illuminate\Contracts\Session\Session as SessionSession;
 use App\Http\Controllers\Controller;
 use App\Models\Orders;
 use App\Models\product_table;
@@ -11,7 +12,7 @@ use App\Models\SliderModel;
 use App\Models\VisitorTable;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-
+use Symfony\Component\HttpFoundation\Session\Session;
 
 class HomeController extends Controller
 {
@@ -42,7 +43,27 @@ class HomeController extends Controller
         return view("client.index", compact('sliders', 'categories', 'popular_products', 'featureProducts', 'latestProducts', 'promo_categories'));
     }
 
+    public function search(Request $request)
+    {
+        $key=$request->key;
 
+        if($key != ""){
+            $searchProducts=product_table::with(['img'])->where('product_active', 1)->Where('product_title','LIKE',"%{$key}%")->orWhere('product_discription','LIKE',"%{$key}%")->orderBy('id', 'desc')->paginate(15);
+
+            $popular_products= OrderProducts::with('product')
+            ->select('product_id', DB::raw('COUNT(product_id) as maxSell'))
+            ->groupBy('product_id')
+            ->orderBy('maxSell', 'desc')
+            ->take(4)->get();
+            $topRatedProducts= product_table::orderBy('product_price', 'desc')->limit(4)->get();
+            if(count($searchProducts)>0){
+                return view('client.pages.search', compact('searchProducts','popular_products','topRatedProducts','key'));
+            }
+        }
+        return view('client.pages.search', compact('searchProducts','popular_products','topRatedProducts','key'));
+
+
+    }
 
 
 }

@@ -14,7 +14,7 @@ $others=App\Models\OthersModel::first();
                             <!-- start language -->
                             <div class="aa-language">
                                 <div class="dropdown">
-                                   
+
                                     <p className="mt-1" id="google_translate_element"></p>
                                 </div>
                             </div>
@@ -136,8 +136,9 @@ $others=App\Models\OthersModel::first();
                         <!-- / cart box -->
                         <!-- search box -->
                         <div class="aa-search-box">
-                            <form action="">
-                                <input type="text" name="" id="" placeholder="Search here ex. 'man' ">
+                            <form action="{{route('client.search')}}" method="post">
+                                @csrf
+                                <input type="text" name="key" id="key" placeholder="Search Product">
                                 <button type="submit"><span class="fa fa-search"></span></button>
                             </form>
                         </div>

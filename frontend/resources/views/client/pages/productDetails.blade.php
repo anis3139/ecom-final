@@ -534,7 +534,7 @@ function getReviewData() {
             axios.post("{{route('getproductreating')}}",{
                 product_id:product_id
             }).then(function(respones){
-
+                console.log(respones.data);
 
                 var jsonData=respones.data.review;
 

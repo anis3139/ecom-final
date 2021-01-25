@@ -9,4 +9,5 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class ReatingReview extends Model
 {
     use HasFactory, SoftDeletes;
+    
 }
