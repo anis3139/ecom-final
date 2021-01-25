@@ -26,16 +26,18 @@
     <section id="aa-product-category">
         <div class="container">
             <div class="row">
-            @if($searchProducts->count() == 0)
-            <div  style="margin:30px 0px 10px 0px; text-align:center;">
-                <h2 style="background-color:#ebd4d4; padding:20px; color:#000 ">You Search for: <span style="color:#FF6666">{{$key}}</span></h2>
-                <h2 style="margin-top: 20px; color:#000">No products found which match your selection</h2>
-            </div>
-            @else
-            <div  style="margin:30px 0px 10px 0px; text-align:center; background-color:#ebd4d4; padding:20px; ">
-                <h2 style="color:#000">You Search for: <span style="color:#FF6666">{{$key}}</span></h2>
-            </div>
-                <div class="col-lg-12 col-md-12 col-sm-12">
+                @if($searchProducts->count() == 0)
+                <div  style="margin:30px 0px 10px 0px; text-align:center;">
+                    <h2 style="background-color:#ebd4d4; padding:20px; color:#000 ">You Search for: <span style="color:#FF6666">{{$key}}</span></h2>
+                    <h2 style="margin-top: 20px; color:#000">No products found which match your selection</h2>
+                    <h3 style="margin-top: 20px; color:#000">Retarn  <a style="color:#FF6666" href="{{route('client.shop')}}">Shop Page</a></h3>
+                </div>
+                @else
+                <div  style="margin:30px 0px 10px 0px; text-align:center;">
+                    <h2 style="background-color:#ebd4d4; padding:20px; color:#000 ">You Search for: <span style="color:#FF6666">{{$key}}</span></h2>
+
+                </div>
+                <div class="col-lg-9 col-md-9 col-sm-8 col-md-push-3">
                     <div class="aa-product-catg-content">
                         <div class="aa-product-catg-head">
                             <div class="aa-product-catg-head-left">
@@ -229,7 +231,131 @@
                 </div>
 
             @endif
+                <div class="col-lg-3 col-md-3 col-sm-4 col-md-pull-9">
+                    <aside class="aa-sidebar">
+                        <!-- single sidebar -->
+                        <div class="aa-sidebar-widget">
+                            <h3>Category</h3>
+                            <ul class="aa-catg-nav">
+                                 @foreach (App\Models\ProductsCategoryModel::orderby('name', 'asc')
+                                        ->where('parent_id', 0)
+                                        ->get()
+                                    as $parentCat)
+                                    <li><a
+                                            href="{{ route('client.category', $parentCat->slug) }}">{{ $parentCat->name }}</a>
+                                    </li>
+                                @endforeach
+                            </ul>
+                        </div>
+                        <!-- single sidebar -->
+                        {{-- <div class="aa-sidebar-widget">
+                            <h3>Tags</h3>
+                            <div class="tag-cloud">
+                                <a href="#">Fashion</a>
+                                <a href="#">Ecommerce</a>
+                                <a href="#">Shop</a>
+                                <a href="#">Hand Bag</a>
+                                <a href="#">Laptop</a>
+                                <a href="#">Head Phone</a>
+                                <a href="#">Pen Drive</a>
+                            </div>
+                        </div> --}}
+                        <!-- single sidebar -->
+                        {{-- <div class="aa-sidebar-widget">
+                            <h3>Shop By Price</h3>
+                            <!-- price range -->
+                            <div class="aa-sidebar-price-range">
+                                <form action="">
+                                    <div id="skipstep" class="noUi-target noUi-ltr noUi-horizontal noUi-background">
+                                    </div>
+                                    <span id="skip-value-lower" class="example-val">30.00</span>
+                                    <span id="skip-value-upper" class="example-val">100.00</span>
+                                    <button class="aa-filter-btn" type="submit">Filter</button>
+                                </form>
+                            </div>
 
+                        </div>
+                        <!-- single sidebar -->
+                        <div class="aa-sidebar-widget">
+                            <h3>Shop By Color</h3>
+                            <div class="aa-color-tag">
+                                <a class="aa-color-green" href="#"></a>
+                                <a class="aa-color-yellow" href="#"></a>
+                                <a class="aa-color-pink" href="#"></a>
+                                <a class="aa-color-purple" href="#"></a>
+                                <a class="aa-color-blue" href="#"></a>
+                                <a class="aa-color-orange" href="#"></a>
+                                <a class="aa-color-gray" href="#"></a>
+                                <a class="aa-color-black" href="#"></a>
+                                <a class="aa-color-white" href="#"></a>
+                                <a class="aa-color-cyan" href="#"></a>
+                                <a class="aa-color-olive" href="#"></a>
+                                <a class="aa-color-orchid" href="#"></a>
+                            </div>
+                        </div> --}}
+                        <!-- single sidebar -->
+                        <div class="aa-sidebar-widget">
+                            <h3>Popular Product</h3>
+                            <div class="aa-recently-views">
+                                <ul>
+                                    @foreach ($popular_products as $popular_product)
+                                        <li>
+                                            @php $i= 1; @endphp
+                                            @foreach ($popular_product->product->img as $images)
+                                                @if ($i > 0)
+                                                    <a class="aa-cartbox-img"
+                                                        href="{{ route('client.showProductDetails', ['slug' => $popular_product->product->product_slug]) }}"><img
+                                                            src="{{ $images->image_path }}" alt="polo shirt img"
+                                                            width="100%" height="300px"></a>
+                                                @endif
+                                                @php $i--; @endphp
+                                            @endforeach
+
+                                            <div class="aa-cartbox-info">
+                                                <h4><a
+                                                        href="{{ route('client.showProductDetails', ['slug' => $popular_product->product->product_slug]) }}">{{ $popular_product->product->product_title }}</a>
+                                                </h4>
+                                                <p>1 x &euro; &nbsp;{{ $popular_product->product->product_selling_price }}
+                                                </p>
+                                            </div>
+                                        </li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        </div>
+                        <!-- single sidebar -->
+                        <div class="aa-sidebar-widget">
+                            <h3>Top Rated Products</h3>
+                            <div class="aa-recently-views">
+                                <ul>
+                                    @foreach ($topRatedProducts as $topRatedProduct)
+                                        <li>
+                                            @php $i= 1; @endphp
+                                            @foreach ($topRatedProduct->img as $images)
+                                                @if ($i > 0)
+                                                    <a class="aa-cartbox-img"
+                                                        href="{{ route('client.showProductDetails', ['slug' => $topRatedProduct->product_slug]) }}"><img
+                                                            src="{{ $images->image_path }}" alt="polo shirt img"
+                                                            width="100%" height="300px"></a>
+                                                @endif
+                                                @php $i--; @endphp
+                                            @endforeach
+
+                                            <div class="aa-cartbox-info">
+                                                <h4><a
+                                                        href="{{ route('client.showProductDetails', ['slug' => $topRatedProduct->product_slug]) }}">{{ $topRatedProduct->product_title }}</a>
+                                                </h4>
+                                                <p>1 x &euro; &nbsp;{{ $topRatedProduct->product_price }}</p>
+                                            </div>
+                                        </li>
+                                    @endforeach
+
+
+                                </ul>
+                            </div>
+                        </div>
+                    </aside>
+                </div>
 
             </div>
         </div>

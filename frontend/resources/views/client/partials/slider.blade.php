@@ -1,8 +1,8 @@
 
   <!-- Start slider -->
   <section id="aa-slider">
-    <div class="aa-slider-area">
-      <div id="sequence" class="seq">
+    <div class="aa-slider-area" >
+      <div id="sequence" class="seq"  style="width: 100%; max-height:400px;">
         <div class="seq-screen">
           <ul class="seq-canvas">
             <!-- single slide item -->
@@ -10,7 +10,7 @@
 
             <li>
               <div class="seq-model">
-                <img data-seq src="{{$slider->image }}" alt="Men slide img" />
+                <img data-seq src="{{$slider->image }}" alt="Men slide img"/>
               </div>
               <div class="seq-title">
 

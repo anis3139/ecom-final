@@ -49,6 +49,10 @@
         padding: 10px;
         width: 100%;
         }
+        #bannerImage{
+            width: 100%;
+            max-height: 250px !important;
+        }
     }
     </style>
     @yield('css')

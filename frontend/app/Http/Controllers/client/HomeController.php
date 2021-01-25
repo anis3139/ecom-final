@@ -48,7 +48,7 @@ class HomeController extends Controller
         $key=$request->key;
 
         if($key != ""){
-            $searchProducts=product_table::with(['img'])->where('product_active', 1)->Where('product_title','LIKE',"%{$key}%")->orWhere('product_discription','LIKE',"%{$key}%")->orderBy('id', 'desc')->paginate(15);
+            $searchProducts=product_table::with(['img'])->where('product_active', 1)->Where('product_title','LIKE',"%{$key}%")->paginate(15);
 
             $popular_products= OrderProducts::with('product')
             ->select('product_id', DB::raw('COUNT(product_id) as maxSell'))
@@ -56,9 +56,7 @@ class HomeController extends Controller
             ->orderBy('maxSell', 'desc')
             ->take(4)->get();
             $topRatedProducts= product_table::orderBy('product_price', 'desc')->limit(4)->get();
-            if(count($searchProducts)>0){
-                return view('client.pages.search', compact('searchProducts','popular_products','topRatedProducts','key'));
-            }
+            
         }
         return view('client.pages.search', compact('searchProducts','popular_products','topRatedProducts','key'));
 

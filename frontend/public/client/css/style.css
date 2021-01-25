@@ -932,7 +932,7 @@ img {
     color: #333;
     display: inline-block;
     float: none;
-    font-size: 50px;
+    font-size: 40px;
     font-family: "Raleway", sans-serif;
     font-weight: bold;
     margin-top: 20px;
@@ -3003,7 +3003,7 @@ img {
 
 #aa-myaccount .aa-myaccount-area .aa-myaccount-register {
     display: inline;
-   
+
     width: 100%;
 }
 
@@ -4031,6 +4031,8 @@ img {
 
     #aa-slider .aa-slider-area .seq-title h2 {
         line-height: 50px;
+        font-size: 30px;
+        margin-top: 0px;
     }
 
     #aa-product-category .aa-product-catg-content .aa-product-catg-body .aa-product-catg li {
