@@ -27,6 +27,6 @@ class Visitortable extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('visitor_tables');
     }
 }

@@ -32,6 +32,6 @@ class HomeAboutSectionTable extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('home_about_section');
     }
 }

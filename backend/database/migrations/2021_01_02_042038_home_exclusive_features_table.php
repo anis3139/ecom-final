@@ -27,6 +27,6 @@ class HomeExclusiveFeaturesTable extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('home_exclusive_feature');
     }
 }

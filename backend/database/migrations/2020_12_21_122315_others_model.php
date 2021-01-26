@@ -36,6 +36,6 @@ class OthersModel extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('others');
     }
 }

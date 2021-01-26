@@ -20,6 +20,7 @@ class CreateProductTablesTable extends Migration
             $table->string('product_slug');
             $table->tinyInteger('product_in_stock')->default(1);
             $table->decimal('product_price', 8, 2);
+            $table->integer('product_saving')->default(0);
             $table->decimal('product_selling_price', 8, 2)->nullable();
             $table->integer('product_quantity')->default(1);
             $table->string('product_active')->default('on');

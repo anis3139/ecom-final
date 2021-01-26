@@ -243,6 +243,7 @@
             var product_title = $('#pdName').val();
             var product_discription = $('#pdDescription').val();
             var product_price = $('#pdPrice').val();
+            var product_saving = $('#pdSaving').val();
             var product_selling_price = $('#pdOffer').val();
             var product_quantity = $('#pdQuantity').val();
             var product_category_id = $('#pdCategory').val();
@@ -288,12 +289,12 @@
 
 
 
-            productAdd(product_title, product_discription, product_price, product_selling_price, product_quantity,
+            productAdd(product_title, product_discription, product_price,product_saving,product_selling_price, product_quantity,
                 product_category_id, product_brand_id, product_in_stock, feture_products, product_active,
                 images,selectedmesermentId,pdmesermentValue,product_colors);
         });
 
-        function productAdd(product_title, product_discription, product_price, product_selling_price, product_quantity,
+        function productAdd(product_title, product_discription, product_price,product_saving, product_selling_price, product_quantity,
             product_category_id, product_brand_id, product_in_stock, feture_products, product_active, images,selectedmesermentId,pdmesermentValue ,product_colors) {
 
             if (product_title.length == 0) {
@@ -313,6 +314,7 @@
                     product_title: product_title,
                     product_discription: product_discription,
                     product_price: product_price,
+                    product_saving:product_saving,
                     product_selling_price: product_selling_price,
                     product_quantity: product_quantity,
                     product_category_id: product_category_id,
@@ -460,6 +462,7 @@
                         $('#pdDesShow').html(dataJSON[0].product_discription)
                         $('#pdPriceShow').html(dataJSON[0].product_price)
                         $('#pdSellPrice').html(dataJSON[0].product_selling_price)
+                        $('#pdDiscount').html(dataJSON[0].product_saving+" %")
                         $('#product_quantity').html(dataJSON[0].product_quantity)
                         $('#product_category_id').html(dataJSON[0].get_category.name)
                         $('#product_brand_id').html(dataJSON[0].get_brand.name)
@@ -745,6 +748,8 @@
 
                         $('#pdEditPrice').val(jsonData[0].product_price);
 
+                        $('#pdEditSaving').val(jsonData[0].product_saving);
+
                         $('#pdEditOffer').val(jsonData[0].product_selling_price);
 
 
@@ -834,6 +839,7 @@
         var pdEditName=$('#pdEditName').val();
         var pdEditDescription=$('#pdEditDescription').val();
         var pdEditPrice=$('#pdEditPrice').val();
+        var pdEditSaving=$('#pdEditSaving').val();
         var pdEditOffer=$('#pdEditOffer').val();
         var pdEditQuantity=$('#pdEditQuantity').val();
         var pdEditCategory=$('#pdEditCategory').val();
@@ -854,13 +860,13 @@
 
 
 
-        productUpadate(product_id_edit, pdEditName, pdEditDescription, pdEditPrice, pdEditOffer, pdEditQuantity, pdEditCategory, pdEditBrand, pdEditStock, pdEditFeature, pdEditStatus, editImagesValue, pdmesermentValueEdit, editedValueOfColor,slelctedmesermentEdit)
+        productUpadate(product_id_edit, pdEditName, pdEditDescription, pdEditPrice,pdEditSaving, pdEditOffer, pdEditQuantity, pdEditCategory, pdEditBrand, pdEditStock, pdEditFeature, pdEditStatus, editImagesValue, pdmesermentValueEdit, editedValueOfColor,slelctedmesermentEdit)
 
 
         });
 
 
-        function productUpadate(product_id_edit, pdEditName, pdEditDescription, pdEditPrice, pdEditOffer, pdEditQuantity, pdEditCategory, pdEditBrand, pdEditStock, pdEditFeature, pdEditStatus, editImagesValue, pdmesermentValueEdit, editedValueOfColor,slelctedmesermentEdit) {
+        function productUpadate(product_id_edit, pdEditName, pdEditDescription, pdEditPrice,pdEditSaving, pdEditOffer, pdEditQuantity, pdEditCategory, pdEditBrand, pdEditStock, pdEditFeature, pdEditStatus, editImagesValue, pdmesermentValueEdit, editedValueOfColor,slelctedmesermentEdit) {
             if (pdEditName.length == 0) {
                 toastr.error('Product Title is empty!');
                 $('#pdName').focus();
@@ -879,6 +885,7 @@
                     pdEditName: pdEditName,
                     pdEditDescription: pdEditDescription,
                     pdEditPrice: pdEditPrice,
+                    pdEditSaving: pdEditSaving,
                     pdEditOffer: pdEditOffer,
                     pdEditQuantity: pdEditQuantity,
                     pdEditCategory: pdEditCategory,
@@ -1258,6 +1265,29 @@ var pdmesermentEdit= $('#pdmesermentEdit').val();
     $('.meserment_edit').html(html13);
 
 });
+
+
+
+
+
+function calculate(){
+    var mainPrice =parseInt( $('#pdPrice').val());
+    var savings=parseInt($('#pdSaving').val());
+
+
+    var offerPrice=mainPrice - savings / 100 * mainPrice;
+
+    $('#pdOffer').val(offerPrice);
+}
+function calculateEdit(){
+    var mainPrice =parseInt( $('#pdEditPrice').val());
+    var savings=parseInt($('#pdEditSaving').val());
+
+
+    var offerPrice=mainPrice - savings / 100 * mainPrice;
+
+    $('#pdEditOffer').val(offerPrice);
+}
 
 </script>
 

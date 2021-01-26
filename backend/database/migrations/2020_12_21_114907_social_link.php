@@ -32,6 +32,6 @@ class SocialLink extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('social');
     }
 }

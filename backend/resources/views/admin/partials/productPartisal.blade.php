@@ -70,9 +70,27 @@
                             <input id="pdName" type="text" id="" class="form-control mb-3" placeholder="Product Name">
                             <textarea id="pdDescription" type="text" id="" class="form-control mb-3"
                                 placeholder="Product Description" cols="30" rows="5"></textarea>
-                            <input id="pdPrice" type="number" id="" class="form-control mb-3"
-                                placeholder="Product Price"   min="0" onkeydown="javascript: return event.keyCode === 8 || event.keyCode === 46 ? true : !isNaN(Number(event.key))">
-                            <input id="pdOffer" type="number" id="" class="form-control mb-3" placeholder="Offer Price" min="0" onkeydown="javascript: return event.keyCode === 8 || event.keyCode === 46 ? true : !isNaN(Number(event.key))">
+
+
+                                <div class="row">
+
+                                    <div class="col-4 col-sm-4 col-md-4 col-lg-4 col-xl-4">
+                                        <label for="pdPrice">Product Price:</label>
+                                        <input id="pdPrice" type="number" class="form-control mb-3" placeholder="Product Price"   min="0" onkeyup="calculate();" onkeydown="javascript: return event.keyCode === 8 || event.keyCode === 46 ? true : !isNaN(Number(event.key))">
+                                    </div>
+                                    <div class="col-4 col-sm-4 col-md-4 col-lg-4 col-xl-4">
+                                        <label for="pdSaving">Discount(%):</label>
+                                        <input id="pdSaving" type="number" value="0"  class="form-control mb-3" placeholder="Saving Percentege"   min="0" max="100" onkeyup="calculate();" onkeydown="javascript: return event.keyCode === 8 || event.keyCode === 46 ? true : !isNaN(Number(event.key))">
+                                    </div>
+                                    <div class="col-4 col-sm-4 col-md-4 col-lg-4 col-xl-4">
+                                        <label for="pdOffer">Selling Price:</label>
+                                        <input id="pdOffer" type="number"  class="form-control mb-3" readonly placeholder="Offer Price" min="0" onkeydown="javascript: return event.keyCode === 8 || event.keyCode === 46 ? true : !isNaN(Number(event.key))">
+                                    </div>
+                                </div>
+
+
+
+                            <label for="pdQuantity">Product Quantity:</label>
                             <input id="pdQuantity" type="number" id="" class="form-control mb-3"
                                 placeholder="Product Quantity" value="1" min="1" max="1000" onkeydown="javascript: return event.keyCode === 8 || event.keyCode === 46 ? true : !isNaN(Number(event.key))">
                             <select id="pdCategory" style="margin-bottom: 10px;" class="browser-default custom-select">
@@ -102,7 +120,7 @@
                                     <option value="0">Panding</option>
                                 </select>
                             </div>
-
+                            <label for="pdmeserment">Product Meserment:</label>
                             <select id="pdmeserment" style="margin-bottom: 10px;" class="browser-default custom-select">
                                 <option selected>Select Meserment</option>
                                 <option value="1">Size</option>
@@ -290,6 +308,10 @@
                                     <td id="pdPriceShow"></td>
                                 </tr>
                                 <tr>
+                                    <td>Discount</td>
+                                    <td id="pdDiscount"></td>
+                                </tr>
+                                <tr>
                                     <td>Selling Price</td>
                                     <td id="pdSellPrice"></td>
                                 </tr>
@@ -366,22 +388,40 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-md-6">
+                            <label for="pdEditName">Product Name:</label>
                             <input id="pdEditName" type="text" id="" class="form-control mb-3"
                                 placeholder="Product Name">
                                 <input type="hidden" id="product_id_edit">
-                            <textarea id="pdEditDescription" type="text" id="" class="form-control mb-3"
-                                placeholder="Product Description" cols="30" rows="5"></textarea>
-                            <input id="pdEditPrice" type="number" id="" class="form-control mb-3"
-                                placeholder="Product Price"  min="0" onkeydown="javascript: return event.keyCode === 8 || event.keyCode === 46 ? true : !isNaN(Number(event.key))">
-                            <input id="pdEditOffer" type="number" id="" class="form-control mb-3" placeholder="Offer Price"  min="0" onkeydown="javascript: return event.keyCode === 8 || event.keyCode === 46 ? true : !isNaN(Number(event.key))">
-                            <input id="pdEditQuantity" type="number" id="" class="form-control mb-3"
-                                placeholder="Product Quantity"  min="0" max="1000" onkeydown="javascript: return event.keyCode === 8 || event.keyCode === 46 ? true : !isNaN(Number(event.key))">
-                            <select id="pdEditCategory" style="margin-bottom: 10px;"
-                                class="browser-default custom-select">
-                            </select>
+                                <label for="pdEditDescription">Product Description:</label>
+                            <textarea id="pdEditDescription" type="text" id="" class="form-control mb-3" placeholder="Product Description" cols="30" rows="5"></textarea>
+
+
+
+                             <div class="row">
+
+                                    <div class="col-4 col-sm-4 col-md-4 col-lg-4 col-xl-4">
+                                        <label for="pdEditPrice">Product Price:</label>
+                                        <input id="pdEditPrice" type="number" class="form-control mb-3" placeholder="Product Price"   min="0" onkeyup="calculateEdit();" onkeydown="javascript: return event.keyCode === 8 || event.keyCode === 46 ? true : !isNaN(Number(event.key))">
+                                    </div>
+                                    <div class="col-4 col-sm-4 col-md-4 col-lg-4 col-xl-4">
+                                        <label for="pdEditSaving">Product Discount(%):</label>
+                                        <input id="pdEditSaving" type="number"  class="form-control mb-3" placeholder="Saving Percentege"   min="0" max="100" onkeyup="calculateEdit();" onkeydown="javascript: return event.keyCode === 8 || event.keyCode === 46 ? true : !isNaN(Number(event.key))">
+                                    </div>
+                                    <div class="col-4 col-sm-4 col-md-4 col-lg-4 col-xl-4">
+                                        <label for="pdEditOffer">Product Selling Price:</label>
+                                        <input id="pdEditOffer" type="number"  class="form-control mb-3" readonly placeholder="Offer Price" min="0" onkeydown="javascript: return event.keyCode === 8 || event.keyCode === 46 ? true : !isNaN(Number(event.key))">
+                                    </div>
+                                </div>
+                                <label for="pdEditQuantity">Product Quantity:</label>
+                            <input id="pdEditQuantity" type="number" id="" class="form-control mb-3" placeholder="Product Quantity"  min="0" max="1000" onkeydown="javascript: return event.keyCode === 8 || event.keyCode === 46 ? true : !isNaN(Number(event.key))">
+
+
+                            <label for="pdEditCategory">Product Category:</label>
+                            <select id="pdEditCategory" style="margin-bottom: 10px;" class="browser-default custom-select"></select>
+                            <label for="pdEditBrand">Product Brand:</label>
                             <select id="pdEditBrand" style="margin-bottom: 10px;" class="browser-default custom-select">
                             </select>
-
+                            <label for="pdEditStock">Product Stock:</label>
                             <select id="pdEditStock" style="margin-bottom: 10px;" class="browser-default custom-select">
                                 <option value="1" >Stock In</option>
                                 <option value="0">Stock Out</option>
@@ -405,7 +445,7 @@
                                     <option value="0">Panding</option>
                                 </select>
                             </div>
-
+                            <label for="pdmesermentEdit">Product Meserment:</label>
                             <select id="pdmesermentEdit" style="margin-bottom: 10px;" class="browser-default custom-select">
                                 <option >Select Meserment</option>
                                 <option value="1">Size</option>
