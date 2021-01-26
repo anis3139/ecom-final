@@ -22,6 +22,8 @@ class CreateProductTablesTable extends Migration
             $table->decimal('product_price', 8, 2);
             $table->integer('product_saving')->default(0);
             $table->decimal('product_selling_price', 8, 2)->nullable();
+            $table->decimal('product_tax', 8, 2)->default(0);
+            $table->integer('product_delivary_charge')->default(0);
             $table->integer('product_quantity')->default(1);
             $table->string('product_active')->default('on');
             $table->string('feture_products')->default('on');
