@@ -67,6 +67,8 @@ class ProductsController extends Controller
         $pdmesermentValue = $data['0']->pdmesermentValue;
         $product_colors = $data['0']->product_colors;
         $selectedmesermentId = $data['0']->selectedmesermentId;
+        $pdTax = $data['0']->pdTax;
+        $deliveryCharge = $data['0']->deliveryCharge;
 
         $slug = Str::slug($product_title);
         $next = 2;
@@ -89,6 +91,8 @@ class ProductsController extends Controller
         $result->product_meserment_type = $selectedmesermentId;
         $result->product_active = $product_active;
         $result->product_slug = $slug;
+        $result->product_tax = $pdTax;
+        $result->product_delivary_charge = $deliveryCharge;
         $result->save();
         $last_id = $result->id;
 
@@ -192,6 +196,8 @@ class ProductsController extends Controller
         $pdmesermentValueEdit = $data['0']->pdmesermentValueEdit;
         $slelctedmesermentEdit = $data['0']->slelctedmesermentEdit;
         $editedValueOfColor = $data['0']->editedValueOfColor;
+        $pdEditTax = $data['0']->pdEditTax;
+        $deliveryEditCharge = $data['0']->deliveryEditCharge;
 
 
 
@@ -262,6 +268,8 @@ class ProductsController extends Controller
             $result->feture_products = $pdEditFeature;
             $result->product_active = $pdEditStatus;
             $result->product_meserment_type = $slelctedmesermentEdit;
+            $result->product_tax = $pdEditTax;
+            $result->product_delivary_charge = $deliveryEditCharge;
             $status = $result->save();
 
             if ($status == true) {
@@ -284,6 +292,8 @@ class ProductsController extends Controller
             $result->feture_products = $pdEditFeature;
             $result->product_active = $pdEditStatus;
             $result->product_meserment_type = $slelctedmesermentEdit;
+            $result->product_tax = $pdEditTax;
+            $result->product_delivary_charge = $deliveryEditCharge;
             $status = $result->save();
 
             if ($status == true) {

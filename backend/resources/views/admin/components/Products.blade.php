@@ -251,6 +251,8 @@
             var product_in_stock = $('#pdStock').val();
             var feture_products = $('#pdFeature').val();
             var product_active = $('#pdActive').val();
+            var pdTax = $('#pdTax').val();
+            var deliveryCharge = $('#deliveryCharge').val();
             var images = [];
             $("input[name='productImage[]']").each(function() {
                 if ($(this).prop('files')[0] !== undefined) {
@@ -291,11 +293,11 @@
 
             productAdd(product_title, product_discription, product_price,product_saving,product_selling_price, product_quantity,
                 product_category_id, product_brand_id, product_in_stock, feture_products, product_active,
-                images,selectedmesermentId,pdmesermentValue,product_colors);
+                images,selectedmesermentId,pdmesermentValue,product_colors, pdTax, deliveryCharge);
         });
 
         function productAdd(product_title, product_discription, product_price,product_saving, product_selling_price, product_quantity,
-            product_category_id, product_brand_id, product_in_stock, feture_products, product_active, images,selectedmesermentId,pdmesermentValue ,product_colors) {
+            product_category_id, product_brand_id, product_in_stock, feture_products, product_active, images,selectedmesermentId,pdmesermentValue ,product_colors, pdTax, deliveryCharge) {
 
             if (product_title.length == 0) {
                 toastr.error('Product Title is empty!');
@@ -307,6 +309,10 @@
                 toastr.error('Product Price is empty!');
             } else if (product_quantity.length == 0) {
                 toastr.error('Product Quantity is empty!');
+            }  else if (pdTax.length == 0) {
+                toastr.error('Product Tax is empty!');
+            }  else if (deliveryCharge.length == 0) {
+                toastr.error('Delivery Charge is empty!');
             } else {
                 $('#productAddConfirmBtn').html(
                     "<div class='spinner-border spinner-border-sm text-primary' role='status'></div>"); //animation
@@ -325,6 +331,8 @@
                     pdmesermentValue: pdmesermentValue,
                     product_colors: product_colors,
                     selectedmesermentId: selectedmesermentId,
+                    pdTax: pdTax,
+                    deliveryCharge: deliveryCharge,
                 }];
                 var fm = new FormData();
                 fm.append('data', JSON.stringify(my_data));
@@ -352,6 +360,8 @@
                             $('#pdPrice').val("");
                             $('#pdOffer').val("");
                             $('#pdQuantity').val("1");
+                            $('#pdTax').val("");
+                            $('#deliveryCharge').val("");
                             $('#pdCategory option').prop('selected', function() {
                                      return this.defaultSelected;
                             });
@@ -464,6 +474,8 @@
                         $('#pdSellPrice').html(dataJSON[0].product_selling_price)
                         $('#pdDiscount').html(dataJSON[0].product_saving+" %")
                         $('#product_quantity').html(dataJSON[0].product_quantity)
+                        $('#pdViewTax').html(dataJSON[0].product_tax+" %")
+                        $('#deliveryViewCharge').html(dataJSON[0].product_delivary_charge)
                         $('#product_category_id').html(dataJSON[0].get_category.name)
                         $('#product_brand_id').html(dataJSON[0].get_brand.name)
                         $('#product_if_has_color').html(dataJSON[0].product_if_has_color)
@@ -754,6 +766,8 @@
 
 
                         $('#pdEditQuantity').val(jsonData[0].product_quantity);
+                        $('#pdEditTax').val(jsonData[0].product_tax);
+                        $('#deliveryEditCharge').val(jsonData[0].product_delivary_charge);
 
                         $('#pdEditCategory option[value=' + jsonData[0].product_category_id + ']').prop('selected','true');
 
@@ -842,6 +856,8 @@
         var pdEditSaving=$('#pdEditSaving').val();
         var pdEditOffer=$('#pdEditOffer').val();
         var pdEditQuantity=$('#pdEditQuantity').val();
+        var pdEditTax=$('#pdEditTax').val();
+        var deliveryEditCharge=$('#deliveryEditCharge').val();
         var pdEditCategory=$('#pdEditCategory').val();
         var pdEditBrand=$('#pdEditBrand').val();
         var pdEditStock=$('#pdEditStock').val();
@@ -860,13 +876,13 @@
 
 
 
-        productUpadate(product_id_edit, pdEditName, pdEditDescription, pdEditPrice,pdEditSaving, pdEditOffer, pdEditQuantity, pdEditCategory, pdEditBrand, pdEditStock, pdEditFeature, pdEditStatus, editImagesValue, pdmesermentValueEdit, editedValueOfColor,slelctedmesermentEdit)
+        productUpadate(product_id_edit, pdEditName, pdEditDescription, pdEditPrice,pdEditSaving, pdEditOffer, pdEditQuantity, pdEditCategory, pdEditBrand, pdEditStock, pdEditFeature, pdEditStatus, editImagesValue, pdmesermentValueEdit, editedValueOfColor,slelctedmesermentEdit, pdEditTax, deliveryEditCharge)
 
 
         });
 
 
-        function productUpadate(product_id_edit, pdEditName, pdEditDescription, pdEditPrice,pdEditSaving, pdEditOffer, pdEditQuantity, pdEditCategory, pdEditBrand, pdEditStock, pdEditFeature, pdEditStatus, editImagesValue, pdmesermentValueEdit, editedValueOfColor,slelctedmesermentEdit) {
+        function productUpadate(product_id_edit, pdEditName, pdEditDescription, pdEditPrice,pdEditSaving, pdEditOffer, pdEditQuantity, pdEditCategory, pdEditBrand, pdEditStock, pdEditFeature, pdEditStatus, editImagesValue, pdmesermentValueEdit, editedValueOfColor,slelctedmesermentEdit, pdEditTax, deliveryEditCharge) {
             if (pdEditName.length == 0) {
                 toastr.error('Product Title is empty!');
                 $('#pdName').focus();
@@ -877,6 +893,10 @@
                 toastr.error('Product Price is empty!');
             } else if (pdEditQuantity.length == 0) {
                 toastr.error('Product Quantity is empty!');
+            }else if (pdEditTax.length == 0) {
+                toastr.error('Product Tax is empty!');
+            }else if (deliveryEditCharge.length == 0) {
+                toastr.error('Delivary is empty!');
             } else {
                 $('#productEditConfirmBtn').html(
                     "<div class='spinner-border spinner-border-sm text-primary' role='status'></div>"); //animation
@@ -895,7 +915,9 @@
                     pdEditStatus: pdEditStatus,
                     editedValueOfColor: editedValueOfColor,
                     pdmesermentValueEdit: pdmesermentValueEdit,
-                    slelctedmesermentEdit:slelctedmesermentEdit
+                    slelctedmesermentEdit:slelctedmesermentEdit,
+                    pdEditTax:pdEditTax,
+                    deliveryEditCharge:deliveryEditCharge,
                 }];
                 var fm = new FormData();
                 fm.append('data', JSON.stringify(my_data));

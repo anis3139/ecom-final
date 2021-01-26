@@ -88,11 +88,27 @@
                                     </div>
                                 </div>
 
+                                <div class="row">
+                                    <div class="col-4 col-sm-4 col-md-4 col-lg-4 col-xl-4">
+                                        <label for="pdQuantity">Product Quantity:</label>
+                                        <input id="pdQuantity" type="number" id="" class="form-control mb-3"
+                                            placeholder="Product Quantity" value="1" min="1" max="1000" onkeydown="javascript: return event.keyCode === 8 || event.keyCode === 46 ? true : !isNaN(Number(event.key))">
+                                    </div>
+                                    <div class="col-4 col-sm-4 col-md-4 col-lg-4 col-xl-4">
+                                        <label for="pdTax">Product Tax(%):</label>
+                                        <input id="pdTax" type="number" class="form-control mb-3" placeholder="Product Tax"   min="0" onkeyup="calculate();" onkeydown="javascript: return event.keyCode === 8 || event.keyCode === 46 ? true : !isNaN(Number(event.key))">
+                                    </div>
+                                    <div class="col-4 col-sm-4 col-md-4 col-lg-4 col-xl-4">
+                                        <label for="deliveryCharge">Delivery Charge:</label>
+                                        <input id="deliveryCharge" type="number"  class="form-control mb-3" placeholder="Delivery Charge"   min="0" max="100" onkeyup="calculate();" onkeydown="javascript: return event.keyCode === 8 || event.keyCode === 46 ? true : !isNaN(Number(event.key))">
+                                    </div>
 
 
-                            <label for="pdQuantity">Product Quantity:</label>
-                            <input id="pdQuantity" type="number" id="" class="form-control mb-3"
-                                placeholder="Product Quantity" value="1" min="1" max="1000" onkeydown="javascript: return event.keyCode === 8 || event.keyCode === 46 ? true : !isNaN(Number(event.key))">
+                                </div>
+
+
+
+
                             <select id="pdCategory" style="margin-bottom: 10px;" class="browser-default custom-select">
                             </select>
                             <select id="pdBrand" style="margin-bottom: 10px;" class="browser-default custom-select">
@@ -320,6 +336,14 @@
                                     <td id="product_quantity"></td>
                                 </tr>
                                 <tr>
+                                    <td>Product Tax(%)</td>
+                                    <td id="pdViewTax"></td>
+                                </tr>
+                                <tr>
+                                    <td>Delivery Charge</td>
+                                    <td id="deliveryViewCharge"></td>
+                                </tr>
+                                <tr>
                                     <td>Category Name</td>
                                     <td id="product_category_id"></td>
                                 </tr>
@@ -412,9 +436,22 @@
                                         <input id="pdEditOffer" type="number"  class="form-control mb-3" readonly placeholder="Offer Price" min="0" onkeydown="javascript: return event.keyCode === 8 || event.keyCode === 46 ? true : !isNaN(Number(event.key))">
                                     </div>
                                 </div>
-                                <label for="pdEditQuantity">Product Quantity:</label>
-                            <input id="pdEditQuantity" type="number" id="" class="form-control mb-3" placeholder="Product Quantity"  min="0" max="1000" onkeydown="javascript: return event.keyCode === 8 || event.keyCode === 46 ? true : !isNaN(Number(event.key))">
 
+
+                            <div class="row">
+                                <div class="col-4 col-sm-4 col-md-4 col-lg-4 col-xl-4">
+                                    <label for="pdEditQuantity">Product Quantity:</label>
+                                        <input id="pdEditQuantity" type="number" id="" class="form-control mb-3" placeholder="Product Quantity"  min="0" max="1000" onkeydown="javascript: return event.keyCode === 8 || event.keyCode === 46 ? true : !isNaN(Number(event.key))">
+                                    </div>
+                                <div class="col-4 col-sm-4 col-md-4 col-lg-4 col-xl-4">
+                                    <label for="pdEditTax">Product Tax(%):</label>
+                                    <input id="pdEditTax" type="number" class="form-control mb-3" placeholder="Product Tax"   min="0" onkeyup="calculate();" onkeydown="javascript: return event.keyCode === 8 || event.keyCode === 46 ? true : !isNaN(Number(event.key))">
+                                </div>
+                                <div class="col-4 col-sm-4 col-md-4 col-lg-4 col-xl-4">
+                                    <label for="deliveryEditCharge">Delivery Charge:</label>
+                                    <input id="deliveryEditCharge" type="number" class="form-control mb-3" placeholder="Delivery Charge"   min="0" max="100" onkeyup="calculate();" onkeydown="javascript: return event.keyCode === 8 || event.keyCode === 46 ? true : !isNaN(Number(event.key))">
+                                </div>
+                            </div>
 
                             <label for="pdEditCategory">Product Category:</label>
                             <select id="pdEditCategory" style="margin-bottom: 10px;" class="browser-default custom-select"></select>
