@@ -21,6 +21,7 @@ class CreateReatingReviewsTable extends Migration
             $table->float('star_reating');
             $table->string('product_review');
             $table->boolean('is_approved')->default(0);
+            $table->softDeletes();
             $table->timestamps();
         });
     }

@@ -26,6 +26,8 @@
                         <li> <a href="{{ route('admin.categories') }}"><span> <i class="fas fa-server"></i> </span><span class="hide-menu">Category</span></a></li>
                         <li> <a href="{{ route('admin.brands') }}"><span> <i class="fas fa-suitcase"></i> </span><span class="hide-menu">Brand</span></a></li>
                         <li> <a href="{{ route('admin.products') }}"><span> <i class="fas fa-plus-circle"></i> </span><span class="hide-menu">Products</span></a></li>
+
+                    <li> <a href="{{ route('admin.review') }}"><span><i class="far fa-comments"></i> </span><span class="hide-menu">Review</span></a></li>
                         <li> <a href="{{ route('admin.homePage') }}"><span> <i class="fas fa-sliders-h"></i> </span><span class="hide-menu">About Page</span></a></li>
                         <li> <a href="{{ route('admin.slider') }}"><span> <i class="fas fa-image"></i> </span><span class="hide-menu">Slider</span></a></li>
                         <li> <a href="{{ route('admin.others') }}"><span> <i class="fas fa-cog"></i> </span><span class="hide-menu">Generale Settings</span></a></li>
