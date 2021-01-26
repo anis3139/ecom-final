@@ -534,23 +534,22 @@ function getReviewData() {
             axios.post("{{route('getproductreating')}}",{
                 product_id:product_id
             }).then(function(respones){
-                console.log(respones.data);
 
                 var jsonData=respones.data.review;
-
                 $('#reviewCount').html(jsonData.length);
-
                 var html="";
                 for (let rv = 0; rv < jsonData.length; rv++) {
                     const element = jsonData[rv];
-                    var date=new Date(element.created_at);
+                    var date=new Date(element.review_date);
                     var convertedDate=date.toLocaleDateString('es-ES');
                     var reviewData=element.product_review.substring(0,100).replace(/\r?\n/g, '<br />');
+                    var userImage=element.image!=null?element.image:window.location.protocol +  "//" + window.document.location.host + "/default-image.png";
+
 
                     html+='<li>';
                     html+='<div class="media">';
                     html+='<div class="media-left">';
-                    html+='<a href="#"><img class="media-object" src="'+element.image+'" alt="girl image"></a>';
+                    html+='<a href="#"><img class="media-object" src="'+userImage+'" alt="Profile Image" style=" border-radius:50%;"></a>';
                     html+='</div>';
                     html+='<div class="media-body">';
                     html+='<h4 class="media-heading"><strong>'+element.name+'</strong> - <span> '+convertedDate+' </span></h4>';
@@ -559,13 +558,9 @@ function getReviewData() {
                     html+='</div>';
                     html+='</div>';
                     html+='</li>';
-
-
                 }
 
                 $('#reviewResult').html(html);
-
-
                 for (let rate = 0; rate < jsonData.length; rate++) {
                     const element2 = jsonData[rate];
 
@@ -574,19 +569,11 @@ function getReviewData() {
                         readOnly: true,
                         starWidth: "15px"
                     });
-
                 }
-
-
-
-
-
             }).catch(function(error){
                 console.log(error);
             });
 }
-
-
 
         //each Slider  Details data show for edit
         function productDetailsModal(id) {

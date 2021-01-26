@@ -32,14 +32,7 @@ class ReatingReviewController extends Controller
 
     public function getallreview(Request $request)
     {
-            $sql = "SELECT
-        *
-    FROM
-        reating_reviews
-            LEFT JOIN
-        users ON users.id = reating_reviews.user_id
-    WHERE
-        product_id = $request->product_id order by reating_reviews.created_at desc";
+            $sql = "SELECT reating_reviews.id,`product_id`,`user_id`,`seller_id`,`star_reating`,`product_review`,`is_approved`,reating_reviews.created_at AS review_date, users.id, users.name, users.image, reating_reviews.deleted_at FROM reating_reviews LEFT JOIN users ON users.id = reating_reviews.user_id WHERE product_id = $request->product_id AND reating_reviews.deleted_at IS NULL order by reating_reviews.created_at desc";
 
             $data = DB::select($sql);
 
