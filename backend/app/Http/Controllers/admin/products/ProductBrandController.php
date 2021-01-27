@@ -52,7 +52,9 @@ class ProductBrandController extends Controller
         $photoPath =  $request->file('photo')->store('public');
         $photoName = (explode('/', $photoPath))[1];
         $host = $_SERVER['HTTP_HOST'];
-        $location = "http://" . $host . "/public/storage/" . $photoName;
+        $protocol = $_SERVER['PROTOCOL'] = isset($_SERVER['HTTPS']) && !empty($_SERVER['HTTPS']) ? 'https://' : 'http://';
+
+        $location =$protocol . $host . "/public/storage/" . $photoName;
 
         $result = ProductsBrandModel::insert([
             'name' => $name,
@@ -178,7 +180,8 @@ class ProductBrandController extends Controller
             $photoPath =  $request->file('photo')->store('public');
             $photoName = (explode('/', $photoPath))[1];
             $host = $_SERVER['HTTP_HOST'];
-            $location = "http://" . $host . "/public/storage/" . $photoName;
+            $protocol = $_SERVER['PROTOCOL'] = isset($_SERVER['HTTPS']) && !empty($_SERVER['HTTPS']) ? 'https://' : 'http://';
+            $location = $protocol . $host . "/public/storage/" . $photoName;
 
 
             $result = ProductsBrandModel::where('id', '=', $id)->update(['name' => $name, 'products_category_id' => $products_category_models_id, 'image' => $location]);

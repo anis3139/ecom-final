@@ -106,7 +106,6 @@ class ProductsController extends Controller
                 $img = time() . $i . '.' . $image->getClientOriginalExtension();
                 $image->move('storage', $img);
                 $productImageOnehost = $_SERVER['HTTP_HOST'];
-                $host = $_SERVER['HTTP_HOST'];
                 $protocol = $_SERVER['PROTOCOL'] = isset($_SERVER['HTTPS']) && !empty($_SERVER['HTTPS']) ? 'https://' : 'http://';
                 $productImageOnelocation = $protocol . $productImageOnehost .  "/storage/" . $img;
                 $imagemodel = new product_has_images();
@@ -248,7 +247,6 @@ class ProductsController extends Controller
                 $image->move('storage', $img);
                 $productImageOnehost = $_SERVER['HTTP_HOST'];
                 $protocol = $_SERVER['PROTOCOL'] = isset($_SERVER['HTTPS']) && !empty($_SERVER['HTTPS']) ? 'https://' : 'http://';
-
                 $productImageOnelocation = $protocol . $productImageOnehost .  "/storage/" . $img;
                 $imagemodel = new product_has_images();
                 $imagemodel->image_path = $productImageOnelocation;
