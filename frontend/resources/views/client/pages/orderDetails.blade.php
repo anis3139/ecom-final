@@ -44,21 +44,24 @@
                     </tr>
                 </thead>
                 <tbody>
+
                     @foreach ($orders->toArray() as $column => $value)
                     @if (is_string($value))
-
 
                     @if($column=='user_id') @continue
                     @elseif ($column=='id') @continue
                     @elseif ($column=='order_product_id') @continue
                     @elseif ($column=='product_owner_id') @continue
                     @endif
+
                         <tr>
+
                             <td>{{ucwords(str_replace('_',' ', $column))}}</td>
                             <td>{{$value}}</td>
                         </tr>
                     @endif
                     @endforeach
+
                 </tbody>
             </table>
         </div>

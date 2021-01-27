@@ -105,8 +105,8 @@
                                     <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
                                         <label for="product_delivary_charge_type">Delivery Charge Type:</label>
                                         <select name="product_delivary_charge_type" id="product_delivary_charge_type" class="browser-default custom-select">
-                                            <option selected value="0">Group Product</option>
-                                            <option value="1">Per Product</option>
+                                            <option selected value="1">Per Product</option>
+                                            <option  value="0">Group Product</option>
                                         </select>
                                     </div>
                                 </div>
@@ -466,8 +466,8 @@
                                     <label for="product_delivary_charge_type_edit">Delivery Charge Type:</label>
 
                                     <select name="product_delivary_charge_type_edit" id="product_delivary_charge_type_edit" class="browser-default custom-select">
-                                        <option value="0">Group Product</option>
                                         <option value="1">Per Product</option>
+                                        <option value="0">Group Product</option>
                                     </select>
                                 </div>
                             </div>
