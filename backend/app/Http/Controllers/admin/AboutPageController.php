@@ -425,7 +425,7 @@ class AboutPageController extends Controller
         if ($req->file('photo')) {
 
        $fileNames=$req->file('photo')->getClientOriginalExtension();
-            $fileName=time().".".$fileNames;
+        $fileName=time().".".$fileNames;
 
         $photoPath =  $req->file('photo')->move(public_path('images/'), $fileName);
 

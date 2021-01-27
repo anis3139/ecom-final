@@ -144,7 +144,9 @@ class OthersSettingsController extends Controller
         $photoPath =  $req->file('photo')->store('public');
         $photoName = (explode('/', $photoPath))[1];
         $host = $_SERVER['HTTP_HOST'];
-        $location = "http://" . $host . "/public/storage/" . $photoName;
+        $protocol = $_SERVER['PROTOCOL'] = isset($_SERVER['HTTPS']) && !empty($_SERVER['HTTPS']) ? 'https://' : 'http://';
+
+        $location =  $protocol . $host . "/public/storage/" . $photoName;
         if( count($valuecheck)>0){
         $result = OthersModel::where('id', '=',  $valuecheck['0']->id)->update(['logo' => $location]);
         } else{
@@ -164,7 +166,8 @@ class OthersSettingsController extends Controller
         $BannerPath =  $req->file('Banner')->store('public');
         $BannerName = (explode('/', $BannerPath))[1];
         $hostBanner = $_SERVER['HTTP_HOST'];
-        $locationBanner = "http://" . $hostBanner . "/public/storage/" . $BannerName;
+        $protocol = $_SERVER['PROTOCOL'] = isset($_SERVER['HTTPS']) && !empty($_SERVER['HTTPS']) ? 'https://' : 'http://';
+        $locationBanner =  $protocol . $hostBanner . "/public/storage/" . $BannerName;
         if( count($valuecheckBanner)>0){
         $result = OthersModel::where('id', '=',  $valuecheckBanner['0']->id)->update(['hero_banner' => $locationBanner]);
         } else{
@@ -185,7 +188,8 @@ class OthersSettingsController extends Controller
         $promoImageOnePath =  $req->file('promoImageOne')->store('public');
         $promoImageOneName = (explode('/', $promoImageOnePath))[1];
         $hostpromoImageOne = $_SERVER['HTTP_HOST'];
-        $locationpromoImageOne = "http://" . $hostpromoImageOne . "/public/storage/" . $promoImageOneName;
+        $protocol = $_SERVER['PROTOCOL'] = isset($_SERVER['HTTPS']) && !empty($_SERVER['HTTPS']) ? 'https://' : 'http://';
+        $locationpromoImageOne =  $protocol . $hostpromoImageOne . "/public/storage/" . $promoImageOneName;
         if( count($valuecheckpromoImageOne)>0){
         $result = OthersModel::where('id', '=',  $valuecheckpromoImageOne['0']->id)->update(['promo_image_one' => $locationpromoImageOne]);
         } else{
@@ -205,7 +209,8 @@ class OthersSettingsController extends Controller
         $promoImageTwoPath =  $req->file('promoImageTwo')->store('public');
         $promoImageTwoName = (explode('/', $promoImageTwoPath))[1];
         $hostpromoImageTwo = $_SERVER['HTTP_HOST'];
-        $locationpromoImageTwo = "http://" . $hostpromoImageTwo . "/public/storage/" . $promoImageTwoName;
+        $protocol = $_SERVER['PROTOCOL'] = isset($_SERVER['HTTPS']) && !empty($_SERVER['HTTPS']) ? 'https://' : 'http://';
+        $locationpromoImageTwo =  $protocol . $hostpromoImageTwo . "/public/storage/" . $promoImageTwoName;
         if( count($valuecheckpromoImageTwo)>0){
         $result = OthersModel::where('id', '=',  $valuecheckpromoImageTwo['0']->id)->update(['promo_image_two' => $locationpromoImageTwo]);
         } else{
@@ -226,7 +231,8 @@ class OthersSettingsController extends Controller
         $promoImageThreePath =  $req->file('promoImageThree')->store('public');
         $promoImageThreeName = (explode('/', $promoImageThreePath))[1];
         $hostpromoImageThree = $_SERVER['HTTP_HOST'];
-        $locationpromoImageThree = "http://" . $hostpromoImageThree . "/public/storage/" . $promoImageThreeName;
+        $protocol = $_SERVER['PROTOCOL'] = isset($_SERVER['HTTPS']) && !empty($_SERVER['HTTPS']) ? 'https://' : 'http://';
+        $locationpromoImageThree =  $protocol . $hostpromoImageThree . "/public/storage/" . $promoImageThreeName;
         if( count($valuecheckpromoImageThree)>0){
         $result = OthersModel::where('id', '=',  $valuecheckpromoImageThree['0']->id)->update(['promo_image_three' => $locationpromoImageThree]);
         } else{
