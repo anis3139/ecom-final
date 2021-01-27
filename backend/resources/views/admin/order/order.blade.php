@@ -137,9 +137,18 @@
                                         <td style="max-width:200px !important;">Total Amount</td>
                                         <td id="total_amount"> </td>
                                     </tr>
+
                                     <tr>
                                         <td style="max-width:200px !important;">Discount Amount</td>
                                         <td id="discount_amount"> </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="max-width:200px !important;">Total Tax</td>
+                                        <td id="total_tax"> </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="max-width:200px !important;">Delivery Charge</td>
+                                        <td id="total_delivery_charge"> </td>
                                     </tr>
                                     <tr>
                                         <td style="max-width:200px !important;">Paid Amount </td>
@@ -174,6 +183,17 @@
 
                                     </tbody>
                                     <tfoot>
+
+                                        <tr>
+                                            <td colspan="6" style="max-width:200px !important;">Total Tax</td>
+                                            <td id="tax"> </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td colspan="6" style="max-width:200px !important;">Delivery Charge</td>
+                                            <td id="delivary_charge"> </td>
+                                        </tr>
+
                                         <tr>
                                             <td colspan="6" class="total_price">Total Price</td>
                                             <td id="total_price" class="font-weight-bold"></td>
@@ -312,6 +332,8 @@
                         $('#discount_amount').html(dataJSON[0].discount_amount);
                         $('#paid_amount').html(dataJSON[0].paid_amount);
                         $('#payment_details').html(dataJSON[0].payment_details);
+                        $('#total_tax').html(dataJSON[0].total_tax);
+                        $('#total_delivery_charge').html(dataJSON[0].total_delivery_charge);
 
                         var productOwner = " ";
                         if (dataJSON[0].product_owner_id == 0) {
@@ -323,6 +345,8 @@
                         $('#product_owner_id').html(productOwner);
 
                         $('#total_price').html('&euro;' + dataJSON[0].paid_amount);
+                        $('#tax').html(dataJSON[0].total_tax);
+                        $('#delivary_charge').html(dataJSON[0].total_delivery_charge);
 
 
                         $('#payment_status_id').val(dataJSON[0].id);

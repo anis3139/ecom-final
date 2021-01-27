@@ -78,7 +78,7 @@
 
                                                     <td><a class="aa-cart-title" href="#">{{ $cartItem['title'] }}</a></td>
 
-                                                    <td>&euro; &nbsp;{{ number_format($cartItem['unit_price']) }} </td>
+                                                    <td>&euro; &nbsp;{{ number_format($cartItem['unit_price']), 2 }} </td>
 
                                                     <td>{{ $cartItem['quantity'] }}</td>
                                                     <td style="display:flex; justify-content:center; align-items: center; height:20vh;">

@@ -90,10 +90,9 @@
                                                 <h4 class="aa-product-title"><a
                                                         href="{{ route('client.showProductDetails', ['slug' => $allProduct->product_slug]) }}">{{ $allProduct->product_title }}</a>
                                                 </h4>
-                                                <span class="aa-product-price">&euro;
-                                                    &nbsp;{{ $allProduct->product_selling_price }}</span><span
-                                                    class="aa-product-price"><del>&euro;
-                                                        &nbsp;{{ $allProduct->product_price}}</del></span>
+
+
+                                                        <span class="aa-product-price">&euro; &nbsp;{{ $allProduct->product_selling_price}}</span> @if($allProduct->product_price!= $allProduct->product_selling_price)<span class="aa-product-price"><del> &euro; &nbsp;{{ $allProduct->product_price}}</del></span>@endif
                                                 <p class="aa-product-descrip">{!! nl2br(e($allProduct->product_discription))
                                                     !!}</p>
                                             </figcaption>

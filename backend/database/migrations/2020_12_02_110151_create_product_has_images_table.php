@@ -20,7 +20,7 @@ class CreateProductHasImagesTable extends Migration
             $table->softDeletes();
             $table->timestamps();
 
-            // $table->foreign('has_images_product_id')->references('id')->on('product_tables')->onDelete('cascade');
+            
         });
     }
 

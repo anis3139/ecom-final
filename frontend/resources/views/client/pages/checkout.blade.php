@@ -212,9 +212,12 @@
                                                         @foreach ($cart as $key => $product)
 
                                                             <tr>
-                                                                <td>{{ $product['title'] }} <strong> x
-                                                                        {{ $product['quantity'] }}</strong></td>
-                                                                <td>&euro; &nbsp;{{ number_format($product['total_price'], 2)  }}</td>
+                                                                <td>
+                                                                    {{ $product['title'] }} <strong> x {{ $product['quantity'] }}</strong>
+                                                                </td>
+                                                                <td>
+                                                                    &euro; &nbsp;{{ number_format($product['total_price'], 2)  }}
+                                                                </td>
                                                             </tr>
                                                         @endforeach
 
@@ -225,13 +228,17 @@
                                                             <td>&euro; &nbsp;{{ number_format($total, 2)}}</td>
                                                         </tr>
                                                         <tr>
-                                                            <th>Tax</th>
-                                                            <td>21%</td>
+                                                            <th>Total Tax</th>
+                                                            <td>&euro; &nbsp;{{ number_format($total_tax, 2), 2 }}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>Total Delivery Charge</th>
+                                                            <td>&euro; &nbsp;{{ number_format($total_delivery_charge, 2), 2 }}</td>
                                                         </tr>
 
                                                         <tr>
                                                             <th>Total</th>
-                                                            <td>&euro; &nbsp;{{ number_format(  ($total*21)/100 + $total, 2) }}</td>
+                                                            <td>&euro; &nbsp;{{ number_format( $total+ $total_tax + $total_delivery_charge , 2) }}</td>
                                                         </tr>
                                                     </tfoot>
                                                 </table>

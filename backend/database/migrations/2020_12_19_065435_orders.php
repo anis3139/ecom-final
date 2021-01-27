@@ -26,6 +26,9 @@ class Orders extends Migration
             $table->decimal('discount_amount',10,2)->default(0.00);
             $table->decimal('paid_amount',10,2);
 
+            $table->decimal('total_tax', 8, 2);
+            $table->integer('total_delivery_charge');
+
             $table->string('payment_status', 32)->default('pending');
             $table->text('payment_details', 32)->nullable();
 
@@ -38,10 +41,7 @@ class Orders extends Migration
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent();
 
-            // $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            // $table->foreign('processed_by')->references('id')->on('admins')->onDelete('cascade');
-            // $table->foreign('product_owner_id')->references('id')->on('vendors')->onDelete('cascade');
-        });
+             });
     }
 
     /**

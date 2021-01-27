@@ -22,6 +22,8 @@ class cartController extends Controller
 
         $data['cart'] = session()->has('cart') ? session()->get('cart') : [];
         $data['total']= array_sum( array_column($data['cart'], 'total_price'));
+        $data['total_tax']= array_sum( array_column($data['cart'], 'total_tax'));
+        $data['total_delivery_charge']= array_sum( array_column($data['cart'], 'total_delivery_charge'));
 
 
 
@@ -32,7 +34,7 @@ class cartController extends Controller
     public function addToCart(Request $request)
     {
 
-        
+
 
         $cart=[];
 
@@ -45,14 +47,23 @@ class cartController extends Controller
         }
 
          $product = product_table::with('img','color')->findOrFail($request->input('product_id'));
-
          $unit_price=($product->product_selling_price !== null && $product->product_selling_price > 0) ? $product->product_selling_price : $product->product_price;
          $cart = session()->has('cart') ? session()->get('cart') : [];
+
         $quantity= $request->quantity ?? $product->product_quantity;
+
+        $product_tax=($unit_price*$product->product_tax)/100;
+
+        $product_delivary_charge=$quantity*$product->product_delivary_charge;
 
         if (array_key_exists($product->id, $cart)) {
             $cart[$product->id]['quantity'] +=  $quantity;
             $cart[$product->id]['total_price']= $cart[$product->id]['quantity'] *  $cart[$product->id]['unit_price'];
+            $cart[$product->id]['total_tax']= $cart[$product->id]['quantity'] *  $cart[$product->id]['product_tax'];
+
+            if ($product->product_delivary_charge_type != 0) {
+                $cart[$product->id]['total_delivery_charge']= $cart[$product->id]['quantity'] *  $cart[$product->id]['product_delivary_charge'];
+            }
 
 
         } else {
@@ -64,6 +75,11 @@ class cartController extends Controller
                 'color' =>$request->color,
                 'maserment' =>$request->maserment,
                 'image'=>$product->img[0]->image_path,
+                'product_tax' =>$product_tax,
+                'total_tax' =>$product_tax,
+                'product_delivary_charge' =>$product_delivary_charge,
+                'total_delivery_charge' =>$product_delivary_charge,
+                'product_delivary_charge_type' =>$product->product_delivary_charge_type,
             ];
 
 
@@ -75,6 +91,10 @@ class cartController extends Controller
 
         return redirect()->route('client.showCart')->with('success','Product successfully added.');
     }
+
+
+
+
 
 
     public function RemoveFromCart(Request $request)
@@ -113,16 +133,19 @@ class cartController extends Controller
         $data = [];
         $data['cart'] = session()->has('cart') ? session()->get('cart') : [];
         $data['total']= array_sum( array_column($data['cart'], 'total_price'));
+        $data['total_tax']= array_sum( array_column($data['cart'], 'total_tax'));
+        $data['total_delivery_charge']= array_sum( array_column($data['cart'], 'total_delivery_charge'));
 
        return view('client.pages.checkout', $data);
     }
     public function order(Request $request)
     {
 
-
-
         $cart = session()->has('cart') ? session()->get('cart') : [];
         $total= array_sum( array_column($cart, 'total_price'));
+
+        $total_tax= array_sum( array_column($cart, 'total_tax'));
+        $total_delivery_charge= array_sum( array_column($cart, 'total_delivery_charge'));
 
                 $customer_name = $request->Input('customer_name');
                 $customer_phone_number = $request->Input('customer_phone_number');
@@ -166,6 +189,8 @@ class cartController extends Controller
                 $order->city= $shipping_city;
                 $order->district= $shipping_district;
                 $order->postal_code= $shipping_postal_code;
+                $order->total_tax= $total_tax;
+                $order->total_delivery_charge= $total_delivery_charge;
                 $order->total_amount= $total;
                 $order->paid_amount= $total;
                 $order->payment_details= $payment_details;
@@ -195,8 +220,10 @@ class cartController extends Controller
                 $order->city= $city;
                 $order->district= $district;
                 $order->postal_code= $postal_code;
+                $order->total_tax= $total_tax;
+                $order->total_delivery_charge= $total_delivery_charge;
                 $order->total_amount= $total;
-                $order->paid_amount= $total;
+                $order->paid_amount= $total+$total_tax+$total_delivery_charge;
                 $order->payment_details= $payment_details;
                 $order->save();
               }

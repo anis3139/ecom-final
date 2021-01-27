@@ -24,6 +24,7 @@ class CreateProductTablesTable extends Migration
             $table->decimal('product_selling_price', 8, 2)->nullable();
             $table->decimal('product_tax', 8, 2)->default(0);
             $table->integer('product_delivary_charge')->default(0);
+            $table->tinyInteger('product_delivary_charge_type')->default(0);
             $table->integer('product_quantity')->default(1);
             $table->string('product_active')->default('on');
             $table->string('feture_products')->default('on');
@@ -36,10 +37,7 @@ class CreateProductTablesTable extends Migration
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent();
 
-            // $table->foreign('product_category_id')->references('id')->on('products_category')->onDelete('cascade');
-            // $table->foreign('product_brand_id')->references('id')->on('products_brand')->onDelete('cascade');
-            // $table->foreign('product_owner_id')->references('id')->on('vendors')->onDelete('cascade');
-
+            
         });
     }
 

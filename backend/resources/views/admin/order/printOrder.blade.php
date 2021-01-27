@@ -59,6 +59,15 @@
                 <td id="discount_amount"> {{ $orders->discount_amount }}</td>
             </tr>
             <tr>
+                <td>Total Tax:</td>
+                <td id="total_tax"> {{ $orders->total_tax
+                 }}</td>
+            </tr>
+            <tr>
+                <td>Delivery Charge:</td>
+                <td id="total_delivery_charge"> {{ $orders->total_delivery_charge }}</td>
+            </tr>
+            <tr>
                 <td>Paid Amount:</td>
                 <td id="paid_amount"> {{ $orders->paid_amount }}</td>
             </tr>
@@ -110,6 +119,15 @@
                 @endforeach
             </tbody>
             <tfoot>
+                <tr>
+                    <td style="text-align: center;" colspan="5">Total Tax</td>
+                    <td style="text-align: center;"> {{ $orders->total_tax }}</td>
+                </tr>
+
+                <tr>
+                    <td style="text-align: center;" colspan="5">Delivery Charge</td>
+                    <td style="text-align: center;">{{ $orders->total_delivery_charge }} </td>
+                </tr>
                 <tr>
                     <td style="text-align: center;" colspan="5"><center>Total Price</center></td>
                     <td style="text-align: center;"> {{ $orders->paid_amount }}</td>

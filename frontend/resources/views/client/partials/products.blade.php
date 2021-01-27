@@ -47,7 +47,7 @@
 
                                     <figcaption>
                                     <h4 class="aa-product-title"><a href="{{ route('client.showProductDetails', $product->product_slug)}}">{{ $product->product_title}}</a></h4>
-                                    <span class="aa-product-price">&euro; &nbsp;{{ $product->product_selling_price}}</span><span class="aa-product-price"><del>&euro; &nbsp;{{ $product->product_price}}</del></span>
+                                   <span class="aa-product-price">&euro; &nbsp;{{ $product->product_selling_price}}</span> @if($product->product_price!= $product->product_selling_price)<span class="aa-product-price"><del> &euro; &nbsp;{{ $product->product_price}}</del></span>@endif
                                   </figcaption>
                                 </figure>
                                 <div class="aa-product-hvr-content">

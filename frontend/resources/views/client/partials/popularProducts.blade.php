@@ -29,7 +29,7 @@
                                             <figure>
                                                 @php $i= 1; @endphp
                                                 @foreach ($popular_product->product->img as $images)
-                                              
+
                                                     @if ($i > 0)
                                                         <a class="aa-product-img"
                                                             href="{{ route('client.showProductDetails', ['slug' => $popular_product->product->product_slug]) }}"><img
@@ -49,9 +49,9 @@
                                                     <h4 class="aa-product-title"><a
                                                             href="{{ route('client.showProductDetails', ['slug' => $popular_product->product->product_slug]) }}">{{ $popular_product->product->product_title }}</a>
                                                     </h4>
-                                                    <span
-                                                        class="aa-product-price">&euro; &nbsp;{{ $popular_product->product->product_selling_price }}</span><span
-                                                        class="aa-product-price"><del>&euro; &nbsp;{{ $popular_product->product->product_price }}</del></span>
+
+                                                    <span class="aa-product-price">&euro; &nbsp;{{$popular_product->product->product_selling_price}}</span> @if($popular_product->product->product_price !=$popular_product->product->product_selling_price)<span class="aa-product-price"><del> &euro; &nbsp;{{ $popular_product->product->product_price}}</del></span>@endif
+
                                                 </figcaption>
                                             </figure>
                                             <div class="aa-product-hvr-content">
@@ -109,9 +109,9 @@
                                                     <h4 class="aa-product-title"><a
                                                             href="{{ $featureProduct->product_slug }}">{{ $featureProduct->product_title }}</a>
                                                     </h4>
-                                                    <span
-                                                        class="aa-product-price">{{ $featureProduct->product_selling_price }}</span><span
-                                                        class="aa-product-price"><del>{{ $featureProduct->product_price }}</del></span>
+
+
+                                                        <span class="aa-product-price">&euro; &nbsp;{{ $featureProduct->product_selling_price}}</span> @if($featureProduct->product_price!= $featureProduct->product_selling_price)<span class="aa-product-price"><del> &euro; &nbsp;{{ $featureProduct->product_price}}</del></span>@endif
                                                 </figcaption>
                                             </figure>
                                             <div class="aa-product-hvr-content">
@@ -167,8 +167,12 @@
                                                             Cart</a>
                                                 <figcaption>
                                                     <h4 class="aa-product-title"><a href="{{ route('client.showProductDetails', ['slug' => $latestProduct->product_slug]) }}">{{ $latestProduct->product_title }}</a></h4>
-                                                    <span class="aa-product-price">&euro; &nbsp;{{ $latestProduct->product_selling_price }}</span><span
-                                                        class="aa-product-price"><del>&euro; &nbsp;{{ $latestProduct->product_price }}</del></span>
+
+                                                    <span class="aa-product-price">&euro; &nbsp;{{ $latestProduct->product_selling_price}}</span> @if($latestProduct->product_price!= $latestProduct->product_selling_price)<span class="aa-product-price"><del> &euro; &nbsp;{{ $latestProduct->product_price}}</del></span>@endif
+
+
+
+
                                                 </figcaption>
                                             </figure>
                                             <div class="aa-product-hvr-content">

@@ -141,7 +141,8 @@
                                     <div class="aa-product-view-content">
                                         <h3>{!! $productDetails->product_title !!}</h3>
                                         <div class="aa-price-block">
-                                            <span class="aa-product-view-price">&euro; &nbsp;{{ $productDetails->product_price }}</span>
+                                            <span class="aa-product-view-price">&euro;{{ $productDetails->product_selling_price}}</span>&nbsp; @if($productDetails->product_price!= $productDetails->product_selling_price)<span class="aa-product-view-price"><del> &euro; {{ $productDetails->product_price}}</del></span>@endif
+                                            
                                             <p class="aa-product-avilability">Avilability: <span>
                                                     @if ($productDetails->product_in_stock == 1)
                                                         {{ 'In Stock' }}
