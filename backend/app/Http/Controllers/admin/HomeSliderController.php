@@ -67,7 +67,7 @@ class HomeSliderController extends Controller
 
 
         $delete_old_file = SliderModel::where('id', '=', $id)->first();
-        $delete_old_file_name = (explode('/', $delete_old_file->image))[4];
+        $delete_old_file_name = (explode('/', $delete_old_file->image))[5];
 
         Storage::delete("public/".$delete_old_file_name);
 
@@ -100,7 +100,7 @@ class HomeSliderController extends Controller
     {
         $id = $req->input('id');
         $delete_old_file = SliderModel::where('id', '=', $id)->first();
-        $delete_old_file_name = (explode('/', $delete_old_file->image))[4];
+        $delete_old_file_name = (explode('/', $delete_old_file->image))[5];
         Storage::delete("public/".$delete_old_file_name);
         $result = $delete_old_file->delete();
         if ($result == true) {

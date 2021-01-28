@@ -234,7 +234,7 @@ class ProductsController extends Controller
             $product_has_images = product_has_images::where('has_images_product_id', $product_id_edit)->get();
             foreach ($product_has_images as  $product_has_images_value) {
                 $delete_old_file = product_has_images::where('id', '=', $product_has_images_value->id)->first();
-                $delete_old_file_name = (explode('/', $delete_old_file->image_path))[4];
+                $delete_old_file_name = (explode('/', $delete_old_file->image_path))[5];
                 Storage::delete("public/" . $delete_old_file_name);
                 $delete_old_file->delete();
             }
@@ -321,7 +321,7 @@ class ProductsController extends Controller
         foreach ($product_has_images as  $product_has_images_value) {
 
             $delete_old_file = product_has_images::where('id', '=', $product_has_images_value->id)->first();
-            $delete_old_file_name = (explode('/', $delete_old_file->image_path))[4];
+            $delete_old_file_name = (explode('/', $delete_old_file->image_path))[5];
 
             Storage::delete("public/" . $delete_old_file_name);
             $result2 = $delete_old_file->delete();

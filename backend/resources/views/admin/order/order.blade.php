@@ -134,14 +134,20 @@
                                     </tr>
 
                                     <tr>
-                                        <td style="max-width:200px !important;">Total Amount</td>
-                                        <td id="total_amount"> </td>
+                                        <td style="max-width:200px !important;">Price Without Discount</td>
+                                        <td id="price_without_discount"> </td>
                                     </tr>
 
                                     <tr>
                                         <td style="max-width:200px !important;">Discount Amount</td>
                                         <td id="discount_amount"> </td>
                                     </tr>
+
+                                    <tr>
+                                        <td style="max-width:200px !important;">Total Amount</td>
+                                        <td id="total_amount"> </td>
+                                    </tr>
+
                                     <tr>
                                         <td style="max-width:200px !important;">Total Tax</td>
                                         <td id="total_tax"> </td>
@@ -328,8 +334,9 @@
                         $('#district').html(dataJSON[0].district)
                         $('#country').html(dataJSON[0].country)
                         $('#postal_code').html(dataJSON[0].postal_code)
-                        $('#total_amount').html(dataJSON[0].total_amount)
+                        $('#price_without_discount').html(dataJSON[0].price_without_discount);
                         $('#discount_amount').html(dataJSON[0].discount_amount);
+                        $('#total_amount').html(dataJSON[0].total_amount)
                         $('#paid_amount').html(dataJSON[0].paid_amount);
                         $('#payment_details').html(dataJSON[0].payment_details);
                         $('#total_tax').html(dataJSON[0].total_tax);

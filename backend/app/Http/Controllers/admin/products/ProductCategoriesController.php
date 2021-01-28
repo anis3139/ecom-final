@@ -129,7 +129,7 @@ class ProductCategoriesController extends Controller
         if ($request->file('photo') && $request->file('icon')) {
 
             $delete_old_file = ProductsCategoryModel::where('id', '=', $id)->first();
-            $delete_old_file_name = (explode('/', $delete_old_file->banner_image))[4];
+            $delete_old_file_name = (explode('/', $delete_old_file->banner_image))[5];
             Storage::delete("public/".$delete_old_file_name);
             $photoPath =  $request->file('photo')->store('public');
             $photoName = (explode('/', $photoPath))[1];
@@ -139,7 +139,7 @@ class ProductCategoriesController extends Controller
 
 
             $delete_old_icon = ProductsCategoryModel::where('id', '=', $id)->first();
-            $delete_old_icon_name = (explode('/', $delete_old_icon->icon))[4];
+            $delete_old_icon_name = (explode('/', $delete_old_icon->icon))[5];
             Storage::delete("public/".$delete_old_icon_name);
             $iconPath =  $request->file('icon')->store('public');
             $iconName = (explode('/', $iconPath))[1];
@@ -159,7 +159,7 @@ class ProductCategoriesController extends Controller
         else if ($request->file('photo')) {
 
             $delete_old_file = ProductsCategoryModel::where('id', '=', $id)->first();
-            $delete_old_file_name = (explode('/', $delete_old_file->banner_image))[4];
+            $delete_old_file_name = (explode('/', $delete_old_file->banner_image))[5];
             Storage::delete("public/".$delete_old_file_name);
             $photoPath =  $request->file('photo')->store('public');
             $photoName = (explode('/', $photoPath))[1];
@@ -179,7 +179,7 @@ class ProductCategoriesController extends Controller
 
 
             $delete_old_icon = ProductsCategoryModel::where('id', '=', $id)->first();
-            $delete_old_icon_name = (explode('/', $delete_old_icon->icon))[4];
+            $delete_old_icon_name = (explode('/', $delete_old_icon->icon))[5];
             Storage::delete("public/".$delete_old_icon_name);
             $iconPath =  $request->file('icon')->store('public');
             $iconName = (explode('/', $iconPath))[1];
@@ -221,8 +221,8 @@ class ProductCategoriesController extends Controller
             $sub_categories = ProductsCategoryModel::orderBy('name', 'desc')->where('parent_id', $category->id) ->orWhere('id', $category->id)->get();
 
             foreach ($sub_categories as $sub) {
-                $delete_old_file_image = (explode('/', $sub->banner_image))[4];
-                $delete_old_file_icon = (explode('/', $sub->icon))[4];
+                $delete_old_file_image = (explode('/', $sub->banner_image))[5];
+                $delete_old_file_icon = (explode('/', $sub->icon))[5];
                 Storage::delete("public/".$delete_old_file_image);
                 Storage::delete("public/".$delete_old_file_icon);
                 $result = $sub->delete();
@@ -235,8 +235,8 @@ class ProductCategoriesController extends Controller
 
         }
             $delete_old_file = ProductsCategoryModel::where('id', '=', $id)->first();
-            $delete_old_file_image = (explode('/', $delete_old_file->banner_image))[4];
-            $delete_old_file_icon = (explode('/', $delete_old_file->icon))[4];
+            $delete_old_file_image = (explode('/', $delete_old_file->banner_image))[5];
+            $delete_old_file_icon = (explode('/', $delete_old_file->icon))[5];
             Storage::delete("public/".$delete_old_file_image);
             Storage::delete("public/".$delete_old_file_icon);
             $result = $delete_old_file->delete();

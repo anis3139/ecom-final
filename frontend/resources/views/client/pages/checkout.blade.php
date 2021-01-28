@@ -213,10 +213,10 @@
 
                                                             <tr>
                                                                 <td>
-                                                                    {{ $product['title'] }} <strong> x {{ $product['quantity'] }}</strong>
+                                                                    {{ $product['title'] }} <strong> ({{ $product['main_price'] }}x {{ $product['quantity'] }})</strong>
                                                                 </td>
                                                                 <td>
-                                                                    &euro; &nbsp;{{ number_format($product['total_price'], 2)  }}
+                                                                    &euro; &nbsp;{{  number_format($product['main_price'] * $product['quantity'],2)  }}
                                                                 </td>
                                                             </tr>
                                                         @endforeach
@@ -224,20 +224,28 @@
                                                     </tbody>
                                                     <tfoot>
                                                         <tr>
-                                                            <th>Subtotal</th>
+                                                            <th>Total Price</th>
+                                                            <td>&euro; &nbsp;{{ number_format($total_main_price, 2)}}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>Total Discount</th>
+                                                            <td>&euro; &nbsp;{{ number_format($total_discount, 2)}}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>Subtotal (After Discount)</th>
                                                             <td>&euro; &nbsp;{{ number_format($total, 2)}}</td>
                                                         </tr>
                                                         <tr>
-                                                            <th>Total Tax</th>
-                                                            <td>&euro; &nbsp;{{ number_format($total_tax, 2), 2 }}</td>
+                                                            <th>Tax</th>
+                                                            <td>&euro; &nbsp;{{ number_format($total_tax, 2)}}</td>
                                                         </tr>
                                                         <tr>
-                                                            <th>Total Delivery Charge</th>
-                                                            <td>&euro; &nbsp;{{ number_format($total_delivery_charge, 2), 2 }}</td>
+                                                            <th>Delivery Charge</th>
+                                                            <td>&euro; &nbsp;{{ number_format($total_delivery_charge, 2) }}</td>
                                                         </tr>
 
                                                         <tr>
-                                                            <th>Total</th>
+                                                            <th>Total Paid Amount</th>
                                                             <td>&euro; &nbsp;{{ number_format( $total+ $total_tax + $total_delivery_charge , 2) }}</td>
                                                         </tr>
                                                     </tfoot>

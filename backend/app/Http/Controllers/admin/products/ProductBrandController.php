@@ -123,7 +123,8 @@ class ProductBrandController extends Controller
 
         $id = $request->input('id');
         $delete_old_file = ProductsBrandModel::where('id', '=', $id)->first();
-        $delete_old_file_name = (explode('/', $delete_old_file->image))[4];
+        $delete_old_file_name = (explode('/', $delete_old_file->image))[5];
+
         Storage::delete("public/".$delete_old_file_name);
         $result = $delete_old_file->delete();
         if ($result == true) {
@@ -141,13 +142,14 @@ class ProductBrandController extends Controller
             products_brand.id,
             products_brand.name AS brandName,
             products_brand.image,
+            products_brand.deleted_at,
             products_brand.products_category_id,
             products_category.id AS categoryId,
             products_category.name AS categoryName
         FROM
         products_brand
                 LEFT JOIN
-            products_category ON products_category.id = products_category_id");
+            products_category ON products_category.id = products_category_id  where products_brand.deleted_at is null " );
 
         return $brand_result;
         if ($brand_result == true) {
@@ -171,7 +173,7 @@ class ProductBrandController extends Controller
 
 
             $delete_old_file = ProductsBrandModel::where('id', '=', $id)->first();
-            $delete_old_file_name = (explode('/', $delete_old_file->image))[4];
+            $delete_old_file_name = (explode('/', $delete_old_file->image))[5];
 
             Storage::delete("public/".$delete_old_file_name);
 

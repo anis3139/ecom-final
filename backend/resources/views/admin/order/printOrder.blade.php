@@ -51,12 +51,18 @@
             </tr>
 
             <tr>
-                <td>Total Amount:</td>
-                <td id="total_amount">{{ $orders->total_amount }} </td>
+                <td>Price Without Discount:</td>
+                <td id="discount_amount"> {{ $orders->price_without_discount }}</td>
             </tr>
+
             <tr>
                 <td>Discount Amount:</td>
                 <td id="discount_amount"> {{ $orders->discount_amount }}</td>
+            </tr>
+
+            <tr>
+                <td>Total Amount:</td>
+                <td id="total_amount">{{ $orders->total_amount }} </td>
             </tr>
             <tr>
                 <td>Total Tax:</td>
@@ -83,7 +89,7 @@
     </div>
 
     <div class="col-md-6 text-center">
-        <h2>Ordered Product Details</h2>
+        <h2>Ordered Product Details (After Discount)</h2>
         <table class="table table-bordered" border="2" cellpadding="10px">
             <thead>
                 <tr>

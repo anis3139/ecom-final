@@ -24,8 +24,8 @@ class cartController extends Controller
         $data['total']= array_sum( array_column($data['cart'], 'total_price'));
         $data['total_tax']= array_sum( array_column($data['cart'], 'total_tax'));
         $data['total_delivery_charge']= array_sum( array_column($data['cart'], 'total_delivery_charge'));
-
-
+        $data['total_discount']= array_sum( array_column($data['cart'], 'total_discount'));
+        $data['total_main_price']= array_sum( array_column($data['cart'], 'total_main_price'));
 
 
         return view('client.pages.cart', $data);
@@ -48,6 +48,9 @@ class cartController extends Controller
 
          $product = product_table::with('img','color')->findOrFail($request->input('product_id'));
          $unit_price=($product->product_selling_price !== null && $product->product_selling_price > 0) ? $product->product_selling_price : $product->product_price;
+         $total_discount=$product->product_price-$unit_price;
+         $main_price=$product->product_price;
+
          $cart = session()->has('cart') ? session()->get('cart') : [];
 
         $quantity= $request->quantity ?? $product->product_quantity;
@@ -58,6 +61,8 @@ class cartController extends Controller
 
         if (array_key_exists($product->id, $cart)) {
             $cart[$product->id]['quantity'] +=  $quantity;
+            $cart[$product->id]['total_main_price']= $cart[$product->id]['quantity'] *  $cart[$product->id]['main_price'];
+            $cart[$product->id]['total_discount']= $cart[$product->id]['quantity'] *  $cart[$product->id]['discount'];
             $cart[$product->id]['total_price']= $cart[$product->id]['quantity'] *  $cart[$product->id]['unit_price'];
             $cart[$product->id]['total_tax']= $cart[$product->id]['quantity'] *  $cart[$product->id]['product_tax'];
 
@@ -70,8 +75,12 @@ class cartController extends Controller
             $cart[$product->id] = [
                 'title' => $product->product_title,
                 'quantity' => $quantity,
+                'main_price' => $main_price,
+                'total_main_price' => $main_price,
                 'unit_price' => $unit_price,
                 'total_price' => $unit_price,
+                'discount' => $total_discount,
+                'total_discount' => $total_discount,
                 'color' =>$request->color,
                 'maserment' =>$request->maserment,
                 'image'=>$product->img[0]->image_path,
@@ -135,6 +144,8 @@ class cartController extends Controller
         $data['total']= array_sum( array_column($data['cart'], 'total_price'));
         $data['total_tax']= array_sum( array_column($data['cart'], 'total_tax'));
         $data['total_delivery_charge']= array_sum( array_column($data['cart'], 'total_delivery_charge'));
+        $data['total_discount']= array_sum( array_column($data['cart'], 'total_discount'));
+        $data['total_main_price']= array_sum( array_column($data['cart'], 'total_main_price'));
 
        return view('client.pages.checkout', $data);
     }
@@ -146,6 +157,9 @@ class cartController extends Controller
 
         $total_tax= array_sum( array_column($cart, 'total_tax'));
         $total_delivery_charge= array_sum( array_column($cart, 'total_delivery_charge'));
+
+        $total_discount= array_sum( array_column($cart, 'total_discount'));
+        $total_main_price= array_sum( array_column($cart, 'total_main_price'));
 
                 $customer_name = $request->Input('customer_name');
                 $customer_phone_number = $request->Input('customer_phone_number');
@@ -191,8 +205,10 @@ class cartController extends Controller
                 $order->postal_code= $shipping_postal_code;
                 $order->total_tax= $total_tax;
                 $order->total_delivery_charge= $total_delivery_charge;
+                $order->price_without_discount= $total_main_price;
+                $order->discount_amount= $total_discount;
                 $order->total_amount= $total;
-                $order->paid_amount= $total;
+                $order->paid_amount= $total+$total_tax+$total_delivery_charge;
                 $order->payment_details= $payment_details;
                 $order->save();
               }else {
@@ -222,6 +238,8 @@ class cartController extends Controller
                 $order->postal_code= $postal_code;
                 $order->total_tax= $total_tax;
                 $order->total_delivery_charge= $total_delivery_charge;
+                $order->price_without_discount= $total_main_price;
+                $order->discount_amount= $total_discount;
                 $order->total_amount= $total;
                 $order->paid_amount= $total+$total_tax+$total_delivery_charge;
                 $order->payment_details= $payment_details;

@@ -368,6 +368,7 @@
                             $('#pdQuantity').val("1");
                             $('#pdTax').val("");
                             $('#deliveryCharge').val("");
+                            $('#pdSaving').val("0");
                             $('#product_delivary_charge_type option').prop('selected', function() {
                                      return this.defaultSelected;
                             });

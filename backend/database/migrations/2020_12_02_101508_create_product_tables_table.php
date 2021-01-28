@@ -33,11 +33,11 @@ class CreateProductTablesTable extends Migration
             $table->unsignedInteger('product_category_id');
             $table->unsignedInteger('product_brand_id');
             $table->unsignedInteger('product_owner_id')->default(0);
-              $table->softDeletes();
+            $table->softDeletes();
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent();
 
-            
+
         });
     }
 
