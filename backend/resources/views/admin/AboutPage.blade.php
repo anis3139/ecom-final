@@ -1356,7 +1356,7 @@ if (nameUpdate.length == 0) {
             'Content-Type': 'multipart/form-data'
         }
     }).then(function(response) {
-
+        console.log(response.data);
         $('#TestimonioalConfirmBtn').html("Update");
 
         if (response.status = 200) {

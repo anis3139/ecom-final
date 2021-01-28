@@ -8,6 +8,7 @@ use App\Models\homeExclusiveFeaturesModel;
 use App\Models\homeSpecialFeaturesModel;
 use App\Models\TestimonialModel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class AboutPageController extends Controller
 {
@@ -83,16 +84,20 @@ class AboutPageController extends Controller
 
         $valuecheck = (HomeAboutSecTionModel::orderBy('id', 'desc')->get());
 
-       $fileNames=$req->file('photo')->getClientOriginalExtension();
-            $fileName=time().".".$fileNames;
+        $fileNames =  $req->file('photo')->store('public');
+        $fileName = (explode('/', $fileNames))[1];
+        $hostName = $_SERVER['HTTP_HOST'];
+        $protocol = $_SERVER['PROTOCOL'] = isset($_SERVER['HTTPS']) && !empty($_SERVER['HTTPS']) ? 'https://' : 'http://';
+        $imageRealPath =  $protocol . $hostName . "/public/storage/" . $fileName;
 
-        $photoPath =  $req->file('photo')->move(public_path('images/'), $fileName);
-
-        $imageRealPath=asset('images')."/".$fileName;
 
         if( count($valuecheck)>0){
+
+          
         $result = HomeAboutSecTionModel::where('id', '=',  $valuecheck['0']->id)->update(['image1' => $imageRealPath]);
+
         } else{
+
             $result = HomeAboutSecTionModel::insert(['image1' => $imageRealPath]);
         }
         if ($result == true) {
@@ -107,14 +112,14 @@ class AboutPageController extends Controller
 
         $valuecheck = (HomeAboutSecTionModel::orderBy('id', 'desc')->get());
 
-       $fileNames=$req->file('photo')->getClientOriginalExtension();
-            $fileName=time().".".$fileNames;
-
-        $photoPath =  $req->file('photo')->move(public_path('images/'), $fileName);
-
-        $imageRealPath=asset('images')."/".$fileName;
+        $fileNames =  $req->file('photo')->store('public');
+        $fileName = (explode('/', $fileNames))[1];
+        $hostName = $_SERVER['HTTP_HOST'];
+        $protocol = $_SERVER['PROTOCOL'] = isset($_SERVER['HTTPS']) && !empty($_SERVER['HTTPS']) ? 'https://' : 'http://';
+        $imageRealPath =  $protocol . $hostName . "/public/storage/" . $fileName;
 
         if( count($valuecheck)>0){
+
         $result = HomeAboutSecTionModel::where('id', '=',  $valuecheck['0']->id)->update(['image2' => $imageRealPath]);
         } else{
             $result = HomeAboutSecTionModel::insert(['image2' => $imageRealPath]);
@@ -130,14 +135,15 @@ class AboutPageController extends Controller
 
         $valuecheck = (HomeAboutSecTionModel::orderBy('id', 'desc')->get());
 
-       $fileNames=$req->file('photo')->getClientOriginalExtension();
-            $fileName=time().".".$fileNames;
+        $fileNames =  $req->file('photo')->store('public');
+        $fileName = (explode('/', $fileNames))[1];
+        $hostName = $_SERVER['HTTP_HOST'];
+        $protocol = $_SERVER['PROTOCOL'] = isset($_SERVER['HTTPS']) && !empty($_SERVER['HTTPS']) ? 'https://' : 'http://';
+        $imageRealPath =  $protocol . $hostName . "/public/storage/" . $fileName;
 
-        $photoPath =  $req->file('photo')->move(public_path('images/'), $fileName);
-
-        $imageRealPath=asset('images')."/".$fileName;
 
         if( count($valuecheck)>0){
+
         $result = HomeAboutSecTionModel::where('id', '=',  $valuecheck['0']->id)->update(['image3' => $imageRealPath]);
         } else{
             $result = HomeAboutSecTionModel::insert(['image3' => $imageRealPath]);
@@ -155,14 +161,18 @@ class AboutPageController extends Controller
 
         $valuecheck = (HomeAboutSecTionModel::orderBy('id', 'desc')->get());
 
-       $fileNames=$req->file('photo')->getClientOriginalExtension();
-            $fileName=time().".".$fileNames;
 
-        $photoPath =  $req->file('photo')->move(public_path('images/'), $fileName);
 
-        $imageRealPath=asset('images')."/".$fileName;
+
+        $fileNames =  $req->file('photo')->store('public');
+        $fileName = (explode('/', $fileNames))[1];
+        $hostName = $_SERVER['HTTP_HOST'];
+        $protocol = $_SERVER['PROTOCOL'] = isset($_SERVER['HTTPS']) && !empty($_SERVER['HTTPS']) ? 'https://' : 'http://';
+        $imageRealPath =  $protocol . $hostName . "/public/storage/" . $fileName;
+
 
         if( count($valuecheck)>0){
+
         $result = HomeAboutSecTionModel::where('id', '=',  $valuecheck['0']->id)->update(['exp_image' => $imageRealPath]);
         } else{
             $result = HomeAboutSecTionModel::insert(['exp_image' => $imageRealPath]);
@@ -222,8 +232,6 @@ class AboutPageController extends Controller
     function HomeFSEdit(Request $req)
     {
         $id = $req->input('id');
-
-
         try {
             $result = json_encode(homeSpecialFeaturesModel::where('id', '=', $id)->get());
             return $result;
@@ -359,12 +367,12 @@ class AboutPageController extends Controller
         $description = $data['0']->description;
         $date = $data['0']->date;
 
-       $fileNames=$req->file('photo')->getClientOriginalExtension();
-            $fileName=time().".".$fileNames;
 
-        $photoPath =  $req->file('photo')->move(public_path('images/'), $fileName);
-
-        $imageRealPath=asset('images')."/".$fileName;
+        $fileNames =  $req->file('photo')->store('public');
+        $fileName = (explode('/', $fileNames))[1];
+        $hostName = $_SERVER['HTTP_HOST'];
+        $protocol = $_SERVER['PROTOCOL'] = isset($_SERVER['HTTPS']) && !empty($_SERVER['HTTPS']) ? 'https://' : 'http://';
+        $imageRealPath =  $protocol . $hostName . "/public/storage/" . $fileName;
 
 
             try {
@@ -391,13 +399,20 @@ class AboutPageController extends Controller
 
     function HomeTestimonialDelete(Request $req)
     {
+
         $id = $req->input('id');
-        $result = TestimonialModel::where('id', '=', $id)->delete();
+        $delete_old_file = TestimonialModel::where('id', '=', $id)->first();
+        $delete_old_file_name = (explode('/', $delete_old_file->image))[5];
+        Storage::delete("public/".$delete_old_file_name);
+        $result = $delete_old_file->delete();
         if ($result == true) {
             return 1;
         } else {
             return 0;
         }
+
+
+
     }
 
     function  HomeTestimonialEdit(Request $req)
@@ -422,15 +437,26 @@ class AboutPageController extends Controller
         $name = $data['0']->name;
         $date = $data['0']->date;
         $description = $data['0']->description;
+
+
         if ($req->file('photo')) {
 
-       $fileNames=$req->file('photo')->getClientOriginalExtension();
-        $fileName=time().".".$fileNames;
+        $delete_old_file = TestimonialModel::where('id', '=', $id)->first();
+        $delete_old_file_name = (explode('/', $delete_old_file->image))[5];
+        Storage::delete("public/".$delete_old_file_name);
 
-        $photoPath =  $req->file('photo')->move(public_path('images/'), $fileName);
+        $fileNames =  $req->file('photo')->store('public');
+        $fileName = (explode('/', $fileNames))[1];
+        $hostName = $_SERVER['HTTP_HOST'];
+        $protocol = $_SERVER['PROTOCOL'] = isset($_SERVER['HTTPS']) && !empty($_SERVER['HTTPS']) ? 'https://' : 'http://';
+        $imageRealPath =  $protocol . $hostName . "/public/storage/" . $fileName;
 
-        $imageRealPath=asset('images')."/".$fileName;
-            $result = TestimonialModel::where('id', '=', $id)->update(['name' => $name, 'date' => $date, 'description' => $description, 'image' => $imageRealPath]);
+
+
+
+
+
+        $result = TestimonialModel::where('id', '=', $id)->update(['name' => $name, 'date' => $date, 'description' => $description, 'image' => $imageRealPath]);
             if ($result == true) {
                 return 1;
             } else {

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\admin;
 use App\Http\Controllers\Controller;
 use App\Models\OthersModel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class OthersSettingsController extends Controller
 {
@@ -148,6 +149,7 @@ class OthersSettingsController extends Controller
 
         $location =  $protocol . $host . "/public/storage/" . $photoName;
         if( count($valuecheck)>0){
+
         $result = OthersModel::where('id', '=',  $valuecheck['0']->id)->update(['logo' => $location]);
         } else{
             $result = OthersModel::insert(['logo' => $location]);
@@ -169,7 +171,8 @@ class OthersSettingsController extends Controller
         $protocol = $_SERVER['PROTOCOL'] = isset($_SERVER['HTTPS']) && !empty($_SERVER['HTTPS']) ? 'https://' : 'http://';
         $locationBanner =  $protocol . $hostBanner . "/public/storage/" . $BannerName;
         if( count($valuecheckBanner)>0){
-        $result = OthersModel::where('id', '=',  $valuecheckBanner['0']->id)->update(['hero_banner' => $locationBanner]);
+
+            $result = OthersModel::where('id', '=',  $valuecheckBanner['0']->id)->update(['hero_banner' => $locationBanner]);
         } else{
             $result = OthersModel::insert(['hero_banner' => $locationBanner]);
         }
@@ -191,6 +194,8 @@ class OthersSettingsController extends Controller
         $protocol = $_SERVER['PROTOCOL'] = isset($_SERVER['HTTPS']) && !empty($_SERVER['HTTPS']) ? 'https://' : 'http://';
         $locationpromoImageOne =  $protocol . $hostpromoImageOne . "/public/storage/" . $promoImageOneName;
         if( count($valuecheckpromoImageOne)>0){
+
+
         $result = OthersModel::where('id', '=',  $valuecheckpromoImageOne['0']->id)->update(['promo_image_one' => $locationpromoImageOne]);
         } else{
             $result = OthersModel::insert(['promo_image_one' => $locationpromoImageOne]);
@@ -212,6 +217,7 @@ class OthersSettingsController extends Controller
         $protocol = $_SERVER['PROTOCOL'] = isset($_SERVER['HTTPS']) && !empty($_SERVER['HTTPS']) ? 'https://' : 'http://';
         $locationpromoImageTwo =  $protocol . $hostpromoImageTwo . "/public/storage/" . $promoImageTwoName;
         if( count($valuecheckpromoImageTwo)>0){
+
         $result = OthersModel::where('id', '=',  $valuecheckpromoImageTwo['0']->id)->update(['promo_image_two' => $locationpromoImageTwo]);
         } else{
             $result = OthersModel::insert(['promo_image_two' => $locationpromoImageTwo]);
@@ -234,6 +240,8 @@ class OthersSettingsController extends Controller
         $protocol = $_SERVER['PROTOCOL'] = isset($_SERVER['HTTPS']) && !empty($_SERVER['HTTPS']) ? 'https://' : 'http://';
         $locationpromoImageThree =  $protocol . $hostpromoImageThree . "/public/storage/" . $promoImageThreeName;
         if( count($valuecheckpromoImageThree)>0){
+         
+
         $result = OthersModel::where('id', '=',  $valuecheckpromoImageThree['0']->id)->update(['promo_image_three' => $locationpromoImageThree]);
         } else{
             $result = OthersModel::insert(['promo_image_three' => $locationpromoImageThree]);

@@ -9,7 +9,7 @@
   <div class="row">
     <div style="height: 450px" class="col-md-6 p-3">
       <form  action=" "  class="m-5 loginForm">
-      
+
         <div class="form-group">
         <label for="exampleInputEmail1">User Name</label>
          <input required="" name="userName" value="" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter User Name">
@@ -51,7 +51,7 @@
         let formData=$(this).serializeArray();
         let userName=formData[0]['value'];
         let password=formData[1]['value'];
-        let url="/admin/onLogin";
+        let url="{{route('admin.onLogin')}}";
         axios.post(url,{
           username:userName,
           password:password

@@ -150,9 +150,9 @@
     function getAdmindata() {
 
 
-        axios.get('/admin/getAdminData')
+        axios.get("{{route('admin.getAdminData')}}")
             .then(function(response) {
-               
+
                 if (response.status = 200) {
 
                     $('#mainDivAdmin').removeClass('d-none');
@@ -162,7 +162,7 @@
                     $('#Admin_table').empty();
                     var count = 1;
                     var dataJSON = response.data;
-                   
+
                     $.each(dataJSON, function(i, item) {
                         $('<tr>').html(
                             "<td>" + count++ + " </td>" +
@@ -173,7 +173,7 @@
 
                             "<td>" + dataJSON[i].username + " </td>" +
 
-                       
+
 
                             "<td><a class='AdminEditIcon' data-id=" + dataJSON[i].id +
                             "><i class='fas fa-edit'></i></a> </td>" +
@@ -283,7 +283,7 @@
             $('#AdminAddConfirmBtn').html(
                 "<div class='spinner-border spinner-border-sm text-primary' role='status'></div>"); //animation
 
-            axios.post('/admin/adminAdd', {
+            axios.post("{{route('admin.adminAdd')}}", {
                 name: name,
                 email: email,
                 username: username,
@@ -301,7 +301,7 @@
                          $('#AdminUsernameIdUpdate').val("");
                          $('#AdminPasswordIdUpdate').val("");
                         getAdmindata();
-                       
+
                     } else {
                         $('#addAdminModal').modal('hide');
                         toastr.error('Add New Failed');
@@ -342,7 +342,7 @@
         $('#confirmDeleteAdmin').html(
             "<div class='spinner-border spinner-border-sm text-primary' role='status'></div>"); //animation
 
-        axios.post('/admin/adminDelete', {
+        axios.post("{{route('admin.adminDelete')}}", {
                 id: id
             })
             .then(function(response) {
@@ -380,7 +380,7 @@
 
     function AdminUpdateDetails(id) {
 
-        axios.post('/admin/adminDetailEdit', {
+        axios.post("{{route('admin.adminDetailEdit')}}", {
                 id: id
             })
             .then(function(response) {
@@ -455,14 +455,14 @@
                 "<div class='spinner-border spinner-border-sm text-primary' role='status'></div>"); //animation
 
 
-            axios.post('/admin/adminDataUpdate', {
+            axios.post("{{route('admin.adminDataUpdate')}}", {
                 id: idUpdate,
                 name: nameUpdate,
                 email: emailUpdate,
                 username: UsernameUpdate,
                 password: PasswordUpdate
             }).then(function(response) {
-                   
+
                 $('#AdminupdateConfirmBtn').html("Update");
 
                 if (response.status = 200) {

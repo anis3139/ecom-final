@@ -159,7 +159,7 @@
     <script type="text/javascript">
         getSliderdata();
         function getSliderdata() {
-            axios.get('/admin/getsliderdata')
+            axios.get("{{route('admin.getsliderdata')}}")
                 .then(function(response) {
                     if (response.status = 200) {
                         $('#mainDivSlider').removeClass('d-none');
@@ -246,7 +246,7 @@
                 var formData = new FormData();
                 formData.append('data', JSON.stringify(my_data));
                 formData.append('photo', img);
-                axios.post('/admin/addslider', formData, {
+                axios.post("{{route('admin.addslider')}}", formData, {
                     headers: {
                         'Content-Type': 'multipart/form-data'
                     }
@@ -279,7 +279,7 @@
         }
         //each Slider  Details data show for edit
         function SliderUpdateDetails(id) {
-            axios.post('/admin/sliderdetails', {
+            axios.post("{{route('admin.sliderdetails')}}", {
                     id: id
                 })
                 .then(function(response) {
@@ -334,7 +334,7 @@
                 var formData = new FormData();
                 formData.append('data', JSON.stringify(updateData));
                 formData.append('photo', imgUpdate);
-                axios.post('/admin/sliderupdate', formData, {
+                axios.post("{{route('admin.sliderupdate')}}", formData, {
                     headers: {
                         'Content-Type': 'multipart/form-data'
                     }
@@ -370,7 +370,7 @@
         function DeleteDataSlider(id) {
             $('#confirmDeleteSlider').html(
                 "<div class='spinner-border spinner-border-sm text-primary' role='status'></div>"); //animation
-            axios.post('/admin/sliderdelete', {
+            axios.post("{{route('admin.sliderdelete')}}", {
                     id: id
                 })
                 .then(function(response) {

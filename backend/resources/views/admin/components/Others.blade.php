@@ -594,10 +594,11 @@
                     'Content-Type': 'multipart/form-data'
                 }
             }).then(function(response) {
-
+                console.log(response.data);
                 $('#submitBanner').html("Update");
 
                 if (response.status = 200) {
+
                     if (response.data == 1) {
 
                         toastr.success('Updated Success .');
