@@ -19,7 +19,7 @@ class orderController extends Controller
    public function getOrdersData()
    {
        $id=Auth::guard('vendor')->id();
-       $orderData=json_decode(Orders::orderBy('id', 'desc')->where('product_owner_id', $id)->get());
+       $orderData=json_decode(Orders::orderBy('id', 'desc')->get());
        return $orderData;
    }
 

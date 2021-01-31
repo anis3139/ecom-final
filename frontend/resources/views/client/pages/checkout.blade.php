@@ -265,7 +265,7 @@
                                                 @IF($total>0)
                                                 <input type="submit" value="Place Order" class="aa-browse-btn">
                                                 @ELSE
-                                                 <input  value="Your Cart is empty" class="aa-browse-btn">
+                                                 <input readonly type="text"  value="Your Cart is empty" class="aa-browse-btn">
                                                 @ENDIF
                                             </div>
                                         </div>
