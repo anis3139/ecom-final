@@ -60,7 +60,13 @@ $others=App\Models\OthersModel::first();
                                 <li><a href="" data-toggle="modal" data-target="#login-modal">Login</a></li>
                                 <li><a href="{{route('client.registration')}}" >Registration</a></li>
                                 @endguest
+                                    @php
+                                        $host = $_SERVER['HTTP_HOST'];
+                                        $protocol = $_SERVER['PROTOCOL'] = isset($_SERVER['HTTPS']) && !empty($_SERVER['HTTPS']) ? 'https://' : 'http://';
+                                        $location =$protocol ."vendor.". $host;
 
+                                    @endphp
+                                <li class="hidden-xs"><a href="{{$location}}">Seller Point</a></li>
 
                             </ul>
                         </div>
