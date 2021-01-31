@@ -23,6 +23,7 @@
                      </li>
                 </ul>
             </div>
+        </div>
         </nav>
     </header>
     <aside class="left-sidebar">
@@ -31,7 +32,7 @@
                 <ul id="sidebarnav">
                     <li class="nav-devider mt-0" style="margin-bottom: 5px"></li>
                     <li> <a href="{{ route('vendor.home') }}"><span> <i class="fas fa-home"></i> </span><span class="hide-menu">Home</span></a></li>
-                    <li> <a href="#"><span> <i class="fas fa-user"></i> </span><span class="hide-menu">Profile</span></a></li>
+                    <li> <a href="{{ route('vendor.profile') }}"><span> <i class="fas fa-user"></i> </span><span class="hide-menu">Profile</span></a></li>
                     <li> <a href="{{ route('vendor.ordeIndex') }}"><span> <i class="fas fa-cart-arrow-down"></i> </span><span class="hide-menu">Order Manage</span></a></li>
                     <li> <a href="{{ route('vendor.products') }}"><span> <i class="fas fa-plus-circle"></i> </span><span class="hide-menu">Products</span></a></li>
                     <li> <a href="#"><span> <i class="fas fa-mail-bulk"></i> </span><span class="hide-menu">Contact</span></a></li>

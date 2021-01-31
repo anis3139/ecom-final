@@ -172,17 +172,18 @@ class vendorAuthController extends Controller
     {
 
         $data = [];
-        $data['orders'] = Orders::where('user_id', auth()->user()->id)->get();
+        $data['vendor'] = Vendor::where('id', auth()->user()->id)->get();
 
-        return view('profile', $data);
+        return view('vendor.profile.profile', $data);
     }
+
 
     public function profileEdit($id)
     {
         $data = [];
         $data['user'] = Vendor::where('id', $id)->first();
 
-        return view('profileEdit', $data);
+        return view('vendor.profile.profileEdit', $data);
     }
 
 
@@ -225,7 +226,7 @@ class vendorAuthController extends Controller
             $photoName = (explode('/', $photoPath))[1];
             $host = $_SERVER['HTTP_HOST'];
             $protocol = $_SERVER['PROTOCOL'] = isset($_SERVER['HTTPS']) && !empty($_SERVER['HTTPS']) ? 'https://' : 'http://';
-            $location = $protocol . $host .  "/storage/" . $photoName;
+            $location = $protocol . $host .  "/public/storage/" . $photoName;
             $user->image = $location;
         }
 
