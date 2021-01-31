@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Orders;
 use PDF;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class orderController extends Controller
 {
@@ -17,7 +18,8 @@ class orderController extends Controller
 
    public function getOrdersData()
    {
-       $orderData=json_decode(Orders::orderBy('id', 'desc')->get());
+       $id=Auth::guard('vendor')->id();
+       $orderData=json_decode(Orders::orderBy('id', 'desc')->where('product_owner_id', $id)->get());
        return $orderData;
    }
 

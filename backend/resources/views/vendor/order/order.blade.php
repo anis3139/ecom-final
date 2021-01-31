@@ -165,10 +165,7 @@
                                         <td style="max-width:200px !important;">Payment Details </td>
                                         <td id="payment_details"> </td>
                                     </tr>
-                                    <tr>
-                                        <td style="max-width:200px !important;">Product Owner </td>
-                                        <td id="product_owner_id"> </td>
-                                    </tr>
+                                    
 
                                 </table>
 
@@ -211,7 +208,7 @@
                                         <h2>Order Status</h2>
                                     </div>
                                     <div class="card-body">
-                                        <form action="{{ route('admin.ordersStatusUpdate') }}" method="post"
+                                        <form action="{{ route('vendor.ordersStatusUpdate') }}" method="post"
                                             id="product_status_form">
                                             @csrf
                                             <div class="form-group">
@@ -248,7 +245,7 @@
         getOrdersdata();
 
         function getOrdersdata() {
-            axios.get("{{ route('admin.getOrdersData') }}")
+            axios.get("{{ route('vendor.getOrdersData') }}")
                 .then(function(response) {
 
                     if (response.status = 200) {
@@ -315,7 +312,7 @@
 
 
         function OrdersViewDetails(id) {
-            axios.post("{{ route('admin.ordersView') }}", {
+            axios.post("{{ route('vendor.ordersView') }}", {
                     id: id
                 })
                 .then(function(response) {
@@ -342,14 +339,7 @@
                         $('#total_tax').html(dataJSON[0].total_tax);
                         $('#total_delivery_charge').html(dataJSON[0].total_delivery_charge);
 
-                        var productOwner = " ";
-                        if (dataJSON[0].product_owner_id == 0) {
-                            productOwner = "Admin"
-                        } else {
-                            productOwner = dataJSON[0].product_owner_id
-                        }
 
-                        $('#product_owner_id').html(productOwner);
 
                         $('#total_price').html('&euro;' + dataJSON[0].paid_amount);
                         $('#tax').html(dataJSON[0].total_tax);
@@ -404,7 +394,7 @@
             event.preventDefault();
             var payment_status = $('#payment_status').val()
             var payment_status_id = $('#payment_status_id').val()
-            let url =" {{ route('admin.ordersStatusUpdate') }}";
+            let url =" {{ route('vendor.ordersStatusUpdate') }}";
 
             axios.post(url, {
                 payment_status: payment_status,
