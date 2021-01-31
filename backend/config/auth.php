@@ -57,6 +57,16 @@ return [
             'driver' => 'token',
             'provider' => 'admins',
         ],
+        // For Vendor
+        'vendor' => [
+            'driver' => 'session',
+            'provider' => 'vendor',
+        ],
+
+        'vendor-api' => [
+            'driver' => 'token',
+            'provider' => 'vendor',
+        ],
     ],
 
     /*
@@ -86,6 +96,11 @@ return [
          'admins' => [
             'driver' => 'eloquent',
             'model' => App\Models\adminModel::class,
+        ],
+
+        'vendor' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Vendor::class,
         ],
 
         // 'users' => [
@@ -120,6 +135,12 @@ return [
             'provider' => 'admins',
             'table' => 'password_resets',
             'expire' => 60,
+        ],
+        'vendor' => [
+            'provider' => 'vendor',
+            'table' => 'password_resets',
+            'expire' => 60,
+            'throttle' => 60,
         ],
     ],
 

@@ -38,6 +38,18 @@ Route::group(['prefix' => 'admin'], function () {
         Route::post('/adminDetailEdit', [App\Http\Controllers\admin\adminController::class, 'adminDetailEdit'])->name('admin.adminDetailEdit');
         Route::post('/adminDataUpdate', [App\Http\Controllers\admin\adminController::class, 'adminDataUpdate'])->name('admin.adminDataUpdate');
 
+
+
+        // Vendor Route
+        Route::get('/vendorPannel', [App\Http\Controllers\admin\vendor\VendorController::class, 'vendorIndex'])->name('admin.vendorPannel');
+        Route::get('/getVendorData', [App\Http\Controllers\admin\vendor\VendorController::class, 'vendorData'])->name('admin.getVendordata');
+        Route::post('/vendorAdd', [App\Http\Controllers\admin\vendor\VendorController::class, 'vendorAdd'])->name('admin.vendorAdd');
+        Route::post('/vendorDelete', [App\Http\Controllers\admin\vendor\VendorController::class, 'vendorDelete'])->name('admin.vendorDelete');
+        Route::post('/vendorDetailEdit', [App\Http\Controllers\admin\vendor\VendorController::class, 'vendorDetailEdit'])->name('admin.vendorDetailEdit');
+        Route::post('/vendorDataUpdate', [App\Http\Controllers\admin\vendor\VendorController::class, 'vendorDataUpdate'])->name('admin.vendorDataUpdate');
+
+
+
         // Slider Section
 
         Route::get('/slider', [\App\Http\Controllers\admin\HomeSliderController::class,'SliderIndex'])->name('admin.slider');
@@ -109,7 +121,7 @@ Route::group(['prefix' => 'admin'], function () {
         Route::post('/gmap', [\App\Http\Controllers\admin\OthersSettingsController::class,'addGmap'])->name('admin.gmap');
         Route::post('/logo', [\App\Http\Controllers\admin\OthersSettingsController::class,'logoAdd'])->name('admin.logo');
         Route::post('/Banner', [\App\Http\Controllers\admin\OthersSettingsController::class,'BannerAdd'])->name('admin.Banner');
-      Route::post('/promoImageOne', [\App\Http\Controllers\admin\OthersSettingsController::class,'promoImageOne'])->name('admin.promoImageOne');
+        Route::post('/promoImageOne', [\App\Http\Controllers\admin\OthersSettingsController::class,'promoImageOne'])->name('admin.promoImageOne');
         Route::post('/promoImageTwo', [\App\Http\Controllers\admin\OthersSettingsController::class,'promoImageTwo'])->name('admin.promoImageTwo');
         Route::post('/promoImageThree', [\App\Http\Controllers\admin\OthersSettingsController::class,'promoImageThree'])->name('admin.promoImageThree');
 
@@ -127,9 +139,18 @@ Route::group(['prefix' => 'admin'], function () {
         Route::get('/getReviewdata', [App\Http\Controllers\admin\RatingReviewController::class, 'getReviewdata'])->name('admin.getReviewdata');
         Route::post('/deleteReview', [\App\Http\Controllers\admin\RatingReviewController::class, 'deleteReview'])->name('admin.deleteReview');
 
+        //admin panel  Page management
+
+         Route::get('/pages', [\App\Http\Controllers\admin\PagesController::class, 'PageIndex'])->name('admin.pages');
+         Route::get('/getpagesdata', [\App\Http\Controllers\admin\PagesController::class, 'PagesData'])->name('admin.getpagesdata');
+         Route::post('/addpages', [\App\Http\Controllers\admin\PagesController::class, 'PagesAdd'])->name('admin.addpages');
+         Route::post('/pagesdetails', [\App\Http\Controllers\admin\PagesController::class, 'PagesDetailEdit'])->name('admin.pagesdetails');
+         Route::post('/pagesupdate', [\App\Http\Controllers\admin\PagesController::class, 'PagesUpdate'])->name('admin.pagesupdate');
+         Route::post('/pagesdelete', [\App\Http\Controllers\admin\PagesController::class, 'PagesDelete'])->name('admin.pagesdelete');
 
 
-         // Home page Extra
+
+         // About page
 
 
          Route::get('/homePage', [App\Http\Controllers\admin\AboutPageController::class,'homeAboutIndex'])->name('admin.homePage');
@@ -172,7 +193,57 @@ Route::group(['prefix' => 'admin'], function () {
 });
 
 
+// For Admin And Vendor
+Route::get('/getBrandsData', [\App\Http\Controllers\admin\products\ProductBrandController::class,'getBrandData'])->name('admin.getBrandsData');
+Route::get('/getCategoriesData', [\App\Http\Controllers\admin\products\ProductCategoriesController::class,'getCategoriesData'])->name('admin.getCategoriesData');
+// For Vendor
 
+Route::group(['prefix' => 'vendor'], function () {
+    Route::group(['middleware' => 'vendor.guest'], function () {
+        //Login
+        Route::get('/login', [App\Http\Controllers\vendor\vendorAuthController::class, 'showLogin'])->name('vendor.login');
+        Route::post('/onlogin', [App\Http\Controllers\vendor\vendorAuthController::class, 'onlogin'])->name('vendor.onlogin');
+        Route::get('/registration', [App\Http\Controllers\vendor\vendorAuthController::class, 'registration'])->name('vendor.registration');
+        Route::post('/addUser', [App\Http\Controllers\vendor\vendorAuthController::class, 'addVendor'])->name('vendor.addVendor');
+
+        //reset password
+        Route::get('/forgot', [App\Http\Controllers\vendor\vendorAuthController::class, 'forgot'])->name('vendor.forgot');
+        Route::post('/forgotPassword', [App\Http\Controllers\vendor\vendorAuthController::class, 'forgotPassword'])->name('vendor.forgotPassword');
+        Route::get('/recoverPassWord/{id}', [App\Http\Controllers\vendor\vendorAuthController::class, 'recoverPassWord'])->name('vendor.recoverPassWord');
+        Route::post('/updatePassword', [App\Http\Controllers\vendor\vendorAuthController::class, 'updatePassword'])->name('vendor.updatePassword');
+
+
+    });
+
+
+    Route::group(['middleware' => 'vendor.auth',], function () {
+        Route::post('/logout', [App\Http\Controllers\vendor\vendorAuthController::class, 'logout'])->name('vendor.logout');
+        Route::get('/profile', [App\Http\Controllers\vendor\vendorAuthController::class, 'profile'])->name('vendor.profile');
+        Route::get('/profileEdit/{id}', [App\Http\Controllers\vendor\vendorAuthController::class, 'profileEdit'])->name('vendor.profileEdit');
+        Route::post('/upadeteProfile/{id}', [App\Http\Controllers\vendor\vendorAuthController::class, 'upadeteProfile'])->name('vendor.upadeteProfile');
+
+        Route::view('dashboard', 'vendor.home')->name('vendor.home');
+
+        //Product Section
+        Route::get('/products', [\App\Http\Controllers\vendor\prductController::class, 'index'])->name('vendor.products');
+        Route::get('/getProductData', [\App\Http\Controllers\vendor\prductController::class, 'getProductData'])->name('vendor.getProductData');
+        Route::post('/productAdd', [\App\Http\Controllers\vendor\prductController::class, 'store'])->name('vendor.productAdd');
+        Route::post('/onUpload', [\App\Http\Controllers\vendor\prductController::class, 'onUpload'])->name('vendor.onUpload');
+        Route::post('/delete', [\App\Http\Controllers\vendor\prductController::class, 'destroy'])->name('vendor.delete');
+        Route::post('/getEditProductsData', [\App\Http\Controllers\vendor\prductController::class, 'edit'])->name('vendor.getEditProductsData');
+        Route::post('/productsUpdate', [\App\Http\Controllers\vendor\prductController::class, 'update'])->name('vendor.productsUpdate');
+
+
+
+        //vendor panel Orders
+        Route::get('/ordeIndex', [App\Http\Controllers\vendor\order\orderController::class,'ordeIndex'])->name('vendor.ordeIndex');
+        Route::get('/getOrdersData', [App\Http\Controllers\vendor\order\orderController::class,'getOrdersData'])->name('vendor.getOrdersData');
+        Route::post('/ordersView', [App\Http\Controllers\vendor\order\orderController::class,'ordersView'])->name('vendor.ordersView');
+        Route::post('/ordersStatusUpdate', [App\Http\Controllers\vendor\order\orderController::class,'ordersStatusUpdate'])->name('vendor.ordersStatusUpdate');
+        Route::get('/ordersPrint/{id}', [App\Http\Controllers\vendor\order\orderController::class,'ordersPrint'])->name('vendor.ordersPrint');
+
+    });
+});
 
 
 //Clear Cache facade value:
@@ -222,5 +293,3 @@ Route::get('/Storage-link', function() {
 //     $exitCode = Artisan::call('migrate');
 //     return '<h1>migrate  Created</h1>';
 // });
-
-

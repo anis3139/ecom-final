@@ -4,13 +4,12 @@ namespace App\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
-class Vendor extends Authenticatable
+class Vendor extends Authenticatable implements MustVerifyEmail
 {
-    use HasFactory,  Notifiable, SoftDeletes;
+    use HasFactory, Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -21,6 +20,7 @@ class Vendor extends Authenticatable
         'name',
         'email',
         'password',
+        'active',
     ];
 
     /**
@@ -44,7 +44,12 @@ class Vendor extends Authenticatable
 
 
 
-    public function products() {
+    public function products()
+    {
         return $this->hasMany(product_table::class);
+    }
+    public function review()
+    {
+        return $this->hasMany(ReatingReview::class, 'seller_id', 'id');
     }
 }
