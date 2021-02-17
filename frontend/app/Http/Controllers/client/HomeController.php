@@ -27,8 +27,7 @@ class HomeController extends Controller
         //Server ip
 
         $sliders = SliderModel::all();
-        $categories=ProductsCategoryModel::orderBy('id', 'desc')->where('status', 1)->get();
-        $categories=ProductsCategoryModel::orderBy('id', 'desc')->where('status', 1)->limit(5)->get();
+        $categories=ProductsCategoryModel::orderBy('id', 'desc')->where('status', 1)->where('parent_id', 0)->limit(5)->get();
         $featureProducts=product_table::with(['img'])->where('feture_products', 1)->where('product_active', 1)->take(8)->get();
         $latestProducts=product_table::with(['img'])->where('product_active', 1)->orderBy('id', 'desc')->take(8)->get();
 

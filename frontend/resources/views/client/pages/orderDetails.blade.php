@@ -81,7 +81,7 @@
                 <tbody>
 
                     @foreach ($orders->product as $product)
-
+                    @if($product->product)
                         <tr>
                             <td class="text-center">{{$product->product->product_title}}</td>
                             <td class="text-center">{{$product->quantity}}</td>
@@ -102,6 +102,7 @@
                             @endif</td>
                             <td class="text-center">&euro;&nbsp;{{number_format($product->price, 2)}}</td>
                         </tr>
+                        @endif
                     @endforeach
                 </tbody>
             </table>

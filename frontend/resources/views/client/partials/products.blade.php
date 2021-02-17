@@ -23,7 +23,7 @@
                           $products=App\Models\product_table::with(['img'])->where('product_category_id', $catItem->id)->where('product_active', 1)->take(8)->get();
                         @endphp
                         @foreach ($products as $product)
-                              <li>
+                              <li style="max-width: 250px; min-width: 200px">
 
                                 <figure>
                                     @php  $i= 1; @endphp
