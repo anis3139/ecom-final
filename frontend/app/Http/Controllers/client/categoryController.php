@@ -25,7 +25,7 @@ class categoryController extends Controller
         ->orderBy('maxSell', 'desc')
         ->take(4)->get();
 
-        $topRatedProducts= product_table::orderBy('product_price', 'desc')->limit(4)->get();
+        $topRatedProducts= product_table::orderBy('product_price', 'desc')->where('product_active', 1)->limit(4)->get();
 
 
 

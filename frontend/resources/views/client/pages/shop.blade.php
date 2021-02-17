@@ -78,11 +78,12 @@
 
 
 
-                                        <a  class="aa-add-card-btn"  onclick="productDetailsModal({{ $allProduct->id }})"
-                                            href="{{ $allProduct->id }}" data-toggle2="tooltip" data-placement="top"
-                                           data-toggle="modal" data-target="#quick-view-modal"><span
-                                                        class="fa fa-shopping-cart" id="CartAddConfirmBtn"></span>Add To
-                                                    Cart</a>
+                                            <a class="aa-add-card-btn"
+                                                onclick="productDetailsModal({{ $allProduct->id }})"
+                                                href="{{ $allProduct->id }}" data-toggle2="tooltip" data-placement="top"
+                                                data-toggle="modal" data-target="#quick-view-modal"><span
+                                                    class="fa fa-shopping-cart" id="CartAddConfirmBtn"></span>Add To
+                                                Cart</a>
 
 
 
@@ -92,7 +93,12 @@
                                                 </h4>
 
 
-                                                        <span class="aa-product-price">&euro; &nbsp;{{ $allProduct->product_selling_price}}</span> @if($allProduct->product_price!= $allProduct->product_selling_price)<span class="aa-product-price"><del> &euro; &nbsp;{{ $allProduct->product_price}}</del></span>@endif
+                                                <span class="aa-product-price">&euro;
+                                                    &nbsp;{{ $allProduct->product_selling_price }}</span>
+                                                @if ($allProduct->product_price != $allProduct->product_selling_price)
+                                                    <span class="aa-product-price"><del> &euro;
+                                                            &nbsp;{{ $allProduct->product_price }}</del></span>
+                                                @endif
                                                 <p class="aa-product-descrip">{!! nl2br(e($allProduct->product_discription))
                                                     !!}</p>
                                             </figcaption>
@@ -138,8 +144,8 @@
                                                                 <div class="simpleLens-big-image-container">
                                                                     <a class="simpleLens-lens-image" id="simpleLensImage"
                                                                         data-lens-image="">
-                                                                        <img src=""
-                                                                            class="simpleLens-big-image" id="simpleLensBigImage">
+                                                                        <img src="" class="simpleLens-big-image"
+                                                                            id="simpleLensBigImage">
                                                                     </a>
                                                                 </div>
                                                             </div>
@@ -160,19 +166,20 @@
                                                         </div>
 
                                                         <!-- Cable Configuration -->
-                                            <form action="{{ route('client.addCart') }}" id="cartForm" method="post">
-                                                @csrf
-                                                        <div class="product-color">
-                                                            <span>Mezerment:</span>
-                                                            <div class="meserment-choose mt-5">
+                                                        <form action="{{ route('client.addCart') }}" id="cartForm"
+                                                            method="post">
+                                                            @csrf
+                                                            <div class="product-color">
+                                                                <span>Mezerment:</span>
+                                                                <div class="meserment-choose mt-5">
 
+                                                                </div>
                                                             </div>
-                                                        </div>
 
-                                                        <div class="product-color">
-                                                            <span >Color</span>
+                                                            <div class="product-color">
+                                                                <span>Color</span>
 
-                                                            <div class="color-choose mt-5">
+                                                                <div class="color-choose mt-5">
 
 
 
@@ -180,9 +187,9 @@
 
 
 
-                                                        </div>
+                                                            </div>
 
-                                                        <div class="aa-prod-quantity">
+                                                            <div class="aa-prod-quantity">
 
                                                                 <select name="quantity" id="quantity">
                                                                     <option value="1" selected>1</option>
@@ -193,18 +200,22 @@
                                                                     <option value="10">10</option>
                                                                 </select>
 
-                                                            <p class="aa-prod-category">
-                                                                Category: <a href="#" id="pdCategory"></a>
-                                                            </p>
-                                                        </div>
-                                                        <div class="aa-prod-view-bottom">
-                                                <input type="hidden" id="product_ids" name="product_id" value="" >
-                                                <button type="submit" class="aa-add-to-cart-btn" ><span class="fa fa-shopping-cart"></span>Add To Cart</button>
+                                                                <p class="aa-prod-category">
+                                                                    Category: <a href="#" id="pdCategory"></a>
+                                                                </p>
+                                                            </div>
+                                                            <div class="aa-prod-view-bottom">
+                                                                <input type="hidden" id="product_ids" name="product_id"
+                                                                    value="">
+                                                                <button type="submit" class="aa-add-to-cart-btn"><span
+                                                                        class="fa fa-shopping-cart"></span>Add To
+                                                                    Cart</button>
 
 
-                                                <a href="" id="modalSingleView" class="aa-add-to-cart-btn">View Details</a>
-                                                        </div>
-                                                    </form>
+                                                                <a href="" id="modalSingleView"
+                                                                    class="aa-add-to-cart-btn">View Details</a>
+                                                            </div>
+                                                        </form>
                                                     </div>
                                                 </div>
                                             </div>
@@ -287,26 +298,29 @@
                             <div class="aa-recently-views">
                                 <ul>
                                     @foreach ($popular_products as $popular_product)
-                                        <li>
-                                            @php $i= 1; @endphp
-                                            @foreach ($popular_product->product->img as $images)
-                                                @if ($i > 0)
-                                                    <a class="aa-cartbox-img"
-                                                        href="{{ route('client.showProductDetails', ['slug' => $popular_product->product->product_slug]) }}"><img
-                                                            src="{{ $images->image_path }}" alt="polo shirt img"
-                                                            width="100%" height="300px"></a>
-                                                @endif
-                                                @php $i--; @endphp
-                                            @endforeach
+                                        @if ($popular_product->product && $popular_product->product->product_active == 1)
+                                            <li>
+                                                @php $i= 1; @endphp
+                                                @foreach ($popular_product->product->img as $images)
+                                                    @if ($i > 0)
+                                                        <a class="aa-cartbox-img"
+                                                            href="{{ route('client.showProductDetails', ['slug' => $popular_product->product->product_slug]) }}"><img
+                                                                src="{{ $images->image_path }}" alt="polo shirt img"
+                                                                width="100%" height="300px"></a>
+                                                    @endif
+                                                    @php $i--; @endphp
+                                                @endforeach
 
-                                            <div class="aa-cartbox-info">
-                                                <h4><a
-                                                        href="{{ route('client.showProductDetails', ['slug' => $popular_product->product->product_slug]) }}">{{ $popular_product->product->product_title }}</a>
-                                                </h4>
-                                                <p>1 x &euro; &nbsp;{{ $popular_product->product->product_selling_price }}
-                                                </p>
-                                            </div>
-                                        </li>
+                                                <div class="aa-cartbox-info">
+                                                    <h4><a
+                                                            href="{{ route('client.showProductDetails', ['slug' => $popular_product->product->product_slug]) }}">{{ $popular_product->product->product_title }}</a>
+                                                    </h4>
+                                                    <p>1 x &euro;
+                                                        &nbsp;{{ $popular_product->product->product_selling_price }}
+                                                    </p>
+                                                </div>
+                                            </li>
+                                        @endif
                                     @endforeach
                                 </ul>
                             </div>
@@ -359,14 +373,14 @@
         function productDetailsModal(id) {
 
             axios.post('{{ route('client.getsingleProductdata') }}', {
-                        id: id
-                    })
+                    id: id
+                })
                 .then(function(response) {
                     if (response.status == 200) {
                         var jsonData = response.data;
 
 
-                        var url= `product/${jsonData[0].product_slug}`;
+                        var url = `product/${jsonData[0].product_slug}`;
                         var simpleLensImageUrl = jsonData[0].img[0].image_path;
 
 
@@ -382,28 +396,30 @@
                         $('#inStock').html(inStock);
                         $('#pdCategory').html(jsonData[0].cat.name);
                         $('#product_ids').val(id);
-                        $('#modalSingleView').attr("href" , url );
-                        $('#simpleLensImage').attr("data-lens-image" , simpleLensImageUrl );
-                        $('#simpleLensBigImage').attr("src" , simpleLensImageUrl );
+                        $('#modalSingleView').attr("href", url);
+                        $('#simpleLensImage').attr("data-lens-image", simpleLensImageUrl);
+                        $('#simpleLensBigImage').attr("src", simpleLensImageUrl);
 
 
 
 
-                        var maserment="";
+                        var maserment = "";
                         for (let index = 0; index < jsonData[0].maserment.length; index++) {
-                            const element =  jsonData[0].maserment[index];
-                            checked=""
-                            if (index==0) {
-                                checked="checked"
-                            }else{
-                                checked=""
+                            const element = jsonData[0].maserment[index];
+                            checked = ""
+                            if (index == 0) {
+                                checked = "checked"
+                            } else {
+                                checked = ""
                             }
 
-                            maserment+='<div>';
-                            maserment+='<input type="radio" id="'+element.meserment_value+'" name="maserment" '+checked+' value="'+element.meserment_value+'">';
-                            maserment+='<label for="'+element.meserment_value+'"><span style="background-color:#000;"></span></label>';
-                            maserment+='<span>'+element.meserment_value+'</span>&nbsp;';
-                            maserment+='</div>';
+                            maserment += '<div>';
+                            maserment += '<input type="radio" id="' + element.meserment_value + '" name="maserment" ' +
+                                checked + ' value="' + element.meserment_value + '">';
+                            maserment += '<label for="' + element.meserment_value +
+                                '"><span style="background-color:#000;"></span></label>';
+                            maserment += '<span>' + element.meserment_value + '</span>&nbsp;';
+                            maserment += '</div>';
 
                         }
 
@@ -412,30 +428,36 @@
 
 
 
-                        var color="";
+                        var color = "";
                         for (let index = 0; index < jsonData[0].color.length; index++) {
-                            const elementColor =  jsonData[0].color[index];
+                            const elementColor = jsonData[0].color[index];
 
-                            colorChecked=""
-                            if (index==0) {
-                                colorChecked="checked"
-                            }else{
-                                colorChecked=""
+                            colorChecked = ""
+                            if (index == 0) {
+                                colorChecked = "checked"
+                            } else {
+                                colorChecked = ""
                             }
-                            color+='<div>';
-                            color+='<input type="radio" id="'+elementColor.product_color_code+'" name="color" '+colorChecked+' value="'+elementColor.product_color_code+'">';
-                            color+='<label for="'+elementColor.product_color_code+'"><span style="background-color:'+elementColor.product_color_code+';"></span></label>';
-                            color+='</div>';
+                            color += '<div>';
+                            color += '<input type="radio" id="' + elementColor.product_color_code + '" name="color" ' +
+                                colorChecked + ' value="' + elementColor.product_color_code + '">';
+                            color += '<label for="' + elementColor.product_color_code +
+                                '"><span style="background-color:' + elementColor.product_color_code +
+                                ';"></span></label>';
+                            color += '</div>';
 
                         }
 
                         $('.color-choose').html(color);
 
-                        var img="";
+                        var img = "";
                         for (let i = 0; i < jsonData[0].img.length; i++) {
-                            const elementImg =  jsonData[0].img[i];
+                            const elementImg = jsonData[0].img[i];
 
-                            img+='<a  href="'+elementImg.image_path+'" class="simpleLens-thumbnail-wrapper"  data-lens-image="'+elementImg.image_path+'"  data-big-image="'+elementImg.image_path+'" ><img width="50px" height="50px" src="'+elementImg.image_path+'"></a>';
+                            img += '<a  href="' + elementImg.image_path +
+                                '" class="simpleLens-thumbnail-wrapper"  data-lens-image="' + elementImg.image_path +
+                                '"  data-big-image="' + elementImg.image_path +
+                                '" ><img width="50px" height="50px" src="' + elementImg.image_path + '"></a>';
 
                         }
                         $('.simpleLens-thumbnails-container').html(img);

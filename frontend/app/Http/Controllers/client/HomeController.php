@@ -55,7 +55,7 @@ class HomeController extends Controller
             ->groupBy('product_id')
             ->orderBy('maxSell', 'desc')
             ->take(4)->get();
-            $topRatedProducts= product_table::orderBy('product_price', 'desc')->limit(4)->get();
+            $topRatedProducts= product_table::orderBy('product_price', 'desc')->where('product_active', 1)->limit(4)->get();
             if(count($searchProducts)>0){
                 return view('client.pages.search', compact('searchProducts','popular_products','topRatedProducts','key'));
             }

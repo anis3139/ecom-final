@@ -299,6 +299,7 @@
                             <div class="aa-recently-views">
                                 <ul>
                                     @foreach ($popular_products as $popular_product)
+                                    @if($popular_product->product && $popular_product->product->product_active==1)
                                         <li>
                                             @php $i= 1; @endphp
                                             @foreach ($popular_product->product->img as $images)
@@ -319,6 +320,7 @@
                                                 </p>
                                             </div>
                                         </li>
+                                        @endif
                                     @endforeach
                                 </ul>
                             </div>

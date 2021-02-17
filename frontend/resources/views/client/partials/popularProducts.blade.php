@@ -25,6 +25,7 @@
                                     <!-- start single product item -->
 
                                     @foreach ($popular_products as $popular_product)
+                                    @if($popular_product->product && $popular_product->product->product_active==1)
                                         <li>
                                             <figure>
                                                 @php $i= 1; @endphp
@@ -74,6 +75,7 @@
                                                 <span class="aa-badge aa-sold-out" href="#">Sold Out!</span>
                                             @endif
                                         </li>
+                                        @endif
                                     @endforeach
                                     <!-- end single product item -->
 
