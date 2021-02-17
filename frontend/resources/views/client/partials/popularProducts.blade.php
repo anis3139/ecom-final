@@ -51,7 +51,7 @@
                                                             href="{{ route('client.showProductDetails', ['slug' => $popular_product->product->product_slug]) }}">{{ $popular_product->product->product_title }}</a>
                                                     </h4>
 
-                                                    <span class="aa-product-price">&euro; &nbsp;{{$popular_product->product->product_selling_price}}</span> @if($popular_product->product->product_price !=$popular_product->product->product_selling_price)<span class="aa-product-price"><del> &euro; &nbsp;{{ $popular_product->product->product_price}}</del></span>@endif
+                                                    <span class="aa-product-price">&#2547; {{$popular_product->product->product_selling_price}}</span> @if($popular_product->product->product_price !=$popular_product->product->product_selling_price)<span class="aa-product-price"><del> &#2547; {{ $popular_product->product->product_price}}</del></span>@endif
 
                                                 </figcaption>
                                             </figure>
@@ -113,7 +113,7 @@
                                                     </h4>
 
 
-                                                        <span class="aa-product-price">&euro; &nbsp;{{ $featureProduct->product_selling_price}}</span> @if($featureProduct->product_price!= $featureProduct->product_selling_price)<span class="aa-product-price"><del> &euro; &nbsp;{{ $featureProduct->product_price}}</del></span>@endif
+                                                        <span class="aa-product-price">&#2547; {{ $featureProduct->product_selling_price}}</span> @if($featureProduct->product_price!= $featureProduct->product_selling_price)<span class="aa-product-price"><del> &#2547; {{ $featureProduct->product_price}}</del></span>@endif
                                                 </figcaption>
                                             </figure>
                                             <div class="aa-product-hvr-content">
@@ -170,7 +170,7 @@
                                                 <figcaption>
                                                     <h4 class="aa-product-title"><a href="{{ route('client.showProductDetails', ['slug' => $latestProduct->product_slug]) }}">{{ $latestProduct->product_title }}</a></h4>
 
-                                                    <span class="aa-product-price">&euro; &nbsp;{{ $latestProduct->product_selling_price}}</span> @if($latestProduct->product_price!= $latestProduct->product_selling_price)<span class="aa-product-price"><del> &euro; &nbsp;{{ $latestProduct->product_price}}</del></span>@endif
+                                                    <span class="aa-product-price">&#2547; {{ $latestProduct->product_selling_price}}</span> @if($latestProduct->product_price!= $latestProduct->product_selling_price)<span class="aa-product-price"><del> &#2547; {{ $latestProduct->product_price}}</del></span>@endif
 
 
 

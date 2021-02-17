@@ -112,10 +112,3 @@ Route::get('/Storage-link', function() {
 });
 
 
-
-//Clear Config cache:
-// Route::get('/Create-controller', function() {
-//     $exitCode = Artisan::call('make:controller admin/HomeSliderController');
-//     return '<h1>Controller Created</h1>';
-// });
-

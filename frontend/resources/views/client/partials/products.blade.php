@@ -20,7 +20,7 @@
                       <ul class="aa-product-catg">
                         <!-- start single product item -->
                         @php
-                          $products=App\Models\product_table::with(['img'])->where('product_category_id', $catItem->id)->where('product_active', 1)->take(8)->get();
+                          $products=App\Models\product_table::with(['img'])->where('product_category_id', $catItem->id)->where('product_active', 1)->where('deleted_at', null)->take(8)->get();
                         @endphp
                         @foreach ($products as $product)
                               <li style="max-width: 250px; min-width: 200px">
@@ -47,7 +47,7 @@
 
                                     <figcaption>
                                     <h4 class="aa-product-title"><a href="{{ route('client.showProductDetails', $product->product_slug)}}">{{ $product->product_title}}</a></h4>
-                                   <span class="aa-product-price">&euro; &nbsp;{{ $product->product_selling_price}}</span> @if($product->product_price!= $product->product_selling_price)<span class="aa-product-price"><del> &euro; &nbsp;{{ $product->product_price}}</del></span>@endif
+                                   <span class="aa-product-price">&#2547; {{ $product->product_selling_price}}</span> @if($product->product_price!= $product->product_selling_price)<span class="aa-product-price"><del> &#2547; {{ $product->product_price}}</del></span>@endif
                                   </figcaption>
                                 </figure>
                                 <div class="aa-product-hvr-content">

@@ -99,9 +99,9 @@
                                                 <h4 class="aa-product-title"><a
                                                         href="{{ route('client.showProductDetails', ['slug' => $searchProduct->product_slug]) }}">{{ $searchProduct->product_title }}</a>
                                                 </h4>
-                                                <span class="aa-product-price">&euro;
+                                                <span class="aa-product-price">&#2547; 
                                                     &nbsp;{{ $searchProduct->product_selling_price }}</span><span
-                                                    class="aa-product-price"><del>&euro;
+                                                    class="aa-product-price"><del>&#2547; 
                                                         &nbsp;{{ $searchProduct->product_price}}</del></span>
                                                 <p class="aa-product-descrip">{!! nl2br(e($searchProduct->product_discription))
                                                     !!}</p>
@@ -316,7 +316,7 @@
                                                 <h4><a
                                                         href="{{ route('client.showProductDetails', ['slug' => $popular_product->product->product_slug]) }}">{{ $popular_product->product->product_title }}</a>
                                                 </h4>
-                                                <p>1 x &euro; &nbsp;{{ $popular_product->product->product_selling_price }}
+                                                <p>1 x &#2547; {{ $popular_product->product->product_selling_price }}
                                                 </p>
                                             </div>
                                         </li>
@@ -347,7 +347,7 @@
                                                 <h4><a
                                                         href="{{ route('client.showProductDetails', ['slug' => $topRatedProduct->product_slug]) }}">{{ $topRatedProduct->product_title }}</a>
                                                 </h4>
-                                                <p>1 x &euro; &nbsp;{{ $topRatedProduct->product_price }}</p>
+                                                <p>1 x &#2547; {{ $topRatedProduct->product_price }}</p>
                                             </div>
                                         </li>
                                     @endforeach
@@ -392,7 +392,7 @@
                         }
 
                         $('#pdTitle').html(jsonData[0].product_title);
-                        $('#pdPrice').html("&euro; " + jsonData[0].product_selling_price);
+                        $('#pdPrice').html("&#2547;  " + jsonData[0].product_selling_price);
                         $('#inStock').html(inStock);
                         $('#pdCategory').html(jsonData[0].cat.name);
                         $('#product_ids').val(id);

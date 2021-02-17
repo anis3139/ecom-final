@@ -351,7 +351,7 @@
 
                         $('#product_owner_id').html(productOwner);
 
-                        $('#total_price').html('&euro;' + dataJSON[0].paid_amount);
+                        $('#total_price').html('&#2547; ' + dataJSON[0].paid_amount);
                         $('#tax').html(dataJSON[0].total_tax);
                         $('#delivary_charge').html(dataJSON[0].total_delivery_charge);
 
@@ -381,7 +381,7 @@
                                     imageViewHtml += '<td clsss="mx-auto" >N/A</td>';
                                 }
                             imageViewHtml += '<td clsss="mx-auto" >' + element.quantity + '</td>';
-                            imageViewHtml += '<td clsss="mx-auto" >&euro;' + element.price + '</td>';
+                            imageViewHtml += '<td clsss="mx-auto" >&#2547; ' + element.price + '</td>';
                             imageViewHtml += '</tr>';
                         }
                         $('#OrdersView').html(imageViewHtml);

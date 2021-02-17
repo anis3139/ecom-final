@@ -20,8 +20,10 @@
                         <div class="row">
                             @guest
                                 <div class="col-md-12 text-center">
-                                    <h1>You need to <a class="text-primary" href="{{ route('client.login') }}"> Login </a>First
+                                    <h1>You need to <a style="color: #FF6666" href="{{ route('client.login') }}"> Login </a>First
                                     </h1>
+                                    <h3>If you are not registerd <a style="color: #FF6666" href="{{ route('client.registration') }}"> Registration  </a>Now
+                                    </h3>
                                 </div>
                             @endguest
                             @auth
@@ -216,7 +218,7 @@
                                                                     {{ $product['title'] }} <strong> ({{ $product['main_price'] }}x {{ $product['quantity'] }})</strong>
                                                                 </td>
                                                                 <td>
-                                                                    &euro; &nbsp;{{  number_format($product['main_price'] * $product['quantity'],2)  }}
+                                                                    &#2547; {{  number_format($product['main_price'] * $product['quantity'],2)  }}
                                                                 </td>
                                                             </tr>
                                                         @endforeach
@@ -225,28 +227,28 @@
                                                     <tfoot>
                                                         <tr>
                                                             <th>Total Price</th>
-                                                            <td>&euro; &nbsp;{{ number_format($total_main_price, 2)}}</td>
+                                                            <td>&#2547; {{ number_format($total_main_price, 2)}}</td>
                                                         </tr>
                                                         <tr>
                                                             <th>Total Discount</th>
-                                                            <td>&euro; &nbsp;{{ number_format($total_discount, 2)}}</td>
+                                                            <td>&#2547; {{ number_format($total_discount, 2)}}</td>
                                                         </tr>
                                                         <tr>
                                                             <th>Subtotal (After Discount)</th>
-                                                            <td>&euro; &nbsp;{{ number_format($total, 2)}}</td>
+                                                            <td>&#2547; {{ number_format($total, 2)}}</td>
                                                         </tr>
                                                         <tr>
                                                             <th>Tax</th>
-                                                            <td>&euro; &nbsp;{{ number_format($total_tax, 2)}}</td>
+                                                            <td>&#2547; {{ number_format($total_tax, 2)}}</td>
                                                         </tr>
                                                         <tr>
                                                             <th>Delivery Charge</th>
-                                                            <td>&euro; &nbsp;{{ number_format($total_delivery_charge, 2) }}</td>
+                                                            <td>&#2547; {{ number_format($total_delivery_charge, 2) }}</td>
                                                         </tr>
 
                                                         <tr>
                                                             <th>Total Paid Amount</th>
-                                                            <td>&euro; &nbsp;{{ number_format( $total+ $total_tax + $total_delivery_charge , 2) }}</td>
+                                                            <td>&#2547; {{ number_format( $total+ $total_tax + $total_delivery_charge , 2) }}</td>
                                                         </tr>
                                                     </tfoot>
                                                 </table>

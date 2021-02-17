@@ -21,6 +21,8 @@ $others=App\Models\OthersModel::first();
                             <!-- / language -->
 
                             <!-- start currency -->
+                            
+                              <!--
                             <div class="aa-currency">
                                 <div class="dropdown">
                                     <a class="btn dropdown-toggle" href="#" type="button" id="dropdownMenu1"
@@ -28,12 +30,14 @@ $others=App\Models\OthersModel::first();
                                         <i class="fa fa-euro"></i>EURO
                                         <span class="caret"></span>
                                     </a>
-                                    <!--<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">-->
-                                    <!--    <li><a href="#"><i class="fa fa-euro"></i>EURO</a></li>-->
-                                    <!--    <li><a href="#"><i class="fa fa-jpy"></i>YEN</a></li>-->
-                                    <!--</ul>-->
+                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                        <li><a href="#"><i class="fa fa-euro"></i>EURO</a></li>
+                                        <li><a href="#"><i class="fa fa-jpy"></i>YEN</a></li>
+                                    </ul>
                                 </div>
                             </div>
+                            -->
+
                             <!-- / currency -->
                             <!-- start cellphone -->
                             <div class="cellphone hidden-xs">
@@ -63,10 +67,10 @@ $others=App\Models\OthersModel::first();
                                     @php
                                         $host = $_SERVER['HTTP_HOST'];
                                         $protocol = $_SERVER['PROTOCOL'] = isset($_SERVER['HTTPS']) && !empty($_SERVER['HTTPS']) ? 'https://' : 'http://';
-                                        $location =$protocol ."vendor.". $host;
+                                        $location =$protocol ."admin.". $host."/vendor/login";
 
                                     @endphp
-                                <li class="hidden-xs"><a href="{{$location}}">Seller Point</a></li>
+                                <li><a href="{{$location}}">Seller Point</a></li>
 
                             </ul>
                         </div>

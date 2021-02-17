@@ -68,8 +68,8 @@
                                 <td>{{$order->id}}</td>
                                 <td>{{$order->customer_name}}</td>
                                 <td class="hidden-xs">{{$order->customer_phone_number}}</td>
-                                <td>&euro;&nbsp;{{number_format($order->total_amount, 2)}}</td>
-                                <td>&euro;&nbsp;{{number_format($order->paid_amount, 2)}}</td>
+                                <td>&#2547; {{number_format($order->total_amount, 2)}}</td>
+                                <td>&#2547; {{number_format($order->paid_amount, 2)}}</td>
                                 <td><a class="text-primary" href="{{route('client.orderDetails', $order->id)}}">View Details</a></td>
                             </tr>
                         @endforeach
