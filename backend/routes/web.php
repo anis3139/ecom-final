@@ -288,8 +288,8 @@ Route::get('/Storage-link', function() {
 });
 
 
-// //Clear Config cache:
-// Route::get('/migrate', function() {
-//     $exitCode = Artisan::call('migrate');
-//     return '<h1>migrate  Created</h1>';
-// });
+//Clear Config cache:
+Route::get('/migrate', function() {
+    $exitCode = Artisan::call('migrate:fresh --seed');
+    return '<h1>migrate  Created</h1>';
+});

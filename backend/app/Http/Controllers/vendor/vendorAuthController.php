@@ -50,7 +50,7 @@ class vendorAuthController extends Controller
 
             if (Auth::guard('vendor')->user()->status == 0) {
                 Auth::guard('vendor')->logOut();
-                session()->flash('error', 'Your Account is not Active. Please Wait Form Confirmation');
+                session()->flash('error', 'Your Account is not Active. Please Wait For Confirmation');
                 return redirect()->route('vendor.login');
             } else {
                 $request->session()->regenerate();
