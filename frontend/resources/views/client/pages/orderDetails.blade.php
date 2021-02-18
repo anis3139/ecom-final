@@ -100,7 +100,7 @@
                                 @else
                                 {{"N/A"}}
                             @endif</td>
-                            <td class="text-center">&euro;  {{number_format($product->price, 2)}}</td>
+                            <td class="text-center">&#2547;  {{number_format($product->price, 2)}}</td>
                         </tr>
                         @endif
                     @endforeach
