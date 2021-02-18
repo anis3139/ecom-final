@@ -141,7 +141,7 @@
                                     <div class="aa-product-view-content">
                                         <h3>{!! $productDetails->product_title !!}</h3>
                                         <div class="aa-price-block">
-                                            <span class="aa-product-view-price">&#2547; {{ $productDetails->product_selling_price}}</span>&nbsp; @if($productDetails->product_price!= $productDetails->product_selling_price)<span class="aa-product-view-price"><del> &#2547;  {{ $productDetails->product_price}}</del></span>@endif
+                                            <span class="aa-product-view-price">&euro;  {{ $productDetails->product_selling_price}}</span>&nbsp; @if($productDetails->product_price!= $productDetails->product_selling_price)<span class="aa-product-view-price"><del> &euro;   {{ $productDetails->product_price}}</del></span>@endif
                                             
                                             <p class="aa-product-avilability">Avilability: <span>
                                                     @if ($productDetails->product_in_stock == 1)
@@ -318,8 +318,8 @@
                                                 <h4 class="aa-product-title"><a
                                                         href="{{ route('client.showProductDetails', ['slug' => $relProduct->product_slug]) }}">{!!
                                                         $relProduct->product_title !!}</a></h4>
-                                                <span class="aa-product-price">&#2547; {{ $relProduct->product_price }}</span><span
-                                                    class="aa-product-price"><del>&#2547; {{ $relProduct->product_selling_price }}</del></span>
+                                                <span class="aa-product-price">&euro;  {{ $relProduct->product_price }}</span><span
+                                                    class="aa-product-price"><del>&euro;  {{ $relProduct->product_selling_price }}</del></span>
                                             </figcaption>
                                         </figure>
                                         <div class="aa-product-hvr-content">
@@ -601,7 +601,7 @@ function getReviewData() {
                         }
 
                         $('#pdTitle').html(jsonData[0].product_title);
-                        $('#pdPrice').html("&#2547;  " + jsonData[0].product_selling_price);
+                        $('#pdPrice').html("&euro;   " + jsonData[0].product_selling_price);
                         $('#inStock').html(inStock);
                         $('#pdCategory').html(jsonData[0].cat.name);
                         $('#product_ids').val(id);

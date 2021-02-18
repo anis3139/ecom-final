@@ -52,7 +52,7 @@
                         }
 
                         $('#pdTitle').html(jsonData[0].product_title);
-                        $('#pdPrice').html("&#2547;  " + jsonData[0].product_selling_price);
+                        $('#pdPrice').html("&euro;   " + jsonData[0].product_selling_price);
                         $('#inStock').html(inStock);
                         $('#pdCategory').html(jsonData[0].cat.name);
                         $('#product_ids').val(id);

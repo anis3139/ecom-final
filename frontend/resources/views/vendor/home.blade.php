@@ -1,5 +1,5 @@
 @extends('vendor.layouts.vendor')
-@section('title','Abedin Bazar')
+@section('title','Asulsis')
 
 @section('content')
 
