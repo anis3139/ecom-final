@@ -5,10 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Notifications\Notifiable;
 
 class OrderProducts extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory, Notifiable, SoftDeletes;
     public $table='order_products';
     public $primaryKey = 'id';
     public $incrementing = true;
@@ -25,4 +26,8 @@ class OrderProducts extends Model
     public function owner() {
         return $this->belongsTo(vendors::class,'product_owner_id');
     }
+
+
+
+  
 }

@@ -8,7 +8,7 @@ $others=App\Models\OthersModel::first();
     <div class="aa-catg-head-banner-area">
         <div class="container">
             <div class="aa-catg-head-banner-content" >
-                <h2>Asulsis</h2>
+                <h2>Abedin Bazar</h2>
                 <ol class="breadcrumb">
                     <li><a href="{{ route('client.home') }}">Home</a></li>
                     <li class="active">Shop</li>

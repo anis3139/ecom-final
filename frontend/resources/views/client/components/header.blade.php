@@ -70,7 +70,7 @@ $others=App\Models\OthersModel::first();
                                         $location =$protocol ."admin.". $host."/vendor/login";
 
                                     @endphp
-                                <li><a href="{{$location}}">Seller Point</a></li>
+                                <li><a href="{{route('vendor.login')}}">Seller Point</a></li>
 
                             </ul>
                         </div>

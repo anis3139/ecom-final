@@ -108,11 +108,7 @@ class authController extends Controller
                 $user->email_verification_token= uniqid(time().$email, true).Str::random(40);
                 $user->save();
 
-
-
                 $user->notify(new registerEmail( $user));
-
-
 
         session()->flash('success', 'Registration Successfull! Please Check Your Mail For Active your Account');
         return redirect()->route('client.registration');
