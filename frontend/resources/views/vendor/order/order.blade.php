@@ -1,5 +1,7 @@
 @extends('vendor.layouts.vendor')
-@section('title', 'Order')
+@section('title')
+{{config('app.name', 'Anis Arronno') ." || Order"}}
+@endsection
 @section('css')
     <style>
         .modal-dialog-full-width {

@@ -1,5 +1,7 @@
 @extends('vendor.layouts.vendor')
-@section('title', 'Profile')
+@section('title')
+{{config('app.name', 'Anis Arronno') ." || Profile"}}
+@endsection
 @section('content')
 <div class="container m-5">
     <div class="row">

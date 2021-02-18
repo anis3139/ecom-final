@@ -9,7 +9,7 @@
 
     <div>
         <center>
-            <h2>Asulsis</h2>
+            <h2>{{config('app.name', 'Laravel') }}</h2>
         </center>
     </div>
     <div>

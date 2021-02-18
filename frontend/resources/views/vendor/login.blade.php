@@ -1,5 +1,7 @@
 @extends('vendor.layouts.vendor-login')
-
+@section('title')
+{{config('app.name', 'Anis Arronno') ." || Vendor Login"}}
+@endsection
 @section('content')
 <div class="container">
     <div class="row justify-content-center mt-5">
@@ -65,7 +67,7 @@
                                     {{ __('Login') }}
                                 </button>
 
-                                <a href="{{route('vendor.registration')}}"  class="btn btn-primary">
+                                <a href="{{route('vendor.registration')}}"  class="btn btn-primary ml-2">
                                         SignUp
                                 </a>
                             </div>

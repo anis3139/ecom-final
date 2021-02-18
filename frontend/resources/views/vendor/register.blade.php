@@ -1,5 +1,7 @@
 @extends('vendor.layouts.vendor-login')
-
+@section('title')
+{{config('app.name', 'Anis Arronno') ." || Vendor Registration"}}
+@endsection
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
@@ -86,6 +88,7 @@
                         </div>
                     </form>
                 </div>
+                <p class="text-center">If You Are Registered <a class="text-decoration-none font-weight-bold" href="{{route('vendor.login')}}">Login </a>Here</p>
             </div>
         </div>
     </div>

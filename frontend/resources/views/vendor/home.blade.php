@@ -1,6 +1,8 @@
 @extends('vendor.layouts.vendor')
-@section('title','Asulsis')
 
+@section('title')
+{{config('app.name', 'Anis Arronno') ." || Vendor Home"}}
+@endsection
 @section('content')
 
 @endsection

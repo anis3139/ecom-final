@@ -1,5 +1,7 @@
 @extends('vendor.layouts.vendor')
-
+@section('title')
+{{env('APP_NAME')." ||Profile Edit"}}
+@endsection
 @section('content')
 
 <div id="login" class="container">
