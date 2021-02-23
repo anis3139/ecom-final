@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Orders;
 use PDF;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class orderController extends Controller
 {
@@ -56,10 +57,13 @@ class orderController extends Controller
     public function ordersPrint(Request $request, $id)
     {
         $orders = Orders::with(['orderProducts', 'orderProducts.product'])->findOrFail($id);
+        
+    $slug=Str::slug($orders->customer_name);
+    $invoice='invoice-('.$orders->id.")-".$slug.'.pdf';
      
         $pdf = PDF::loadView('admin.order.printOrder', compact('orders') );
-        return $pdf->download('invoice(' . $orders->id.').pdf');
-        return $pdf->stream('invoice' . $orders->id.'.pdf');
+        return $pdf->download($invoice);
+        return $pdf->stream($invoice);
     }
 
 
