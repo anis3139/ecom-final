@@ -27,6 +27,7 @@ class cartController extends Controller
         $data['total_discount']= array_sum( array_column($data['cart'], 'total_discount'));
         $data['total_main_price']= array_sum( array_column($data['cart'], 'total_main_price'));
 
+       
 
         return view('client.pages.cart', $data);
     }
@@ -34,8 +35,8 @@ class cartController extends Controller
     public function addToCart(Request $request)
     {
 
-
-
+       
+        
         $cart=[];
 
         try {
@@ -54,7 +55,9 @@ class cartController extends Controller
          $cart = session()->has('cart') ? session()->get('cart') : [];
 
         $quantity= $request->quantity ?? $product->product_quantity;
-
+        $color =$request->color;
+        $meserment =$request->meserment;
+      
         $product_tax=($unit_price*$product->product_tax)/100;
 
         $product_delivary_charge=$quantity*$product->product_delivary_charge;
@@ -73,6 +76,7 @@ class cartController extends Controller
 
         } else {
             $cart[$product->id] = [
+
                 'title' => $product->product_title,
                 'quantity' => $quantity,
                 'main_price' => $main_price,
@@ -81,8 +85,8 @@ class cartController extends Controller
                 'total_price' => $unit_price,
                 'discount' => $total_discount,
                 'total_discount' => $total_discount,
-                'color' =>$request->color,
-                'maserment' =>$request->maserment,
+                'color' =>$color,
+                'maserment' =>$meserment,
                 'image'=>$product->img[0]->image_path,
                 'product_tax' =>$product_tax,
                 'total_tax' =>$product_tax,
@@ -93,12 +97,15 @@ class cartController extends Controller
 
 
         }
+   
+       session(['cart' => $cart]);
+       
+        if ( count($cart)>0) {
+            return 1;
+        } else {
+            return 0;
+        }
 
-        session(['cart' => $cart]);
-
-
-
-        return redirect()->route('client.showCart')->with('success','Product successfully added.');
     }
 
 
@@ -130,7 +137,8 @@ class cartController extends Controller
 
     public function clearCart()
     {
-       session(['cart'=>[]]);
+       
+       session()->forget(['cart']);
 
         return redirect()->back()->with('success','Your Cart is Clear');
     }

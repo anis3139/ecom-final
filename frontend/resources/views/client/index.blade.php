@@ -126,34 +126,44 @@
 
 
 
-        
+  
         $('#cartForm').on('submit',function (event) {
         event.preventDefault();
         let formData=$(this).serializeArray();
-        let userName=formData[0]['value'];
-        let password=formData[1]['value'];
+        let meserment=formData[0]['value'];
+        let color=formData[1]['value'];
+        let quantity=formData[2]['value'];
+        let product_ids=formData[3]['value'];
+            
         let url="{{route('client.addCart')}}";
         axios.post(url,{
-          username:userName,
-          password:password
+            meserment:meserment,
+            color:color,
+            quantity:quantity,
+            product_id:product_ids
         }).then(function (response) {
           console.log(response.data);
            if(response.status==200 && response.data==1){
-            toastr.success('Login Success.');
-               window.location.href="{{route('admin.adminHome')}}";
-           }
+            $('#quick-view-modal').modal('hide');
+            toastr.success('Product Add Successfully');
+
+
+          
+
+
+}
            else{
-               toastr.error('Login Fail ! Try Again');
+               toastr.error('Product not Added ! Try Again');
            }
 
         }).catch(function (error) {
-            toastr.error('Login Fail ! Try Again');
+            toastr.error('Product not Added  ! Try Again');
         })
 
 
     })
 
-    
+
 
     </script>
 

@@ -1,3 +1,8 @@
+@php
+
+$others=App\Models\OthersModel::first();
+
+@endphp
 @extends('admin.Layouts.appLogin')
 @section('title','Admin Login')
 @section('content')
@@ -24,7 +29,7 @@
 </div>
 
 <div style="height: 450px" class="col-md-6 bg-light">
-  <img class="w-75 m-5" src="{{asset('/admin/images')}}/login.jpg">
+  <img class="w-75 m-5" src="{{asset($others->logo ??'/admin/images/login.jpg')}}">
 </div>
 </div>
 </div>

@@ -119,8 +119,8 @@
                                            </div>
 
                                            <!-- Cable Configuration -->
-                               <form id="cartForm" method="post">
-                                   @csrf
+                               <form  id="cartForm" method="post">
+                                 
                                            <div class="product-color">
                                                <span>Mezerment:</span>
                                                <div class="meserment-choose mt-5">
@@ -157,7 +157,7 @@
                                                </p>
                                            </div>
                                            <div class="aa-prod-view-bottom">
-                                   <input type="hidden" id="product_ids" name="product_id" value="" >
+                                   <input type="hidden" id="product_ids" name="product_ids"  >
                                    <button type="submit" class="aa-add-to-cart-btn"><span class="fa fa-shopping-cart"></span>Add To Cart</button>
 
 
