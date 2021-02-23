@@ -148,7 +148,7 @@ $others=App\Models\OthersModel::first();
                         <div class="aa-search-box">
                             <form action="{{route('client.search')}}" method="post">
                                 @csrf
-                                <input type="text" name="key" id="key" placeholder="Search Product">
+                                <input required type="text" name="key" id="key" placeholder="Search Product">
                                 <button type="submit"><span class="fa fa-search"></span></button>
                             </form>
                         </div>

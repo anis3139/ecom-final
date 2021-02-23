@@ -119,7 +119,7 @@
                                            </div>
 
                                            <!-- Cable Configuration -->
-                               <form action="{{ route('client.addCart') }}" id="cartForm" method="post">
+                               <form id="cartForm" method="post">
                                    @csrf
                                            <div class="product-color">
                                                <span>Mezerment:</span>

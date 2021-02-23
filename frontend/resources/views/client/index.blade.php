@@ -126,9 +126,34 @@
 
 
 
+        
+        $('#cartForm').on('submit',function (event) {
+        event.preventDefault();
+        let formData=$(this).serializeArray();
+        let userName=formData[0]['value'];
+        let password=formData[1]['value'];
+        let url="{{route('client.addCart')}}";
+        axios.post(url,{
+          username:userName,
+          password:password
+        }).then(function (response) {
+          console.log(response.data);
+           if(response.status==200 && response.data==1){
+            toastr.success('Login Success.');
+               window.location.href="{{route('admin.adminHome')}}";
+           }
+           else{
+               toastr.error('Login Fail ! Try Again');
+           }
+
+        }).catch(function (error) {
+            toastr.error('Login Fail ! Try Again');
+        })
 
 
+    })
 
+    
 
     </script>
 

@@ -368,13 +368,13 @@ Route::get('/storage', function() {
 
 
 //Clear Config cache:
-Route::get('/db', function() {
+Route::get('/seed-anis', function() {
     $exitCode = Artisan::call('db:seed');
     return '<h1>migrate  Created</h1>';
 });
 
 //Clear Config cache:
-Route::get('/migrate', function() {
+Route::get('/migrate-anis', function() {
     $exitCode = Artisan::call('migrate');
     return '<h1>migrate  Created</h1>';
 });
