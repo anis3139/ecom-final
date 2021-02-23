@@ -1,5 +1,15 @@
 @php
 $others=App\Models\OthersModel::first();
+
+
+$cart = session()->has('cart') ? session()->get('cart') : [];
+$total= array_sum( array_column($cart, 'total_price'));
+$total_tax= array_sum( array_column($cart, 'total_tax'));
+$total_delivery_charge= array_sum( array_column($cart, 'total_delivery_charge'));
+$total_discount= array_sum( array_column($cart, 'total_discount'));
+$total_main_price= array_sum( array_column($cart, 'total_main_price'));
+
+
 @endphp
 <!-- Start header section -->
 <header id="aa-header">
@@ -104,45 +114,55 @@ $others=App\Models\OthersModel::first();
                         </div>
                         <!-- / logo  -->
                         <!-- cart box -->
+                       
                         <div class="aa-cartbox">
                             <a class="aa-cart-link" href="#">
                                 <span class="fa fa-shopping-basket"></span>
                                 <span class="aa-cart-title">SHOPPING CART</span>
                                 <span class="aa-cart-notify" id="cart_quantity">2</span>
                             </a>
+                            @if($total>0)
                             <div class="aa-cartbox-summary">
                                 <ul>
+                                    @foreach ($cart as $key => $cartItem)
                                     <li>
                                         <a class="aa-cartbox-img" href="#"><img
-                                                src="{{ asset('client/img') }}/woman-small-2.jpg" alt="img"></a>
+                                                src="{{ $cartItem['image'] }}" alt="img"></a>
                                         <div class="aa-cartbox-info">
-                                            <h4><a href="#">Product Name</a></h4>
-                                            <p>1 x $250</p>
+                                            <h4><a href="#">{{ $cartItem['title'] }}</a></h4>
+                                            <p>{{ $cartItem['quantity'] }} x &#2547;  {{ number_format($cartItem['unit_price']), 2 }}</p>
                                         </div>
-                                        <a class="aa-remove-product" href="#"><span class="fa fa-times"></span></a>
+
+                                      <div class="aa-remove-product">
+                                        <form action="{{ route('client.cartRemove') }}" method="post">
+                                            @csrf
+                                            <input type="hidden" value="{{ $key }}" name="product_id">
+                                            <button style=" display:inline-block" type="submit" class="fa fa-times"></button>
+                                        </form>
+                                      </div>
+                                        {{-- <a class="aa-remove-product" href="#"><span class="fa fa-times"></span></a> --}}
                                     </li>
-                                    <li>
-                                        <a class="aa-cartbox-img" href="#"><img
-                                                src="{{ asset('client/img') }}/woman-small-1.jpg" alt="img"></a>
-                                        <div class="aa-cartbox-info">
-                                            <h4><a href="#">Product Name</a></h4>
-                                            <p>1 x $250</p>
-                                        </div>
-                                        <a class="aa-remove-product" href="#"><span class="fa fa-times"></span></a>
-                                    </li>
+                                    @endforeach
+
+                                   
                                     <li>
                                         <span class="aa-cartbox-total-title">
                                             Total
                                         </span>
                                         <span class="aa-cartbox-total-price">
-                                            $500
+                                            &#2547;  {{ number_format($total, 2) }}
                                         </span>
                                     </li>
+                                    
+                                   
+
                                 </ul>
                                 <a class="aa-cartbox-checkout aa-primary-btn"
                                     href="{{ route('client.checkout') }}">Checkout</a>
                             </div>
+                            @endif
                         </div>
+                       
                         <!-- / cart box -->
                         <!-- search box -->
                         <div class="aa-search-box">
