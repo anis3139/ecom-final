@@ -81,14 +81,15 @@
                                                     <td>&#2547;  {{ number_format($cartItem['unit_price']), 2 }} </td>
 
                                                     <td>{{ $cartItem['quantity'] }}</td>
-                                                    <td style="display:flex; justify-content:center; align-items: center; height:20vh;">
-                                                        @if( $cartItem['maserment'])
 
+                                                    <td style="display:flex; justify-content:center; align-items: center; height:20vh;">
+                                                        @if( $cartItem['color'])
                                                         <div style=" width:20px; height:20px; border:1px solid #000; border-radius:50%; background-color: {{ $cartItem['color'] }};"></div>
                                                         @else
                                                         {{"N/A"}}
-                                                    @endif
+                                                        @endif
                                                     </td>
+                                               
                                                     <td>@if( $cartItem['maserment'])
                                                         {{ $cartItem['maserment'] }}
                                                         @else
@@ -126,7 +127,7 @@
 
                                     <!-- Cart Total view -->
                                     <div class="cart-view-total">
-                                        <a href="{{route('client.checkout')}}" class="aa-cart-view-btn">Proced to Checkout</a>
+                                        <a href="{{route('client.checkout')}}" class="aa-cart-view-btn">processed to Checkout</a>
                                     </div>
 
 

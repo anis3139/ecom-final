@@ -154,7 +154,7 @@
                                         <p> {!! nl2br(e( $productDetails->product_discription)) !!}</p>
 
 
-                         <form action="{{ route('client.addCart') }}" id="cartForm" method="post">
+                         <form  id="cartForm2" method="post">
 
 
                                    @if(count($productDetails->color)>0)
@@ -206,9 +206,9 @@
                                             </p>
                                         </div>
                                         <div class="aa-prod-view-bottom">
-                                        <form action="{{ route('client.addCart') }}" id="cartForm"
+                                        <form  id="cartForm"
                                             method="post">
-                                            @csrf
+                                           
                                             <input type="hidden" id="product_id" name="product_id"
                                                 value="{{ $productDetails->id }}">
                                             <button type="submit" class="aa-add-to-cart-btn">Add To Cart</button>
@@ -386,8 +386,8 @@
                                                         </div>
 
                                                         <!-- Cable Configuration -->
-                                                         <form action="{{ route('client.addCart') }}" id="cartForm" method="post">
-                                                            @csrf
+                                                         <form  id="cartForm" method="post">
+                                                           
                                                         <div class="product-color">
                                                             <span>Mezerment:</span>
                                                             <div class="meserment-choose mt-5">
@@ -677,6 +677,74 @@ function getReviewData() {
 
                 });
         }
+
+
+
+        $('#cartForm').on('submit',function (event) {
+        event.preventDefault();
+        let formData=$(this).serializeArray();
+        let meserment=formData[0]['value'];
+        let color=formData[1]['value'];
+        let quantity=formData[2]['value'];
+        let product_ids=formData[3]['value'];
+            
+        let url="{{route('client.addCart')}}";
+        axios.post(url,{
+            meserment:meserment,
+            color:color,
+            quantity:quantity,
+            product_id:product_ids
+        }).then(function (response) {
+          console.log(response.data);
+           if(response.status==200 && response.data==1){
+            $('#quick-view-modal').modal('hide');
+            toastr.success('Product Add Successfully');
+
+}
+           else{
+               toastr.error('Product not Added ! Try Again');
+           }
+
+        }).catch(function (error) {
+            toastr.error('Product not Added  ! Try Again');
+        })
+
+
+    })
+
+
+        $('#cartForm2').on('submit',function (event) {
+            
+        event.preventDefault();
+        let formData=$(this).serializeArray();
+        let color=formData[0]['value'];
+        let meserment=formData[1]['value'];
+        let quantity=formData[2]['value'];
+        let product_ids=formData[3]['value'];
+            console.log();
+        let url="{{route('client.addCart')}}";
+        axios.post(url,{
+            meserment:meserment,
+            color:color,
+            quantity:quantity,
+            product_id:product_ids
+        }).then(function (response) {
+          console.log(response.data);
+           if(response.status==200 && response.data==1){
+            $('#quick-view-modal').modal('hide');
+            toastr.success('Product Add Successfully');
+
+}
+           else{
+               toastr.error('Product not Added ! Try Again');
+           }
+
+        }).catch(function (error) {
+            toastr.error('Product not Added  ! Try Again');
+        })
+
+
+    })
 
     </script>
 

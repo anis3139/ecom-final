@@ -166,9 +166,9 @@
                                                         </div>
 
                                                         <!-- Cable Configuration -->
-                                                        <form action="{{ route('client.addCart') }}" id="cartForm"
+                                                        <form  id="cartForm"
                                                             method="post">
-                                                            @csrf
+                                                            
                                                             <div class="product-color">
                                                                 <span>Mezerment:</span>
                                                                 <div class="meserment-choose mt-5">
@@ -470,6 +470,47 @@
 
                 });
         }
+
+
+
+
+
+
+        $('#cartForm').on('submit',function (event) {
+        event.preventDefault();
+        let formData=$(this).serializeArray();
+        let meserment=formData[0]['value'];
+        let color=formData[1]['value'];
+        let quantity=formData[2]['value'];
+        let product_ids=formData[3]['value'];
+            
+        let url="{{route('client.addCart')}}";
+        axios.post(url,{
+            meserment:meserment,
+            color:color,
+            quantity:quantity,
+            product_id:product_ids
+        }).then(function (response) {
+          console.log(response.data);
+           if(response.status==200 && response.data==1){
+            $('#quick-view-modal').modal('hide');
+            toastr.success('Product Add Successfully');
+
+
+          
+
+
+}
+           else{
+               toastr.error('Product not Added ! Try Again');
+           }
+
+        }).catch(function (error) {
+            toastr.error('Product not Added  ! Try Again');
+        })
+
+
+    })
 
     </script>
 
