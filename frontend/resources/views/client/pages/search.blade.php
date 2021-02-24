@@ -171,7 +171,7 @@
 
                                                         <!-- Cable Configuration -->
                                             <form id="cartForm" method="post">
-                                              
+                                             
                                                         <div class="product-color">
                                                             <span>Mezerment:</span>
                                                             <div class="meserment-choose mt-5">
@@ -487,7 +487,6 @@
             $('#quick-view-modal').modal('hide');
             toastr.success('Product Add Successfully');
 
-            window.location.href =window.location.href;
           
 
 
