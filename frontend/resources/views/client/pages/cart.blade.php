@@ -88,7 +88,18 @@
 
                                                     <td>&euro; &nbsp;{{ number_format($cartItem['unit_price']), 2 }} </td>
 
-                                                    <td> <input style="width: 70px" type="number" value="{{ $cartItem['quantity'] }}"> </td>
+                                                    <td> 
+                                                        
+                                                        <form action="{{route('client.cartUpdate')}}" method="post">
+                                                            @csrf
+                                                            <input type="hidden" value="{{ $key }}" name="product_update_id">
+                                                             <input style="width: 50px" type="number" value="{{ $cartItem['quantity'] }}" name="quantity"  min="1" max="1000" onkeydown="javascript: return event.keyCode === 8 || event.keyCode === 46 ? true : !isNaN(Number(event.key))"> 
+                                                             <button type="submit" style="background-color: #dad9d1; color:#ff6666; margin-left:5px;"><i style="font-size:20px;" class="fa fa-check fa-2x"></i></button>
+                                                        </form>
+                                                    
+                                                    </td>
+
+
                                                     <td style="display:flex; justify-content:center; align-items: center; height:20vh;">
                                                         @if( $cartItem['maserment'])
 
@@ -131,11 +142,9 @@
 
                                 <div class="update-cart">
                                     
+                                    
                                     <div class="cart-view-total" >
-                                        <a onclick="updateCart()"  class="aa-cart-view-btn">Update Cart</a>
-                                    </div>
-                                    <div class="cart-view-total" >
-                                        <a href="{{route('client.updateCart')}}"   class="aa-cart-view-btn"> Checkout</a>
+                                        <a href="{{route('client.checkout')}}"   class="aa-cart-view-btn"> Checkout</a>
                                     </div>
     
                             @endif
