@@ -146,6 +146,7 @@
            if(response.status==200 && response.data==1){
             $('#quick-view-modal').modal('hide');
             toastr.success('Product Add Successfully');
+            window.location.href =window.location.href;
         }
            else{
                toastr.error('Product not Added ! Try Again');

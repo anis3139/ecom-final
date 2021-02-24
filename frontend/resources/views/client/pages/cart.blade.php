@@ -86,7 +86,7 @@
 
                                                     <td><a class="aa-cart-title" href="#">{{ $cartItem['title'] }}</a></td>
 
-                                                    <td>&euro; &nbsp;{{ number_format($cartItem['unit_price']), 2 }} </td>
+                                                    <td>&#2547; {{ number_format($cartItem['unit_price']), 2 }} </td>
 
                                                     <td> 
                                                         
@@ -114,7 +114,7 @@
                                                         {{"N/A"}}
                                                     @endif</td>
 
-                                                    <td>&euro; &nbsp;{{ number_format($cartItem['total_price'], 2) }}
+                                                    <td>&#2547; {{ number_format($cartItem['total_price'], 2) }}
                                                     </td>
 
                                                 </tr>
@@ -132,7 +132,7 @@
                                                     Total
                                                 </td>
                                                 <td style="font-weight: bold; text-align:center;">
-                                                    &euro; &nbsp;{{ number_format($total, 2) }}
+                                                    &#2547; {{ number_format($total, 2) }}
                                                 </td>
 
                                             </tr>

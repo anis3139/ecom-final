@@ -470,7 +470,7 @@ $('#cartForm').on('submit',function (event) {
             $('#quick-view-modal').modal('hide');
             toastr.success('Product Add Successfully');
 
-
+            window.location.href =window.location.href;
           
 
 

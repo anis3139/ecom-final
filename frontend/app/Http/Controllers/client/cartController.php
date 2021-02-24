@@ -39,7 +39,7 @@ class cartController extends Controller
         $data['total_delivery_charge']= array_sum( array_column($data['cart'], 'total_delivery_charge'));
         $data['total_discount']= array_sum( array_column($data['cart'], 'total_discount'));
         $data['total_main_price']= array_sum( array_column($data['cart'], 'total_main_price'));
-        
+        dd($data);
         return $data;
     }
 
@@ -170,9 +170,9 @@ class cartController extends Controller
 
         $cart = session()->has('cart') ? session()->get('cart') : [];
         unset($cart[$request->input('product_id')]);
-        $result= session(['cart' => $cart]);
+       session(['cart' => $cart]);
 
-        return $result;
+       return redirect()->back()->with('success','Remove Success');
     }
 
 

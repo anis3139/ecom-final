@@ -123,7 +123,7 @@ $total_main_price= array_sum( array_column($cart, 'total_main_price'));
                             </a>
                             @if($total>0)
                             <div class="aa-cartbox-summary">
-                                <ul>
+                                <ul id="headerCart">
                                     @foreach ($cart as $key => $cartItem)
                                     <li>
                                         <a class="aa-cartbox-img" href="#"><img
