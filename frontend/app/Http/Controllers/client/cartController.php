@@ -131,29 +131,13 @@ class cartController extends Controller
             return redirect()->back();
         }
         $product = product_table::with('img','color')->findOrFail($request->input('product_update_id'));
-        $unit_price=($product->product_selling_price !== null && $product->product_selling_price > 0) ? $product->product_selling_price : $product->product_price;
-         $total_discount=$product->product_price-$unit_price;
-         $main_price=$product->product_price;
+        
 
          $cart = session()->has('cart') ? session()->get('cart') : [];
 
         $quantity= $request->quantity ?? $product->product_quantity;
-        $color =$request->color;
-        $meserment =$request->meserment;
-      
-        $product_tax=($unit_price*$product->product_tax)/100;
+       
 
-        $product_delivary_charge=$quantity*$product->product_delivary_charge;
-
-        $cart = session()->has('cart') ? session()->get('cart') : [];
-        
-        $quantity= $request->quantity ?? $product->product_quantity;
-        $color =$request->color;
-        $meserment =$request->meserment;
-      
-        $product_tax=($unit_price*$product->product_tax)/100;
-
-        $product_delivary_charge=$quantity*$product->product_delivary_charge;
         if (array_key_exists($product->id, $cart)) {
             $cart[$product->id]['quantity'] =  $quantity;
             $cart[$product->id]['total_main_price']= $cart[$product->id]['quantity'] *  $cart[$product->id]['main_price'];
@@ -163,7 +147,7 @@ class cartController extends Controller
 
             if ($product->product_delivary_charge_type != 0) {
                 $cart[$product->id]['total_delivery_charge']= $cart[$product->id]['quantity'] *  $cart[$product->id]['product_delivary_charge'];
-            }
+            }  
         }
 
         session(['cart' => $cart]);
