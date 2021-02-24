@@ -146,18 +146,13 @@
            if(response.status==200 && response.data==1){
             $('#quick-view-modal').modal('hide');
             toastr.success('Product Add Successfully');
-
-
-          
-
-
-}
+        }
            else{
                toastr.error('Product not Added ! Try Again');
            }
 
         }).catch(function (error) {
-            toastr.error('Product not Added  ! Try Again');
+            toastr.error('Product not Added  ! Something Error');
         })
 
 

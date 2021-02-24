@@ -168,7 +168,7 @@
                         $('#Slider_table').empty();
                         var count = 1;
                         var dataJSON = response.data;
-                        console.log(dataJSON);
+                        
                         $.each(dataJSON, function(i, item) {
                             $('<tr>').html(
                                 "<td>" + count++ + " </td>" +

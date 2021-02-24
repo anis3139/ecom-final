@@ -7,17 +7,25 @@
         display:block;
         min-width:300px;
   }
-  .cart-view-total a{
-      display: block;
-      margin: 20px;
-      padding: 10px;
-      font-size: 15px;
-      float: none;
+ 
 
-  }
-
-
+ 
+  .cart-view-total {
+    margin:0 auto !important;  position:static; width:250px; float: none;
 }
+}
+
+
+.cart-view-total {
+    margin:10px 20px !important;  position:static; width:250px; float: right;
+}
+.update-cart>a{
+    margin:10px 20px !important;  position:static; width:250px;
+}
+.aa-cart-view-btn{
+    margin:10px 20px !important;  position:static; width:250px; 
+}
+
 </style>
 
 
@@ -78,25 +86,24 @@
 
                                                     <td><a class="aa-cart-title" href="#">{{ $cartItem['title'] }}</a></td>
 
-                                                    <td>&#2547;  {{ number_format($cartItem['unit_price']), 2 }} </td>
+                                                    <td>&euro; &nbsp;{{ number_format($cartItem['unit_price']), 2 }} </td>
 
-                                                    <td>{{ $cartItem['quantity'] }}</td>
-
+                                                    <td> <input style="width: 70px" type="number" value="{{ $cartItem['quantity'] }}"> </td>
                                                     <td style="display:flex; justify-content:center; align-items: center; height:20vh;">
-                                                        @if( $cartItem['color'])
+                                                        @if( $cartItem['maserment'])
+
                                                         <div style=" width:20px; height:20px; border:1px solid #000; border-radius:50%; background-color: {{ $cartItem['color'] }};"></div>
                                                         @else
                                                         {{"N/A"}}
-                                                        @endif
+                                                    @endif
                                                     </td>
-                                               
                                                     <td>@if( $cartItem['maserment'])
                                                         {{ $cartItem['maserment'] }}
                                                         @else
                                                         {{"N/A"}}
                                                     @endif</td>
 
-                                                    <td>&#2547;  {{ number_format($cartItem['total_price'], 2) }}
+                                                    <td>&euro; &nbsp;{{ number_format($cartItem['total_price'], 2) }}
                                                     </td>
 
                                                 </tr>
@@ -114,7 +121,7 @@
                                                     Total
                                                 </td>
                                                 <td style="font-weight: bold; text-align:center;">
-                                                    &#2547;  {{ number_format($total, 2) }}
+                                                    &euro; &nbsp;{{ number_format($total, 2) }}
                                                 </td>
 
                                             </tr>
@@ -122,26 +129,21 @@
                                     </table>
                                 </div>
 
-
-
-
-                                    <!-- Cart Total view -->
-                                    <div class="cart-view-total">
-                                        <a href="{{route('client.checkout')}}" class="aa-cart-view-btn">processed to Checkout</a>
+                                <div class="update-cart">
+                                    
+                                    <div class="cart-view-total" >
+                                        <a onclick="updateCart()"  class="aa-cart-view-btn">Update Cart</a>
                                     </div>
-
-
-                                <!-- Cart Clear -->
-
-
-
+                                    <div class="cart-view-total" >
+                                        <a href="{{route('client.updateCart')}}"   class="aa-cart-view-btn"> Checkout</a>
+                                    </div>
+    
                             @endif
-
-
                                     <!-- Cart Total -->
-                                    <div class="cart-view-total" style="margin:0px auto; display:block; width:auto; float:left;">
-                                        <a href="{{route('client.shop')}}" class="aa-cart-view-btn" style="background-color:#FF6666 !important;">Continue Shoping</a>
+                                    <div class="cart-view-total" >
+                                        <a href="{{route('client.shop')}}" class="aa-cart-view-btn" >Continue Shoping</a>
                                     </div>
+                            </div>
                         </div>
                     </div>
                 </div>

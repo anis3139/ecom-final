@@ -17,7 +17,6 @@ class cartController extends Controller
 {
     public function showCart()
     {
-
         $data = [];
 
         $data['cart'] = session()->has('cart') ? session()->get('cart') : [];
@@ -26,10 +25,22 @@ class cartController extends Controller
         $data['total_delivery_charge']= array_sum( array_column($data['cart'], 'total_delivery_charge'));
         $data['total_discount']= array_sum( array_column($data['cart'], 'total_discount'));
         $data['total_main_price']= array_sum( array_column($data['cart'], 'total_main_price'));
-
-       
-
+        
         return view('client.pages.cart', $data);
+    }
+
+    public function cartData()
+    {
+        $data = [];
+
+        $data['cart'] = session()->has('cart') ? session()->get('cart') : [];
+        $data['total']= array_sum( array_column($data['cart'], 'total_price'));
+        $data['total_tax']= array_sum( array_column($data['cart'], 'total_tax'));
+        $data['total_delivery_charge']= array_sum( array_column($data['cart'], 'total_delivery_charge'));
+        $data['total_discount']= array_sum( array_column($data['cart'], 'total_discount'));
+        $data['total_main_price']= array_sum( array_column($data['cart'], 'total_main_price'));
+        
+        return $data;
     }
 
     public function addToCart(Request $request)
@@ -107,12 +118,13 @@ class cartController extends Controller
             return 0;
         }
 
+       
+
     }
 
+    public function updateCart(Request $request){
 
-
-
-
+    }
 
     public function RemoveFromCart(Request $request)
     {
@@ -129,10 +141,9 @@ class cartController extends Controller
 
         $cart = session()->has('cart') ? session()->get('cart') : [];
         unset($cart[$request->input('product_id')]);
+        $result= session(['cart' => $cart]);
 
-        session(['cart' => $cart]);
-
-        return redirect()->back()->with('success','Product Remove From Your Cart.');
+        return $result;
     }
 
 

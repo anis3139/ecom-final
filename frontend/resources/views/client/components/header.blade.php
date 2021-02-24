@@ -119,7 +119,7 @@ $total_main_price= array_sum( array_column($cart, 'total_main_price'));
                             <a class="aa-cart-link" href="#">
                                 <span class="fa fa-shopping-basket"></span>
                                 <span class="aa-cart-title">SHOPPING CART</span>
-                                <span class="aa-cart-notify" id="cart_quantity">2</span>
+                                <span class="aa-cart-notify" id="cart_quantity">{{count($cart)}}</span>
                             </a>
                             @if($total>0)
                             <div class="aa-cartbox-summary">
