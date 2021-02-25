@@ -93,14 +93,13 @@
                                                 </h4>
 
 
-                                                <span class="aa-product-price">&#2547;  
+                                                <span class="aa-product-price">&#2547;
                                                     &nbsp;{{ $allProduct->product_selling_price }}</span>
                                                 @if ($allProduct->product_price != $allProduct->product_selling_price)
-                                                    <span class="aa-product-price"><del> &#2547;  
+                                                    <span class="aa-product-price"><del> &#2547;
                                                             &nbsp;{{ $allProduct->product_price }}</del></span>
                                                 @endif
-                                                <p class="aa-product-descrip">{!! nl2br(e($allProduct->product_discription))
-                                                    !!}</p>
+                                                <p class="aa-product-descrip">{!! nl2br(e($allProduct->product_discription)) !!}</p>
                                             </figcaption>
                                         </figure>
                                         <div class="aa-product-hvr-content">
@@ -166,9 +165,8 @@
                                                         </div>
 
                                                         <!-- Cable Configuration -->
-                                                        <form  id="cartForm"
-                                                            method="post">
-                                                            
+                                                        <form id="cartForm" method="post">
+
                                                             <div class="product-color">
                                                                 <span>Mezerment:</span>
                                                                 <div class="meserment-choose mt-5">
@@ -315,7 +313,7 @@
                                                     <h4><a
                                                             href="{{ route('client.showProductDetails', ['slug' => $popular_product->product->product_slug]) }}">{{ $popular_product->product->product_title }}</a>
                                                     </h4>
-                                                    <p>1 x &#2547;  
+                                                    <p>1 x &#2547;
                                                         &nbsp;{{ $popular_product->product->product_selling_price }}
                                                     </p>
                                                 </div>
@@ -347,7 +345,7 @@
                                                 <h4><a
                                                         href="{{ route('client.showProductDetails', ['slug' => $topRatedProduct->product_slug]) }}">{{ $topRatedProduct->product_title }}</a>
                                                 </h4>
-                                                <p>1 x &#2547;  {{ $topRatedProduct->product_price }}</p>
+                                                <p>1 x &#2547; {{ $topRatedProduct->product_price }}</p>
                                             </div>
                                         </li>
                                     @endforeach
@@ -476,41 +474,141 @@
 
 
 
-        $('#cartForm').on('submit',function (event) {
-        event.preventDefault();
-        let formData=$(this).serializeArray();
-        let meserment=formData[0]['value'];
-        let color=formData[1]['value'];
-        let quantity=formData[2]['value'];
-        let product_ids=formData[3]['value'];
-            
-        let url="{{route('client.addCart')}}";
-        axios.post(url,{
-            meserment:meserment,
-            color:color,
-            quantity:quantity,
-            product_id:product_ids
-        }).then(function (response) {
-          console.log(response.data);
-           if(response.status==200 && response.data==1){
-            $('#quick-view-modal').modal('hide');
-            toastr.success('Product Add Successfully');
+        $('#cartForm').on('submit', function(event) {
+            event.preventDefault();
+            let formData = $(this).serializeArray();
+            let meserment = formData[0]['value'];
+            let color = formData[1]['value'];
+            let quantity = formData[2]['value'];
+            let product_ids = formData[3]['value'];
 
-            window.location.href =window.location.href;
-          
+            let url = "{{ route('client.addCart') }}";
+            axios.post(url, {
+                meserment: meserment,
+                color: color,
+                quantity: quantity,
+                product_id: product_ids
+            }).then(function(response) {
+
+                if (response.status == 200 && response.data == 1) {
+                    $('#quick-view-modal').modal('hide');
+                    toastr.success('Product Add Successfully');
+                    getcartData()
+                    
+                } else {
+                    toastr.error('Product not Added ! Try Again');
+                }
+
+            }).catch(function(error) {
+                toastr.error('Product not Added  ! Try Again');
+            })
 
 
-}
-           else{
-               toastr.error('Product not Added ! Try Again');
-           }
-
-        }).catch(function (error) {
-            toastr.error('Product not Added  ! Try Again');
         })
 
 
-    })
+
+
+
+
+
+
+
+
+
+        getcartData()
+
+        function getcartData() {
+
+            axios.get("{{ route('client.cartData') }}")
+                .then(function(response) {
+
+                    if (response.status = 200) {
+                        var dataJSON = response.data;
+                        var cartData = dataJSON.cart;
+
+                        var a = Object.keys(cartData).length;
+                       
+
+                        $("#cart_quantity").html(a);
+                        $("#total_cart_price").html(' &#2547; ' + dataJSON.total);
+                        
+                        var imageViewHtml = "";
+                        $.each(cartData, function (i, item) {
+                            
+                            imageViewHtml += '<li>';
+                            imageViewHtml += '<a class="aa-cartbox-img" href="#"><img src=" ' + cartData[i].image +
+                                ' " alt="img"></a>';
+                            imageViewHtml += '<div class="aa-cartbox-info"> <h4><a href="#">' + cartData[i].title +
+                                '</a> </h4> <p>' + cartData[i].quantity + ' x &#2547; ' + cartData[i].unit_price +
+                                '</p>  </div>';
+                            imageViewHtml += '<div class="aa-remove-product"><button class="cartDeleteIcon" data-id=' +
+                                i +
+                                '  style=" display:inline-block" type="submit" class="fa fa-times"><i class="fa fa-remove"></i></button> </div>';
+                            imageViewHtml += '</li>';
+                        });
+
+
+                        $('#headerCart').html(imageViewHtml);
+
+                            console.log(a);
+
+                        if (a == 0) {
+                            $("#HeaderPreview").css("display", "none");
+                        }else{
+                            $("#HeaderPreview").css("display", "block");
+                        }
+
+
+                        //Carts click on delete icon
+                        $(".cartDeleteIcon").click(function() {
+                            var id = $(this).data('id');
+                            $('#CartsDeleteId').html(id);
+                            DeleteDataCart(id);
+                        })
+                    } else {
+                        toastr.error('Something Went Wrong');
+                    }
+                }).catch(function(error) {
+
+                    toastr.error('Something Went Wrong...');
+                });
+        }
+
+
+
+
+
+        $('#confirmDeleteCart').click(function() {
+            var id = $('#CartDeleteId').html();
+            var id = $(this).data('id');
+            DeleteDataCart(id);
+        })
+
+
+        //delete Cart function
+        function DeleteDataCart(id) {
+
+            axios.post("{{ route('client.cartRemove') }}", {
+                    product_id: id
+                })
+                .then(function(response) {
+
+                    if (response.status == 200) {
+                        toastr.success('Cart Removed Success.');
+                        getcartData();
+                    } else {
+                        toastr.error('Something Went Wrong');
+                    }
+                }).catch(function(error) {
+
+                    toastr.error('Something Went Wrong......');
+                });
+        }
+
+
+
+
 
     </script>
 

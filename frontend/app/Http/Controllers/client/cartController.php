@@ -31,6 +31,8 @@ class cartController extends Controller
 
     public function cartData()
     {
+
+       
         $data = [];
 
         $data['cart'] = session()->has('cart') ? session()->get('cart') : [];
@@ -39,7 +41,7 @@ class cartController extends Controller
         $data['total_delivery_charge']= array_sum( array_column($data['cart'], 'total_delivery_charge'));
         $data['total_discount']= array_sum( array_column($data['cart'], 'total_discount'));
         $data['total_main_price']= array_sum( array_column($data['cart'], 'total_main_price'));
-        dd($data);
+        
         return $data;
     }
 
@@ -89,6 +91,7 @@ class cartController extends Controller
             $cart[$product->id] = [
 
                 'title' => $product->product_title,
+                'slug' => $product->product_slug,
                 'quantity' => $quantity,
                 'main_price' => $main_price,
                 'total_main_price' => $main_price,
@@ -110,7 +113,7 @@ class cartController extends Controller
         }
    
        session(['cart' => $cart]);
-       
+
         if ( count($cart)>0) {
             return 1;
 

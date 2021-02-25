@@ -266,6 +266,7 @@ Route::get('/product/{slug}', [App\Http\Controllers\client\productController::cl
 Route::get('/category/{slug}', [App\Http\Controllers\client\categoryController::class, 'catagoryWiseProduct'])->name('client.category');
 
 // Cart
+Route::get('/cartDatas', [App\Http\Controllers::class, 'cartData'])->name('client.cartDatas');
 Route::get('/cart', [App\Http\Controllers\client\cartController::class, 'showCart'])->name('client.showCart');
 Route::get('/cartData', [App\Http\Controllers\client\cartController::class, 'cartData'])->name('client.cartData');
 Route::post('/cart', [App\Http\Controllers\client\cartController::class, 'addToCart'])->name('client.addCart');

@@ -157,6 +157,7 @@
 @endsection
 @section('script')
     <script type="text/javascript">
+    
         getSliderdata();
         function getSliderdata() {
             axios.get("{{route('admin.getsliderdata')}}")

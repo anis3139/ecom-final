@@ -8,8 +8,6 @@
         min-width:300px;
   }
  
-
- 
   .cart-view-total {
     margin:0 auto !important;  position:static; width:250px; float: none;
 }
@@ -57,7 +55,7 @@
                                     <table class="table table-bordered" id="cartTable">
                                         <thead>
                                             <tr>
-                                                <th>Action</th>
+                                                <th style="width: 50px">Action</th>
                                                 <th>Image</th>
                                                 <th>Product</th>
                                                 <th>Unit Price</th>
@@ -75,8 +73,8 @@
                                                         <form action="{{ route('client.cartRemove') }}" method="post">
                                                             @csrf
                                                             <input type="hidden" value="{{ $key }}" name="product_id">
-                                                            <button type="submit" class="btn btn-warning">
-                                                                Remove
+                                                            <button type="submit" class="fa fa-times">
+                                                               
                                                             </button>
                                                         </form>
                                                     </td>
@@ -84,7 +82,7 @@
                                                     <td><img src="{{ $cartItem['image'] }}" alt=""></td>
 
 
-                                                    <td><a class="aa-cart-title" href="#">{{ $cartItem['title'] }}</a></td>
+                                                    <td><a class="aa-cart-title" href="{{ route('client.showProductDetails', ['slug' => $cartItem['slug']]) }}">{{ $cartItem['title'] }}</a></td>
 
                                                     <td>&#2547; {{ number_format($cartItem['unit_price']), 2 }} </td>
 
@@ -94,7 +92,7 @@
                                                             @csrf
                                                             <input type="hidden" value="{{ $key }}" name="product_update_id">
                                                              <input style="width: 50px" type="number" value="{{ $cartItem['quantity'] }}" name="quantity"  min="1" max="1000" onkeydown="javascript: return event.keyCode === 8 || event.keyCode === 46 ? true : !isNaN(Number(event.key))"> 
-                                                             <button type="submit" style="background-color: #dad9d1; color:#ff6666; margin-left:5px;"><i style="font-size:20px;" class="fa fa-check fa-2x"></i></button>
+                                                             <button type="submit" style="background-color: #dad9d1; color:#ff6666; margin:5px 0px 0px 5px;"><i style="font-size:20px;" class="fa fa-check fa-2x"></i></button>
                                                         </form>
                                                     
                                                     </td>
@@ -120,13 +118,11 @@
                                                 </tr>
                                             @endforeach
 
-
-
                                         </tbody>
                                         <tfoot>
                                             <tr>
-                                                <td style="font-weight: bold; text-align:center;">
-                                                    <a href="{{ route('client.ClearCart') }}" class="btn btn-danger">Clear All Cart</a>
+                                                <td style="font-weight: bold; text-align:center; width: 30px !important; overflow:hidden;">
+                                                    <a href="{{ route('client.ClearCart') }}" class="btn btn-danger">Clear All</a>
                                                 </td>
                                                 <td colspan="6" style="font-weight: bold; text-align:center;">
                                                     Total

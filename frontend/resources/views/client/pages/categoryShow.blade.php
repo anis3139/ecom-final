@@ -75,36 +75,40 @@
                                                 @php $i--; @endphp
                                             @endforeach
 
-                                            <a  class="aa-add-card-btn"  onclick="productDetailsModal({{ $allProduct->id }})"
+                                            <a class="aa-add-card-btn"
+                                                onclick="productDetailsModal({{ $allProduct->id }})"
                                                 href="{{ $allProduct->id }}" data-toggle2="tooltip" data-placement="top"
-                                               data-toggle="modal" data-target="#quick-view-modal"><span
-                                                            class="fa fa-shopping-cart" id="CartAddConfirmBtn"></span>Add To
-                                                        Cart</a>
+                                                data-toggle="modal" data-target="#quick-view-modal"><span
+                                                    class="fa fa-shopping-cart" id="CartAddConfirmBtn"></span>Add To
+                                                Cart</a>
 
 
                                             <figcaption>
                                                 <h4 class="aa-product-title"><a
                                                         href="#">{{ $allProduct->product_title }}</a></h4>
 
-                                              
 
-                                                    <span class="aa-product-price">&#2547;  {{ $allProduct->product_selling_price}}</span> @if($allProduct->product_price!= $allProduct->product_selling_price)<span class="aa-product-price"><del> &#2547;  {{ $allProduct->product_price}}</del></span>@endif
 
-                                                <p class="aa-product-descrip">{!! nl2br(e( $allProduct->product_discription)) !!}</p>
+                                                <span class="aa-product-price">&#2547;
+                                                    {{ $allProduct->product_selling_price }}</span>
+                                                @if ($allProduct->product_price != $allProduct->product_selling_price)
+                                                    <span class="aa-product-price"><del> &#2547;
+                                                            {{ $allProduct->product_price }}</del></span>@endif
+
+                                                <p class="aa-product-descrip">{!! nl2br(e($allProduct->product_discription)) !!}</p>
                                             </figcaption>
                                         </figure>
                                         <div class="aa-product-hvr-content">
-                                            {{--  <a href="#" data-toggle="tooltip" data-placement="top"
+                                            {{-- <a href="#" data-toggle="tooltip" data-placement="top"
                                                 title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
                                             <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span
-                                                    class="fa fa-exchange"></span></a>  --}}
-                                            {{--  <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View"
+                                                    class="fa fa-exchange"></span></a> --}}
+                                            {{-- <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View"
                                                 data-toggle="modal" data-target="#quick-view-modal"><span
-                                                    class="fa fa-search"></span></a>  --}}
-                                                    <a onclick="productDetailsModal({{ $allProduct->id }})"
-                                                        data-toggle2="tooltip" data-placement="top"
-                                                        title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span
-                                                            class="fa fa-search"></span></a>
+                                                    class="fa fa-search"></span></a> --}}
+                                            <a onclick="productDetailsModal({{ $allProduct->id }})" data-toggle2="tooltip"
+                                                data-placement="top" title="Quick View" data-toggle="modal"
+                                                data-target="#quick-view-modal"><span class="fa fa-search"></span></a>
                                         </div>
                                         <!-- product badge -->
                                         @if ($allProduct->product_in_stock)
@@ -128,39 +132,39 @@
                                         <div class="modal-body">
                                             <button type="button" class="close" data-dismiss="modal"
                                                 aria-hidden="true">&times;</button>
-                                                <div class="row">
-                                                    <!-- Modal view slider -->
-                                                    <div class="col-md-6 col-sm-6 col-xs-12">
-                                                        <div class="aa-product-view-slider">
-                                                            <div class="simpleLens-gallery-container" id="demo-1">
-                                                                <div class="simpleLens-container">
-                                                                    <div class="simpleLens-big-image-container">
-                                                                        <a class="simpleLens-lens-image" id="simpleLensImage"
-                                                                            data-lens-image="">
-                                                                            <img src=""
-                                                                                class="simpleLens-big-image" id="simpleLensBigImage">
-                                                                        </a>
-                                                                    </div>
+                                            <div class="row">
+                                                <!-- Modal view slider -->
+                                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                                    <div class="aa-product-view-slider">
+                                                        <div class="simpleLens-gallery-container" id="demo-1">
+                                                            <div class="simpleLens-container">
+                                                                <div class="simpleLens-big-image-container">
+                                                                    <a class="simpleLens-lens-image" id="simpleLensImage"
+                                                                        data-lens-image="">
+                                                                        <img src="" class="simpleLens-big-image"
+                                                                            id="simpleLensBigImage">
+                                                                    </a>
                                                                 </div>
-                                                                <div class="simpleLens-thumbnails-container">
+                                                            </div>
+                                                            <div class="simpleLens-thumbnails-container">
 
-                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <!-- Modal view content -->
-                                                    <div class="col-md-6 col-sm-6 col-xs-12">
-                                                        <div class="aa-product-view-content">
-                                                            <h3 id="pdTitle"></h3>
-                                                            <div class="aa-price-block">
-                                                                <span id="pdPrice" class="aa-product-view-price"></span>
-                                                                <p class="aa-product-avilability">Avilability: <span
-                                                                        id="inStock"></span></p>
-                                                            </div>
+                                                </div>
+                                                <!-- Modal view content -->
+                                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                                    <div class="aa-product-view-content">
+                                                        <h3 id="pdTitle"></h3>
+                                                        <div class="aa-price-block">
+                                                            <span id="pdPrice" class="aa-product-view-price"></span>
+                                                            <p class="aa-product-avilability">Avilability: <span
+                                                                    id="inStock"></span></p>
+                                                        </div>
 
-                                                            <!-- Cable Configuration -->
-                                                             <form  id="cartForm" method="post">
-                                                               
+                                                        <!-- Cable Configuration -->
+                                                        <form id="cartForm" method="post">
+
                                                             <div class="product-color">
                                                                 <span>Mezerment:</span>
                                                                 <div class="meserment-choose mt-5">
@@ -169,37 +173,41 @@
                                                             </div>
 
                                                             <div class="product-color">
-                                                                <span >Color</span>
+                                                                <span>Color</span>
                                                                 <div class="color-choose mt-5">
                                                                 </div>
                                                             </div>
 
                                                             <div class="aa-prod-quantity">
 
-                                                                    <select name="quantity" id="quantity">
-                                                                        <option value="1" selected>1</option>
-                                                                        <option value="2">2</option>
-                                                                        <option value="3">3</option>
-                                                                        <option value="4">4</option>
-                                                                        <option value="5">5</option>
-                                                                        <option value="10">10</option>
-                                                                    </select>
+                                                                <select name="quantity" id="quantity">
+                                                                    <option value="1" selected>1</option>
+                                                                    <option value="2">2</option>
+                                                                    <option value="3">3</option>
+                                                                    <option value="4">4</option>
+                                                                    <option value="5">5</option>
+                                                                    <option value="10">10</option>
+                                                                </select>
 
                                                                 <p class="aa-prod-category">
                                                                     Category: <a href="#" id="pdCategory"></a>
                                                                 </p>
                                                             </div>
                                                             <div class="aa-prod-view-bottom">
-                                                    <input type="hidden" id="product_ids" name="product_id" value="" >
-                                                    <button type="submit" class="aa-add-to-cart-btn"><span class="fa fa-shopping-cart"></span>Add To Cart</button>
+                                                                <input type="hidden" id="product_ids" name="product_id"
+                                                                    value="">
+                                                                <button type="submit" class="aa-add-to-cart-btn"><span
+                                                                        class="fa fa-shopping-cart"></span>Add To
+                                                                    Cart</button>
 
 
-                                                    <a href="" id="modalSingleView" class="aa-add-to-cart-btn">View Details</a>
+                                                                <a href="" id="modalSingleView"
+                                                                    class="aa-add-to-cart-btn">View Details</a>
                                                             </div>
-                                                         </form>
-                                                        </div>
+                                                        </form>
                                                     </div>
                                                 </div>
+                                            </div>
                                         </div>
                                     </div><!-- /.modal-content -->
                                 </div><!-- /.modal-dialog -->
@@ -218,10 +226,12 @@
                             <h3>Category</h3>
                             <ul class="aa-catg-nav">
                                 @foreach (App\Models\ProductsCategoryModel::orderby('name', 'asc')
-                                                                ->where('parent_id', 0)
-                                                                ->get()
-                                                            as $parentCat)
-                                    <li><a href="{{ route('client.category', $parentCat->slug) }}">{{ $parentCat->name }}</a></li>
+            ->where('parent_id', 0)
+            ->get()
+        as $parentCat)
+                                    <li><a
+                                            href="{{ route('client.category', $parentCat->slug) }}">{{ $parentCat->name }}</a>
+                                    </li>
                                 @endforeach
                             </ul>
                         </div>
@@ -277,7 +287,7 @@
                             <div class="aa-recently-views">
                                 <ul>
                                     @foreach ($popular_products as $popular_product)
-                                    @if($popular_product->product && $popular_product->product->product_active==1)
+                                    @if ($popular_product->product && $popular_product->product->product_active == 1)
                                         <li>
                                             @php $i= 1; @endphp
                                             @foreach ($popular_product->product->img as $images)
@@ -321,8 +331,10 @@
                                             @endforeach
 
                                             <div class="aa-cartbox-info">
-                                                <h4><a href="{{ route('client.showProductDetails', ['slug' => $topRatedProduct->product_slug]) }}">{{$topRatedProduct->product_title}}</a></h4>
-                                                <p>1 x &#2547;  {{$topRatedProduct->product_price}}</p>
+                                                <h4><a
+                                                        href="{{ route('client.showProductDetails', ['slug' => $topRatedProduct->product_slug]) }}">{{ $topRatedProduct->product_title }}</a>
+                                                </h4>
+                                                <p>1 x &#2547; {{ $topRatedProduct->product_price }}</p>
                                             </div>
                                         </li>
                                     @endforeach
@@ -342,149 +354,260 @@
 @endsection
 
 @section('script')
-<script>
-
-
+    <script>
         //each Slider  Details data show for edit
         function productDetailsModal(id) {
 
-axios.post('{{ route('client.getsingleProductdata') }}', {
-            id: id
-        })
-    .then(function(response) {
-        if (response.status == 200) {
-            var jsonData = response.data;
+            axios.post('{{ route('client.getsingleProductdata') }}', {
+                    id: id
+                })
+                .then(function(response) {
+                    if (response.status == 200) {
+                        var jsonData = response.data;
 
 
 
 
 
-            var simpleLensImageUrl = jsonData[0].img[0].image_path;
+                        var simpleLensImageUrl = jsonData[0].img[0].image_path;
 
 
-            var inStock = '';
-            if (jsonData[0].product_in_stock == 0) {
-                inStock = "STOCK OUT!"
-            } else {
-                inStock = "SALE!"
-            }
+                        var inStock = '';
+                        if (jsonData[0].product_in_stock == 0) {
+                            inStock = "STOCK OUT!"
+                        } else {
+                            inStock = "SALE!"
+                        }
 
-            $('#pdTitle').html(jsonData[0].product_title);
-            $('#pdPrice').html("&#2547;   " + jsonData[0].product_selling_price);
-            $('#inStock').html(inStock);
-            $('#pdCategory').html(jsonData[0].cat.name);
-            $('#product_ids').val(id);
-            $('#simpleLensImage').attr("data-lens-image" , simpleLensImageUrl );
-            $('#simpleLensBigImage').attr("src" , simpleLensImageUrl );
-
-
-
-
-            var maserment="";
-            for (let index = 0; index < jsonData[0].maserment.length; index++) {
-                const element =  jsonData[0].maserment[index];
-                checked=""
-                if (index==0) {
-                    checked="checked"
-                }else{
-                    checked=""
-                }
-
-                maserment+='<div>';
-                maserment+='<input type="radio" id="'+element.meserment_value+'" name="maserment" '+checked+' value="'+element.meserment_value+'">';
-                maserment+='<label for="'+element.meserment_value+'"><span style="background-color:#000;"></span></label>';
-                maserment+='<span>'+element.meserment_value+'</span>&nbsp;';
-                maserment+='</div>';
-
-            }
-
-            $('.meserment-choose').html(maserment);
+                        $('#pdTitle').html(jsonData[0].product_title);
+                        $('#pdPrice').html("&#2547;   " + jsonData[0].product_selling_price);
+                        $('#inStock').html(inStock);
+                        $('#pdCategory').html(jsonData[0].cat.name);
+                        $('#product_ids').val(id);
+                        $('#simpleLensImage').attr("data-lens-image", simpleLensImageUrl);
+                        $('#simpleLensBigImage').attr("src", simpleLensImageUrl);
 
 
 
 
-            var color="";
-            for (let index = 0; index < jsonData[0].color.length; index++) {
-                const elementColor =  jsonData[0].color[index];
+                        var maserment = "";
+                        for (let index = 0; index < jsonData[0].maserment.length; index++) {
+                            const element = jsonData[0].maserment[index];
+                            checked = ""
+                            if (index == 0) {
+                                checked = "checked"
+                            } else {
+                                checked = ""
+                            }
 
-                colorChecked=""
-                if (index==0) {
-                    colorChecked="checked"
-                }else{
-                    colorChecked=""
-                }
-                color+='<div>';
-                color+='<input type="radio" id="'+elementColor.product_color_code+'" name="color" '+colorChecked+' value="'+elementColor.product_color_code+'">';
-                color+='<label for="'+elementColor.product_color_code+'"><span style="background-color:'+elementColor.product_color_code+';"></span></label>';
-                color+='</div>';
+                            maserment += '<div>';
+                            maserment += '<input type="radio" id="' + element.meserment_value + '" name="maserment" ' +
+                                checked + ' value="' + element.meserment_value + '">';
+                            maserment += '<label for="' + element.meserment_value +
+                                '"><span style="background-color:#000;"></span></label>';
+                            maserment += '<span>' + element.meserment_value + '</span>&nbsp;';
+                            maserment += '</div>';
 
-            }
+                        }
 
-            $('.color-choose').html(color);
-
-            var img="";
-            for (let i = 0; i < jsonData[0].img.length; i++) {
-                const elementImg =  jsonData[0].img[i];
-
-                img+='<a  href="'+elementImg.image_path+'" class="simpleLens-thumbnail-wrapper"  data-lens-image="'+elementImg.image_path+'"  data-big-image="'+elementImg.image_path+'" ><img width="50px" height="50px" src="'+elementImg.image_path+'"></a>';
-
-            }
-            $('.simpleLens-thumbnails-container').html(img);
+                        $('.meserment-choose').html(maserment);
 
 
 
 
-            var SingleUrl= document.location.href("{{ route('client.getsingleProductdata') }}?slug="+jsonData[0].product_slug);
+                        var color = "";
+                        for (let index = 0; index < jsonData[0].color.length; index++) {
+                            const elementColor = jsonData[0].color[index];
 
-            $('#modalSingleView').attr("href" , SingleUrl );
+                            colorChecked = ""
+                            if (index == 0) {
+                                colorChecked = "checked"
+                            } else {
+                                colorChecked = ""
+                            }
+                            color += '<div>';
+                            color += '<input type="radio" id="' + elementColor.product_color_code + '" name="color" ' +
+                                colorChecked + ' value="' + elementColor.product_color_code + '">';
+                            color += '<label for="' + elementColor.product_color_code +
+                                '"><span style="background-color:' + elementColor.product_color_code +
+                                ';"></span></label>';
+                            color += '</div>';
+
+                        }
+
+                        $('.color-choose').html(color);
+
+                        var img = "";
+                        for (let i = 0; i < jsonData[0].img.length; i++) {
+                            const elementImg = jsonData[0].img[i];
+
+                            img += '<a  href="' + elementImg.image_path +
+                                '" class="simpleLens-thumbnail-wrapper"  data-lens-image="' + elementImg.image_path +
+                                '"  data-big-image="' + elementImg.image_path +
+                                '" ><img width="50px" height="50px" src="' + elementImg.image_path + '"></a>';
+
+                        }
+                        $('.simpleLens-thumbnails-container').html(img);
 
 
-        } else {
 
+
+                        var SingleUrl = document.location.href("{{ route('client.getsingleProductdata') }}?slug=" +
+                            jsonData[0].product_slug);
+
+                        $('#modalSingleView').attr("href", SingleUrl);
+
+
+                    } else {
+
+                    }
+                }).catch(function(error) {
+
+                });
         }
-    }).catch(function(error) {
-
-    });
-}
 
 
 
 
-$('#cartForm').on('submit',function (event) {
-        event.preventDefault();
-        let formData=$(this).serializeArray();
-        let meserment=formData[0]['value'];
-        let color=formData[1]['value'];
-        let quantity=formData[2]['value'];
-        let product_ids=formData[3]['value'];
-            
-        let url="{{route('client.addCart')}}";
-        axios.post(url,{
-            meserment:meserment,
-            color:color,
-            quantity:quantity,
-            product_id:product_ids
-        }).then(function (response) {
-          console.log(response.data);
-           if(response.status==200 && response.data==1){
-            $('#quick-view-modal').modal('hide');
-            toastr.success('Product Add Successfully');
+        $('#cartForm').on('submit', function(event) {
+            event.preventDefault();
+            let formData = $(this).serializeArray();
+            let meserment = formData[0]['value'];
+            let color = formData[1]['value'];
+            let quantity = formData[2]['value'];
+            let product_ids = formData[3]['value'];
 
-            window.location.href =window.location.href;
-          
+            let url = "{{ route('client.addCart') }}";
+            axios.post(url, {
+                meserment: meserment,
+                color: color,
+                quantity: quantity,
+                product_id: product_ids
+            }).then(function(response) {
+                console.log(response.data);
+                if (response.status == 200 && response.data == 1) {
+                    $('#quick-view-modal').modal('hide');
+                    toastr.success('Product Add Successfully');
+
+                    getcartData()
 
 
-}
-           else{
-               toastr.error('Product not Added ! Try Again');
-           }
 
-        }).catch(function (error) {
-            toastr.error('Product not Added  ! Try Again');
+                } else {
+                    toastr.error('Product not Added ! Try Again');
+                }
+
+            }).catch(function(error) {
+                toastr.error('Product not Added  ! Try Again');
+            })
+
+
         })
 
 
-    })
 
-</script>
+
+
+
+
+
+
+
+
+
+        getcartData()
+
+        function getcartData() {
+
+            axios.get("{{ route('client.cartData') }}")
+                .then(function(response) {
+
+                    if (response.status = 200) {
+                        var dataJSON = response.data;
+                        var cartData = dataJSON.cart;
+
+                        var a = Object.keys(cartData).length;
+
+
+                        $("#cart_quantity").html(a);
+                        $("#total_cart_price").html(' &#2547; ' + dataJSON.total);
+
+                        var imageViewHtml = "";
+                        $.each(cartData, function(i, item) {
+
+                            imageViewHtml += '<li>';
+                            imageViewHtml += '<a class="aa-cartbox-img" href="#"><img src=" ' + cartData[i]
+                                .image +
+                                ' " alt="img"></a>';
+                            imageViewHtml += '<div class="aa-cartbox-info"> <h4><a href="#">' + cartData[i]
+                                .title +
+                                '</a> </h4> <p>' + cartData[i].quantity + ' x &#2547; ' + cartData[i]
+                                .unit_price +
+                                '</p>  </div>';
+                            imageViewHtml +=
+                                '<div class="aa-remove-product"><button class="cartDeleteIcon" data-id=' +
+                                i +
+                                '  style=" display:inline-block" type="submit" class="fa fa-times"><i class="fa fa-remove"></i></button> </div>';
+                            imageViewHtml += '</li>';
+                        });
+
+
+                        $('#headerCart').html(imageViewHtml);
+
+                        console.log(a);
+
+                        if (a == 0) {
+                            $("#HeaderPreview").css("display", "none");
+                        }else{
+                            $("#HeaderPreview").css("display", "block");
+                        }
+
+
+                        //Carts click on delete icon
+                        $(".cartDeleteIcon").click(function() {
+                            var id = $(this).data('id');
+                            $('#CartsDeleteId').html(id);
+                            DeleteDataCart(id);
+                        })
+                    } else {
+                        toastr.error('Something Went Wrong');
+                    }
+                }).catch(function(error) {
+
+                    toastr.error('Something Went Wrong...');
+                });
+        }
+
+
+
+
+
+        $('#confirmDeleteCart').click(function() {
+            var id = $('#CartDeleteId').html();
+            var id = $(this).data('id');
+            DeleteDataCart(id);
+        })
+
+
+        //delete Cart function
+        function DeleteDataCart(id) {
+
+            axios.post("{{ route('client.cartRemove') }}", {
+                    product_id: id
+                })
+                .then(function(response) {
+
+                    if (response.status == 200) {
+                        toastr.success('Cart Removed Success.');
+                        getcartData();
+                    } else {
+                        toastr.error('Something Went Wrong');
+                    }
+                }).catch(function(error) {
+
+                    toastr.error('Something Went Wrong......');
+                });
+        }
+
+    </script>
 @endsection
