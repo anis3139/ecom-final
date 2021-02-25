@@ -233,7 +233,7 @@ function getcartData() {
 
 
 $('#confirmDeleteCart').click(function() {
-    var id = $('#CartDeleteId').html();
+    ;
     var id = $(this).data('id');
     DeleteDataCart(id);
 })
