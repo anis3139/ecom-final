@@ -302,14 +302,15 @@ Route::post('/updatePassword', [App\Http\Controllers\client\authController::clas
 //Rating
 Route::post('/getproductreating', [\App\Http\Controllers\client\ReatingReviewController::class, 'getallreview'])->name('getproductreating');
 
+Route::post('/processOrder', [App\Http\Controllers\client\cartController::class, 'order'])->name('client.processOrder');
+Route::get('/orderDetails/{id}', [App\Http\Controllers\client\cartController::class, 'orderDetails'])->name('client.orderDetails');
 // logout & Profile & Order
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/logout', [App\Http\Controllers\client\authController::class, 'logout'])->name('client.logout');
     Route::get('/profile', [App\Http\Controllers\client\authController::class, 'profile'])->name('client.profile');
     Route::get('/profileEdit/{id}', [App\Http\Controllers\client\authController::class, 'profileEdit'])->name('client.profileEdit');
     Route::post('/upadeteProfile/{id}', [App\Http\Controllers\client\authController::class, 'upadeteProfile'])->name('client.upadeteProfile');
-    Route::post('/processOrder', [App\Http\Controllers\client\cartController::class, 'order'])->name('client.processOrder');
-    Route::get('/orderDetails/{id}', [App\Http\Controllers\client\cartController::class, 'orderDetails'])->name('client.orderDetails');
+
     //Rating
     Route::post('/reating', [\App\Http\Controllers\client\ReatingReviewController::class, 'store'])->name('clint.reatingReview');
 

@@ -31,7 +31,9 @@
 @section('content')
     <div class="container">
         <div class="col-md-10 offset-md-1">
+            @auth 
             <a class="profile-link" href="{{route('client.profile')}}">Go Your Profile</a>
+            @endauth
             <h2 class=" profile  text-center">Order id: {{ $orders->id }}</h2>
             @include('client.components.massege')
             <table class="table table-bordered table-hover">

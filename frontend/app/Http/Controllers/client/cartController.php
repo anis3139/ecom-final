@@ -278,9 +278,16 @@ class cartController extends Controller
                    if ($validator->fails()) {
                       return redirect()->back()->withErrors($validator);
                     }
+                $user_id="";
+                if (auth()->user()) {
+                    $user_id=auth()->user()->id ;
+                }else{
+                    $user_id=0;
+                }
+
 
                 $order=new Orders();
-                $order->user_id=auth()->user()->id;
+                $order->user_id=$user_id;
                 $order->customer_name=$customer_name;
                 $order->customer_phone_number=$customer_phone_number;
                 $order->address=$address;
@@ -310,8 +317,9 @@ class cartController extends Controller
             $order_product->save();
 
         }
-
-        auth()->user()->notify(new orderConfirmNotification($order));
+        if ($user_id!=0) {
+            auth()->user()->notify(new orderConfirmNotification($order));
+        }
 
         session()->forget(['cart','price']);
 
@@ -325,13 +333,6 @@ class cartController extends Controller
         $data['orders']=Orders::with('product')->findOrFail($id);
         return view('client.pages.orderDetails', $data);
     }
-
-
-
-
-
-
-
 
 
 }
