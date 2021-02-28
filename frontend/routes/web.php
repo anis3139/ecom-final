@@ -302,7 +302,10 @@ Route::post('/updatePassword', [App\Http\Controllers\client\authController::clas
 //Rating
 Route::post('/getproductreating', [\App\Http\Controllers\client\ReatingReviewController::class, 'getallreview'])->name('getproductreating');
 
+Route::post('/quickOrder', [App\Http\Controllers\client\cartController::class, 'quickOrder'])->name('client.quickOrder');
+
 Route::post('/processOrder', [App\Http\Controllers\client\cartController::class, 'order'])->name('client.processOrder');
+
 Route::get('/orderDetails/{id}', [App\Http\Controllers\client\cartController::class, 'orderDetails'])->name('client.orderDetails');
 // logout & Profile & Order
 Route::group(['middleware' => 'auth'], function () {

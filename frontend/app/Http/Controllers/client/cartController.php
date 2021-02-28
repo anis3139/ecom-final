@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Orders;
 use App\Models\OrderProducts;
 use App\Models\product_table;
+use App\Models\QuickOrder;
 use App\Notifications\orderConfirmNotification;
 use Dotenv\Exception\ValidationException;
 use Illuminate\Contracts\Session\Session;
@@ -48,7 +49,7 @@ class cartController extends Controller
     public function addToCart(Request $request)
     {
 
-       
+     
         
         $cart=[];
 
@@ -333,6 +334,42 @@ class cartController extends Controller
         $data['orders']=Orders::with('product')->findOrFail($id);
         return view('client.pages.orderDetails', $data);
     }
+
+
+
+
+
+public function quickOrder(Request $request)
+{
+   
+   
+            $customer_name = $request->Input('customer_name');
+            $customer_phone_number = $request->Input('customer_phone_number');
+            $product_title = $request->Input('product_title');
+            $maserment = $request->Input('meserment');
+            $color =$request->Input('color');
+            $quantity = $request->Input('quantity');
+            $product_price = $request->Input('product_price');
+            
+            $quick_order=new QuickOrder();
+            $quick_order->customer_name=$customer_name;
+            $quick_order->customer_phone_number=$customer_phone_number;
+            $quick_order->product_title=$product_title;
+            $quick_order->color= $color;
+            $quick_order->quantity= $quantity;
+            $quick_order->maserment= $maserment;
+            $quick_order->product_price= $product_price;
+            $result=  $quick_order->save();
+
+    
+    if ( $result==true) {
+        return 1;
+
+    } else {
+        return 0;
+    }
+}
+
 
 
 }

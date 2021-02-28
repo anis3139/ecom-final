@@ -104,12 +104,12 @@
                                         </figure>
                                         <div class="aa-product-hvr-content">
                                             {{-- <a href="#" data-toggle="tooltip" data-placement="top"
-                                                title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
-                                            <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span
-                                                    class="fa fa-exchange"></span></a> --}}
-                                            <a onclick="productQuickOrder({{ $allProduct->id }})"
-                                                        href="{{ $allProduct->id }}" data-toggle2="tooltip" data-placement="top"
-                                                         data-toggle="modal" data-target="#quick-order"><span>Quick Order</span></a>
+                                                title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>--}}
+
+                                             <a onclick="productQuickOrder({{ $allProduct->id }})"
+                                                href="{{ $allProduct->id }}" data-toggle2="tooltip" data-placement="top"
+                                                 data-toggle="modal" data-target="#quick-order"><span>Quick Order</span></a>
+
                                             <a onclick="productDetailsModal({{ $allProduct->id }})"
                                                 href="{{ $allProduct->id }}" data-toggle2="tooltip" data-placement="top"
                                                 title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span
@@ -228,12 +228,6 @@
 
 
 
-
-
-
-
-
-
                                <!-- quick view modal -->
                                <div class="modal fade" id="quick-order" tabindex="-1" role="dialog"
                                aria-labelledby="myModalLabel" aria-hidden="true">
@@ -243,30 +237,30 @@
                                            <button type="button" class="close" data-dismiss="modal"
                                                aria-hidden="true">&times;</button>
                                            <div class="row">
-                                             <form id="quick-order-form" method="post">
-                    
+                                               <!-- Modal view slider -->
+                                               <div class="col-md-6 col-sm-6 col-xs-12">
+                
+                                               </div>
                                                <!-- Modal view content -->
                                                <div class="col-md-6 col-sm-6 col-xs-12">
                                                    <div class="aa-product-view-content">
                                                       
                                                        <!-- Cable Configuration -->
-                                                    <p> Product Name: <span id="pdTitles" style="font-size: 20px;"></span></p>
-                                                    <p> Product Price: <span id="pdPricesShow" style="font-size: 20px;"></span></p>
-
-                                                            <input type="hidden" id="pdTitle_order" name="product_titles">
+                                                       <form id="quick-order-form" method="post">
+                                                            <input type="hidden" id="pdTitle_order" name="product_title">
                                                            <div class="product-color">
                                                                <span>Mezerment:</span>
-                                                               <div class="meserment-choose mt-5" id="meserment-chooses">
+                                                               <div class="meserment-chooses mt-5">
                                                                </div>
                                                            </div>
                                                            <div class="product-color">
                                                                <span>Color</span>
-                                                               <div class="color-choose mt-5" id="color-chooses">
+                                                               <div class="color-chooses mt-5">
                                                                </div>
                                                            </div>
 
                                                            <div class="aa-prod-quantity">
-                                                               <select name="quantity" id="quantitys">
+                                                               <select name="quantity" id="quantity">
                                                                    <option value="1" selected>1</option>
                                                                    <option value="2">2</option>
                                                                    <option value="3">3</option>
@@ -275,41 +269,21 @@
                                                                    <option value="10">10</option>
                                                                </select>
                                                            </div>
-                                                           <div class="aa-prod-view-bottom" style="margin-top: 10px;">
-                                                            <input type="hidden" name="pdPrices" id="pdPrices">
+                                                           <div class="aa-prod-view-bottom">
+                                                               <input type="hidden" id="product_id" name="product_id"
+                                                                   value="">
                                                                <button type="submit" class="aa-add-to-cart-btn"><span
-                                                                       class="fa fa-shopping-cart"></span>Confirm Order</button>
+                                                                       class="fa fa-shopping-cart"></span>Add To
+                                                                   Cart</button>
                                                            </div>
-                                                        </div>
-                                                    </div>
-
-                                                                               <!-- Modal view slider -->
-                                               <div class="col-md-6 col-sm-6 col-xs-12">
-                                                   <label for="customer_name">Name:</label>
-                                                    <input type="text" name="customer_name" id="customer_name">
-                                                    <label for="customer_phone_number">Nobile Number</label>
-                                                    <input type="text" name="customer_phone_number" id="customer_phone_number">
-                                                </div>
-
-                                                </form>
-                                             </div>
+                                                       </form>
+                                                   </div>
+                                               </div>
+                                           </div>
                                        </div>
                                    </div><!-- /.modal-content -->
                                </div><!-- /.modal-dialog -->
                            </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -482,10 +456,13 @@
                         }
 
                         $('#pdTitle').html(jsonData[0].product_title);
+                        $('#pdTitles').html(jsonData[0].product_title);
                         $('#pdPrice').html("&#2547;   " + jsonData[0].product_selling_price);
                         $('#inStock').html(inStock);
                         $('#pdCategory').html(jsonData[0].cat.name);
                         $('#product_ids').val(id);
+                        $('#product_id').val(id);
+                        $('#pdTitle_order').val(jsonData[0].product_title);
                         $('#modalSingleView').attr("href", url);
                         $('#simpleLensImage').attr("data-lens-image", simpleLensImageUrl);
                         $('#simpleLensBigImage').attr("src", simpleLensImageUrl);
@@ -554,14 +531,84 @@
 
 
                     } else {
-
-                        toastr.error('Something Went Wrong...');
+                        toastr.error('Something Wrong!');
                     }
                 }).catch(function(error) {
-
-                    toastr.error('Something Went Wrong...');
+                    toastr.error('Something Wrong!');
                 });
         }
+
+
+function productQuickOrder(id) {
+
+axios.post('{{ route('client.getsingleProductdata') }}', {
+        id: id
+    })
+    .then(function(response) {
+        if (response.status == 200) {
+            var jsonData = response.data;
+
+            $('#pdTitles').html(jsonData[0].product_title);
+            $('#pdPrices').html("&#2547;   " + jsonData[0].product_selling_price);
+            $('#product_id').val(id);
+            $('#pdTitle_order').val(jsonData[0].product_title);
+
+            var maserment = "";
+            for (let index = 0; index < jsonData[0].maserment.length; index++) {
+                const element = jsonData[0].maserment[index];
+                checked = ""
+                if (index == 0) {
+                    checked = "checked"
+                } else {
+                    checked = ""
+                }
+
+                maserment += '<div>';
+                maserment += '<input type="radio" id="' + element.meserment_value + '" name="maserment" ' +
+                    checked + ' value="' + element.meserment_value + '">';
+                maserment += '<label for="' + element.meserment_value +
+                    '"><span style="background-color:#000;"></span></label>';
+                maserment += '<span>' + element.meserment_value + '</span>&nbsp;';
+                maserment += '</div>';
+
+            }
+
+            $('.meserment-chooses').html(maserment);
+
+
+
+
+            var color = "";
+            for (let index = 0; index < jsonData[0].color.length; index++) {
+                const elementColor = jsonData[0].color[index];
+
+                colorChecked = ""
+                if (index == 0) {
+                    colorChecked = "checked"
+                } else {
+                    colorChecked = ""
+                }
+                color += '<div>';
+                color += '<input type="radio" id="' + elementColor.product_color_code + '" name="color" ' +
+                    colorChecked + ' value="' + elementColor.product_color_code + '">';
+                color += '<label for="' + elementColor.product_color_code +
+                    '"><span style="background-color:' + elementColor.product_color_code +
+                    ';"></span></label>';
+                color += '</div>';
+
+            }
+
+            $('.color-chooses').html(color);
+
+         
+
+        } else {
+            toastr.error('Something Wrong!');
+        }
+    }).catch(function(error) {
+        toastr.error('Something Wrong!');
+    });
+}
 
 
 
@@ -602,9 +649,54 @@
 
 
 
+        $('#quick-order-form').on('submit', function(event) {
+            event.preventDefault();
+            let formData = $(this).serializeArray();
+            let product_title = formData[0]['value'];
+            let meserment = formData[1]['value'];
+            let color = formData[2]['value'];
+            let quantity = formData[3]['value'];
+            let product_ids = formData[4]['value'];
+            let customer_name = formData[5]['value'];
+            let product_ids = formData[6]['value'];
+            console.log(formData);
+            let url = "{{ route('client.quickOrder') }}";
+            axios.post(url, {
+
+                product_title:product_title,
+                meserment: meserment,
+                color: color,
+                quantity: quantity,
+                product_id: product_ids,
+                customer_name: customer_name,
+                customer_phone_number: customer_phone_number
+
+            }).then(function(response) {
+                            console.log(response.data);
+                if (response.status == 200 && response.data == 1) {
+                    $('#quick-view-modal').modal('hide');
+                    toastr.success('Order Place Successfully');
+                
+                    
+                } else {
+                    toastr.error('Order Not Place ! Try Again');
+                }
+
+            }).catch(function(error) {
+                toastr.error('Order Not Place ! Try Again');
+            })
 
 
-       
+        })
+
+
+
+
+
+
+
+
+
 
 
 
@@ -700,155 +792,6 @@
         }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-      //each Slider  Details data show for edit
-      function productQuickOrder(id) {
-
-    axios.post('{{ route('client.getsingleProductdata') }}', {
-        id: id
-    })
-    .then(function(response) {
-        if (response.status == 200) {
-            var jsonData = response.data;
-
-
-            $('#pdTitle_order').val(jsonData[0].product_title);
-            $('#pdPrices').val( jsonData[0].product_selling_price);
-            $('#pdTitles').html(jsonData[0].product_title);
-            $('#pdPricesShow').html(jsonData[0].product_selling_price);
-           
-
-
-
-            var maserment = "";
-            for (let index = 0; index < jsonData[0].maserment.length; index++) {
-                const element = jsonData[0].maserment[index];
-                checked = ""
-                if (index == 0) {
-                    checked = "checked"
-                } else {
-                    checked = ""
-                }
-
-                maserment += '<div>';
-                maserment += '<input type="radio" id="' + element.meserment_value + '" name="maserment" ' +
-                    checked + ' value="' + element.meserment_value + '">';
-                maserment += '<label for="' + element.meserment_value +
-                    '"><span style="background-color:#000;"></span></label>';
-                maserment += '<span>' + element.meserment_value + '</span>&nbsp;';
-                maserment += '</div>';
-
-            }
-
-            $('#meserment-chooses').html(maserment);
-
-
-
-
-            var color = "";
-            for (let index = 0; index < jsonData[0].color.length; index++) {
-                const elementColor = jsonData[0].color[index];
-
-                colorChecked = ""
-                if (index == 0) {
-                    colorChecked = "checked"
-                } else {
-                    colorChecked = ""
-                }
-                color += '<div>';
-                color += '<input type="radio" id="' + elementColor.product_color_code + '" name="color" ' +
-                    colorChecked + ' value="' + elementColor.product_color_code + '">';
-                color += '<label for="' + elementColor.product_color_code +
-                    '"><span style="background-color:' + elementColor.product_color_code +
-                    ';"></span></label>';
-                color += '</div>';
-
-            }
-
-            $('#color-chooses').html(color);
-
-
-        } else {
-
-            toastr.error('Something Went Wrong...');
-        }
-    }).catch(function(error) {
-
-        toastr.error('Something Went Wrong...');
-    });
-}
-
-
-
-
-
-        $('#quick-order-form').on('submit', function(event) {
-            event.preventDefault();
-            let formData = $(this).serializeArray();
-            let product_title = formData[0]['value'];
-            let meserment = formData[1]['value'];
-            let color = formData[2]['value'];
-            let quantity = formData[3]['value'];
-            let product_price = formData[4]['value'];
-            let customer_name = formData[5]['value'];
-            let customer_phone_number = formData[6]['value'];
-            if (product_title.length==0) {
-                toastr.error('Product Title Is Empty');
-            }else if(customer_name.length==0){
-                toastr.error('Your Name Is Empty');
-            }else if(customer_phone_number.length==0){
-                toastr.error('Mobile Number Is Empty');
-            }else{
-                let url = "{{ route('client.quickOrder') }}";
-            axios.post(url, {
-
-                product_title:product_title,
-                meserment: meserment,
-                color: color,
-                quantity: quantity,
-                product_price: product_price,
-                customer_name: customer_name,
-                customer_phone_number: customer_phone_number
-
-            }).then(function(response) {
-                            console.log(response.data);
-                if (response.status == 200 && response.data == 1) {
-                    $('#quick-order').modal('hide');
-                    toastr.success('Order Place Successfully');
-                
-                    
-                } else {
-                    toastr.error('Order Not Place ! Try Again');
-                }
-
-            }).catch(function(error) {
-                toastr.error('Order Not Place ! Try Again');
-            })
-            }
-           
-
-
-        })
 
 
 
