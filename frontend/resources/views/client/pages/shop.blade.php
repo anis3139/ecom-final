@@ -275,20 +275,21 @@
                                                                    <option value="10">10</option>
                                                                </select>
                                                            </div>
-                                                           <div class="aa-prod-view-bottom" style="margin-top: 10px;">
-                                                            <input type="hidden" name="pdPrices" id="pdPrices">
-                                                               <button type="submit" class="aa-add-to-cart-btn"><span
-                                                                       class="fa fa-shopping-cart"></span>Confirm Order</button>
-                                                           </div>
+                                                          
                                                         </div>
                                                     </div>
 
                                                                                <!-- Modal view slider -->
                                                <div class="col-md-6 col-sm-6 col-xs-12">
                                                    <label for="customer_name">Name:</label>
-                                                    <input type="text" name="customer_name" id="customer_name">
-                                                    <label for="customer_phone_number">Nobile Number</label>
-                                                    <input type="text" name="customer_phone_number" id="customer_phone_number">
+                                                    <input type="text" class="form-control"name="customer_name" id="customer_name">
+                                                    <label for="customer_phone_number">Nobile Number:</label>
+                                                    <input type="text" class="form-control" name="customer_phone_number" id="customer_phone_number">
+                                                    <div class="aa-prod-view-bottom" style="margin-top: 10px;">
+                                                        <input type="hidden" name="pdPrices" id="pdPrices">
+                                                           <button type="submit" class="aa-add-to-cart-btn"><span
+                                                                   class="fa fa-shopping-cart"></span>Confirm Order</button>
+                                                       </div>
                                                 </div>
 
                                                 </form>
@@ -751,7 +752,7 @@
                 }
 
                 maserment += '<div>';
-                maserment += '<input type="radio" id="' + element.meserment_value + '" name="maserment" ' +
+                maserment += '<input type="radio" id="' + element.meserment_value + '" name="meserment_chooses" id="meserment_chooses" ' +
                     checked + ' value="' + element.meserment_value + '">';
                 maserment += '<label for="' + element.meserment_value +
                     '"><span style="background-color:#000;"></span></label>';
@@ -776,7 +777,7 @@
                     colorChecked = ""
                 }
                 color += '<div>';
-                color += '<input type="radio" id="' + elementColor.product_color_code + '" name="color" ' +
+                color += '<input type="radio" id="' + elementColor.product_color_code + '" name="color_chooses" id="color_chooses" ' +
                     colorChecked + ' value="' + elementColor.product_color_code + '">';
                 color += '<label for="' + elementColor.product_color_code +
                     '"><span style="background-color:' + elementColor.product_color_code +
@@ -804,14 +805,15 @@
 
         $('#quick-order-form').on('submit', function(event) {
             event.preventDefault();
-            let formData = $(this).serializeArray();
-            let product_title = formData[0]['value'];
-            let meserment = formData[1]['value'];
-            let color = formData[2]['value'];
-            let quantity = formData[3]['value'];
-            let product_price = formData[4]['value'];
-            let customer_name = formData[5]['value'];
-            let customer_phone_number = formData[6]['value'];
+           
+            let product_title = $('#pdTitle_order').val();
+            let meserment =$("input[name=color_chooses]").val();
+            let color =  $("input[name=color_chooses]").val();
+            let product_price = $('#pdPrices').val();
+            let quantity = $('#quantitys').val();
+            let customer_name = $('#customer_name').val();
+            let customer_phone_number = $('#customer_phone_number').val();
+         
             if (product_title.length==0) {
                 toastr.error('Product Title Is Empty');
             }else if(customer_name.length==0){
@@ -827,11 +829,11 @@
                 color: color,
                 quantity: quantity,
                 product_price: product_price,
-                customer_name: customer_name,
-                customer_phone_number: customer_phone_number
+                customer_phone_number: customer_phone_number,
+                customer_name: customer_name
 
             }).then(function(response) {
-                            console.log(response.data);
+                           
                 if (response.status == 200 && response.data == 1) {
                     $('#quick-order').modal('hide');
                     toastr.success('Order Place Successfully');
