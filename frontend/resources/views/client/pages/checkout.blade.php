@@ -598,7 +598,7 @@
         var total = taxAndTotal + value;
         var totala = parseFloat(total).toFixed(2);
         $('#totalCharge').html("&#2547; " + totala);
-        $('#total_main_price').val( totala);
+        $('#total_main_price').val(totala);
 
         $('input[type=radio]').change(function() {
 
@@ -606,13 +606,13 @@
             var value = parseInt(dValue);
             var dvalues = parseFloat(value).toFixed(2);
             $('#deliveryCharge').html("&#2547; " + dvalues);
-
+            $('#total_delivery_charge').val(dvalues);
             var taTotal = $('#taxAndTotal').val();
             var taxAndTotal = parseInt(taTotal);
             var total = taxAndTotal + value;
             var totala = parseFloat(total).toFixed(2);
             $('#totalCharge').html("&#2547; " + totala);
-
+            $('#total_main_price').val(totala);
         });
 
 
