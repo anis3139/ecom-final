@@ -420,14 +420,18 @@
                                         </tr>
                                         <tr>
                                             <th>Delivery Charge</th>
-                                            <td id="deliveryCharge">&#2547; {{ number_format($total_delivery_charge, 2) }}
+                                            <td id="deliveryCharge">
                                             </td>
+                                            <input type="hidden" placeholder="Name*" value="" class="form-control"
+                                            name="total_delivery_charge" id="total_delivery_charge">
                                         </tr>
 
                                         <tr>
                                             <th>Total Paid Amount</th>
                                             <input id="taxAndTotal" type="hidden"
                                                 value="{{ $total + $total_tax }}">
+                                            <input type="hidden" placeholder="Name*" value="" class="form-control"
+                                            name="total_main_price" id="total_main_price">
                                             <td id="totalCharge">
 
                                             </td>
