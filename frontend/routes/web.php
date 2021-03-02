@@ -277,7 +277,7 @@ Route::get('/checkout', [App\Http\Controllers\client\cartController::class, 'che
 
 //shop page
 Route::get('/shop', [App\Http\Controllers\client\shopController::class, 'shopIndex'])->name('client.shop');
-Route::post('/getsingleProductdata', [App\Http\Controllers\client\shopController::class, 'getsingleProductdata'])->name('client.getsingleProductdata');
+
 
 //Contact Page
 Route::get('/contact', [App\Http\Controllers\client\contactController::class, 'contactIndex'])->name('client.contact');
@@ -302,7 +302,6 @@ Route::post('/updatePassword', [App\Http\Controllers\client\authController::clas
 //Rating
 Route::post('/getproductreating', [\App\Http\Controllers\client\ReatingReviewController::class, 'getallreview'])->name('getproductreating');
 
-Route::post('/quickOrder', [App\Http\Controllers\client\cartController::class, 'quickOrder'])->name('client.quickOrder');
 
 Route::post('/processOrder', [App\Http\Controllers\client\cartController::class, 'order'])->name('client.processOrder');
 

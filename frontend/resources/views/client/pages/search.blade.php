@@ -112,6 +112,9 @@
                                                 title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
                                             <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span
                                                     class="fa fa-exchange"></span></a> --}}
+                                                    <a onclick="productQuickOrder({{ $searchProduct->id }})"
+                                                        href="{{ $searchProduct->id }}" data-toggle2="tooltip" data-placement="top"
+                                                         data-toggle="modal" data-target="#quick-order"><span>Quick Order</span></a>
                                             <a onclick="productDetailsModal({{ $searchProduct->id }})"
                                                 href="{{ $searchProduct->id }}" data-toggle2="tooltip" data-placement="top"
                                                 title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span
@@ -223,6 +226,94 @@
                                 </div><!-- /.modal-dialog -->
                             </div>
                             <!-- / quick view modal -->
+
+
+
+
+
+
+
+
+                               <!-- quick view modal -->
+                               <div class="modal fade" id="quick-order" tabindex="-1" role="dialog"
+                               aria-labelledby="myModalLabel" aria-hidden="true">
+                               <div class="modal-dialog">
+                                   <div class="modal-content">
+                                       <div class="modal-body">
+                                           <button type="button" class="close" data-dismiss="modal"
+                                               aria-hidden="true">&times;</button>
+                                           <div class="row">
+                                             <form id="quick-order-form" method="post">
+                    
+                                               <!-- Modal view content -->
+                                               <div class="col-md-6 col-sm-6 col-xs-12">
+                                                   <div class="aa-product-view-content">
+                                                      
+                                                       <!-- Cable Configuration -->
+                                                    <p> Product Name: <span id="pdTitles" style="font-size: 20px;"></span></p>
+                                                    <p> Product Price: <span id="pdPricesShow" style="font-size: 20px;"></span></p>
+
+                                                            <input type="hidden" id="pdTitle_order" name="product_titles">
+                                                           <div class="product-color">
+                                                               <span>Mezerment:</span>
+                                                               <div class="meserment-choose mt-5" id="meserment-chooses">
+                                                               </div>
+                                                           </div>
+                                                           <div class="product-color">
+                                                               <span>Color</span>
+                                                               <div class="color-choose mt-5" id="color-chooses">
+                                                               </div>
+                                                           </div>
+
+                                                           <div class="aa-prod-quantity">
+                                                               <select name="quantity" id="quantitys">
+                                                                   <option value="1" selected>1</option>
+                                                                   <option value="2">2</option>
+                                                                   <option value="3">3</option>
+                                                                   <option value="4">4</option>
+                                                                   <option value="5">5</option>
+                                                                   <option value="10">10</option>
+                                                               </select>
+                                                           </div>
+                                                          
+                                                        </div>
+                                                    </div>
+
+                                                                               <!-- Modal view slider -->
+                                               <div class="col-md-6 col-sm-6 col-xs-12">
+                                                   <label for="customer_name">Name:</label>
+                                                    <input type="text" class="form-control"name="customer_name" id="customer_name">
+                                                    <label for="customer_phone_number">Nobile Number:</label>
+                                                    <input type="text" class="form-control" name="customer_phone_number" id="customer_phone_number">
+                                                    <div class="aa-prod-view-bottom" style="margin-top: 10px;">
+                                                        <input type="hidden" name="pdPrices" id="pdPrices">
+                                                           <button type="submit" class="aa-add-to-cart-btn"><span
+                                                                   class="fa fa-shopping-cart"></span>Confirm Order</button>
+                                                       </div>
+                                                </div>
+
+                                                </form>
+                                             </div>
+                                       </div>
+                                   </div><!-- /.modal-content -->
+                               </div><!-- /.modal-dialog -->
+                           </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                         </div>
                         <div class="aa-product-catg-pagination">
                             {{ $searchProducts->links() }}
@@ -369,102 +460,7 @@
 @section('script')
 
     <script>
-        //each Slider  Details data show for edit
-        function productDetailsModal(id) {
-
-            axios.post('{{ route('client.getsingleProductdata') }}', {
-                        id: id
-                    })
-                .then(function(response) {
-                    if (response.status == 200) {
-                        var jsonData = response.data;
-
-
-                        var url= `product/${jsonData[0].product_slug}`;
-                        var simpleLensImageUrl = jsonData[0].img[0].image_path;
-
-
-                        var inStock = '';
-                        if (jsonData[0].product_in_stock == 0) {
-                            inStock = "STOCK OUT!"
-                        } else {
-                            inStock = "SALE!"
-                        }
-
-                        $('#pdTitle').html(jsonData[0].product_title);
-                        $('#pdPrice').html("&#2547;   " + jsonData[0].product_selling_price);
-                        $('#inStock').html(inStock);
-                        $('#pdCategory').html(jsonData[0].cat.name);
-                        $('#product_ids').val(id);
-                        $('#modalSingleView').attr("href" , url );
-                        $('#simpleLensImage').attr("data-lens-image" , simpleLensImageUrl );
-                        $('#simpleLensBigImage').attr("src" , simpleLensImageUrl );
-
-
-
-
-                        var maserment="";
-                        for (let index = 0; index < jsonData[0].maserment.length; index++) {
-                            const element =  jsonData[0].maserment[index];
-                            checked=""
-                            if (index==0) {
-                                checked="checked"
-                            }else{
-                                checked=""
-                            }
-
-                            maserment+='<div>';
-                            maserment+='<input type="radio" id="'+element.meserment_value+'" name="maserment" '+checked+' value="'+element.meserment_value+'">';
-                            maserment+='<label for="'+element.meserment_value+'"><span style="background-color:#000;"></span></label>';
-                            maserment+='<span>'+element.meserment_value+'</span>&nbsp;';
-                            maserment+='</div>';
-
-                        }
-
-                        $('.meserment-choose').html(maserment);
-
-
-
-
-                        var color="";
-                        for (let index = 0; index < jsonData[0].color.length; index++) {
-                            const elementColor =  jsonData[0].color[index];
-
-                            colorChecked=""
-                            if (index==0) {
-                                colorChecked="checked"
-                            }else{
-                                colorChecked=""
-                            }
-                            color+='<div>';
-                            color+='<input type="radio" id="'+elementColor.product_color_code+'" name="color" '+colorChecked+' value="'+elementColor.product_color_code+'">';
-                            color+='<label for="'+elementColor.product_color_code+'"><span style="background-color:'+elementColor.product_color_code+';"></span></label>';
-                            color+='</div>';
-
-                        }
-
-                        $('.color-choose').html(color);
-
-                        var img="";
-                        for (let i = 0; i < jsonData[0].img.length; i++) {
-                            const elementImg =  jsonData[0].img[i];
-
-                            img+='<a  href="'+elementImg.image_path+'" class="simpleLens-thumbnail-wrapper"  data-lens-image="'+elementImg.image_path+'"  data-big-image="'+elementImg.image_path+'" ><img width="50px" height="50px" src="'+elementImg.image_path+'"></a>';
-
-                        }
-                        $('.simpleLens-thumbnails-container').html(img);
-
-
-                    } else {
-
-                    }
-                }).catch(function(error) {
-
-                });
-        }
-
-
-
+     
         
 
         $('#cartForm').on('submit',function (event) {
@@ -600,6 +596,13 @@
                     toastr.error('Something Went Wrong......');
                 });
         }
+
+
+
+
+
+
+
 
     </script>
 

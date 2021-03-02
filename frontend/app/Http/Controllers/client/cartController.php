@@ -26,7 +26,7 @@ class cartController extends Controller
    
         $data['total_discount'] = array_sum(array_column($data['cart'], 'total_discount'));
         $data['total_main_price'] = array_sum(array_column($data['cart'], 'total_main_price'));
-
+    
         return view('client.pages.cart', $data);
     }
 
@@ -42,14 +42,14 @@ class cartController extends Controller
    
         $data['total_discount'] = array_sum(array_column($data['cart'], 'total_discount'));
         $data['total_main_price'] = array_sum(array_column($data['cart'], 'total_main_price'));
-
+       
         return $data;
     }
 
     public function addToCart(Request $request)
     {
 
-
+       
 
         $cart = [];
 
@@ -319,7 +319,6 @@ class cartController extends Controller
     public function quickOrder(Request $request)
     {
 
-
         $customer_name = $request->Input('customer_name');
         $customer_phone_number = $request->Input('customer_phone_number');
         $product_title = $request->Input('product_title');
@@ -337,7 +336,6 @@ class cartController extends Controller
         $quick_order->maserment = $maserment;
         $quick_order->product_price = $product_price;
         $result =  $quick_order->save();
-
 
         if ($result == true) {
             return 1;
