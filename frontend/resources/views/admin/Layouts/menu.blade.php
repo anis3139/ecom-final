@@ -29,6 +29,7 @@
                         <li> <a href="{{route('admin.vendorPannel')}}"><span> <i class="fas fa-user-friends"></i></span><span class="hide-menu">Vendor</span></a></li>
                         <li> <a href="{{route('admin.userPannel')}}"><span> <i class="fas fa-users"></i> </span><span class="hide-menu">Users</span></a></li>
                         <li> <a href="{{ route('admin.ordeIndex')}}"><span> <i class="fas fa-cart-arrow-down"></i> </span><span class="hide-menu">Order Manage</span></a></li>
+                        <li> <a href="{{ route('admin.quickOrderIndex')}}"><span> <i class="fas fa-cart-arrow-down"></i> </span><span class="hide-menu">Quick Order</span></a></li>
                         <li> <a href="{{ route('admin.contact')}}"><span> <i class="fas fa-mail-bulk"></i> </span><span class="hide-menu">Contact</span></a></li>
                         <li> <a href="{{ route('admin.categories') }}"><span> <i class="fas fa-server"></i> </span><span class="hide-menu">Category</span></a></li>
                         <li> <a href="{{ route('admin.brands') }}"><span> <i class="fas fa-suitcase"></i> </span><span class="hide-menu">Brand</span></a></li>

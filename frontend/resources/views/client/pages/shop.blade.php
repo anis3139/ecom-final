@@ -108,8 +108,8 @@
                                             <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span
                                                     class="fa fa-exchange"></span></a> --}}
                                             <a onclick="productQuickOrder({{ $allProduct->id }})"
-                                                        href="{{ $allProduct->id }}" data-toggle2="tooltip" data-placement="top"
-                                                         data-toggle="modal" data-target="#quick-order"><span>Quick Order</span></a>
+                                                href="{{ $allProduct->id }}" data-toggle2="tooltip" data-placement="top"
+                                                data-toggle="modal" data-target="#quick-order"><span>Quick Order</span></a>
                                             <a onclick="productDetailsModal({{ $allProduct->id }})"
                                                 href="{{ $allProduct->id }}" data-toggle2="tooltip" data-placement="top"
                                                 title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span
@@ -234,70 +234,75 @@
 
 
 
-                               <!-- quick view modal -->
-                               <div class="modal fade" id="quick-order" tabindex="-1" role="dialog"
-                               aria-labelledby="myModalLabel" aria-hidden="true">
-                               <div class="modal-dialog">
-                                   <div class="modal-content">
-                                       <div class="modal-body">
-                                           <button type="button" class="close" data-dismiss="modal"
-                                               aria-hidden="true">&times;</button>
-                                           <div class="row">
-                                             <form id="quick-order-form" method="post">
-                    
-                                               <!-- Modal view content -->
-                                               <div class="col-md-6 col-sm-6 col-xs-12">
-                                                   <div class="aa-product-view-content">
-                                                      
-                                                       <!-- Cable Configuration -->
-                                                    <p> Product Name: <span id="pdTitles" style="font-size: 20px;"></span></p>
-                                                    <p> Product Price: <span id="pdPricesShow" style="font-size: 20px;"></span></p>
+                            <!-- quick view modal -->
+                            <div class="modal fade" id="quick-order" tabindex="-1" role="dialog"
+                                aria-labelledby="myModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-body">
+                                            <button type="button" class="close" data-dismiss="modal"
+                                                aria-hidden="true">&times;</button>
+                                            <div class="row">
+                                                <form id="quick-order-form" method="post">
+
+                                                    <!-- Modal view content -->
+                                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                                        <div class="aa-product-view-content">
+
+                                                            <!-- Cable Configuration -->
+                                                            <p> Product Name: <span id="pdTitles"
+                                                                    style="font-size: 20px;"></span></p>
+                                                            <p> Product Price: <span id="pdPricesShow"
+                                                                    style="font-size: 20px;"></span></p>
 
                                                             <input type="hidden" id="pdTitle_order" name="product_titles">
-                                                           <div class="product-color">
-                                                               <span>Mezerment:</span>
-                                                               <div class="meserment-choose mt-5" id="meserment-chooses">
-                                                               </div>
-                                                           </div>
-                                                           <div class="product-color">
-                                                               <span>Color</span>
-                                                               <div class="color-choose mt-5" id="color-chooses">
-                                                               </div>
-                                                           </div>
+                                                            <div class="product-color">
+                                                                <span>Mezerment:</span>
+                                                                <div class="meserment-choose mt-5" id="meserment-chooses">
+                                                                </div>
+                                                            </div>
+                                                            <div class="product-color">
+                                                                <span>Color</span>
+                                                                <div class="color-choose mt-5" id="color-chooses">
+                                                                </div>
+                                                            </div>
 
-                                                           <div class="aa-prod-quantity">
-                                                               <select name="quantity" id="quantitys">
-                                                                   <option value="1" selected>1</option>
-                                                                   <option value="2">2</option>
-                                                                   <option value="3">3</option>
-                                                                   <option value="4">4</option>
-                                                                   <option value="5">5</option>
-                                                                   <option value="10">10</option>
-                                                               </select>
-                                                           </div>
-                                                          
+                                                            <div class="aa-prod-quantity">
+                                                                <select name="quantity" id="quantitys">
+                                                                    <option value="1" selected>1</option>
+                                                                    <option value="2">2</option>
+                                                                    <option value="3">3</option>
+                                                                    <option value="4">4</option>
+                                                                    <option value="5">5</option>
+                                                                    <option value="10">10</option>
+                                                                </select>
+                                                            </div>
+
                                                         </div>
                                                     </div>
 
-                                                                               <!-- Modal view slider -->
-                                               <div class="col-md-6 col-sm-6 col-xs-12">
-                                                   <label for="customer_name">Name:</label>
-                                                    <input type="text" class="form-control"name="customer_name" id="customer_name">
-                                                    <label for="customer_phone_number">Nobile Number:</label>
-                                                    <input type="text" class="form-control" name="customer_phone_number" id="customer_phone_number">
-                                                    <div class="aa-prod-view-bottom" style="margin-top: 10px;">
-                                                        <input type="hidden" name="pdPrices" id="pdPrices">
-                                                           <button type="submit" class="aa-add-to-cart-btn"><span
-                                                                   class="fa fa-shopping-cart"></span>Confirm Order</button>
-                                                       </div>
-                                                </div>
+                                                    <!-- Modal view slider -->
+                                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                                        <label for="customer_name">Name:</label>
+                                                        <input type="text" class="form-control" name="customer_name"
+                                                            id="customer_name">
+                                                        <label for="customer_phone_number">Nobile Number:</label>
+                                                        <input type="text" class="form-control" name="customer_phone_number"
+                                                            id="customer_phone_number">
+                                                        <div class="aa-prod-view-bottom" style="margin-top: 10px;">
+                                                            <input type="hidden" name="pdPrices" id="pdPrices">
+                                                            <button type="submit" class="aa-add-to-cart-btn"><span
+                                                                    class="fa fa-shopping-cart"></span>Confirm
+                                                                Order</button>
+                                                        </div>
+                                                    </div>
 
                                                 </form>
-                                             </div>
-                                       </div>
-                                   </div><!-- /.modal-content -->
-                               </div><!-- /.modal-dialog -->
-                           </div>
+                                            </div>
+                                        </div>
+                                    </div><!-- /.modal-content -->
+                                </div><!-- /.modal-dialog -->
+                            </div>
 
 
 
@@ -460,9 +465,6 @@
 @section('script')
 
     <script>
- 
-
-
         $('#cartForm').on('submit', function(event) {
             event.preventDefault();
             let formData = $(this).serializeArray();
@@ -483,7 +485,7 @@
                     $('#quick-view-modal').modal('hide');
                     toastr.success('Product Add Successfully');
                     getcartData()
-                    
+
                 } else {
                     toastr.error('Product not Added ! Try Again');
                 }
@@ -499,7 +501,7 @@
 
 
 
-       
+
 
 
 
@@ -516,21 +518,25 @@
                         var cartData = dataJSON.cart;
 
                         var a = Object.keys(cartData).length;
-                       
+
 
                         $("#cart_quantity").html(a);
                         $("#total_cart_price").html(' &#2547; ' + dataJSON.total);
-                        
+
                         var imageViewHtml = "";
-                        $.each(cartData, function (i, item) {
-                            
+                        $.each(cartData, function(i, item) {
+
                             imageViewHtml += '<li>';
-                            imageViewHtml += '<a class="aa-cartbox-img" href="#"><img src=" ' + cartData[i].image +
+                            imageViewHtml += '<a class="aa-cartbox-img" href="#"><img src=" ' + cartData[i]
+                                .image +
                                 ' " alt="img"></a>';
-                            imageViewHtml += '<div class="aa-cartbox-info"> <h4><a href="#">' + cartData[i].title +
-                                '</a> </h4> <p>' + cartData[i].quantity + ' x &#2547; ' + cartData[i].unit_price +
+                            imageViewHtml += '<div class="aa-cartbox-info"> <h4><a href="#">' + cartData[i]
+                                .title +
+                                '</a> </h4> <p>' + cartData[i].quantity + ' x &#2547; ' + cartData[i]
+                                .unit_price +
                                 '</p>  </div>';
-                            imageViewHtml += '<div class="aa-remove-product"><button class="cartDeleteIcon" data-id=' +
+                            imageViewHtml +=
+                                '<div class="aa-remove-product"><button class="cartDeleteIcon" data-id=' +
                                 i +
                                 '  style=" display:inline-block" type="submit" class="fa fa-times"><i class="fa fa-remove"></i></button> </div>';
                             imageViewHtml += '</li>';
@@ -539,11 +545,11 @@
 
                         $('#headerCart').html(imageViewHtml);
 
-                            console.log(a);
+                        console.log(a);
 
                         if (a == 0) {
                             $("#HeaderPreview").css("display", "none");
-                        }else{
+                        } else {
                             $("#HeaderPreview").css("display", "block");
                         }
 
@@ -593,26 +599,6 @@
                     toastr.error('Something Went Wrong......');
                 });
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     </script>
 

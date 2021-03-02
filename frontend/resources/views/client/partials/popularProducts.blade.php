@@ -60,8 +60,8 @@
                                                     title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
                                                 <a href="#" data-toggle="tooltip" data-placement="top"
                                                     title="Compare"><span class="fa fa-exchange"></span></a> --}}
-                                                    <a onclick="productQuickOrder({{ $popular_product->id }})"
-                                                        href="{{ $popular_product->id }}" data-toggle2="tooltip" data-placement="top"
+                                                    <a onclick="productQuickOrder({{ $popular_product->product->id }})"
+                                                        href="{{ $popular_product->product->id }}" data-toggle2="tooltip" data-placement="top"
                                                          data-toggle="modal" data-target="#quick-order"><span>Quick Order</span></a>
                                                     <a onclick="productDetailsModal({{ $popular_product->product_id }})"
                                                         data-toggle2="tooltip" data-placement="top"

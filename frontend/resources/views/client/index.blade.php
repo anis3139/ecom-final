@@ -69,20 +69,7 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-    
-
-    getcartData()
+getcartData()
 
 function getcartData() {
 
@@ -97,7 +84,8 @@ function getcartData() {
                
 
                 $("#cart_quantity").html(a);
-                $("#total_cart_price").html(' &#2547; ' + dataJSON.total);
+                var tp=parseFloat(dataJSON.total).toFixed(2);
+                $("#total_cart_price").html(' &#2547; ' + tp);
                 
                 var imageViewHtml = "";
                 $.each(cartData, function (i, item) {

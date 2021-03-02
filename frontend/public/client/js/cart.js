@@ -3,7 +3,7 @@ $('#quick-order-form').on('submit', function (event) {
     event.preventDefault();
 
     let product_title = $('#pdTitle_order').val();
-    let meserment = $("input[name=color_chooses]").val();
+    let meserment = $("input[name=meserment_chooses]").val();
     let color = $("input[name=color_chooses]").val();
     let product_price = $('#pdPrices').val();
     let quantity = $('#quantitys').val();
@@ -17,8 +17,8 @@ $('#quick-order-form').on('submit', function (event) {
     } else if (customer_phone_number.length == 0) {
         toastr.error('Mobile Number Is Empty');
     } else {
-        let url = window.location.origin + "/api/quickOrder/";
-        axios.post(url, {
+        let quick_order_url = window.location.origin + "/api/quickOrder/";
+        axios.post(quick_order_url, {
 
             product_title: product_title,
             meserment: meserment,
@@ -50,15 +50,16 @@ $('#quick-order-form').on('submit', function (event) {
 
 
 function productQuickOrder(id) {
-    let url = window.location.origin + "/api/getsingleProductdata/";
-    axios.post(url, {
+   
+    var productQuickOrder_url = window.location.origin + "/api/getsingleProductdata/";
+    axios.post(productQuickOrder_url, {
         id: id
     })
         .then(function (response) {
-            
+            console.log(response.data);
             if (response.status == 200) {
                 var jsonData = response.data;
-
+                console.log(jsonData);
 
                 $('#pdTitle_order').val(jsonData[0].product_title);
                 $('#pdPrices').val(jsonData[0].product_selling_price);
@@ -134,6 +135,10 @@ function productQuickOrder(id) {
 
 
 
+
+
+
+
 /// SIngle Product View
 
 function productDetailsModal(id) {
@@ -142,6 +147,7 @@ function productDetailsModal(id) {
                 id: id
             })
         .then(function(response) {
+            console.log(response.data);
             if (response.status == 200) {
                 var jsonData = response.data;
 
