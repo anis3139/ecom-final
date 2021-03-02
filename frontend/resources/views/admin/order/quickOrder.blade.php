@@ -49,6 +49,7 @@
                                     <th class="th-xs">Quantity</th>
                                     <th class="th-xs">Price</th>
                                     <th class="th-xs">Print</th>
+                                    <th class="th-xs">Delete</th>
                                    
                                 </tr>
                             </thead>
@@ -80,7 +81,27 @@
 
 
 
+ <!-- Order add -->
 
+            <!-- Modal Order Delete -->
+            <div class="modal fade" id="deleteModalOrder" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+
+                        <div class="modal-body p-3 text-center">
+                            <h5 class="mt-4">Do you want to Delete</h5>
+                            <h5 id="OrderDeleteId" class="mt-4 d-none "></h5>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-sm btn-primary" data-dismiss="modal">No</button>
+                            <button data-id="" id="confirmDeleteOrder" type="button"
+                                class="btn btn-sm btn-danger">Yes</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Modal Order Delete -->
 
 
 
@@ -120,12 +141,18 @@
                             table+='<td style=" text-align:center; max-width:100px; overflow-wrap: break-word;">'+element.product_price+'</td>';
                             
                             table+='<td style=" text-align:center;" ><a href="quickOrdersPrint/'+ element.id +'"><i class="fas fa-print"></i></a></td>';
+                            
+                            table+='<td style=" text-align:center;" ><a class="OrderDeleteIcon" data-id=' +  element.id+ ' ><i class="fas fa-trash-alt"></i></a></td>';
                             table+='</tr>'
                         }
                         $('#Orders_Table').html(table);
 
 
-
+                        $(".OrderDeleteIcon").click(function() {
+                            var id = $(this).data('id');
+                            $('#OrderDeleteId').html(id);
+                            $('#deleteModalOrder').modal('show');
+                        })
                         //Orders View icon click
 
                         $(".OrdersView").click(function() {
@@ -154,6 +181,49 @@
 
         }
 
+
+
+
+   //  slider delete modal yes button
+   $('#confirmDeleteOrder').click(function() {
+            var id = $('#OrderDeleteId').html();
+            // var id = $(this).data('id');
+            DeleteDataOrder(id);
+        })
+
+
+
+
+        function DeleteDataOrder(id) {
+            console.log(id);
+            $('#confirmDeleteOrder').html(
+                "<div class='spinner-border spinner-border-sm text-primary' role='status'></div>"); //animation
+            axios.post("{{route('admin.quickOrderDelete')}}", {
+                    id: id
+                    
+                })
+                .then(function(response) {
+                    console.log(response.data);
+                    $('#confirmDeleteOrder').html("Yes");
+                    if (response.status == 200) {
+                        if (response.data == 1) {
+                            $('#deleteModalOrder').modal('hide');
+                            toastr.error('Delete Success.');
+                            getOrdersdata();
+                        } else {
+                            $('#deleteModalOrder').modal('hide');
+                            toastr.error('Delete Failed');
+                            getOrdersdata();
+                        }
+                    } else {
+                        $('#deleteModalOrder').modal('hide');
+                        toastr.error('Something Went Wrong');
+                    }
+                }).catch(function(error) {
+                    $('#deleteModalOrder').modal('hide');
+                    toastr.error('Something Went Wrong');
+                });
+        }
 
     </script>
 

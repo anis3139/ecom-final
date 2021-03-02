@@ -51,12 +51,13 @@ Route::group(['prefix' => 'admin'], function () {
 
 
         // User Route
-        Route::get('/userPannel', [App\Http\Controllers\admin\UserController::class, 'userIndex'])->name('admin.userPannel');
-        Route::get('/getUserData', [App\Http\Controllers\admin\UserController::class, 'userData'])->name('admin.getUserdata');
-        Route::post('/userAdd', [App\Http\Controllers\admin\UserController::class, 'userAdd'])->name('admin.userAdd');
-        Route::post('/userDelete', [App\Http\Controllers\admin\UserController::class, 'userDelete'])->name('admin.userDelete');
-        Route::post('/userDetailEdit', [App\Http\Controllers\admin\UserController::class, 'userDetailEdit'])->name('admin.userDetailEdit');
-        Route::post('/userDataUpdate', [App\Http\Controllers\admin\UserController::class, 'userDataUpdate'])->name('admin.userDataUpdate');
+        Route::get('/userPannel', [App\Http\Controllers\admin\userController::class, 'userIndex'])->name('admin.userPannel');
+        Route::get('/getUserData', [App\Http\Controllers\admin\userController::class, 'userData'])->name('admin.getUserdata');
+        Route::post('/userAdd', [App\Http\Controllers\admin\userController::class, 'userAdd'])->name('admin.userAdd');
+        Route::post('/userDelete', [App\Http\Controllers\admin\userController::class, 'userDelete'])->name('admin.userDelete');
+        Route::post('/userDetailEdit', [App\Http\Controllers\admin\userController::class, 'userDetailEdit'])->name('admin.userDetailEdit');
+        Route::post('/userDataUpdate', [App\Http\Controllers\admin\userController::class, 'userDataUpdate'])->name('admin.userDataUpdate');
+
 
         // Slider Section
 
@@ -150,9 +151,12 @@ Route::group(['prefix' => 'admin'], function () {
         Route::get('/quick-order-index', [App\Http\Controllers\admin\order\QuickOrderController::class, 'quickOrderIndex'])->name('admin.quickOrderIndex');
         Route::get('/getQuickOrdersData', [App\Http\Controllers\admin\order\QuickOrderController::class, 'getQuickOrdersData'])->name('admin.getQuickOrdersData');
         Route::get('/quickOrdersPrint/{id}', [App\Http\Controllers\admin\order\QuickOrderController::class, 'ordersPrint'])->name('admin.quickOrdersPrint');
+        Route::post('/quickOrderDelete', [App\Http\Controllers\admin\order\QuickOrderController::class, 'quickOrderDelete'])->name('admin.quickOrderDelete');
 
 
 
+        
+        
 
 
 
@@ -281,6 +285,8 @@ Route::post('/cartRemove', [App\Http\Controllers\client\cartController::class, '
 Route::get('/cartClear', [App\Http\Controllers\client\cartController::class, 'clearCart'])->name('client.ClearCart');
 Route::get('/checkout', [App\Http\Controllers\client\cartController::class, 'checkout'])->name('client.checkout');
 
+Route::post('/quickOrder', [App\Http\Controllers\client\cartController::class, 'quickOrder'])->name('client.quickOrder');
+Route::post('/getsingleProductdata', [App\Http\Controllers\client\shopController::class, 'getsingleProductdata'])->name('client.getsingleProductdata');
 
 //shop page
 Route::get('/shop', [App\Http\Controllers\client\shopController::class, 'shopIndex'])->name('client.shop');

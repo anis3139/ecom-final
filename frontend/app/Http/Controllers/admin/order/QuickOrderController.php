@@ -34,5 +34,20 @@ class QuickOrderController extends Controller
         return $pdf->download($invoice);
         return $pdf->stream($invoice);
     }
+
+
+
+
+    function quickOrderDelete(Request $req)
+    {
+        $id = $req->input('id');
+        
+        $result = QuickOrder::where('id', '=', $id)->delete();
+        if ($result == true) {
+            return 1;
+        } else {
+            return 0;
+        }
+    }
  
 }
