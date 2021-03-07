@@ -53,7 +53,7 @@
 
                 <!-- App Buttons  ============================================= -->
                 
-					@include('client.partials.App')
+					@include('client.partials.MobileApp')
 					@include('client.partials.SpecialOffer')
 
                 <!-- Last Section ============================================= -->
