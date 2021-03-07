@@ -266,7 +266,7 @@ Route::group(['prefix' => 'vendor'], function () {
 
 
 
-
+//Client
 
 
 Route::get('/', [App\Http\Controllers\client\HomeController::class, 'index'])->name('client.home');

@@ -68,9 +68,9 @@
 	<script src="{{asset('client')}}/js/functions.js"></script>
 
 	<!-- ADD-ONS JS FILES -->
-	<script>
+	
+	@yield('script')
 
-	</script>
 
 </body>
 </html>

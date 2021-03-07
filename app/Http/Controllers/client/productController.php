@@ -18,7 +18,7 @@ class productController extends Controller
             return redirect()->route('client.home');
         }
 
-        return view('client.pages.productDetails', $singleData);
+        return view('client.pages.ProductDetails', $singleData);
 
     }
 }
