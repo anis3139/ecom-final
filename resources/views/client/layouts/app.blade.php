@@ -38,9 +38,21 @@
 	<!-- Document Wrapper
 	============================================= -->
 
-    
-	@yield('content')
+    	{{-- @include('client.component.OnLoadModal') --}}
 
+		<!-- Login Modal -->
+		@include('client.component.LoginModal')
+
+		<!-- Top Bar
+		============================================= -->
+		@include('client.component.Topbar')
+		<!-- Header
+		============================================= -->
+		@include('client.component.Header')
+
+		@yield('content')
+
+		@include('client.component.Footer')
 
 	<!-- Go To Top
 	============================================= -->
