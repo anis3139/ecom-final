@@ -26,7 +26,7 @@ Route::group(['prefix' => 'admin'], function () {
         Route::post('/onLogin', [App\Http\Controllers\admin\loginController::class, 'onLogin'])->name('admin.onLogin');
     });
 
-    Route::group(['middleware' => 'admin.auth'], function () {
+        Route::group(['middleware' => 'admin.auth'], function () {
         //Logout
         Route::get('/logout', [App\Http\Controllers\admin\loginController::class, 'onLogout'])->name('admin.logout');
 
@@ -50,18 +50,17 @@ Route::group(['prefix' => 'admin'], function () {
         Route::post('/vendorDataUpdate', [App\Http\Controllers\admin\vendor\VendorController::class, 'vendorDataUpdate'])->name('admin.vendorDataUpdate');
 
 
-        // User Route
-        Route::get('/userPannel', [App\Http\Controllers\admin\userController::class, 'userIndex'])->name('admin.userPannel');
-        Route::get('/getUserData', [App\Http\Controllers\admin\userController::class, 'userData'])->name('admin.getUserdata');
-        Route::post('/userAdd', [App\Http\Controllers\admin\userController::class, 'userAdd'])->name('admin.userAdd');
-        Route::post('/userDelete', [App\Http\Controllers\admin\userController::class, 'userDelete'])->name('admin.userDelete');
-        Route::post('/userDetailEdit', [App\Http\Controllers\admin\userController::class, 'userDetailEdit'])->name('admin.userDetailEdit');
-        Route::post('/userDataUpdate', [App\Http\Controllers\admin\userController::class, 'userDataUpdate'])->name('admin.userDataUpdate');
-
+       // User Route
+       Route::get('/userPannel', [App\Http\Controllers\admin\UserController::class, 'userIndex'])->name('admin.userPannel');
+       Route::get('/getUserData', [App\Http\Controllers\admin\UserController::class, 'userData'])->name('admin.getUserdata');
+       Route::post('/userAdd', [App\Http\Controllers\admin\UserController::class, 'userAdd'])->name('admin.userAdd');
+       Route::post('/userDelete', [App\Http\Controllers\admin\UserController::class, 'userDelete'])->name('admin.userDelete');
+       Route::post('/userDetailEdit', [App\Http\Controllers\admin\UserController::class, 'userDetailEdit'])->name('admin.userDetailEdit');
+       Route::post('/userDataUpdate', [App\Http\Controllers\admin\UserController::class, 'userDataUpdate'])->name('admin.userDataUpdate');
 
         // Slider Section
 
-        Route::get('/slider', [\App\Http\Controllers\admin\HomeSliderController::class, 'SliderIndex'])->name('admin.slider');
+        Route::get('/slider', [\App\Http\Controllers\admin\HomeSliderController::class,'SliderIndex'])->name('admin.slider');
         Route::post('/addslider', [\App\Http\Controllers\admin\HomeSliderController::class, 'SliderAdd'])->name('admin.addslider');
         Route::get('/getsliderdata', [\App\Http\Controllers\admin\HomeSliderController::class, 'SliderData'])->name('admin.getsliderdata');
         Route::post('/sliderdelete', [\App\Http\Controllers\admin\HomeSliderController::class, 'SliderDelete'])->name('admin.sliderdelete');
@@ -69,95 +68,78 @@ Route::group(['prefix' => 'admin'], function () {
         Route::post('/sliderupdate', [\App\Http\Controllers\admin\HomeSliderController::class, 'SliderUpdate'])->name('admin.sliderupdate');
 
         // Brand  Section
-        Route::resource('brand', \App\Http\Controllers\admin\products\ProductBrandController::class, [
-            'except' => ['destroy', 'show', 'update']
+        Route::resource('brand', \App\Http\Controllers\admin\products\ProductBrandController::class,[
+            'except'=>['destroy','show','update']
         ]);
-        Route::get('/brands', [\App\Http\Controllers\admin\products\ProductBrandController::class, 'index'])->name('admin.brands');
-        Route::get('/getBrandsData', [\App\Http\Controllers\admin\products\ProductBrandController::class, 'getBrandData'])->name('admin.getBrandsData');
-        Route::get('/getBrandsData', [\App\Http\Controllers\admin\products\ProductBrandController::class, 'getBrandData'])->name('admin.getBrandsData');
-        Route::post('/BrandDelete', [\App\Http\Controllers\admin\products\ProductBrandController::class, 'destroy'])->name('admin.BrandDelete');
-        Route::post('/getBrandEditData', [\App\Http\Controllers\admin\products\ProductBrandController::class, 'show'])->name('admin.getBrandEditData');
-        Route::post('/updateBrand', [\App\Http\Controllers\admin\products\ProductBrandController::class, 'updateBrand'])->name('admin.updateBrand');
+        Route::get('/brands', [\App\Http\Controllers\admin\products\ProductBrandController::class,'index'])->name('admin.brands');
+        Route::get('/getBrandsData', [\App\Http\Controllers\admin\products\ProductBrandController::class,'getBrandData'])->name('admin.getBrandsData');
+        Route::get('/getBrandsData', [\App\Http\Controllers\admin\products\ProductBrandController::class,'getBrandData'])->name('admin.getBrandsData');
+        Route::post('/BrandDelete', [\App\Http\Controllers\admin\products\ProductBrandController::class,'destroy'])->name('admin.BrandDelete');
+        Route::post('/getBrandEditData', [\App\Http\Controllers\admin\products\ProductBrandController::class,'show'])->name('admin.getBrandEditData');
+        Route::post('/updateBrand', [\App\Http\Controllers\admin\products\ProductBrandController::class,'updateBrand'])->name('admin.updateBrand');
 
         // Category  Section
-        Route::get('/categories', [\App\Http\Controllers\admin\products\ProductCategoriesController::class, 'index'])->name('admin.categories');
-        Route::get('/getCategoriesData', [\App\Http\Controllers\admin\products\ProductCategoriesController::class, 'getCategoriesData'])->name('admin.getCategoriesData');
-        Route::get('/getCategoriesParantData', [\App\Http\Controllers\admin\products\ProductCategoriesController::class, 'getCategoriesParantData'])->name('admin.getCategoriesParantData');
-        Route::post('/addCategory', [\App\Http\Controllers\admin\products\ProductCategoriesController::class, 'store'])->name('admin.addCategory');
-        Route::post('/deleteCategory', [\App\Http\Controllers\admin\products\ProductCategoriesController::class, 'destroy'])->name('admin.deleteCategory');
-        Route::post('/getEditCategoryData', [\App\Http\Controllers\admin\products\ProductCategoriesController::class, 'edit'])->name('admin.getEditCategoryData');
-        Route::post('/updateCategory', [\App\Http\Controllers\admin\products\ProductCategoriesController::class, 'update'])->name('admin.updateCategory');
+        Route::get('/categories', [\App\Http\Controllers\admin\products\ProductCategoriesController::class,'index'])->name('admin.categories');
+        Route::get('/getCategoriesData', [\App\Http\Controllers\admin\products\ProductCategoriesController::class,'getCategoriesData'])->name('admin.getCategoriesData');
+        Route::get('/getCategoriesParantData', [\App\Http\Controllers\admin\products\ProductCategoriesController::class,'getCategoriesParantData'])->name('admin.getCategoriesParantData');
+        Route::post('/addCategory', [\App\Http\Controllers\admin\products\ProductCategoriesController::class,'store'])->name('admin.addCategory');
+        Route::post('/deleteCategory', [\App\Http\Controllers\admin\products\ProductCategoriesController::class,'destroy'])->name('admin.deleteCategory');
+        Route::post('/getEditCategoryData', [\App\Http\Controllers\admin\products\ProductCategoriesController::class,'edit'])->name('admin.getEditCategoryData');
+        Route::post('/updateCategory', [\App\Http\Controllers\admin\products\ProductCategoriesController::class,'update'])->name('admin.updateCategory');
 
-        //Product Section
-        Route::get('/products', [\App\Http\Controllers\admin\products\ProductsController::class, 'index'])->name('admin.products');
-        Route::get('/getProductData', [\App\Http\Controllers\admin\products\ProductsController::class, 'getProductData'])->name('admin.getProductData');
-        Route::post('/productAdd', [\App\Http\Controllers\admin\products\ProductsController::class, 'store'])->name('admin.productAdd');
-        Route::post('/onUpload', [\App\Http\Controllers\admin\products\ProductsController::class, 'onUpload'])->name('admin.onUpload');
-        Route::post('/delete', [\App\Http\Controllers\admin\products\ProductsController::class, 'destroy'])->name('admin.delete');
-        Route::post('/getEditProductsData', [\App\Http\Controllers\admin\products\ProductsController::class, 'edit'])->name('admin.getEditProductsData');
-        Route::post('/productsUpdate', [\App\Http\Controllers\admin\products\ProductsController::class, 'update'])->name('admin.productsUpdate');
-
-
+         //Product Section
+         Route::get('/products', [\App\Http\Controllers\admin\products\ProductsController::class,'index'])->name('admin.products');
+         Route::get('/getProductData', [\App\Http\Controllers\admin\products\ProductsController::class,'getProductData'])->name('admin.getProductData');
+         Route::post('/productAdd', [\App\Http\Controllers\admin\products\ProductsController::class,'store'])->name('admin.productAdd');
+         Route::post('/onUpload', [\App\Http\Controllers\admin\products\ProductsController::class,'onUpload'])->name('admin.onUpload');
+         Route::post('/delete', [\App\Http\Controllers\admin\products\ProductsController::class,'destroy'])->name('admin.delete');
+         Route::post('/getEditProductsData', [\App\Http\Controllers\admin\products\ProductsController::class,'edit'])->name('admin.getEditProductsData');
+         Route::post('/productsUpdate', [\App\Http\Controllers\admin\products\ProductsController::class,'update'])->name('admin.productsUpdate');
 
 
-        //contact Model
-        Route::get('/contact', [\App\Http\Controllers\admin\contactController::class, 'MessageIndex'])->name('admin.contact');
-        Route::get('/getContactData', [\App\Http\Controllers\admin\contactController::class, 'getContactData'])->name('admin.getContactData');
-        Route::post('/deleteContactData', [\App\Http\Controllers\admin\contactController::class, 'contactDelete'])->name('admin.contactDelete');
+
+
+         //contact Model
+         Route::get('/contact', [\App\Http\Controllers\admin\contactController::class,'MessageIndex'])->name('admin.contact');
+         Route::get('/getContactData', [\App\Http\Controllers\admin\contactController::class,'getContactData'])->name('admin.getContactData');
+         Route::post('/deleteContactData', [\App\Http\Controllers\admin\contactController::class,'contactDelete'])->name('admin.contactDelete');
 
         //Visitor Table
-        Route::get('/visitor', [\App\Http\Controllers\admin\VisitorController::class, 'VisitorIndex'])->name('admin.VisitorIndex');
+        Route::get('/visitor', [\App\Http\Controllers\admin\VisitorController::class,'VisitorIndex'])->name('admin.VisitorIndex');
 
 
 
 
         //admin panel Home Page Social Link management
-        Route::get('/social', [\App\Http\Controllers\admin\SocialController::class, 'SocialIndex'])->name('admin.social');
-        Route::post('/facebook', [\App\Http\Controllers\admin\SocialController::class, 'addFacebook'])->name('admin.facebook');
-        Route::post('/twitter', [\App\Http\Controllers\admin\SocialController::class, 'addTwitter'])->name('admin.twitter');
-        Route::post('/youtube', [\App\Http\Controllers\admin\SocialController::class, 'addYoutube'])->name('admin.youtube');
-        Route::post('/instragram', [\App\Http\Controllers\admin\SocialController::class, 'addInstragram'])->name('admin.instragram');
-        Route::post('/linkin', [\App\Http\Controllers\admin\SocialController::class, 'addLinkin'])->name('admin.linkin');
-        Route::post('/google', [\App\Http\Controllers\admin\SocialController::class, 'addGoogle'])->name('admin.google');
+        Route::get('/social', [\App\Http\Controllers\admin\SocialController::class,'SocialIndex'])->name('admin.social');
+        Route::post('/facebook', [\App\Http\Controllers\admin\SocialController::class,'addFacebook'])->name('admin.facebook');
+        Route::post('/twitter', [\App\Http\Controllers\admin\SocialController::class,'addTwitter'])->name('admin.twitter');
+        Route::post('/youtube', [\App\Http\Controllers\admin\SocialController::class,'addYoutube'])->name('admin.youtube');
+        Route::post('/instragram', [\App\Http\Controllers\admin\SocialController::class,'addInstragram'])->name('admin.instragram');
+        Route::post('/linkin', [\App\Http\Controllers\admin\SocialController::class,'addLinkin'])->name('admin.linkin');
+        Route::post('/google', [\App\Http\Controllers\admin\SocialController::class,'addGoogle'])->name('admin.google');
 
 
         //admin panel Home Page Others management with social URL
-        Route::get('/others', [\App\Http\Controllers\admin\OthersSettingsController::class, 'otherIndex'])->name('admin.others');
-        Route::post('/address', [\App\Http\Controllers\admin\OthersSettingsController::class, 'addAddress'])->name('admin.address');
-        Route::post('/phone', [\App\Http\Controllers\admin\OthersSettingsController::class, 'addPhone'])->name('admin.phone');
-        Route::post('/email', [\App\Http\Controllers\admin\OthersSettingsController::class, 'addEmail'])->name('admin.email');
-        Route::post('/title', [\App\Http\Controllers\admin\OthersSettingsController::class, 'addTitle'])->name('admin.title');
-        Route::post('/gmap', [\App\Http\Controllers\admin\OthersSettingsController::class, 'addGmap'])->name('admin.gmap');
-        Route::post('/logo', [\App\Http\Controllers\admin\OthersSettingsController::class, 'logoAdd'])->name('admin.logo');
-        Route::post('/Banner', [\App\Http\Controllers\admin\OthersSettingsController::class, 'BannerAdd'])->name('admin.Banner');
-        Route::post('/promoImageOne', [\App\Http\Controllers\admin\OthersSettingsController::class, 'promoImageOne'])->name('admin.promoImageOne');
-        Route::post('/promoImageTwo', [\App\Http\Controllers\admin\OthersSettingsController::class, 'promoImageTwo'])->name('admin.promoImageTwo');
-        Route::post('/promoImageThree', [\App\Http\Controllers\admin\OthersSettingsController::class, 'promoImageThree'])->name('admin.promoImageThree');
+        Route::get('/others', [\App\Http\Controllers\admin\OthersSettingsController::class,'otherIndex'])->name('admin.others');
+        Route::post('/address', [\App\Http\Controllers\admin\OthersSettingsController::class,'addAddress'])->name('admin.address');
+        Route::post('/phone', [\App\Http\Controllers\admin\OthersSettingsController::class,'addPhone'])->name('admin.phone');
+        Route::post('/email', [\App\Http\Controllers\admin\OthersSettingsController::class,'addEmail'])->name('admin.email');
+        Route::post('/title', [\App\Http\Controllers\admin\OthersSettingsController::class,'addTitle'])->name('admin.title');
+        Route::post('/gmap', [\App\Http\Controllers\admin\OthersSettingsController::class,'addGmap'])->name('admin.gmap');
+        Route::post('/logo', [\App\Http\Controllers\admin\OthersSettingsController::class,'logoAdd'])->name('admin.logo');
+        Route::post('/Banner', [\App\Http\Controllers\admin\OthersSettingsController::class,'BannerAdd'])->name('admin.Banner');
+        Route::post('/promoImageOne', [\App\Http\Controllers\admin\OthersSettingsController::class,'promoImageOne'])->name('admin.promoImageOne');
+        Route::post('/promoImageTwo', [\App\Http\Controllers\admin\OthersSettingsController::class,'promoImageTwo'])->name('admin.promoImageTwo');
+        Route::post('/promoImageThree', [\App\Http\Controllers\admin\OthersSettingsController::class,'promoImageThree'])->name('admin.promoImageThree');
 
 
         //admin panel Orders
-        Route::get('/ordeIndex', [App\Http\Controllers\admin\order\orderController::class, 'ordeIndex'])->name('admin.ordeIndex');
-        Route::get('/getOrdersData', [App\Http\Controllers\admin\order\orderController::class, 'getOrdersData'])->name('admin.getOrdersData');
-        Route::post('/ordersView', [App\Http\Controllers\admin\order\orderController::class, 'ordersView'])->name('admin.ordersView');
-        Route::post('/ordersStatusUpdate', [App\Http\Controllers\admin\order\orderController::class, 'ordersStatusUpdate'])->name('admin.ordersStatusUpdate');
-        Route::get('/ordersPrint/{id}', [App\Http\Controllers\admin\order\orderController::class, 'ordersPrint'])->name('admin.ordersPrint');
-
-
-
-
-
-
-        //admin panel Quick Orders
-        Route::get('/quick-order-index', [App\Http\Controllers\admin\order\QuickOrderController::class, 'quickOrderIndex'])->name('admin.quickOrderIndex');
-        Route::get('/getQuickOrdersData', [App\Http\Controllers\admin\order\QuickOrderController::class, 'getQuickOrdersData'])->name('admin.getQuickOrdersData');
-        Route::get('/quickOrdersPrint/{id}', [App\Http\Controllers\admin\order\QuickOrderController::class, 'ordersPrint'])->name('admin.quickOrdersPrint');
-        Route::post('/quickOrderDelete', [App\Http\Controllers\admin\order\QuickOrderController::class, 'quickOrderDelete'])->name('admin.quickOrderDelete');
-
-
-
-        
-        
-
+        Route::get('/ordeIndex', [App\Http\Controllers\admin\order\orderController::class,'ordeIndex'])->name('admin.ordeIndex');
+        Route::get('/getOrdersData', [App\Http\Controllers\admin\order\orderController::class,'getOrdersData'])->name('admin.getOrdersData');
+        Route::post('/ordersView', [App\Http\Controllers\admin\order\orderController::class,'ordersView'])->name('admin.ordersView');
+        Route::post('/ordersStatusUpdate', [App\Http\Controllers\admin\order\orderController::class,'ordersStatusUpdate'])->name('admin.ordersStatusUpdate');
+        Route::get('/ordersPrint/{id}', [App\Http\Controllers\admin\order\orderController::class,'ordersPrint'])->name('admin.ordersPrint');
 
 
         //admin panel Review
@@ -167,56 +149,61 @@ Route::group(['prefix' => 'admin'], function () {
 
         //admin panel  Page management
 
-        Route::get('/pages', [\App\Http\Controllers\admin\PagesController::class, 'PageIndex'])->name('admin.pages');
-        Route::get('/getpagesdata', [\App\Http\Controllers\admin\PagesController::class, 'PagesData'])->name('admin.getpagesdata');
-        Route::post('/addpages', [\App\Http\Controllers\admin\PagesController::class, 'PagesAdd'])->name('admin.addpages');
-        Route::post('/pagesdetails', [\App\Http\Controllers\admin\PagesController::class, 'PagesDetailEdit'])->name('admin.pagesdetails');
-        Route::post('/pagesupdate', [\App\Http\Controllers\admin\PagesController::class, 'PagesUpdate'])->name('admin.pagesupdate');
-        Route::post('/pagesdelete', [\App\Http\Controllers\admin\PagesController::class, 'PagesDelete'])->name('admin.pagesdelete');
+         Route::get('/pages', [\App\Http\Controllers\admin\PagesController::class, 'PageIndex'])->name('admin.pages');
+         Route::get('/getpagesdata', [\App\Http\Controllers\admin\PagesController::class, 'PagesData'])->name('admin.getpagesdata');
+         Route::post('/addpages', [\App\Http\Controllers\admin\PagesController::class, 'PagesAdd'])->name('admin.addpages');
+         Route::post('/pagesdetails', [\App\Http\Controllers\admin\PagesController::class, 'PagesDetailEdit'])->name('admin.pagesdetails');
+         Route::post('/pagesupdate', [\App\Http\Controllers\admin\PagesController::class, 'PagesUpdate'])->name('admin.pagesupdate');
+         Route::post('/pagesdelete', [\App\Http\Controllers\admin\PagesController::class, 'PagesDelete'])->name('admin.pagesdelete');
 
 
 
-        // About page
+         // About page
 
 
-        Route::get('/homePage', [App\Http\Controllers\admin\AboutPageController::class, 'homeAboutIndex'])->name('admin.homePage');
-        Route::post('/addHAtitle', [App\Http\Controllers\admin\AboutPageController::class, 'addTitle'])->name('admin.addHAtitle');
-        Route::post('/addHADescription', [App\Http\Controllers\admin\AboutPageController::class, 'addDescription'])->name('admin.addHADescription');
-        Route::post('/addHAimage', [App\Http\Controllers\admin\AboutPageController::class, 'imageAdd'])->name('admin.addHAimage');
-        Route::post('/addHAimage2', [App\Http\Controllers\admin\AboutPageController::class, 'imageAdd2'])->name('admin.addHAimage2');
-        Route::post('/addHAimage3', [App\Http\Controllers\admin\AboutPageController::class, 'imageAdd3'])->name('admin.addHAimage3');
-        Route::post('/addResturantMenuimage', [App\Http\Controllers\admin\AboutPageController::class, 'imageResturantMenuAdd'])->name('admin.addResturantMenuimage');
-        Route::post('/addEXPimage', [App\Http\Controllers\admin\AboutPageController::class, 'imageEXPAdd'])->name('admin.addEXPimage');
-
-
-
-        Route::get('/getFSdata', [App\Http\Controllers\admin\AboutPageController::class, 'getHomeFeaturedSpecialsData'])->name('admin.getFSdata');
-        Route::post('/addFSdata', [App\Http\Controllers\admin\AboutPageController::class, 'homeSFAdd'])->name('admin.addFSdata');
-        Route::post('/homeFSdelete', [App\Http\Controllers\admin\AboutPageController::class, 'HomeFSDelete'])->name('admin.homeFSdelete');
-        Route::post('/HomeFSEdit', [App\Http\Controllers\admin\AboutPageController::class, 'HomeFSEdit'])->name('admin.HomeFSEdit');
-        Route::post('/HomeFSUpdate', [App\Http\Controllers\admin\AboutPageController::class, 'HomeFSUpdate'])->name('admin.HomeFSUpdate');
-
-
-        Route::get('/getEXPdata', [App\Http\Controllers\admin\AboutPageController::class, 'getHomeExclusiveSpecialsData'])->name('admin.getEXPdata');
-        Route::post('/homeEXPAdd', [App\Http\Controllers\admin\AboutPageController::class, 'homeEXPAdd'])->name('admin.homeEXPAdd');
-        Route::post('/HomeEXFDelete', [App\Http\Controllers\admin\AboutPageController::class, 'HomeEXFDelete'])->name('admin.HomeEXFDelete');
-        Route::post('/HomeEXPEdit', [App\Http\Controllers\admin\AboutPageController::class, 'HomeEXPEdit'])->name('admin.HomeEXPEdit');
-        Route::post('/HomeEXPUpdate', [App\Http\Controllers\admin\AboutPageController::class, 'HomeEXPUpdate'])->name('admin.HomeEXPUpdate');
+         Route::get('/homePage', [App\Http\Controllers\admin\AboutPageController::class,'homeAboutIndex'])->name('admin.homePage');
+         Route::post('/addHAtitle', [App\Http\Controllers\admin\AboutPageController::class,'addTitle'])->name('admin.addHAtitle');
+         Route::post('/addHADescription', [App\Http\Controllers\admin\AboutPageController::class,'addDescription'])->name('admin.addHADescription');
+         Route::post('/addHAimage', [App\Http\Controllers\admin\AboutPageController::class,'imageAdd'])->name('admin.addHAimage');
+         Route::post('/addHAimage2', [App\Http\Controllers\admin\AboutPageController::class,'imageAdd2'])->name('admin.addHAimage2');
+         Route::post('/addHAimage3', [App\Http\Controllers\admin\AboutPageController::class,'imageAdd3'])->name('admin.addHAimage3');
+         Route::post('/addResturantMenuimage', [App\Http\Controllers\admin\AboutPageController::class,'imageResturantMenuAdd'])->name('admin.addResturantMenuimage');
+         Route::post('/addEXPimage', [App\Http\Controllers\admin\AboutPageController::class,'imageEXPAdd'])->name('admin.addEXPimage');
 
 
 
-        Route::get('/getTestimonialData', [App\Http\Controllers\admin\AboutPageController::class, 'getHomeTestimonialData'])->name('admin.getTestimonialData');
-        Route::post('/TestimonialAdd', [App\Http\Controllers\admin\AboutPageController::class, 'TestimonialAdd'])->name('admin.TestimonialAdd');
-        Route::post('/TestimonialDelete', [App\Http\Controllers\admin\AboutPageController::class, 'HomeTestimonialDelete'])->name('admin.TestimonialDelete');
-        Route::post('/getTestimonialEditData', [App\Http\Controllers\admin\AboutPageController::class, 'HomeTestimonialEdit'])->name('admin.getTestimonialEditData');
-        Route::post('/TestimonilaUpdate', [App\Http\Controllers\admin\AboutPageController::class, 'TestimonilaUpdate'])->name('admin.TestimonilaUpdate');
+         Route::get('/getFSdata', [App\Http\Controllers\admin\AboutPageController::class,'getHomeFeaturedSpecialsData'])->name('admin.getFSdata');
+         Route::post('/addFSdata', [App\Http\Controllers\admin\AboutPageController::class,'homeSFAdd'])->name('admin.addFSdata');
+         Route::post('/homeFSdelete', [App\Http\Controllers\admin\AboutPageController::class,'HomeFSDelete'])->name('admin.homeFSdelete');
+         Route::post('/HomeFSEdit', [App\Http\Controllers\admin\AboutPageController::class,'HomeFSEdit'])->name('admin.HomeFSEdit');
+         Route::post('/HomeFSUpdate', [App\Http\Controllers\admin\AboutPageController::class,'HomeFSUpdate'])->name('admin.HomeFSUpdate');
+
+
+         Route::get('/getEXPdata', [App\Http\Controllers\admin\AboutPageController::class,'getHomeExclusiveSpecialsData'])->name('admin.getEXPdata');
+         Route::post('/homeEXPAdd', [App\Http\Controllers\admin\AboutPageController::class,'homeEXPAdd'])->name('admin.homeEXPAdd');
+         Route::post('/HomeEXFDelete', [App\Http\Controllers\admin\AboutPageController::class,'HomeEXFDelete'])->name('admin.HomeEXFDelete');
+         Route::post('/HomeEXPEdit', [App\Http\Controllers\admin\AboutPageController::class,'HomeEXPEdit'])->name('admin.HomeEXPEdit');
+         Route::post('/HomeEXPUpdate', [App\Http\Controllers\admin\AboutPageController::class,'HomeEXPUpdate'])->name('admin.HomeEXPUpdate');
+
+
+
+         Route::get('/getTestimonialData', [App\Http\Controllers\admin\AboutPageController::class,'getHomeTestimonialData'])->name('admin.getTestimonialData');
+         Route::post('/TestimonialAdd', [App\Http\Controllers\admin\AboutPageController::class,'TestimonialAdd'])->name('admin.TestimonialAdd');
+         Route::post('/TestimonialDelete', [App\Http\Controllers\admin\AboutPageController::class,'HomeTestimonialDelete'])->name('admin.TestimonialDelete');
+         Route::post('/getTestimonialEditData', [App\Http\Controllers\admin\AboutPageController::class,'HomeTestimonialEdit'])->name('admin.getTestimonialEditData');
+         Route::post('/TestimonilaUpdate', [App\Http\Controllers\admin\AboutPageController::class,'TestimonilaUpdate'])->name('admin.TestimonilaUpdate');
+
+
     });
+
+
+
 });
 
 
 // For Admin And Vendor
-Route::get('/getBrandsData', [\App\Http\Controllers\admin\products\ProductBrandController::class, 'getBrandData'])->name('admin.getBrandsData');
-Route::get('/getCategoriesData', [\App\Http\Controllers\admin\products\ProductCategoriesController::class, 'getCategoriesData'])->name('admin.getCategoriesData');
+Route::get('/getBrandsData', [\App\Http\Controllers\admin\products\ProductBrandController::class,'getBrandData'])->name('admin.getBrandsData');
+Route::get('/getCategoriesData', [\App\Http\Controllers\admin\products\ProductCategoriesController::class,'getCategoriesData'])->name('admin.getCategoriesData');
 // For Vendor
 
 Route::group(['prefix' => 'vendor'], function () {
@@ -232,6 +219,8 @@ Route::group(['prefix' => 'vendor'], function () {
         Route::post('/forgotPassword', [App\Http\Controllers\vendor\vendorAuthController::class, 'forgotPassword'])->name('vendor.forgotPassword');
         Route::get('/recoverPassWord/{id}', [App\Http\Controllers\vendor\vendorAuthController::class, 'recoverPassWord'])->name('vendor.recoverPassWord');
         Route::post('/updatePassword', [App\Http\Controllers\vendor\vendorAuthController::class, 'updatePassword'])->name('vendor.updatePassword');
+
+
     });
 
 
@@ -255,18 +244,19 @@ Route::group(['prefix' => 'vendor'], function () {
 
 
         //vendor panel Orders
-        Route::get('/ordeIndex', [App\Http\Controllers\vendor\order\orderController::class, 'ordeIndex'])->name('vendor.ordeIndex');
-        Route::get('/getOrdersData', [App\Http\Controllers\vendor\order\orderController::class, 'getOrdersData'])->name('vendor.getOrdersData');
-        Route::post('/ordersView', [App\Http\Controllers\vendor\order\orderController::class, 'ordersView'])->name('vendor.ordersView');
-        Route::post('/ordersStatusUpdate', [App\Http\Controllers\vendor\order\orderController::class, 'ordersStatusUpdate'])->name('vendor.ordersStatusUpdate');
-        Route::get('/ordersPrint/{id}', [App\Http\Controllers\vendor\order\orderController::class, 'ordersPrint'])->name('vendor.ordersPrint');
+        Route::get('/ordeIndex', [App\Http\Controllers\vendor\order\orderController::class,'ordeIndex'])->name('vendor.ordeIndex');
+        Route::get('/getOrdersData', [App\Http\Controllers\vendor\order\orderController::class,'getOrdersData'])->name('vendor.getOrdersData');
+        Route::post('/ordersView', [App\Http\Controllers\vendor\order\orderController::class,'ordersView'])->name('vendor.ordersView');
+        Route::post('/ordersStatusUpdate', [App\Http\Controllers\vendor\order\orderController::class,'ordersStatusUpdate'])->name('vendor.ordersStatusUpdate');
+        Route::get('/ordersPrint/{id}', [App\Http\Controllers\vendor\order\orderController::class,'ordersPrint'])->name('vendor.ordersPrint');
+
     });
 });
 
 
 
 
-//Client
+
 
 
 Route::get('/', [App\Http\Controllers\client\HomeController::class, 'index'])->name('client.home');
@@ -285,12 +275,9 @@ Route::post('/cartRemove', [App\Http\Controllers\client\cartController::class, '
 Route::get('/cartClear', [App\Http\Controllers\client\cartController::class, 'clearCart'])->name('client.ClearCart');
 Route::get('/checkout', [App\Http\Controllers\client\cartController::class, 'checkout'])->name('client.checkout');
 
-Route::post('/quickOrder', [App\Http\Controllers\client\cartController::class, 'quickOrder'])->name('client.quickOrder');
-Route::post('/getsingleProductdata', [App\Http\Controllers\client\shopController::class, 'getsingleProductdata'])->name('client.getsingleProductdata');
-
 //shop page
 Route::get('/shop', [App\Http\Controllers\client\shopController::class, 'shopIndex'])->name('client.shop');
-
+Route::post('/getsingleProductdata', [App\Http\Controllers\client\shopController::class, 'getsingleProductdata'])->name('client.getsingleProductdata');
 
 //Contact Page
 Route::get('/contact', [App\Http\Controllers\client\contactController::class, 'contactIndex'])->name('client.contact');
@@ -315,19 +302,17 @@ Route::post('/updatePassword', [App\Http\Controllers\client\authController::clas
 //Rating
 Route::post('/getproductreating', [\App\Http\Controllers\client\ReatingReviewController::class, 'getallreview'])->name('getproductreating');
 
-
-Route::post('/processOrder', [App\Http\Controllers\client\cartController::class, 'order'])->name('client.processOrder');
-
-Route::get('/orderDetails/{id}', [App\Http\Controllers\client\cartController::class, 'orderDetails'])->name('client.orderDetails');
 // logout & Profile & Order
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/logout', [App\Http\Controllers\client\authController::class, 'logout'])->name('client.logout');
     Route::get('/profile', [App\Http\Controllers\client\authController::class, 'profile'])->name('client.profile');
     Route::get('/profileEdit/{id}', [App\Http\Controllers\client\authController::class, 'profileEdit'])->name('client.profileEdit');
     Route::post('/upadeteProfile/{id}', [App\Http\Controllers\client\authController::class, 'upadeteProfile'])->name('client.upadeteProfile');
-
+    Route::post('/processOrder', [App\Http\Controllers\client\cartController::class, 'order'])->name('client.processOrder');
+    Route::get('/orderDetails/{id}', [App\Http\Controllers\client\cartController::class, 'orderDetails'])->name('client.orderDetails');
     //Rating
     Route::post('/reating', [\App\Http\Controllers\client\ReatingReviewController::class, 'store'])->name('clint.reatingReview');
+
 });
 
 
@@ -344,7 +329,7 @@ Route::group(['middleware' => 'auth'], function () {
 
 
 //Clear Cache facade value:
-Route::get('/optimize', function () {
+Route::get('/optimize', function() {
     $exitCode = Artisan::call('optimize:clear');
     return '<h1>optimize cleared</h1>';
 });
@@ -353,19 +338,19 @@ Route::get('/optimize', function () {
 
 
 //Clear View cache:
-Route::get('/view-clear', function () {
+Route::get('/view-clear', function() {
     $exitCode = Artisan::call('view:clear');
     return '<h1>View cache cleared</h1>';
 });
 
 //Clear Config cache:
-Route::get('/config-cache', function () {
+Route::get('/config-cache', function() {
     $exitCode = Artisan::call('config:cache');
     return '<h1>Clear Config cleared</h1>';
 });
 
 //Clear Cache facade value:
-Route::get('/clear-cache', function () {
+Route::get('/clear-cache', function() {
     $exitCode = Artisan::call('cache:clear');
     return '<h1>Cache facade value cleared</h1>';
 });
@@ -373,26 +358,26 @@ Route::get('/clear-cache', function () {
 
 
 //Clear Route cache:
-Route::get('/route-clear', function () {
+Route::get('/route-clear', function() {
     $exitCode = Artisan::call('route:clear');
     return '<h1>Route cache cleared</h1>';
 });
 
 //Clear Config cache:
-Route::get('/storage', function () {
+Route::get('/storage', function() {
     $exitCode = Artisan::call('storage:link');
     return '<h1>Storage Link Created</h1>';
 });
 
 
 //Clear Config cache:
-Route::get('/seed-anis', function () {
+Route::get('/seed-anis', function() {
     $exitCode = Artisan::call('db:seed');
     return '<h1>migrate  Created</h1>';
 });
 
 //Clear Config cache:
-Route::get('/migrate-anis', function () {
+Route::get('/migrate-anis', function() {
     $exitCode = Artisan::call('migrate');
     return '<h1>migrate  Created</h1>';
 });

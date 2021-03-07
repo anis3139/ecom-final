@@ -1,8 +1,3 @@
-@php
-
-$others=App\Models\OthersModel::first();
-
-@endphp
 @extends('admin.Layouts.appLogin')
 @section('title','Admin Login')
 @section('content')
@@ -14,6 +9,7 @@ $others=App\Models\OthersModel::first();
   <div class="row">
     <div style="height: 450px" class="col-md-6 p-3">
       <form  action=" "  class="m-5 loginForm">
+
         <div class="form-group">
         <label for="exampleInputEmail1">User Name</label>
          <input required="" name="userName" value="" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter User Name">
@@ -29,7 +25,10 @@ $others=App\Models\OthersModel::first();
 </div>
 
 <div style="height: 450px" class="col-md-6 bg-light">
-  <img class="w-75 m-5" src="{{asset($others->logo ??'/admin/images/login.jpg')}}">
+@php
+$others=App\Models\OthersModel::first();
+@endphp
+<img class="w-75 m-5" src="{{$others->logo ?? asset('/admin/images/login.jpg')}}">
 </div>
 </div>
 </div>

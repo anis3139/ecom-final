@@ -96,7 +96,7 @@
                                     </div>
                                     <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
                                         <label for="pdTax">Product Tax(%):</label>
-                                        <input id="pdTax" type="number" class="form-control mb-3" placeholder="Product Tax" value="0"   min="0" onkeyup="calculate();" onkeydown="javascript: return event.keyCode === 8 || event.keyCode === 46 ? true : !isNaN(Number(event.key))">
+                                        <input id="pdTax" type="number" class="form-control mb-3" placeholder="Product Tax"   min="0" onkeyup="calculate();" onkeydown="javascript: return event.keyCode === 8 || event.keyCode === 46 ? true : !isNaN(Number(event.key))">
                                     </div>
                                     <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
                                         <label for="deliveryCharge">Delivery Charge:</label>

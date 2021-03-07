@@ -13,8 +13,6 @@ use App\Models\VisitorTable;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Symfony\Component\HttpFoundation\Session\Session;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Validation\ValidationException;
 
 class HomeController extends Controller
 {
@@ -46,20 +44,9 @@ class HomeController extends Controller
 
     public function search(Request $request)
     {
-
-        try {
-            $this->validate($request, [
-                'key' => 'required',
-            ]);
-        } catch (ValidationException $e) {
-            return redirect()->back();
-        }
-
-
         $key=$request->key;
-        
+
         if($key != ""){
-            
             $searchProducts=product_table::with(['img'])->where('product_active', 1)->Where('product_title','LIKE',"%{$key}%")->orderBy('id', 'desc')->paginate(15);
 
             $popular_products= OrderProducts::with('product')

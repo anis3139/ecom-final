@@ -157,7 +157,6 @@
 @endsection
 @section('script')
     <script type="text/javascript">
-    
         getSliderdata();
         function getSliderdata() {
             axios.get("{{route('admin.getsliderdata')}}")
@@ -169,7 +168,7 @@
                         $('#Slider_table').empty();
                         var count = 1;
                         var dataJSON = response.data;
-                        
+                        console.log(dataJSON);
                         $.each(dataJSON, function(i, item) {
                             $('<tr>').html(
                                 "<td>" + count++ + " </td>" +

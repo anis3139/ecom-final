@@ -17,8 +17,3 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
-
-
-Route::post('/quickOrder', [App\Http\Controllers\client\cartController::class, 'quickOrder'])->name('client.quickOrder');
-Route::post('/getsingleProductdata', [App\Http\Controllers\client\shopController::class, 'getsingleProductdata'])->name('client.getsingleProductdata');
-

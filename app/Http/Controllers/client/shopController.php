@@ -13,7 +13,7 @@ class shopController extends Controller
 {
    public function shopIndex()
    {
-     $allProducts=product_table::with(['img','color','maserment'])->where('product_active', 1)->orderBy('id', 'desc')->paginate(15);
+     $allProducts=product_table::with(['img'])->where('product_active', 1)->orderBy('id', 'desc')->paginate(15);
 
      $popular_products= OrderProducts::with('product')
             ->select('product_id', DB::raw('COUNT(product_id) as maxSell'))
@@ -24,7 +24,7 @@ class shopController extends Controller
     $topRatedProducts= product_table::orderBy('product_price', 'desc')->where('product_active', 1)->limit(4)->get();
 
 
-      return view('client.pages.Shop')->with([
+      return view('client.pages.shop')->with([
           'allProducts'=> $allProducts,
           'popular_products'=> $popular_products,
           'topRatedProducts'=> $topRatedProducts

@@ -50,6 +50,8 @@ class ProductsController extends Controller
     public function store(Request $request)
     {
 
+
+
         $data = json_decode($_POST['data']);
         $product_title = $data['0']->product_title;
         $product_discription = $data['0']->product_discription;
