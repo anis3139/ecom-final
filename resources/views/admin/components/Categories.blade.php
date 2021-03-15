@@ -11,7 +11,7 @@
 @section('content')
 
     <div class="row mt-5">
-        <div class="col-md-10 offset-md-1 border border-dark">
+        <div class="col-md-12 px-5">
             <div id="mainDivCategory" class="container-fluid d-none">
                 <div class="row">
                     <div class="col-md-12 p-2">
@@ -23,6 +23,8 @@
                                     <th>name</th>
                                     <th>Parant Category</th>
                                     <th>Status</th>
+                                    <th>Show Menu</th>
+                                    <th>Show Homepage</th>
                                     <th>Image</th>
                                     <th>Icon</th>
                                     <th>Edit</th>
@@ -71,13 +73,24 @@
                             <div class="col-md-6">
                                 <input id="CategoryName" type="text" id="" class="form-control my-5"
                                     placeholder="Category Name">
+                                <select name="Categories" id="Categories" class="form-control my-5">
+
+                                </select>
                                 <select name="" id="catStatus">
                                     <option value="1" selected>Publish</option>
                                     <option value="0">Panding</option>
                                 </select>
-                                <select name="Categories" id="Categories" class="form-control my-5">
 
+                                <select name="" id="is_menu">
+                                    <option value="1" selected>Show in Menu</option>
+                                    <option value="0">Hide</option>
                                 </select>
+
+                                <select name="" id="is_homepage">
+                                    <option value="1" selected>Show in Homepage</option>
+                                    <option value="0">Hide</option>
+                                </select>
+
 
 
                             </div>
@@ -143,23 +156,32 @@
                             <div class="col-md-6">
                                 <input id="CategoryUpdateName" type="text" id="" class="form-control my-5"
                                     placeholder="Category Name">
+                                <select name="CategoriesUpdate" id="CategoriesUpdate" class="form-control my-5">
+                                </select>
+                                <select name="" id="catEditStatus">
+                                    <option value="1" selected>Publish</option>
+                                    <option value="0">Panding</option>
+                                </select>
+                                <select name="" id="catEdit_is_menu">
+                                    <option value="1" selected>Show in Menu</option>
+                                    <option value="0">Hide</option>
+                                </select>
+                                <select name="" id="catEdit_is_homepage">
+                                    <option value="1" selected>Show in Homepage</option>
+                                    <option value="0">Hide</option>
+                                </select>
 
-                                    <select name="" id="catEditStatus">
-                                        <option value="1" selected>Publish</option>
-                                        <option value="0">Panding</option>
-                                    </select>
-
-                                    <select name="CategoriesUpdate" id="CategoriesUpdate" class="form-control my-5">
-                                    </select>
 
                             </div>
                             <div class="col-md-6">
-                                <label for="iconUpdateCategory" class="border-bottom border-primary my-2">Category icon</label>
+                                <label for="iconUpdateCategory" class="border-bottom border-primary my-2">Category
+                                    icon</label>
 
                                 <input type="file" id="iconUpdateCategory" class="form-control" name="text-input">
                                 <img id="updateCategoryIconPreview" style="height: 100px !important;"
                                     class="imgPreview mt-3 " src="{{ asset('admin/images/default-image.png') }}" />
-                                    <label for="imageUpdateCategory"  class="border-bottom border-primary my-2">Category Image</label>
+                                <label for="imageUpdateCategory" class="border-bottom border-primary my-2">Category
+                                    Image</label>
                                 <input type="file" id="imageUpdateCategory" class="form-control" name="text-input">
                                 <img id="updateCategoryImagePreview" style="height: 100px !important;"
                                     class="imgPreview mt-3 " src="{{ asset('admin/images/default-image.png') }}" />
@@ -184,7 +206,6 @@
 @section('script')
 
     <script>
-
         getCategorydata();
 
         function getCategorydata() {
@@ -198,25 +219,39 @@
                         var count = 1;
                         var dataJSON = response.data;
                         $.each(dataJSON, function(i, item) {
-                            var parent='';
+                            var parent = '';
                             if (dataJSON[i].parent_id == 0) {
-                                parent='Parent Category';
-                            }else{
-                                parent=dataJSON[i].parent.name;
+                                parent = 'Parent Category';
+                            } else {
+                                parent = dataJSON[i].parent.name;
                             }
 
-                            var statusCat='';
+                            var statusCat = '';
                             if (dataJSON[i].status == 1) {
-                                statusCat='Publish';
-                            }else{
-                                statusCat='Panding';
+                                statusCat = 'Publish';
+                            } else {
+                                statusCat = 'Panding';
+                            }
+                            var showHomepage = '';
+                            if (dataJSON[i].is_homepage == 1) {
+                                showHomepage = 'Show in Homepage';
+                            } else {
+                                showHomepage = 'Hide';
+                            }
+                            var showMenu = '';
+                            if (dataJSON[i].is_menu == 1) {
+                                showMenu = 'Show in Menu';
+                            } else {
+                                showMenu = 'Hide';
                             }
 
                             $('<tr class="text-center">').html(
                                 "<td>" + count++ + " </td>" +
                                 "<td>" + dataJSON[i].name + " </td>" +
                                 "<td>" + parent + " </td>" +
-                                "<td>" +  statusCat + " </td>" +
+                                "<td>" + statusCat + " </td>" +
+                                "<td>" + showHomepage + " </td>" +
+                                "<td>" + showMenu + " </td>" +
                                 "<td><img width='150px' height='80' class='table-img' src=" + dataJSON[i]
                                 .banner_image + "> </td>" +
                                 "<td><img width='150px' height='80' class='table-img' src=" + dataJSON[i]
@@ -275,6 +310,16 @@
             $('#catStatus').material_select();
 
         });
+        // Material Select Initialization
+        $(document).ready(function() {
+            $('#is_menu').material_select();
+
+        });
+        // Material Select Initialization
+        $(document).ready(function() {
+            $('#is_homepage').material_select();
+
+        });
 
         function CategoryDropDownPush() {
             // Add Category List
@@ -328,12 +373,14 @@
             var name = $('#CategoryName').val();
             var categories = $('#Categories').val();
             var catStatus = $('#catStatus').val();
+            var is_menu = $('#is_menu').val();
+            var is_homepage = $('#is_homepage').val();
             var icon = $('#iconCategory').prop('files')[0];
             var image = $('#imageCategory').prop('files')[0];
-            CategoryAdd(name, categories, icon, image, catStatus);
+            CategoryAdd(name, categories, icon, image, catStatus, is_menu, is_homepage);
         })
 
-        function CategoryAdd(name, categories, icon, image, catStatus) {
+        function CategoryAdd(name, categories, icon, image, catStatus, is_menu, is_homepage) {
             if (name.length == 0) {
                 toastr.error('Category Title is empty!');
             } else {
@@ -342,7 +389,9 @@
                 my_data = [{
                     name: name,
                     categories: categories,
-                    catStatus: catStatus
+                    catStatus: catStatus,
+                    is_menu: is_menu,
+                    is_homepage: is_homepage,
                 }];
                 var fm = new FormData();
                 fm.append('data', JSON.stringify(my_data));
@@ -350,7 +399,7 @@
                 fm.append('icon', icon);
                 fm.getAll('photo');
 
-                axios.post("{{ route('admin.addCategory')}}", fm, {
+                axios.post("{{ route('admin.addCategory') }}", fm, {
                     headers: {
                         'Content-Type': 'multipart/form-data'
                     }
@@ -403,7 +452,7 @@
         function DeleteDataCategory(id) {
             $('#confirmDeleteCategory').html(
                 "<div class='spinner-border spinner-border-sm text-primary' role='status'></div>"); //animation
-            axios.post("{{ route('admin.deleteCategory')}}", {
+            axios.post("{{ route('admin.deleteCategory') }}", {
                     id: id
                 })
                 .then(function(response) {
@@ -442,11 +491,27 @@
 
         });
 
- // Material Select Initialization
- $(document).ready(function() {
+        // Material Select Initialization
+        $(document).ready(function() {
             $('#catEditStatus').material_select();
 
         });
+
+
+        // Material Select Initialization
+        $(document).ready(function() {
+            $('#catEdit_is_menu').material_select();
+
+        });
+        // Material Select Initialization
+        $(document).ready(function() {
+            $('#catEdit_is_homepage').material_select();
+
+        });
+
+
+
+
         // Add Category List
         axios.get("{{ route('admin.getCategoriesParantData') }}")
             .then(function(response) {
@@ -511,6 +576,12 @@
                         $('#catEditStatus option[value=' + jsonData[0].status + ']').attr(
                             'selected', 'selected');
 
+                        $('#catEditStatus option[value=' + jsonData[0].is_menu + ']').attr(
+                            'selected', 'selected');
+
+                        $('#catEditStatus option[value=' + jsonData[0].is_homepage + ']').attr(
+                            'selected', 'selected');
+
                         var iconSource = (jsonData[0].icon);
                         $('#updateCategoryIconPreview').attr('src', iconSource)
 
@@ -530,28 +601,32 @@
 
 
 
-          //Category update modal save button
-          $('#CategoryUpdateConfirmBtn').click(function() {
+        //Category update modal save button
+        $('#CategoryUpdateConfirmBtn').click(function() {
             var idUpdate = $('#CategoryEditId').html();
             var nameUpdate = $('#CategoryUpdateName').val();
             var catEditStatus = $('#catEditStatus').val();
+            var catEdit_is_menu = $('#catEdit_is_menu').val();
+            var catEdit_is_homepage = $('#catEdit_is_homepage').val();
             var CategoriesEdit = $('#CategoriesUpdate').val();
             var img = $('#imageUpdateCategory').prop('files')[0];
             var icon = $('#iconUpdateCategory').prop('files')[0];
-            CategoryUpdate(idUpdate, nameUpdate, CategoriesEdit, img, icon, catEditStatus);
+            CategoryUpdate(idUpdate, nameUpdate, CategoriesEdit, img, icon, catEditStatus, catEdit_is_menu, catEdit_is_homepage);
         })
         //update Category data using modal
-        function CategoryUpdate(idUpdate, nameUpdate, CategoriesEdit, img, icon, catEditStatus) {
+        function CategoryUpdate(idUpdate, nameUpdate, CategoriesEdit, img, icon, catEditStatus, catEdit_is_menu, catEdit_is_homepage) {
             if (nameUpdate.length == 0) {
                 toastr.error('Category name is empty!');
-            }  else {
+            } else {
                 $('#CategoryUpdateConfirmBtn').html(
                     "<div class='spinner-border spinner-border-sm text-primary' role='status'></div>"); //animation
                 updateData = [{
                     id: idUpdate,
                     name: nameUpdate,
                     catEditStatus: catEditStatus,
-                    products_category_id: CategoriesEdit
+                    products_category_id: CategoriesEdit,
+                    catEdit_is_menu: catEdit_is_menu,
+                    catEdit_is_homepage: catEdit_is_homepage
                 }];
                 var formData = new FormData();
                 formData.append('data', JSON.stringify(updateData));

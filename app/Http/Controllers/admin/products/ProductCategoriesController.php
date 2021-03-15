@@ -44,6 +44,8 @@ class ProductCategoriesController extends Controller
             $data = json_decode($_POST['data']);
             $name = $data['0']->name;
             $status = $data['0']->catStatus;
+            $is_menu = $data['0']->is_menu;
+            $is_homepage = $data['0']->is_homepage;
 
             $categories = $data['0']->categories;
             $photoPath =  $request->file('photo')->store('public');
@@ -71,6 +73,8 @@ class ProductCategoriesController extends Controller
             $result = ProductsCategoryModel::insert([
                 'name' => $name,
                 'status' => $status,
+                'is_homepage' => $is_homepage,
+                'is_menu' => $is_menu,
                 'parent_id' => $categories,
                 'banner_image' => $location,
                 'icon' => $iconNameLocation,
@@ -123,6 +127,8 @@ class ProductCategoriesController extends Controller
         $id = $data['0']->id;
         $name = $data['0']->name;
         $catEditStatus = $data['0']->catEditStatus;
+        $catEdit_is_menu = $data['0']->catEdit_is_menu;
+        $catEdit_is_homepage = $data['0']->catEdit_is_homepage;
         $products_category_id = $data['0']->products_category_id;
 
 
@@ -149,7 +155,7 @@ class ProductCategoriesController extends Controller
 
 
 
-            $result = ProductsCategoryModel::where('id', '=', $id)->update(['name' => $name, 'status' => $catEditStatus, 'parent_id' => $products_category_id,  'icon' => $icon_location, 'banner_image' => $location]);
+            $result = ProductsCategoryModel::where('id', '=', $id)->update(['name' => $name, 'status' => $catEditStatus,'is_menu' => $catEdit_is_menu,'is_homepage' => $catEdit_is_homepage, 'parent_id' => $products_category_id,  'icon' => $icon_location, 'banner_image' => $location]);
             if ($result == true) {
                 return 1;
             } else {
@@ -168,7 +174,7 @@ class ProductCategoriesController extends Controller
             $location =  $protocol . $host . "/public/storage/" . $photoName;
 
 
-            $result = ProductsCategoryModel::where('id', '=', $id)->update(['name' => $name, 'status' => $catEditStatus, 'parent_id' => $products_category_id, 'banner_image' => $location]);
+            $result = ProductsCategoryModel::where('id', '=', $id)->update(['name' => $name, 'status' => $catEditStatus,'is_menu' => $catEdit_is_menu,'is_homepage' => $catEdit_is_homepage,  'parent_id' => $products_category_id, 'banner_image' => $location]);
             if ($result == true) {
                 return 1;
             } else {
@@ -188,14 +194,14 @@ class ProductCategoriesController extends Controller
             $icon_location =  $protocol  . $host . "/public/storage/" . $iconName;
 
 
-            $result = ProductsCategoryModel::where('id', '=', $id)->update(['name' => $name, 'status' => $catEditStatus, 'parent_id' => $products_category_id, 'icon' => $icon_location]);
+            $result = ProductsCategoryModel::where('id', '=', $id)->update(['name' => $name, 'status' => $catEditStatus,'is_menu' => $catEdit_is_menu,'is_homepage' => $catEdit_is_homepage,  'parent_id' => $products_category_id, 'icon' => $icon_location]);
             if ($result == true) {
                 return 1;
             } else {
                 return 0;
             }
         } else {
-            $result = ProductsCategoryModel::where('id', '=', $id)->update(['name' => $name, 'status' => $catEditStatus, 'parent_id' => $products_category_id]);
+            $result = ProductsCategoryModel::where('id', '=', $id)->update(['name' => $name, 'status' => $catEditStatus,'is_menu' => $catEdit_is_menu,'is_homepage' => $catEdit_is_homepage,  'parent_id' => $products_category_id]);
             if ($result == true) {
                 return 1;
             } else {

@@ -20,6 +20,8 @@ class CreateProductsCategoryModelsTable extends Migration
             $table->string('banner_image', 128);
             $table->unsignedInteger('parent_id')->default(0);
             $table->tinyInteger('status')->default(1);
+            $table->tinyInteger('is_menu')->default(0);
+            $table->tinyInteger('is_homepage')->default(0);
             $table->string('slug');
             $table->softDeletes();
             $table->timestamp('created_at')->useCurrent();
