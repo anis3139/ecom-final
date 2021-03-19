@@ -99,13 +99,16 @@
 
 					<div class="row justify-content-between align-items-center">
 						<div class="col-md-6">
-							Copyrights &copy; 2020 All Rights Reserved by Canvas Inc.<br>
+							Copyrights &copy; 2020 All Rights Reserved by <a href="https://facebook.com/anis3139">Anis Arronno</a><br>
 							<div class="copyright-links"><a href="#">Terms of Use</a> / <a href="#">Privacy Policy</a></div>
 						</div>
 
 						<div class="col-md-6 d-md-flex flex-md-column align-items-md-end mt-4 mt-md-0">
 							<div class="copyrights-menu copyright-links clearfix">
-								<a href="#">About</a>/<a href="#">Features</a>/<a href="#">FAQs</a>/<a href="#">Contact</a>
+								<a href="{{route('client.about')}}">About</a>/
+								<a href="{{route('client.showCart')}}">My Cart</a>/
+								<a href="{{route('client.checkout')}}">Checkout</a>/
+								<a href="{{route('client.showCart')}}">Contact</a>
 							</div>
 						</div>
 					</div>

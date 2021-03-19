@@ -252,8 +252,7 @@
             var feture_products = $('#pdFeature').val();
             var product_active = $('#pdActive').val();
             var pdTax = $('#pdTax').val();
-            var deliveryCharge = $('#deliveryCharge').val();
-            var product_delivary_charge_type = $('#product_delivary_charge_type').val();
+            
             var images = [];
             $("input[name='productImage[]']").each(function() {
                 if ($(this).prop('files')[0] !== undefined) {
@@ -294,11 +293,11 @@
 
             productAdd(product_title, product_discription, product_price,product_saving,product_selling_price, product_quantity,
                 product_category_id, product_brand_id, product_in_stock, feture_products, product_active,
-                images,selectedmesermentId,pdmesermentValue,product_colors, pdTax, deliveryCharge, product_delivary_charge_type);
+                images,selectedmesermentId,pdmesermentValue,product_colors, pdTax);
         });
 
         function productAdd(product_title, product_discription, product_price,product_saving, product_selling_price, product_quantity,
-            product_category_id, product_brand_id, product_in_stock, feture_products, product_active, images,selectedmesermentId,pdmesermentValue ,product_colors, pdTax, deliveryCharge, product_delivary_charge_type) {
+            product_category_id, product_brand_id, product_in_stock, feture_products, product_active, images,selectedmesermentId,pdmesermentValue ,product_colors, pdTax) {
 
             if (product_title.length == 0) {
                 toastr.error('Product Title is empty!');
@@ -316,9 +315,7 @@
                 toastr.error('Selling Price is empty!');
             } else if (pdTax.length == 0) {
                 toastr.error('Tax is empty! Please input minimum 0');
-            }  else if (deliveryCharge.length == 0) {
-                toastr.error('Delivery Charge is empty!');
-            } else {
+            }  else {
                 $('#productAddConfirmBtn').html(
                     "<div class='spinner-border spinner-border-sm text-primary' role='status'></div>"); //animation
                 my_data = [{
@@ -337,8 +334,6 @@
                     product_colors: product_colors,
                     selectedmesermentId: selectedmesermentId,
                     pdTax: pdTax,
-                    deliveryCharge: deliveryCharge,
-                    product_delivary_charge_type: product_delivary_charge_type,
                 }];
                 var fm = new FormData();
                 fm.append('data', JSON.stringify(my_data));
@@ -367,11 +362,8 @@
                             $('#pdOffer').val("");
                             $('#pdQuantity').val("1");
                             $('#pdTax').val("");
-                            $('#deliveryCharge').val("");
                             $('#pdSaving').val("0");
-                            $('#product_delivary_charge_type option').prop('selected', function() {
-                                     return this.defaultSelected;
-                            });
+                           
 
                             $('#pdCategory option').prop('selected', function() {
                                      return this.defaultSelected;
@@ -500,7 +492,7 @@
                         $('#product_if_has_color').html(dataJSON[0].product_if_has_color)
                         $('#product_meserment_type').html(dataJSON[0].product_meserment_type)
                         $('#product_owner_id').html(productOwner);
-                        $('#product_delivary_charge_type_view').html(delivary_charge_type);
+                     
 
 
 
@@ -789,9 +781,7 @@
 
                         $('#pdEditQuantity').val(jsonData[0].product_quantity);
                         $('#pdEditTax').val(jsonData[0].product_tax);
-                        $('#deliveryEditCharge').val(jsonData[0].product_delivary_charge);
-
-                        $('#product_delivary_charge_type_edit option[value=' + jsonData[0].product_delivary_charge_type + ']').prop('selected','true');
+                       
 
                         $('#pdEditCategory option[value=' + jsonData[0].product_category_id + ']').prop('selected','true');
 
@@ -881,13 +871,13 @@
         var pdEditOffer=$('#pdEditOffer').val();
         var pdEditQuantity=$('#pdEditQuantity').val();
         var pdEditTax=$('#pdEditTax').val();
-        var deliveryEditCharge=$('#deliveryEditCharge').val();
+       
         var pdEditCategory=$('#pdEditCategory').val();
         var pdEditBrand=$('#pdEditBrand').val();
         var pdEditStock=$('#pdEditStock').val();
         var pdEditFeature=$('#pdEditFeature').val();
         var pdEditStatus=$('#pdEditStatus').val();
-        var product_delivary_charge_type_edit=$('#product_delivary_charge_type_edit').val();
+   
 
         var editImagesValue=[];
 
@@ -901,13 +891,13 @@
 
 
 
-        productUpadate(product_id_edit, pdEditName, pdEditDescription, pdEditPrice,pdEditSaving, pdEditOffer, pdEditQuantity, pdEditCategory, pdEditBrand, pdEditStock, pdEditFeature, pdEditStatus, editImagesValue, pdmesermentValueEdit, editedValueOfColor,slelctedmesermentEdit, pdEditTax, deliveryEditCharge, product_delivary_charge_type_edit)
+        productUpadate(product_id_edit, pdEditName, pdEditDescription, pdEditPrice,pdEditSaving, pdEditOffer, pdEditQuantity, pdEditCategory, pdEditBrand, pdEditStock, pdEditFeature, pdEditStatus, editImagesValue, pdmesermentValueEdit, editedValueOfColor,slelctedmesermentEdit, pdEditTax)
 
 
         });
 
 
-        function productUpadate(product_id_edit, pdEditName, pdEditDescription, pdEditPrice,pdEditSaving, pdEditOffer, pdEditQuantity, pdEditCategory, pdEditBrand, pdEditStock, pdEditFeature, pdEditStatus, editImagesValue, pdmesermentValueEdit, editedValueOfColor,slelctedmesermentEdit, pdEditTax, deliveryEditCharge, product_delivary_charge_type_edit) {
+        function productUpadate(product_id_edit, pdEditName, pdEditDescription, pdEditPrice,pdEditSaving, pdEditOffer, pdEditQuantity, pdEditCategory, pdEditBrand, pdEditStock, pdEditFeature, pdEditStatus, editImagesValue, pdmesermentValueEdit, editedValueOfColor,slelctedmesermentEdit, pdEditTax) {
             if (pdEditName.length == 0) {
                 toastr.error('Product Title is empty!');
                 $('#pdName').focus();
@@ -924,8 +914,6 @@
                 toastr.error('Discount is empty! Please input minimum 0');
             }else if (pdEditOffer.length == 0) {
                 toastr.error('Selling Price is empty!');
-            }else if (deliveryEditCharge.length == 0) {
-                toastr.error('Delivery is empty!');
             } else {
                 $('#productEditConfirmBtn').html(
                     "<div class='spinner-border spinner-border-sm text-primary' role='status'></div>"); //animation
@@ -946,8 +934,6 @@
                     pdmesermentValueEdit: pdmesermentValueEdit,
                     slelctedmesermentEdit:slelctedmesermentEdit,
                     pdEditTax:pdEditTax,
-                    deliveryEditCharge:deliveryEditCharge,
-                    product_delivary_charge_type_edit:product_delivary_charge_type_edit,
                 }];
                 var fm = new FormData();
                 fm.append('data', JSON.stringify(my_data));

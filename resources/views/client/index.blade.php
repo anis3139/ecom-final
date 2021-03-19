@@ -40,7 +40,7 @@
                 <div class="container">
 
                     <!-- Features  ============================================= -->
-                    @include('client.partials.ServiceOffer')
+            
 
                     <div class="clear"></div>
 
@@ -53,7 +53,7 @@
 
                 <!-- App Buttons  ============================================= -->
                 
-					@include('client.partials.App')
+					
 					@include('client.partials.SpecialOffer')
 
                 <!-- Last Section ============================================= -->
@@ -68,5 +68,9 @@
         <!-- #footer end -->
 
     </div><!-- #wrapper end -->
+
+@endsection
+@section('script')
+
 
 @endsection

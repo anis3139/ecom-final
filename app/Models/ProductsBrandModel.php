@@ -18,4 +18,11 @@ class ProductsBrandModel extends Model
     public $keyType = 'int';
     public  $timestamps = false;
 
+
+
+    public function products()
+    {
+      return $this->hasMany(product_table::class, 'product_brand_id', 'id');
+    }
+
 }

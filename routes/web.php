@@ -262,6 +262,7 @@ Route::group(['prefix' => 'vendor'], function () {
 Route::get('/', [App\Http\Controllers\client\HomeController::class, 'index'])->name('client.home');
 Route::post('/search', [App\Http\Controllers\client\HomeController::class, 'search'])->name('client.search');
 
+
 Route::get('/product/{slug}', [App\Http\Controllers\client\productController::class, 'showProductDetails'])->name('client.showProductDetails');
 Route::get('/category/{slug}', [App\Http\Controllers\client\categoryController::class, 'catagoryWiseProduct'])->name('client.category');
 

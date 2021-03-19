@@ -3,10 +3,8 @@
 
                         <div class="row clearfix">
                             <div class="col-lg-4 col-md-6">
-                                <div class="shop-footer-features mb-3 mb-lg-3"><i class="icon-line2-globe-alt"></i>
-                                    <h5 class="inline-block mb-0 ml-2 font-weight-semibold"><a href="#">Free
-                                            Shipping</a><span class="font-weight-normal text-muted"> &amp; Easy
-                                            Returns</span></h5>
+                                <div class="shop-footer-features mb-3 mb-lg-3"><i class="icon-line2-wallet text-dark"></i>
+                                    <h5 class="inline-block mb-0 ml-2 font-weight-semibold"><a href="#">Easy </a><span class="font-weight-normal text-muted"> &amp; </span>Secured Payment</h5>
                                 </div>
                             </div>
                             <div class="col-lg-4 col-md-6">
@@ -16,9 +14,9 @@
                                 </div>
                             </div>
                             <div class="col-lg-4 col-md-12">
-                                <div class="shop-footer-features mb-3 mb-lg-3"><i class="icon-line2-lock"></i>
-                                    <h5 class="inline-block mb-0 ml-2"><a href="#">256-Bit</a> <span
-                                            class="font-weight-normal text-muted">Secured Checkouts</span></h5>
+                                <div class="shop-footer-features mb-3 mb-lg-3"><i class="icon-line2-reload text-dark"></i>
+                                    <h5 class="inline-block mb-0 ml-2"><a href="#">7 Days </a> <span
+                                            class="font-weight-normal text-muted">Return Policy</span></h5>
                                 </div>
                             </div>
                         </div>

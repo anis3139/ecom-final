@@ -8,6 +8,7 @@ use App\Models\Orders;
 use App\Models\product_table;
 use App\Models\ProductsCategoryModel;
 use App\Models\OrderProducts;
+use App\Models\ProductsBrandModel;
 use App\Models\SliderModel;
 use App\Models\VisitorTable;
 use Illuminate\Http\Request;
@@ -27,7 +28,10 @@ class HomeController extends Controller
         //Server ip
 
         $sliders = SliderModel::all();
-        $categories=ProductsCategoryModel::orderBy('id', 'desc')->where('status', 1)->where('parent_id', 0)->limit(5)->get();
+        $categories=ProductsCategoryModel::orderBy('id', 'desc')->where('status', 1)->where('is_homePage', 1)->where('parent_id', 0)->limit(5)->get();
+
+  $allCategory=ProductsCategoryModel::orderBy('id', 'desc')->where('status', 1)->get();
+
         $featureProducts=product_table::with(['img'])->where('feture_products', 1)->where('product_active', 1)->take(8)->get();
         $latestProducts=product_table::with(['img'])->where('product_active', 1)->orderBy('id', 'desc')->take(8)->get();
 
@@ -39,7 +43,7 @@ class HomeController extends Controller
             ->orderBy('maxSell', 'desc')
             ->take(10)->get();
 
-        return view("client.index", compact('sliders', 'categories', 'popular_products', 'featureProducts', 'latestProducts', 'promo_categories'));
+        return view("client.index", compact('sliders', 'categories', 'popular_products', 'featureProducts', 'latestProducts', 'promo_categories', 'allCategory'));
     }
 
     public function search(Request $request)
@@ -64,5 +68,11 @@ class HomeController extends Controller
 
     }
 
+
+
+    public function modal()
+    {
+        return view('client.component.Modal');
+    }
 
 }

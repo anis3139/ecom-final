@@ -93,7 +93,7 @@
 
                  <!-- Primary Navigation
       ============================================= -->
-                 @include('client.component.menu')
+                 @include('client.component.Menu')
                  <!-- #primary-menu end -->
 
                  <form class="top-search-form" action="search.html" method="get">

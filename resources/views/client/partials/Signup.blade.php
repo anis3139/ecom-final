@@ -17,7 +17,7 @@
                                                 <ul class="iconlist ml-3">
                                                     <li><i class="icon-circle-blank text-black-50"></i> Receive Exclusive
                                                         Sale Alerts</li>
-                                                    <li><i class="icon-circle-blank text-black-50"></i> 30 Days Return
+                                                    <li><i class="icon-circle-blank text-black-50"></i> 7 Days Return
                                                         Policy</li>
                                                     <li><i class="icon-circle-blank text-black-50"></i> Cash on Delivery
                                                         Accepted</li>

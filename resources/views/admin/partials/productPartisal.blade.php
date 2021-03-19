@@ -98,17 +98,7 @@
                                         <label for="pdTax">Product Tax(%):</label>
                                         <input id="pdTax" type="number" class="form-control mb-3" placeholder="Product Tax"   min="0" onkeyup="calculate();" onkeydown="javascript: return event.keyCode === 8 || event.keyCode === 46 ? true : !isNaN(Number(event.key))">
                                     </div>
-                                    <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
-                                        <label for="deliveryCharge">Delivery Charge:</label>
-                                        <input id="deliveryCharge" type="number"  class="form-control mb-3" placeholder="Delivery Charge"   min="0" max="100" onkeyup="calculate();" onkeydown="javascript: return event.keyCode === 8 || event.keyCode === 46 ? true : !isNaN(Number(event.key))">
-                                    </div>
-                                    <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
-                                        <label for="product_delivary_charge_type">Delivery Charge Type:</label>
-                                        <select name="product_delivary_charge_type" id="product_delivary_charge_type" class="browser-default custom-select">
-                                            <option selected value="1">Per Product</option>
-                                            <option  value="0">Group Product</option>
-                                        </select>
-                                    </div>
+                                
                                 </div>
 
 
@@ -344,14 +334,7 @@
                                     <td>Product Tax(%)</td>
                                     <td id="pdViewTax"></td>
                                 </tr>
-                                <tr>
-                                    <td>Delivery Charge</td>
-                                    <td id="deliveryViewCharge"></td>
-                                </tr>
-                                <tr>
-                                    <td>Delivery Charge Type</td>
-                                    <td id="product_delivary_charge_type_view"></td>
-                                </tr>
+                                
                                 <tr>
                                     <td>Category Name</td>
                                     <td id="product_category_id"></td>
@@ -457,20 +440,7 @@
                                     <input id="pdEditTax" type="number" class="form-control mb-3" placeholder="Product Tax"   min="0" onkeyup="calculate();" onkeydown="javascript: return event.keyCode === 8 || event.keyCode === 46 ? true : !isNaN(Number(event.key))">
                                 </div>
                                 </div>
-                            <div class="row">
-                                <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
-                                    <label for="deliveryEditCharge">Delivery Charge:</label>
-                                    <input id="deliveryEditCharge" type="number" class="form-control mb-3" placeholder="Delivery Charge"   min="0" max="100" onkeyup="calculate();" onkeydown="javascript: return event.keyCode === 8 || event.keyCode === 46 ? true : !isNaN(Number(event.key))">
-                                </div>
-                                <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
-                                    <label for="product_delivary_charge_type_edit">Delivery Charge Type:</label>
-
-                                    <select name="product_delivary_charge_type_edit" id="product_delivary_charge_type_edit" class="browser-default custom-select">
-                                        <option value="1">Per Product</option>
-                                        <option value="0">Group Product</option>
-                                    </select>
-                                </div>
-                            </div>
+                         
 
                             <label for="pdEditCategory">Product Category:</label>
                             <select id="pdEditCategory" style="margin-bottom: 10px;" class="browser-default custom-select"></select>
