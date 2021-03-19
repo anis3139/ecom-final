@@ -23,8 +23,8 @@
                                     <th>name</th>
                                     <th>Parant Category</th>
                                     <th>Status</th>
-                                    <th>Show Menu</th>
                                     <th>Show Homepage</th>
+                                    <th>Show Menu</th>
                                     <th>Image</th>
                                     <th>Icon</th>
                                     <th>Edit</th>
