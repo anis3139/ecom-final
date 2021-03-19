@@ -471,13 +471,7 @@
                             productOwner=dataJSON[0].product_owner_id
                         }
 
-                        var delivary_charge_type="";
-                        if (  dataJSON[0].product_delivary_charge_type==0) {
-                            delivary_charge_type="Group Product";
-                        }else{
-                            delivary_charge_type="Per Product";
-                        }
-
+                      
 
                         $('#pdNameShow').html(dataJSON[0].product_title)
                         $('#pdDesShow').html(dataJSON[0].product_discription)
@@ -486,7 +480,7 @@
                         $('#pdDiscount').html(dataJSON[0].product_saving+" %")
                         $('#product_quantity').html(dataJSON[0].product_quantity)
                         $('#pdViewTax').html(dataJSON[0].product_tax+" %")
-                        $('#deliveryViewCharge').html(dataJSON[0].product_delivary_charge)
+                      
                         $('#product_category_id').html(dataJSON[0].get_category.name)
                         $('#product_brand_id').html(dataJSON[0].get_brand.name)
                         $('#product_if_has_color').html(dataJSON[0].product_if_has_color)
