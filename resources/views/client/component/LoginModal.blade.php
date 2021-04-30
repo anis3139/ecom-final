@@ -9,18 +9,18 @@
 
 					<div class="divider divider-center"><span class="position-relative" style="top: -2px">OR</span></div>
 
-					<form id="login-form" name="login-form" class="mb-0 row" action="#" method="post">
-
+					<form id="login-form" name="login-form" class="mb-0 row" action="{{ route('client.onlogin') }}" method="post">
+                            @csrf
 						<div class="col-12">
-							<input type="text" id="login-form-username" name="login-form-username" value="" class="form-control not-dark" placeholder="Username" />
+							<input type="email" id="login-form-username" name="email" value="{{old('email')}}" class="form-control not-dark" placeholder="Username" />
 						</div>
 
 						<div class="col-12 mt-4">
-							<input type="password" id="login-form-password" name="login-form-password" value="" class="form-control not-dark" placeholder="Password" />
+							<input type="password" id="login-form-password" name="password" value="" class="form-control not-dark" placeholder="Password" />
 						</div>
 
 						<div class="col-12">
-							<a href="#" class="float-right text-dark font-weight-light mt-2">Forgot Password?</a>
+							<a href="{{ route('client.forgot') }}" class="float-right text-dark font-weight-light mt-2">Forgot Password?</a>
 						</div>
 
 						<div class="col-12 mt-4">
@@ -29,7 +29,7 @@
 					</form>
 				</div>
 				<div class="card-footer py-4 center">
-					<p class="mb-0">Don't have an account? <a href="#"><u>Sign up</u></a></p>
+					<p class="mb-0">Don't have an account? <a href="{{route('client.registration')}}"><u>Sign up</u></a></p>
 				</div>
 			</div>
 		</div>

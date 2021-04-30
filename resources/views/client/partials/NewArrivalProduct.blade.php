@@ -14,7 +14,7 @@
                     ->where('deleted_at', null)
                     ->take(8)
                     ->get();
-                
+
             @endphp
 
             @foreach ($products as $product)
@@ -39,10 +39,11 @@
                             <div class="bg-overlay">
                                 <div class="bg-overlay-content align-items-end justify-content-between"
                                     data-hover-animate="fadeIn" data-hover-speed="400">
-                                    <a href="#" class="btn btn-dark mr-2"><i class="icon-shopping-basket"></i></a>
-                                    <a href="{{ route('client.modal') }}"
-                                        onclick="productDetailsModal({{ $product->id }})" class="btn btn-dark"
-                                        data-lightbox="ajax"><i class="icon-line-expand"></i></a>
+                                    <a href="#" data-toggle="modal" data-target=".bd-example-modal-lg"
+                                    onclick="productDetailsModal({{ $product->id }})"  class="btn btn-dark mr-2"><i class="icon-shopping-basket"></i></a>
+                                    <a href=""  data-toggle="modal" data-target=".bd-example-modal-lg"
+                                    onclick="productDetailsModal({{ $product->id }})" class="btn btn-dark"
+                                        ><i class="icon-line-expand"></i></a>
                                 </div>
                                 <div class="bg-overlay-bg bg-transparent"></div>
                             </div>

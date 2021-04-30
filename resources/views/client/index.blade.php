@@ -5,13 +5,13 @@
 
 
         <!-- Slider
-                                                                                  ============================================= -->
+                                                                                                                                                          ============================================= -->
         @include('client.component.Slider')
 
         <!-- #Slider End -->
 
         <!-- Content
-                                                                                  ============================================= -->
+                                                                                                                                                          ============================================= -->
         <section id="content">
             <div class="content-wrap">
                 <div class="container clearfix">
@@ -29,11 +29,11 @@
                 <div class="clear"></div>
 
                 <!-- New Arrivals Men
-                                                                                    ============================================= -->
+                                                                                                                                                            ============================================= -->
                 @include('client.partials.NewArrivalProduct')
 
                 <!-- Sign Up
-                                                                                    ============================================= -->
+                                                                                                                                                            ============================================= -->
 
                 @include('client.partials.Signup')
 
@@ -62,7 +62,7 @@
         </section><!-- #content end -->
 
         <!-- Footer
-                                                                                  ============================================= -->
+                                                                                                                                                          ============================================= -->
 
 
         <!-- #footer end -->
@@ -71,6 +71,87 @@
 
 
 
+    <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+
+                <div class="single-product shop-quick-view-ajax">
+                    <div class="ajax-modal-title text-center">
+                        <h2 id="pdTitle"></h2>
+                    </div>
+
+                    <div class="product modal-padding">
+
+                        <div class="row col-mb-50">
+                            <div class="col-md-6">
+                                <div class="product-image">
+                                    <div class="fslider" data-pagi="false">
+                                        <div class="flexslider">
+                                            <div class="slider-wrap">
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="sale-flash badge badge-danger p-2" id="inStock"></div>
+
+                                </div>
+                            </div>
+                            <div class="col-md-6 product-desc">
+                                <div class="product-price"><del id="pdMainPrice"></del> <ins class="font-weight-semibold"
+                                        id="pdPrice"></ins></div>
+
+                                <div class="clear"></div>
+                                <div class="line"></div>
+                                <form class="cart mb-0" method="post" enctype='multipart/form-data' id="cartForm">
+
+                                    <div class="product-color">
+                                        <span>Mezerment:</span>
+                                        <div class="meserment-choose">
+
+                                        </div>
+                                    </div>
+                                    <div class="clear"></div>
+                                    <div class="line"></div>
+                                    <div class="product-color">
+                                        <span>Color:</span>
+                                        <div class="color-choose">
+                                        </div>
+                                    </div>
+                                    <div class="clear"></div>
+                                    <div class="line"></div>
+
+
+                                    <div class="quantity clearfix">
+                                        <input type="button" value="-" class="minus">
+                                        <input type="text" step="1" min="1" name="quantity" id="quantity" value="1"
+                                            title="Qty" class="qty" size="4" />
+                                        <input type="button" value="+" class="plus">
+                                    </div>
+
+                                    <input type="hidden" id="product_ids" name="product_ids">
+                                    <button type="submit" class="add-to-cart button m-0">Add to cart</button>
+                                </form>
+
+                                <div class="clear"></div>
+                                <div class="line"></div>
+                                <p id="pDescription"></p>
+
+                                <div class="card product-meta mb-0">
+                                    <div class="card-body">
+                                        <span class="posted_in">Category: <a href="#" rel="tag" id="pdCategory"></a>.</span>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
 
 
@@ -78,6 +159,8 @@
 @section('script')
 
     <script>
+        // Single product Show in modal
+
         function productDetailsModal(id) {
 
             let url = "{{ route('client.getsingleProductdata') }}";
@@ -196,11 +279,7 @@
 
 
 
-
-
-
-
-
+        // Add to cart
 
 
         $('#cartForm').on('submit', function(event) {
@@ -258,25 +337,23 @@
 
                         var imageViewHtml = "";
                         $.each(cartData, function(i, item) {
-
-                            imageViewHtml += '<li>';
-                            imageViewHtml += '<a class="aa-cartbox-img" href="#"><img src=" ' + cartData[i]
-                                .image +
-                                ' " alt="img"></a>';
-                            imageViewHtml += '<div class="aa-cartbox-info"> <h4><a href="#">' + cartData[i]
-                                .title +
-                                '</a> </h4> <p>' + cartData[i].quantity + ' x &#2547; ' + cartData[i]
-                                .unit_price +
-                                '</p>  </div>';
-                            imageViewHtml +=
-                                '<div class="aa-remove-product"><button class="cartDeleteIcon" data-id=' +
-                                i +
-                                '  style=" display:inline-block" type="submit" class="fa fa-times"><i class="fa fa-remove"></i></button> </div>';
-                            imageViewHtml += '</li>';
+                            imageViewHtml += `<div class="top-cart-item">
+                                                     <div class="top-cart-item-image">
+                                                         <a href="#"><img src="${cartData[i].image}"
+                                                                 alt="Blue Round-Neck Tshirt" /></a>
+                                                     </div>
+                                                     <div class="top-cart-item-desc">
+                                                         <div class="top-cart-item-desc-title">
+                                                             <a href="#">${cartData[i].title}</a>
+                                                             <span class="top-cart-item-price d-block"> ${cartData[i].quantity} x &#2547; ${cartData[i].unit_price}</span>
+                                                         </div>
+                                                         <div class="top-cart-item-quantity"><button class="cartDeleteIcon" data-id="${i}" type="submit"><i class="fas fa-times"> </i></button></div>
+                                                     </div>
+                                            </div>`
                         });
 
 
-                        $('#headerCart').html(imageViewHtml);
+                        $('.top-cart-items').html(imageViewHtml);
 
                         console.log(a);
 
@@ -299,6 +376,46 @@
                 }).catch(function(error) {
 
                     toastr.error('Something Went Wrong...');
+                });
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+        $('#confirmDeleteCart').click(function() {
+
+
+            alert("hello")
+            var id = $(this).data('id');
+            DeleteDataCart(id);
+        })
+
+
+        //delete Cart function
+        function DeleteDataCart(id) {
+
+            axios.post("{{ route('client.cartRemove') }}", {
+                    product_id: id
+                })
+                .then(function(response) {
+
+                    if (response.status == 200) {
+                        toastr.success('Cart Removed Success.');
+                        getcartData();
+                    } else {
+                        toastr.error('Something Went Wrong');
+                    }
+                }).catch(function(error) {
+
+                    toastr.error('Something Went Wrong......');
                 });
         }
 

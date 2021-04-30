@@ -26,7 +26,7 @@ class cartController extends Controller
         $data['total_discount']= array_sum( array_column($data['cart'], 'total_discount'));
         $data['total_main_price']= array_sum( array_column($data['cart'], 'total_main_price'));
         // session()->forget(['cart']);
-        dd( $data);
+        // dd( $data);
         return view('client.pages.cart', $data);
     }
 
@@ -49,7 +49,7 @@ class cartController extends Controller
     public function addToCart(Request $request)
     {
 
-           
+
 
         $cart=[];
 
@@ -205,6 +205,8 @@ class cartController extends Controller
     public function order(Request $request)
     {
 
+
+
         $cart = session()->has('cart') ? session()->get('cart') : [];
         $total= array_sum( array_column($cart, 'total_price'));
 
@@ -312,7 +314,7 @@ class cartController extends Controller
 
         }
 
-        auth()->user()->notify(new orderConfirmNotification($order));
+        // auth()->user()->notify(new orderConfirmNotification($order));
 
         session()->forget(['cart','price']);
 
@@ -324,7 +326,7 @@ class cartController extends Controller
     {
         $data=[];
         $data['orders']=Orders::with('product')->findOrFail($id);
-        return view('client.pages.orderDetails', $data);
+        return view('client.pages.OrderDetails', $data);
     }
 
 

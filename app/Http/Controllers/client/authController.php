@@ -36,7 +36,7 @@ class authController extends Controller
 
     public function showLogin()
     {
-        return view('client.pages.login');
+        return view('client.pages.Login');
     }
 
     public function onlogin(Request $request)
@@ -143,7 +143,7 @@ public function profile()
     $data= [];
     $data['orders']=Orders::where('user_id', auth()->user()->id)->get();
 
-    return view('client.pages.profile', $data);
+    return view('client.pages.Profile', $data);
 }
 
 
@@ -216,7 +216,7 @@ public function profileEdit($id)
     $data=[];
     $data['user']=User::where('id',$id)->first();
 
-    return view('client.pages.profileEdit', $data);
+    return view('client.pages.ProfileEdit', $data);
 }
 
 

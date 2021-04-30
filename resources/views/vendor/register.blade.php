@@ -9,7 +9,7 @@
             <div class="card">
                 <div class="card-header">{{ __('Register') }}</div>
                     @include('vendor.message.massege')
-                    @include('vendor.message.errorMassage')
+                    @include('vendor.message.ErrorMessage')
                 <div class="card-body">
                     <form method="POST" action="{{ route('vendor.addVendor') }}">
                         @csrf
