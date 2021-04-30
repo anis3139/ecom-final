@@ -88,12 +88,12 @@ class AboutPageController extends Controller
         $fileName = (explode('/', $fileNames))[1];
         $hostName = $_SERVER['HTTP_HOST'];
         $protocol = $_SERVER['PROTOCOL'] = isset($_SERVER['HTTPS']) && !empty($_SERVER['HTTPS']) ? 'https://' : 'http://';
-        $imageRealPath =  $protocol . $hostName . "/public/storage/" . $fileName;
+        $imageRealPath =  $protocol . $hostName . "/storage/" . $fileName;
 
 
         if( count($valuecheck)>0){
 
-          
+
         $result = HomeAboutSecTionModel::where('id', '=',  $valuecheck['0']->id)->update(['image1' => $imageRealPath]);
 
         } else{
@@ -116,7 +116,7 @@ class AboutPageController extends Controller
         $fileName = (explode('/', $fileNames))[1];
         $hostName = $_SERVER['HTTP_HOST'];
         $protocol = $_SERVER['PROTOCOL'] = isset($_SERVER['HTTPS']) && !empty($_SERVER['HTTPS']) ? 'https://' : 'http://';
-        $imageRealPath =  $protocol . $hostName . "/public/storage/" . $fileName;
+        $imageRealPath =  $protocol . $hostName . "/storage/" . $fileName;
 
         if( count($valuecheck)>0){
 
@@ -139,7 +139,7 @@ class AboutPageController extends Controller
         $fileName = (explode('/', $fileNames))[1];
         $hostName = $_SERVER['HTTP_HOST'];
         $protocol = $_SERVER['PROTOCOL'] = isset($_SERVER['HTTPS']) && !empty($_SERVER['HTTPS']) ? 'https://' : 'http://';
-        $imageRealPath =  $protocol . $hostName . "/public/storage/" . $fileName;
+        $imageRealPath =  $protocol . $hostName . "/storage/" . $fileName;
 
 
         if( count($valuecheck)>0){
@@ -168,7 +168,7 @@ class AboutPageController extends Controller
         $fileName = (explode('/', $fileNames))[1];
         $hostName = $_SERVER['HTTP_HOST'];
         $protocol = $_SERVER['PROTOCOL'] = isset($_SERVER['HTTPS']) && !empty($_SERVER['HTTPS']) ? 'https://' : 'http://';
-        $imageRealPath =  $protocol . $hostName . "/public/storage/" . $fileName;
+        $imageRealPath =  $protocol . $hostName . "/storage/" . $fileName;
 
 
         if( count($valuecheck)>0){
@@ -372,7 +372,7 @@ class AboutPageController extends Controller
         $fileName = (explode('/', $fileNames))[1];
         $hostName = $_SERVER['HTTP_HOST'];
         $protocol = $_SERVER['PROTOCOL'] = isset($_SERVER['HTTPS']) && !empty($_SERVER['HTTPS']) ? 'https://' : 'http://';
-        $imageRealPath =  $protocol . $hostName . "/public/storage/" . $fileName;
+        $imageRealPath =  $protocol . $hostName . "/storage/" . $fileName;
 
 
             try {
@@ -449,7 +449,7 @@ class AboutPageController extends Controller
         $fileName = (explode('/', $fileNames))[1];
         $hostName = $_SERVER['HTTP_HOST'];
         $protocol = $_SERVER['PROTOCOL'] = isset($_SERVER['HTTPS']) && !empty($_SERVER['HTTPS']) ? 'https://' : 'http://';
-        $imageRealPath =  $protocol . $hostName . "/public/storage/" . $fileName;
+        $imageRealPath =  $protocol . $hostName . "/storage/" . $fileName;
 
 
 

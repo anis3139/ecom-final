@@ -25,14 +25,15 @@ class cartController extends Controller
         $data['total_delivery_charge']= array_sum( array_column($data['cart'], 'total_delivery_charge'));
         $data['total_discount']= array_sum( array_column($data['cart'], 'total_discount'));
         $data['total_main_price']= array_sum( array_column($data['cart'], 'total_main_price'));
-        
+        // session()->forget(['cart']);
+        dd( $data);
         return view('client.pages.cart', $data);
     }
 
     public function cartData()
     {
 
-       
+
         $data = [];
 
         $data['cart'] = session()->has('cart') ? session()->get('cart') : [];
@@ -41,15 +42,15 @@ class cartController extends Controller
         $data['total_delivery_charge']= array_sum( array_column($data['cart'], 'total_delivery_charge'));
         $data['total_discount']= array_sum( array_column($data['cart'], 'total_discount'));
         $data['total_main_price']= array_sum( array_column($data['cart'], 'total_main_price'));
-        
+
         return $data;
     }
 
     public function addToCart(Request $request)
     {
 
-       
-        
+           
+
         $cart=[];
 
         try {
@@ -70,7 +71,7 @@ class cartController extends Controller
         $quantity= $request->quantity ?? $product->product_quantity;
         $color =$request->color;
         $meserment =$request->meserment;
-      
+
         $product_tax=($unit_price*$product->product_tax)/100;
 
         $product_delivary_charge=$quantity*$product->product_delivary_charge;
@@ -111,7 +112,7 @@ class cartController extends Controller
 
 
         }
-   
+
        session(['cart' => $cart]);
 
         if ( count($cart)>0) {
@@ -121,7 +122,7 @@ class cartController extends Controller
             return 0;
         }
 
-       
+
 
     }
 
@@ -134,12 +135,12 @@ class cartController extends Controller
             return redirect()->back();
         }
         $product = product_table::with('img','color')->findOrFail($request->input('product_update_id'));
-        
+
 
          $cart = session()->has('cart') ? session()->get('cart') : [];
 
         $quantity= $request->quantity ?? $product->product_quantity;
-       
+
 
         if (array_key_exists($product->id, $cart)) {
             $cart[$product->id]['quantity'] =  $quantity;
@@ -150,7 +151,7 @@ class cartController extends Controller
 
             if ($product->product_delivary_charge_type != 0) {
                 $cart[$product->id]['total_delivery_charge']= $cart[$product->id]['quantity'] *  $cart[$product->id]['product_delivary_charge'];
-            }  
+            }
         }
 
         session(['cart' => $cart]);
@@ -181,7 +182,7 @@ class cartController extends Controller
 
     public function clearCart()
     {
-       
+
        session()->forget(['cart']);
 
         return redirect()->back()->with('success','Your Cart is Clear');

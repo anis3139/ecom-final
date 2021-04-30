@@ -68,7 +68,7 @@ class ProductsController extends Controller
         $product_colors = $data['0']->product_colors;
         $selectedmesermentId = $data['0']->selectedmesermentId;
         $pdTax = $data['0']->pdTax;
-       
+
         $slug = Str::slug($product_title);
         $next = 2;
         while (product_table::where('product_slug', '=', $slug)->first()) {
@@ -91,7 +91,7 @@ class ProductsController extends Controller
         $result->product_active = $product_active;
         $result->product_slug = $slug;
         $result->product_tax = $pdTax;
-     
+
         $result->save();
         $last_id = $result->id;
 
@@ -104,7 +104,7 @@ class ProductsController extends Controller
                 $image->move(public_path('/storage/'), $img);
                 $productImageOnehost = $_SERVER['HTTP_HOST'];
                 $protocol = $_SERVER['PROTOCOL'] = isset($_SERVER['HTTPS']) && !empty($_SERVER['HTTPS']) ? 'https://' : 'http://';
-                $productImageOnelocation = $protocol . $productImageOnehost .  "/public/storage/" . $img;
+                $productImageOnelocation = $protocol . $productImageOnehost .  "/storage/" . $img;
                 $imagemodel = new product_has_images();
                 $imagemodel->image_path = "$productImageOnelocation";
                 $imagemodel->has_images_product_id = $last_id;
@@ -195,7 +195,7 @@ class ProductsController extends Controller
         $slelctedmesermentEdit = $data['0']->slelctedmesermentEdit;
         $editedValueOfColor = $data['0']->editedValueOfColor;
         $pdEditTax = $data['0']->pdEditTax;
-      
+
 
 
 
@@ -243,7 +243,7 @@ class ProductsController extends Controller
                 $image->move(public_path('/storage/'), $img);
                 $productImageOnehost = $_SERVER['HTTP_HOST'];
                 $protocol = $_SERVER['PROTOCOL'] = isset($_SERVER['HTTPS']) && !empty($_SERVER['HTTPS']) ? 'https://' : 'http://';
-                $productImageOnelocation = $protocol . $productImageOnehost .  "/public/storage/" . $img;
+                $productImageOnelocation = $protocol . $productImageOnehost .  "/storage/" . $img;
                 $imagemodel = new product_has_images();
                 $imagemodel->image_path = $productImageOnelocation;
                 $imagemodel->has_images_product_id = $product_id_edit;
@@ -266,7 +266,7 @@ class ProductsController extends Controller
             $result->product_active = $pdEditStatus;
             $result->product_meserment_type = $slelctedmesermentEdit;
             $result->product_tax = $pdEditTax;
-          
+
             $status = $result->save();
 
             if ($status == true) {

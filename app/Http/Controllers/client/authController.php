@@ -257,7 +257,7 @@ public function upadeteProfile(Request $request, $id)
                 $photoName = (explode('/', $photoPath))[1];
                 $host = $_SERVER['HTTP_HOST'];
                 $protocol = $_SERVER['PROTOCOL'] = isset($_SERVER['HTTPS']) && !empty($_SERVER['HTTPS']) ? 'https://' : 'http://';
-                $location = $protocol . $host .  "/public/storage/" . $photoName;
+                $location = $protocol . $host .  "/storage/" . $photoName;
                 $user->image=$location;
             }
 

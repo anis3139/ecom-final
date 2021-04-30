@@ -30,6 +30,8 @@
 
     <link rel="stylesheet" href="{{ asset('client') }}/css/colors.php?color=000000" type="text/css" />
 
+    <link rel="stylesheet" href="{{ asset('client') }}/css/style.css">
+
     <!-- Document Title
  ============================================= -->
     <title>Shop Demo | Canvas</title>
@@ -73,31 +75,8 @@
     <!-- ADD-ONS JS FILES -->
 
     @yield('script')
-    <script>
-        /// SIngle Product View
 
-        function productDetailsModal(id) {
-
-            let url = "{{ route('client.getsingleProductdata') }}";
-            axios.post(url, {
-                    id: id
-                })
-                .then(function(response) {
-
-                    if (response.status == 200) {
-                        var jsonData = response.data;
-                        console.log(jsonData[0].product_title);
-                        $('#pdTitle').html(jsonData[0].product_title);
-							
-                    } else {
-
-                    }
-                }).catch(function(error) {
-                    console.log(error);
-                });
-        }
-
-    </script>
+   
 
 
 </body>

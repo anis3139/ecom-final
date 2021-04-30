@@ -52,7 +52,7 @@ class ProductCategoriesController extends Controller
             $photoName = (explode('/', $photoPath))[1];
             $host =$_SERVER['HTTP_HOST'];
             $protocol = $_SERVER['PROTOCOL'] = isset($_SERVER['HTTPS']) && !empty($_SERVER['HTTPS']) ? 'https://' : 'http://';
-            $location = $protocol . $host . "/public/storage/" . $photoName;
+            $location = $protocol . $host . "/storage/" . $photoName;
 
 
 
@@ -60,7 +60,7 @@ class ProductCategoriesController extends Controller
             $iconName = (explode('/', $iconPath))[1];
             $iconHost = $_SERVER['HTTP_HOST'];
             $protocol = $_SERVER['PROTOCOL'] = isset($_SERVER['HTTPS']) && !empty($_SERVER['HTTPS']) ? 'https://' : 'http://';
-            $iconNameLocation =  $protocol . $iconHost . "/public/storage/" . $iconName;
+            $iconNameLocation =  $protocol . $iconHost . "/storage/" . $iconName;
 
             $slug=Str::slug($name);
             $next = 2;
@@ -141,7 +141,7 @@ class ProductCategoriesController extends Controller
             $photoName = (explode('/', $photoPath))[1];
             $host = $_SERVER['HTTP_HOST'];
             $protocol = $_SERVER['PROTOCOL'] = isset($_SERVER['HTTPS']) && !empty($_SERVER['HTTPS']) ? 'https://' : 'http://';
-            $location = $protocol . $host . "/public/storage/" . $photoName;
+            $location = $protocol . $host . "/storage/" . $photoName;
 
 
             $delete_old_icon = ProductsCategoryModel::where('id', '=', $id)->first();
@@ -151,7 +151,7 @@ class ProductCategoriesController extends Controller
             $iconName = (explode('/', $iconPath))[1];
             $host = $_SERVER['HTTP_HOST'];
             $protocol = $_SERVER['PROTOCOL'] = isset($_SERVER['HTTPS']) && !empty($_SERVER['HTTPS']) ? 'https://' : 'http://';
-            $icon_location =  $protocol . $host ."/public/storage/" . $iconName;
+            $icon_location =  $protocol . $host ."/storage/" . $iconName;
 
 
 
@@ -171,7 +171,7 @@ class ProductCategoriesController extends Controller
             $photoName = (explode('/', $photoPath))[1];
             $host = $_SERVER['HTTP_HOST'];
             $protocol = $_SERVER['PROTOCOL'] = isset($_SERVER['HTTPS']) && !empty($_SERVER['HTTPS']) ? 'https://' : 'http://';
-            $location =  $protocol . $host . "/public/storage/" . $photoName;
+            $location =  $protocol . $host . "/storage/" . $photoName;
 
 
             $result = ProductsCategoryModel::where('id', '=', $id)->update(['name' => $name, 'status' => $catEditStatus,'is_menu' => $catEdit_is_menu,'is_homepage' => $catEdit_is_homepage,  'parent_id' => $products_category_id, 'banner_image' => $location]);
@@ -191,7 +191,7 @@ class ProductCategoriesController extends Controller
             $iconName = (explode('/', $iconPath))[1];
             $host = $_SERVER['HTTP_HOST'];
             $protocol = $_SERVER['PROTOCOL'] = isset($_SERVER['HTTPS']) && !empty($_SERVER['HTTPS']) ? 'https://' : 'http://';
-            $icon_location =  $protocol  . $host . "/public/storage/" . $iconName;
+            $icon_location =  $protocol  . $host . "/storage/" . $iconName;
 
 
             $result = ProductsCategoryModel::where('id', '=', $id)->update(['name' => $name, 'status' => $catEditStatus,'is_menu' => $catEdit_is_menu,'is_homepage' => $catEdit_is_homepage,  'parent_id' => $products_category_id, 'icon' => $icon_location]);
