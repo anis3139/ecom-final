@@ -30,7 +30,7 @@ class authController extends Controller
 
     public function registration()
     {
-        return view('client.pages.registration');
+        return view('client.pages.Registration');
     }
 
 
@@ -150,7 +150,7 @@ public function profile()
 
 public function forgot()
 {
-    return view('client.pages.forgot');
+    return view('client.pages.Forgot');
 }
 
 
@@ -183,7 +183,7 @@ public function recoverPassWord($id = null)
     $email = (explode('-', $recoveryTocken))[0];
     $user=User::where('email',$email)->firstOrFail();
     if($user){
-        return view('client.pages.recoverPassword')->with([ 'user'=> $user]);
+        return view('client.pages.RecoverPassword')->with([ 'user'=> $user]);
      }
 
 

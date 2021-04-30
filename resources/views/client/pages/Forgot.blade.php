@@ -1,4 +1,7 @@
-@extends('client.layouts.app') @section('content')
+@extends('client.layouts.app')
+
+@section('content')
+
     <!-- catg header banner section -->
 
     <!-- / catg header banner section -->
@@ -9,47 +12,52 @@
                 <div class="col-md-12">
                     <div class="mt-5">
                         <div class="row">
-                            <div class="col-md-8 offset-md-2"> @include('client.component.Message')
+                            <div class="col-md-8 offset-md-2">
+                                @include('client.component.Message')
                                 @include('client.component.ErrorMessage')
                                 <div class="aa-myaccount-register">
-                                    <form id="login-form" name="login-form" class="row" action="{{ route('client.onlogin') }}" method="post">
+
+
+                                    <form id="login-form" name="login-form" class="row"
+                                        action="{{ route('client.forgotPassword') }}" method="post">
                                         @csrf
                                         <div class="col-12">
-                                            <h3>Login to your Account</h3>
+                                            <h3>Reset Password</h3>
                                         </div>
 
                                         <div class="col-12 form-group">
-                                            <label for="login-form-username">Username:</label>
-                                            <input type="email" id="login-form-username" name="email" value="" class="form-control" />
+                                            <label for="login-form-username">Your Email:</label>
+                                            <input type="email" id="login-form-username" name="email" value=""
+                                                class="form-control" />
                                         </div>
 
-                                        <div class="col-12 form-group">
-                                            <label for="login-form-password">Password:</label>
-                                            <input type="password" id="login-form-password" name="password" value="" class="form-control" />
-                                        </div>
 
                                         <div class="col-12 form-group">
-                                            <button class="btn btn-secondary m-0" id="login-form-submit" name="login-form-submit" value="login">Login</button>
-                                            <div class="float-right">
-                                                <a href="{{ route('client.forgot') }}" class="d-block text-primary p-1">Forgot Password?</a>
-                                                <a href="{{ route('client.registration') }}" class="d-block text-primary p-1">Register now! </a>
-                                            </div>
+                                            <button class="btn btn-secondary m-0" id="login-form-submit"
+                                                name="login-form-submit" value="login">Submit</button>
 
                                         </div>
 
 
                                     </form>
                                 </div>
-                                <br><br>
+                                <div class="row">
 
-
+                                    @guest
+                                        <div class="col-md-12" style="margin-top: 20px !important">
+                                            <p>Don't have an account? <a class="text-primary"
+                                                    href="{{ route('client.registration') }}"> Register now! </a></p>
+                                        </div>
+                                    @endguest
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </section> <!-- / Cart view section -->
+    </section>
+    <!-- / Cart view section -->
 @endsection
 
 
