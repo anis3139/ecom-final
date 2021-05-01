@@ -18,7 +18,7 @@ class categoryController extends Controller
 
         $category=ProductsCategoryModel::where('slug', $slug)->first();
         $allProducts=product_table::where('product_category_id',  $category->id)->where('product_active', 1)->paginate(15);
-        
+
         $popular_products= OrderProducts::with('product')
         ->select('product_id', DB::raw('COUNT(product_id) as maxSell'))
         ->groupBy('product_id')
@@ -30,7 +30,7 @@ class categoryController extends Controller
 
 
 
-        return view('client.pages.categoryShow')->with([
+        return view('client.pages.CategoryShow')->with([
             'allProducts'=> $allProducts,
             'popular_products'=> $popular_products,
             'topRatedProducts'=> $topRatedProducts,

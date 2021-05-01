@@ -1,847 +1,874 @@
 @extends('client.layouts.app')
-@section('css')
 
-    <style>
-        .aa-product-catg-pagination a {
-            margin: 0px 10px !important;
-            color: #fff;
-            background: #FF6666;
-            padding: 3px 5px;
-            border: 1px solid #FF6666;
-            border-radius: 5px;
-        }
-
-        .aa-product-catg li figure .aa-add-card-btn {
-            width: 100%;
-        }
-
-    </style>
-
-@endsection
 @section('content')
-
-
-    <!-- product category -->
-    <section id="aa-product-category">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-9 col-md-9 col-sm-8 col-md-push-3">
-                    <div class="aa-product-catg-content">
-                        <div class="aa-product-catg-head">
-                            <div class="aa-product-catg-head-left">
-                                <form action="" class="aa-sort-form">
-                                    <label for="">Sort by</label>
-                                    <select name="">
-                                        <option value="1" selected="Default">Default</option>
-                                        <option value="2">Name</option>
-                                        <option value="3">Price</option>
-                                        <option value="4">Date</option>
-                                    </select>
-                                </form>
-                                <form action="" class="aa-show-form">
-                                    <label for="">Show</label>
-                                    <select name="">
-                                        <option value="1" selected="12">12</option>
-                                        <option value="2">24</option>
-                                        <option value="3">36</option>
-                                    </select>
-                                </form>
-                            </div>
-                            <div class="aa-product-catg-head-right">
-                                <a id="grid-catg" href="#"><span class="fa fa-th"></span></a>
-                                <a id="list-catg" href="#"><span class="fa fa-list"></span></a>
-                            </div>
-                        </div>
-                        <div class="aa-product-catg-body">
-                            <ul class="aa-product-catg">
-                                <!-- start single product item -->
-                                @foreach ($allProducts as $allProduct)
-                                    <li>
-                                        <figure>
-
-                                            @php $i= 1; @endphp
-                                            @foreach ($allProduct->img as $images)
-                                                @if ($i > 0)
-                                                    <a class="aa-product-img"
-                                                        href="{{ route('client.showProductDetails', ['slug' => $allProduct->product_slug]) }}"><img
-                                                            src="{{ $images->image_path }}" alt="polo shirt img"
-                                                            width="100%" height="300px"
-                                                            style="background-position: center; background-repeat: no-repeat;background-size: cover;"></a>
-
-                                                @endif
-                                                @php $i--; @endphp
-                                            @endforeach
-
-                                            <a class="aa-add-card-btn"
-                                                onclick="productDetailsModal({{ $allProduct->id }})"
-                                                href="{{ $allProduct->id }}" data-toggle2="tooltip" data-placement="top"
-                                                data-toggle="modal" data-target="#quick-view-modal"><span
-                                                    class="fa fa-shopping-cart" id="CartAddConfirmBtn"></span>Add To
-                                                Cart</a>
-
-
-                                            <figcaption>
-                                                <h4 class="aa-product-title"><a
-                                                        href="#">{{ $allProduct->product_title }}</a></h4>
-
-
-
-                                                <span class="aa-product-price">&#2547;
-                                                    {{ $allProduct->product_selling_price }}</span>
-                                                @if ($allProduct->product_price != $allProduct->product_selling_price)
-                                                    <span class="aa-product-price"><del> &#2547;
-                                                            {{ $allProduct->product_price }}</del></span>@endif
-
-                                                <p class="aa-product-descrip">{!! nl2br(e($allProduct->product_discription)) !!}</p>
-                                            </figcaption>
-                                        </figure>
-                                        <div class="aa-product-hvr-content">
-                                            {{-- <a href="#" data-toggle="tooltip" data-placement="top"
-                                                title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
-                                            <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span
-                                                    class="fa fa-exchange"></span></a> --}}
-                                            {{-- <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View"
-                                                data-toggle="modal" data-target="#quick-view-modal"><span
-                                                    class="fa fa-search"></span></a> --}}
-                                                    <a onclick="productQuickOrder({{ $allProduct->id }})"
-                                                        href="{{ $allProduct->id }}" data-toggle2="tooltip" data-placement="top"
-                                                         data-toggle="modal" data-target="#quick-order"><span>Quick Order</span></a>
-                                            <a onclick="productDetailsModal({{ $allProduct->id }})" data-toggle2="tooltip"
-                                                data-placement="top" title="Quick View" data-toggle="modal"
-                                                data-target="#quick-view-modal"><span class="fa fa-search"></span></a>
-                                        </div>
-                                        <!-- product badge -->
-                                        @if ($allProduct->product_in_stock)
-                                            <span class="aa-badge aa-sale" href="#">
-                                                SALE!
-                                            </span>
-                                        @else
-                                            <span class="aa-badge aa-sold-out" href="#">Sold Out!</span>
-                                        @endif
-                                    </li>
-                                @endforeach
-
-                                <!-- start single product item -->
-
-                            </ul>
-                            <!-- quick view modal -->
-                            <div class="modal fade" id="quick-view-modal" tabindex="-1" role="dialog"
-                                aria-labelledby="myModalLabel" aria-hidden="true">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-body">
-                                            <button type="button" class="close" data-dismiss="modal"
-                                                aria-hidden="true">&times;</button>
-                                            <div class="row">
-                                                <!-- Modal view slider -->
-                                                <div class="col-md-6 col-sm-6 col-xs-12">
-                                                    <div class="aa-product-view-slider">
-                                                        <div class="simpleLens-gallery-container" id="demo-1">
-                                                            <div class="simpleLens-container">
-                                                                <div class="simpleLens-big-image-container">
-                                                                    <a class="simpleLens-lens-image" id="simpleLensImage"
-                                                                        data-lens-image="">
-                                                                        <img src="" class="simpleLens-big-image"
-                                                                            id="simpleLensBigImage">
-                                                                    </a>
-                                                                </div>
-                                                            </div>
-                                                            <div class="simpleLens-thumbnails-container">
-
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <!-- Modal view content -->
-                                                <div class="col-md-6 col-sm-6 col-xs-12">
-                                                    <div class="aa-product-view-content">
-                                                        <h3 id="pdTitle"></h3>
-                                                        <div class="aa-price-block">
-                                                            <span id="pdPrice" class="aa-product-view-price"></span>
-                                                            <p class="aa-product-avilability">Avilability: <span
-                                                                    id="inStock"></span></p>
-                                                        </div>
-
-                                                        <!-- Cable Configuration -->
-                                                        <form id="cartForm" method="post">
-
-                                                            <div class="product-color">
-                                                                <span>Mezerment:</span>
-                                                                <div class="meserment-choose mt-5">
-
-                                                                </div>
-                                                            </div>
-
-                                                            <div class="product-color">
-                                                                <span>Color</span>
-                                                                <div class="color-choose mt-5">
-                                                                </div>
-                                                            </div>
-
-                                                            <div class="aa-prod-quantity">
-
-                                                                <select name="quantity" id="quantity">
-                                                                    <option value="1" selected>1</option>
-                                                                    <option value="2">2</option>
-                                                                    <option value="3">3</option>
-                                                                    <option value="4">4</option>
-                                                                    <option value="5">5</option>
-                                                                    <option value="10">10</option>
-                                                                </select>
-
-                                                                <p class="aa-prod-category">
-                                                                    Category: <a href="#" id="pdCategory"></a>
-                                                                </p>
-                                                            </div>
-                                                            <div class="aa-prod-view-bottom">
-                                                                <input type="hidden" id="product_ids" name="product_id"
-                                                                    value="">
-                                                                <button type="submit" class="aa-add-to-cart-btn"><span
-                                                                        class="fa fa-shopping-cart"></span>Add To
-                                                                    Cart</button>
-
-
-                                                                <a href="" id="modalSingleView"
-                                                                    class="aa-add-to-cart-btn">View Details</a>
-                                                            </div>
-                                                        </form>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div><!-- /.modal-content -->
-                                </div><!-- /.modal-dialog -->
-                            </div>
-                            <!-- / quick view modal -->
-
-
-
-
-
-
-
-
-
-
-
-                               <!-- quick view modal -->
-                               <div class="modal fade" id="quick-order" tabindex="-1" role="dialog"
-                               aria-labelledby="myModalLabel" aria-hidden="true">
-                               <div class="modal-dialog">
-                                   <div class="modal-content">
-                                       <div class="modal-body">
-                                           <button type="button" class="close" data-dismiss="modal"
-                                               aria-hidden="true">&times;</button>
-                                           <div class="row">
-                                             <form id="quick-order-form" method="post">
-                    
-                                               <!-- Modal view content -->
-                                               <div class="col-md-6 col-sm-6 col-xs-12">
-                                                   <div class="aa-product-view-content">
-                                                      
-                                                       <!-- Cable Configuration -->
-                                                    <p> Product Name: <span id="pdTitles" style="font-size: 20px;"></span></p>
-                                                    <p> Product Price: <span id="pdPricesShow" style="font-size: 20px;"></span></p>
-
-                                                            <input type="hidden" id="pdTitle_order" name="product_titles">
-                                                           <div class="product-color">
-                                                               <span>Mezerment:</span>
-                                                               <div class="meserment-choose mt-5" id="meserment-chooses">
-                                                               </div>
-                                                           </div>
-                                                           <div class="product-color">
-                                                               <span>Color</span>
-                                                               <div class="color-choose mt-5" id="color-chooses">
-                                                               </div>
-                                                           </div>
-
-                                                           <div class="aa-prod-quantity">
-                                                               <select name="quantity" id="quantitys">
-                                                                   <option value="1" selected>1</option>
-                                                                   <option value="2">2</option>
-                                                                   <option value="3">3</option>
-                                                                   <option value="4">4</option>
-                                                                   <option value="5">5</option>
-                                                                   <option value="10">10</option>
-                                                               </select>
-                                                           </div>
-                                                          
-                                                        </div>
-                                                    </div>
-
-                                                                               <!-- Modal view slider -->
-                                               <div class="col-md-6 col-sm-6 col-xs-12">
-                                                   <label for="customer_name">Name:</label>
-                                                    <input type="text" class="form-control"name="customer_name" id="customer_name">
-                                                    <label for="customer_phone_number">Nobile Number:</label>
-                                                    <input type="text" class="form-control" name="customer_phone_number" id="customer_phone_number">
-                                                    <div class="aa-prod-view-bottom" style="margin-top: 10px;">
-                                                        <input type="hidden" name="pdPrices" id="pdPrices">
-                                                           <button type="submit" class="aa-add-to-cart-btn"><span
-                                                                   class="fa fa-shopping-cart"></span>Confirm Order</button>
-                                                       </div>
-                                                </div>
-
-                                                </form>
-                                             </div>
-                                       </div>
-                                   </div><!-- /.modal-content -->
-                               </div><!-- /.modal-dialog -->
-                           </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                        </div>
-                        <div class="aa-product-catg-pagination">
-                            {{ $allProducts->links() }}
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-3 col-sm-4 col-md-pull-9">
-                    <aside class="aa-sidebar">
-                        <!-- single sidebar -->
-                        <div class="aa-sidebar-widget">
-                            <h3>Category</h3>
-                            <ul class="aa-catg-nav">
-                                @foreach (App\Models\ProductsCategoryModel::orderby('name', 'asc')
-            ->where('parent_id', 0)
-            ->get()
-        as $parentCat)
-                                    <li><a
-                                            href="{{ route('client.category', $parentCat->slug) }}">{{ $parentCat->name }}</a>
-                                    </li>
-                                @endforeach
-                            </ul>
-                        </div>
-                        <!-- single sidebar -->
-                        {{-- <div class="aa-sidebar-widget">
-                            <h3>Tags</h3>
-                            <div class="tag-cloud">
-                                <a href="#">Fashion</a>
-                                <a href="#">Ecommerce</a>
-                                <a href="#">Shop</a>
-                                <a href="#">Hand Bag</a>
-                                <a href="#">Laptop</a>
-                                <a href="#">Head Phone</a>
-                                <a href="#">Pen Drive</a>
-                            </div>
-                        </div> --}}
-                        <!-- single sidebar -->
-                        {{-- <div class="aa-sidebar-widget">
-                            <h3>Shop By Price</h3>
-                            <!-- price range -->
-                            <div class="aa-sidebar-price-range">
-                                <form action="">
-                                    <div id="skipstep" class="noUi-target noUi-ltr noUi-horizontal noUi-background">
-                                    </div>
-                                    <span id="skip-value-lower" class="example-val">30.00</span>
-                                    <span id="skip-value-upper" class="example-val">100.00</span>
-                                    <button class="aa-filter-btn" type="submit">Filter</button>
-                                </form>
-                            </div>
-
-                        </div>
-                        <!-- single sidebar -->
-                        <div class="aa-sidebar-widget">
-                            <h3>Shop By Color</h3>
-                            <div class="aa-color-tag">
-                                <a class="aa-color-green" href="#"></a>
-                                <a class="aa-color-yellow" href="#"></a>
-                                <a class="aa-color-pink" href="#"></a>
-                                <a class="aa-color-purple" href="#"></a>
-                                <a class="aa-color-blue" href="#"></a>
-                                <a class="aa-color-orange" href="#"></a>
-                                <a class="aa-color-gray" href="#"></a>
-                                <a class="aa-color-black" href="#"></a>
-                                <a class="aa-color-white" href="#"></a>
-                                <a class="aa-color-cyan" href="#"></a>
-                                <a class="aa-color-olive" href="#"></a>
-                                <a class="aa-color-orchid" href="#"></a>
-                            </div>
-                        </div> --}}
-                        <!-- single sidebar -->
-                        {{-- <div class="aa-sidebar-widget">
-                            <h3>Popular Product</h3>
-                            <div class="aa-recently-views">
-                                <ul>
-                                    @foreach ($popular_products as $popular_product)
-                                    @if ($popular_product->product && $popular_product->product->product_active == 1)
-                                        <li>
-                                            @php $i= 1; @endphp
-                                            @foreach ($popular_product->product->img as $images)
-                                                @if ($i > 0)
-                                                    <a class="aa-cartbox-img"
-                                                        href="{{ route('client.showProductDetails', ['slug' => $popular_product->product->product_slug]) }}"><img
-                                                            src="{{ $images->image_path }}" alt="polo shirt img"
-                                                            width="100%" height="300px"></a>
-                                                @endif
-                                                @php $i--; @endphp
-                                            @endforeach
-
-                                            <div class="aa-cartbox-info">
-                                                <h4><a
-                                                        href="{{ route('client.showProductDetails', ['slug' => $popular_product->product->product_slug]) }}">{{ $popular_product->product->product_title }}</a>
-                                                </h4>
-                                                <p>1 x &#2547;  {{ $popular_product->product->product_selling_price }}</p>
-                                            </div>
-                                        </li>
-                                        @endif
-                                    @endforeach
-                                </ul>
-                            </div>
-                        </div> --}}
-                        <!-- single sidebar -->
-                        <div class="aa-sidebar-widget">
-                            <h3>Top Rated Products</h3>
-                            <div class="aa-recently-views">
-                                <ul>
-                                    @foreach ($topRatedProducts as $topRatedProduct)
-                                        <li>
-                                            @php $i= 1; @endphp
-                                            @foreach ($topRatedProduct->img as $images)
-                                                @if ($i > 0)
-                                                    <a class="aa-cartbox-img"
-                                                        href="{{ route('client.showProductDetails', ['slug' => $topRatedProduct->product_slug]) }}"><img
-                                                            src="{{ $images->image_path }}" alt="polo shirt img"
-                                                            width="100%" height="300px"></a>
-                                                @endif
-                                                @php $i--; @endphp
-                                            @endforeach
-
-                                            <div class="aa-cartbox-info">
-                                                <h4><a
-                                                        href="{{ route('client.showProductDetails', ['slug' => $topRatedProduct->product_slug]) }}">{{ $topRatedProduct->product_title }}</a>
-                                                </h4>
-                                                <p>1 x &#2547; {{ $topRatedProduct->product_price }}</p>
-                                            </div>
-                                        </li>
-                                    @endforeach
-
-
-                                </ul>
-                            </div>
-                        </div>
-                    </aside>
-                </div>
-
-            </div>
-        </div>
-    </section>
-    <!-- / product category -->
-
+	<!-- Page Title
+		============================================= -->
+		<section id="page-title">
+
+			<div class="container clearfix">
+				<h1>Shop</h1>
+				<span>Start Buying your Favourite Theme</span>
+				<ol class="breadcrumb">
+					<li class="breadcrumb-item"><a href="#">Home</a></li>
+					<li class="breadcrumb-item active" aria-current="page">Shop</li>
+				</ol>
+			</div>
+
+		</section><!-- #page-title end -->
+
+		<!-- Content
+		============================================= -->
+		<section id="content">
+			<div class="content-wrap">
+				<div class="container clearfix">
+
+					<div class="row gutter-40 col-mb-80">
+						<!-- Post Content
+						============================================= -->
+						<div class="postcontent col-lg-9 order-lg-last">
+
+							<!-- Shop
+							============================================= -->
+							<div id="shop" class="shop row grid-container gutter-20" data-layout="fitRows">
+
+								<div class="product col-md-4 col-sm-6 col-12">
+									<div class="grid-inner">
+										<div class="product-image">
+											<a href="#"><img src="{{asset('client')}}/images/shop/dress/1.jpg" alt="Checked Short Dress"></a>
+											<a href="#"><img src="{{asset('client')}}/images/shop/dress/1-1.jpg" alt="Checked Short Dress"></a>
+											<div class="sale-flash badge badge-secondary p-2">Out of Stock</div>
+											<div class="bg-overlay">
+												<div class="bg-overlay-content align-items-end justify-content-between" data-hover-animate="fadeIn" data-hover-speed="400">
+													<a href="#" class="btn btn-dark mr-2"><i class="icon-shopping-cart"></i></a>
+													<a href="include/ajax/shop-item.html" class="btn btn-dark" data-lightbox="ajax"><i class="icon-line-expand"></i></a>
+												</div>
+												<div class="bg-overlay-bg bg-transparent"></div>
+											</div>
+										</div>
+										<div class="product-desc">
+											<div class="product-title"><h3><a href="#">Checked Short Dress</a></h3></div>
+											<div class="product-price"><del>$24.99</del> <ins>$12.49</ins></div>
+											<div class="product-rating">
+												<i class="icon-star3"></i>
+												<i class="icon-star3"></i>
+												<i class="icon-star3"></i>
+												<i class="icon-star3"></i>
+												<i class="icon-star-half-full"></i>
+											</div>
+										</div>
+									</div>
+								</div>
+
+								<div class="product col-md-4 col-sm-6 col-12">
+									<div class="grid-inner">
+										<div class="product-image">
+											<a href="#"><img src="{{asset('client')}}/images/shop/pants/1-1.jpg" alt="Slim Fit Chinos"></a>
+											<a href="#"><img src="{{asset('client')}}/images/shop/pants/1.jpg" alt="Slim Fit Chinos"></a>
+											<div class="bg-overlay">
+												<div class="bg-overlay-content align-items-end justify-content-between" data-hover-animate="fadeIn" data-hover-speed="400">
+													<a href="#" class="btn btn-dark mr-2"><i class="icon-shopping-cart"></i></a>
+													<a href="include/ajax/shop-item.html" class="btn btn-dark" data-lightbox="ajax"><i class="icon-line-expand"></i></a>
+												</div>
+												<div class="bg-overlay-bg bg-transparent"></div>
+											</div>
+										</div>
+										<div class="product-desc">
+											<div class="product-title"><h3><a href="#">Slim Fit Chinos</a></h3></div>
+											<div class="product-price">$39.99</div>
+											<div class="product-rating">
+												<i class="icon-star3"></i>
+												<i class="icon-star3"></i>
+												<i class="icon-star3"></i>
+												<i class="icon-star-half-full"></i>
+												<i class="icon-star-empty"></i>
+											</div>
+										</div>
+									</div>
+								</div>
+
+								<div class="product col-md-4 col-sm-6 col-12">
+									<div class="grid-inner">
+										<div class="product-image">
+											<div class="fslider" data-arrows="false">
+												<div class="flexslider">
+													<div class="slider-wrap">
+														<div class="slide"><a href="#"><img src="{{asset('client')}}/images/shop/shoes/1.jpg" alt="Dark Brown Boots"></a></div>
+														<div class="slide"><a href="#"><img src="{{asset('client')}}/images/shop/shoes/1-1.jpg" alt="Dark Brown Boots"></a></div>
+														<div class="slide"><a href="#"><img src="{{asset('client')}}/images/shop/shoes/1-2.jpg" alt="Dark Brown Boots"></a></div>
+													</div>
+												</div>
+											</div>
+											<div class="bg-overlay">
+												<div class="bg-overlay-content align-items-end justify-content-between" data-hover-animate="fadeIn" data-hover-speed="400">
+													<a href="#" class="btn btn-dark mr-2"><i class="icon-shopping-cart"></i></a>
+													<a href="include/ajax/shop-item.html" class="btn btn-dark" data-lightbox="ajax"><i class="icon-line-expand"></i></a>
+												</div>
+												<div class="bg-overlay-bg bg-transparent"></div>
+											</div>
+										</div>
+										<div class="product-desc">
+											<div class="product-title"><h3><a href="#">Dark Brown Boots</a></h3></div>
+											<div class="product-price">$49</div>
+											<div class="product-rating">
+												<i class="icon-star3"></i>
+												<i class="icon-star3"></i>
+												<i class="icon-star3"></i>
+												<i class="icon-star-empty"></i>
+												<i class="icon-star-empty"></i>
+											</div>
+										</div>
+									</div>
+								</div>
+
+								<div class="product col-md-4 col-sm-6 col-12">
+									<div class="grid-inner">
+										<div class="product-image">
+											<a href="#"><img src="{{asset('client')}}/images/shop/dress/2.jpg" alt="Light Blue Denim Dress"></a>
+											<a href="#"><img src="{{asset('client')}}/images/shop/dress/2-2.jpg" alt="Light Blue Denim Dress"></a>
+											<div class="bg-overlay">
+												<div class="bg-overlay-content align-items-end justify-content-between" data-hover-animate="fadeIn" data-hover-speed="400">
+													<a href="#" class="btn btn-dark mr-2"><i class="icon-shopping-cart"></i></a>
+													<a href="include/ajax/shop-item.html" class="btn btn-dark" data-lightbox="ajax"><i class="icon-line-expand"></i></a>
+												</div>
+												<div class="bg-overlay-bg bg-transparent"></div>
+											</div>
+										</div>
+										<div class="product-desc">
+											<div class="product-title"><h3><a href="#">Light Blue Denim Dress</a></h3></div>
+											<div class="product-price">$19.95</div>
+											<div class="product-rating">
+												<i class="icon-star3"></i>
+												<i class="icon-star3"></i>
+												<i class="icon-star3"></i>
+												<i class="icon-star3"></i>
+												<i class="icon-star-empty"></i>
+											</div>
+										</div>
+									</div>
+								</div>
+
+								<div class="product col-md-4 col-sm-6 col-12">
+									<div class="grid-inner">
+										<div class="product-image">
+											<a href="#"><img src="{{asset('client')}}/images/shop/sunglasses/1.jpg" alt="Unisex Sunglasses"></a>
+											<a href="#"><img src="{{asset('client')}}/images/shop/sunglasses/1-1.jpg" alt="Unisex Sunglasses"></a>
+											<div class="sale-flash badge badge-success p-2 text-uppercase">Sale!</div>
+											<div class="bg-overlay">
+												<div class="bg-overlay-content align-items-end justify-content-between" data-hover-animate="fadeIn" data-hover-speed="400">
+													<a href="#" class="btn btn-dark mr-2"><i class="icon-shopping-cart"></i></a>
+													<a href="include/ajax/shop-item.html" class="btn btn-dark" data-lightbox="ajax"><i class="icon-line-expand"></i></a>
+												</div>
+												<div class="bg-overlay-bg bg-transparent"></div>
+											</div>
+										</div>
+										<div class="product-desc">
+											<div class="product-title"><h3><a href="#">Unisex Sunglasses</a></h3></div>
+											<div class="product-price"><del>$19.99</del> <ins>$11.99</ins></div>
+											<div class="product-rating">
+												<i class="icon-star3"></i>
+												<i class="icon-star3"></i>
+												<i class="icon-star3"></i>
+												<i class="icon-star-empty"></i>
+												<i class="icon-star-empty"></i>
+											</div>
+										</div>
+									</div>
+								</div>
+
+								<div class="product col-md-4 col-sm-6 col-12">
+									<div class="grid-inner">
+										<div class="product-image">
+											<a href="#"><img src="{{asset('client')}}/images/shop/tshirts/1.jpg" alt="Blue Round-Neck Tshirt"></a>
+											<a href="#"><img src="{{asset('client')}}/images/shop/tshirts/1-1.jpg" alt="Blue Round-Neck Tshirt"></a>
+											<div class="bg-overlay">
+												<div class="bg-overlay-content align-items-end justify-content-between" data-hover-animate="fadeIn" data-hover-speed="400">
+													<a href="#" class="btn btn-dark mr-2"><i class="icon-shopping-cart"></i></a>
+													<a href="include/ajax/shop-item.html" class="btn btn-dark" data-lightbox="ajax"><i class="icon-line-expand"></i></a>
+												</div>
+												<div class="bg-overlay-bg bg-transparent"></div>
+											</div>
+										</div>
+										<div class="product-desc">
+											<div class="product-title"><h3><a href="#">Blue Round-Neck Tshirt</a></h3></div>
+											<div class="product-price">$9.99</div>
+											<div class="product-rating">
+												<i class="icon-star3"></i>
+												<i class="icon-star3"></i>
+												<i class="icon-star3"></i>
+												<i class="icon-star-half-full"></i>
+												<i class="icon-star-empty"></i>
+											</div>
+										</div>
+									</div>
+								</div>
+
+								<div class="product col-md-4 col-sm-6 col-12">
+									<div class="grid-inner">
+										<div class="product-image">
+											<a href="#"><img src="{{asset('client')}}/images/shop/watches/1.jpg" alt="Silver Chrome Watch"></a>
+											<a href="#"><img src="{{asset('client')}}/images/shop/watches/1-1.jpg" alt="Silver Chrome Watch"></a>
+											<div class="bg-overlay">
+												<div class="bg-overlay-content align-items-end justify-content-between" data-hover-animate="fadeIn" data-hover-speed="400">
+													<a href="#" class="btn btn-dark mr-2"><i class="icon-shopping-cart"></i></a>
+													<a href="include/ajax/shop-item.html" class="btn btn-dark" data-lightbox="ajax"><i class="icon-line-expand"></i></a>
+												</div>
+												<div class="bg-overlay-bg bg-transparent"></div>
+											</div>
+										</div>
+										<div class="product-desc">
+											<div class="product-title"><h3><a href="#">Silver Chrome Watch</a></h3></div>
+											<div class="product-price">$129.99</div>
+											<div class="product-rating">
+												<i class="icon-star3"></i>
+												<i class="icon-star3"></i>
+												<i class="icon-star3"></i>
+												<i class="icon-star3"></i>
+												<i class="icon-star-half-full"></i>
+											</div>
+										</div>
+									</div>
+								</div>
+
+								<div class="product col-md-4 col-sm-6 col-12">
+									<div class="grid-inner">
+										<div class="product-image">
+											<a href="#"><img src="{{asset('client')}}/images/shop/shoes/2.jpg" alt="Men Grey Casual Shoes"></a>
+											<a href="#"><img src="{{asset('client')}}/images/shop/shoes/2-1.jpg" alt="Men Grey Casual Shoes"></a>
+											<div class="sale-flash badge badge-success p-2 text-uppercase">Sale!</div>
+											<div class="bg-overlay">
+												<div class="bg-overlay-content align-items-end justify-content-between" data-hover-animate="fadeIn" data-hover-speed="400">
+													<a href="#" class="btn btn-dark mr-2"><i class="icon-shopping-cart"></i></a>
+													<a href="include/ajax/shop-item.html" class="btn btn-dark" data-lightbox="ajax"><i class="icon-line-expand"></i></a>
+												</div>
+												<div class="bg-overlay-bg bg-transparent"></div>
+											</div>
+										</div>
+										<div class="product-desc">
+											<div class="product-title"><h3><a href="#">Men Grey Casual Shoes</a></h3></div>
+											<div class="product-price"><del>$45.99</del> <ins>$39.49</ins></div>
+											<div class="product-rating">
+												<i class="icon-star3"></i>
+												<i class="icon-star3"></i>
+												<i class="icon-star-half-full"></i>
+												<i class="icon-star-empty"></i>
+												<i class="icon-star-empty"></i>
+											</div>
+										</div>
+									</div>
+								</div>
+
+								<div class="product col-md-4 col-sm-6 col-12">
+									<div class="grid-inner">
+										<div class="product-image">
+											<div class="fslider" data-arrows="false">
+												<div class="flexslider">
+													<div class="slider-wrap">
+														<div class="slide"><a href="#"><img src="{{asset('client')}}/images/shop/dress/3.jpg" alt="Pink Printed Dress"></a></div>
+														<div class="slide"><a href="#"><img src="{{asset('client')}}/images/shop/dress/3-1.jpg" alt="Pink Printed Dress"></a></div>
+														<div class="slide"><a href="#"><img src="{{asset('client')}}/images/shop/dress/3-2.jpg" alt="Pink Printed Dress"></a></div>
+													</div>
+												</div>
+											</div>
+											<div class="bg-overlay">
+												<div class="bg-overlay-content align-items-end justify-content-between" data-hover-animate="fadeIn" data-hover-speed="400">
+													<a href="#" class="btn btn-dark mr-2"><i class="icon-shopping-cart"></i></a>
+													<a href="include/ajax/shop-item.html" class="btn btn-dark" data-lightbox="ajax"><i class="icon-line-expand"></i></a>
+												</div>
+												<div class="bg-overlay-bg bg-transparent"></div>
+											</div>
+										</div>
+										<div class="product-desc">
+											<div class="product-title"><h3><a href="#">Pink Printed Dress</a></h3></div>
+											<div class="product-price">$39.49</div>
+											<div class="product-rating">
+												<i class="icon-star3"></i>
+												<i class="icon-star3"></i>
+												<i class="icon-star3"></i>
+												<i class="icon-star-empty"></i>
+												<i class="icon-star-empty"></i>
+											</div>
+										</div>
+									</div>
+								</div>
+
+								<div class="product col-md-4 col-sm-6 col-12">
+									<div class="grid-inner">
+										<div class="product-image">
+											<a href="#"><img src="{{asset('client')}}/images/shop/pants/5.jpg" alt="Green Trousers"></a>
+											<a href="#"><img src="{{asset('client')}}/images/shop/pants/5-1.jpg" alt="Green Trousers"></a>
+											<div class="sale-flash badge badge-success p-2 text-uppercase">Sale!</div>
+											<div class="bg-overlay">
+												<div class="bg-overlay-content align-items-end justify-content-between" data-hover-animate="fadeIn" data-hover-speed="400">
+													<a href="#" class="btn btn-dark mr-2"><i class="icon-shopping-cart"></i></a>
+													<a href="include/ajax/shop-item.html" class="btn btn-dark" data-lightbox="ajax"><i class="icon-line-expand"></i></a>
+												</div>
+												<div class="bg-overlay-bg bg-transparent"></div>
+											</div>
+										</div>
+										<div class="product-desc">
+											<div class="product-title"><h3><a href="#">Green Trousers</a></h3></div>
+											<div class="product-price"><del>$24.99</del> <ins>$21.99</ins></div>
+											<div class="product-rating">
+												<i class="icon-star3"></i>
+												<i class="icon-star3"></i>
+												<i class="icon-star3"></i>
+												<i class="icon-star-half-full"></i>
+												<i class="icon-star-empty"></i>
+											</div>
+										</div>
+									</div>
+								</div>
+
+								<div class="product col-md-4 col-sm-6 col-12">
+									<div class="grid-inner">
+										<div class="product-image">
+											<a href="#"><img src="{{asset('client')}}/images/shop/sunglasses/2.jpg" alt="Men Aviator Sunglasses"></a>
+											<a href="#"><img src="{{asset('client')}}/images/shop/sunglasses/2-1.jpg" alt="Men Aviator Sunglasses"></a>
+											<div class="bg-overlay">
+												<div class="bg-overlay-content align-items-end justify-content-between" data-hover-animate="fadeIn" data-hover-speed="400">
+													<a href="#" class="btn btn-dark mr-2"><i class="icon-shopping-cart"></i></a>
+													<a href="include/ajax/shop-item.html" class="btn btn-dark" data-lightbox="ajax"><i class="icon-line-expand"></i></a>
+												</div>
+												<div class="bg-overlay-bg bg-transparent"></div>
+											</div>
+										</div>
+										<div class="product-desc">
+											<div class="product-title"><h3><a href="#">Men Aviator Sunglasses</a></h3></div>
+											<div class="product-price">$13.49</div>
+											<div class="product-rating">
+												<i class="icon-star3"></i>
+												<i class="icon-star3"></i>
+												<i class="icon-star3"></i>
+												<i class="icon-star3"></i>
+												<i class="icon-star-empty"></i>
+											</div>
+										</div>
+									</div>
+								</div>
+
+								<div class="product col-md-4 col-sm-6 col-12">
+									<div class="grid-inner">
+										<div class="product-image">
+											<a href="#"><img src="{{asset('client')}}/images/shop/tshirts/4.jpg" alt="Black Polo Tshirt"></a>
+											<a href="#"><img src="{{asset('client')}}/images/shop/tshirts/4-1.jpg" alt="Black Polo Tshirt"></a>
+											<div class="bg-overlay">
+												<div class="bg-overlay-content align-items-end justify-content-between" data-hover-animate="fadeIn" data-hover-speed="400">
+													<a href="#" class="btn btn-dark mr-2"><i class="icon-shopping-cart"></i></a>
+													<a href="include/ajax/shop-item.html" class="btn btn-dark" data-lightbox="ajax"><i class="icon-line-expand"></i></a>
+												</div>
+												<div class="bg-overlay-bg bg-transparent"></div>
+											</div>
+										</div>
+										<div class="product-desc">
+											<div class="product-title"><h3><a href="#">Black Polo Tshirt</a></h3></div>
+											<div class="product-price">$11.49</div>
+											<div class="product-rating">
+												<i class="icon-star3"></i>
+												<i class="icon-star3"></i>
+												<i class="icon-star3"></i>
+												<i class="icon-star3"></i>
+												<i class="icon-star3"></i>
+											</div>
+										</div>
+									</div>
+								</div>
+
+							</div><!-- #shop end -->
+
+						</div><!-- .postcontent end -->
+
+						<!-- Sidebar
+						============================================= -->
+						<div class="sidebar col-lg-3">
+							<div class="sidebar-widgets-wrap">
+
+								<div class="widget widget_links clearfix">
+
+									<h4>Shop Categories</h4>
+									<ul>
+										<li><a href="#">Shirts</a></li>
+										<li><a href="#">Pants</a></li>
+										<li><a href="#">Tshirts</a></li>
+										<li><a href="#">Sunglasses</a></li>
+										<li><a href="#">Shoes</a></li>
+										<li><a href="#">Bags</a></li>
+										<li><a href="#">Watches</a></li>
+									</ul>
+
+								</div>
+
+								<div class="widget clearfix">
+
+									<h4>Recent Items</h4>
+									<div class="posts-sm row col-mb-30" id="recent-shop-list-sidebar">
+										<div class="entry col-12">
+											<div class="grid-inner row no-gutters">
+												<div class="col-auto">
+													<div class="entry-image">
+														<a href="#"><img src="{{asset('client')}}/images/shop/small/1.jpg" alt="Image"></a>
+													</div>
+												</div>
+												<div class="col pl-3">
+													<div class="entry-title">
+														<h4><a href="#">Blue Round-Neck Tshirt</a></h4>
+													</div>
+													<div class="entry-meta no-separator">
+														<ul>
+															<li class="color">$29.99</li>
+															<li><i class="icon-star3"></i><i class="icon-star3"></i><i class="icon-star3"></i><i class="icon-star3"></i><i class="icon-star-half-full"></i></li>
+														</ul>
+													</div>
+												</div>
+											</div>
+										</div>
+
+										<div class="entry col-12">
+											<div class="grid-inner row no-gutters">
+												<div class="col-auto">
+													<div class="entry-image">
+														<a href="#"><img src="{{asset('client')}}/images/shop/small/6.jpg" alt="Image"></a>
+													</div>
+												</div>
+												<div class="col pl-3">
+													<div class="entry-title">
+														<h4><a href="#">Checked Short Dress</a></h4>
+													</div>
+													<div class="entry-meta no-separator">
+														<ul>
+															<li class="color">$23.99</li>
+															<li><i class="icon-star3"></i><i class="icon-star3"></i><i class="icon-star3"></i><i class="icon-star-half-full"></i><i class="icon-star-empty"></i></li>
+														</ul>
+													</div>
+												</div>
+											</div>
+										</div>
+
+										<div class="entry col-12">
+											<div class="grid-inner row no-gutters">
+												<div class="col-auto">
+													<div class="entry-image">
+														<a href="#"><img src="{{asset('client')}}/images/shop/small/7.jpg" alt="Image"></a>
+													</div>
+												</div>
+												<div class="col pl-3">
+													<div class="entry-title">
+														<h4><a href="#">Light Blue Denim Dress</a></h4>
+													</div>
+													<div class="entry-meta no-separator">
+														<ul>
+															<li class="color">$19.99</li>
+															<li><i class="icon-star3"></i><i class="icon-star3"></i><i class="icon-star3"></i><i class="icon-star-empty"></i><i class="icon-star-empty"></i></li>
+														</ul>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+
+								</div>
+
+								<div class="widget clearfix">
+
+									<h4>Last Viewed Items</h4>
+									<div class="posts-sm row col-mb-30" id="last-viewed-shop-list-sidebar">
+										<div class="entry col-12">
+											<div class="grid-inner row no-gutters">
+												<div class="col-auto">
+													<div class="entry-image">
+														<a href="#"><img src="{{asset('client')}}/images/shop/small/3.jpg" alt="Image"></a>
+													</div>
+												</div>
+												<div class="col pl-3">
+													<div class="entry-title">
+														<h4><a href="#">Round-Neck Tshirt</a></h4>
+													</div>
+													<div class="entry-meta no-separator">
+														<ul>
+															<li class="color">$15</li>
+															<li><i class="icon-star3"></i><i class="icon-star3"></i><i class="icon-star3"></i><i class="icon-star3"></i><i class="icon-star3"></i></li>
+														</ul>
+													</div>
+												</div>
+											</div>
+										</div>
+
+										<div class="entry col-12">
+											<div class="grid-inner row no-gutters">
+												<div class="col-auto">
+													<div class="entry-image">
+														<a href="#"><img src="{{asset('client')}}/images/shop/small/10.jpg" alt="Image"></a>
+													</div>
+												</div>
+												<div class="col pl-3">
+													<div class="entry-title">
+														<h4><a href="#">Green Trousers</a></h4>
+													</div>
+													<div class="entry-meta no-separator">
+														<ul>
+															<li class="color">$19</li>
+															<li><i class="icon-star3"></i><i class="icon-star3"></i><i class="icon-star-empty"></i><i class="icon-star-empty"></i><i class="icon-star-empty"></i></li>
+														</ul>
+													</div>
+												</div>
+											</div>
+										</div>
+
+										<div class="entry col-12">
+											<div class="grid-inner row no-gutters">
+												<div class="col-auto">
+													<div class="entry-image">
+														<a href="#"><img src="{{asset('client')}}/images/shop/small/11.jpg" alt="Image"></a>
+													</div>
+												</div>
+												<div class="col pl-3">
+													<div class="entry-title">
+														<h4><a href="#">Silver Chrome Watch</a></h4>
+													</div>
+													<div class="entry-meta no-separator">
+														<ul>
+															<li class="color">$34.99</li>
+															<li><i class="icon-star3"></i><i class="icon-star3"></i><i class="icon-star3"></i><i class="icon-star-half-full"></i><i class="icon-star-empty"></i></li>
+														</ul>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+
+								</div>
+
+								<div class="widget clearfix">
+
+									<h4>Popular Items</h4>
+									<div class="posts-sm row col-mb-30" id="popular-shop-list-sidebar">
+										<div class="entry col-12">
+											<div class="grid-inner row no-gutters">
+												<div class="col-auto">
+													<div class="entry-image">
+														<a href="#"><img src="{{asset('client')}}/images/shop/small/8.jpg" alt="Image"></a>
+													</div>
+												</div>
+												<div class="col pl-3">
+													<div class="entry-title">
+														<h4><a href="#">Pink Printed Dress</a></h4>
+													</div>
+													<div class="entry-meta no-separator">
+														<ul>
+															<li class="color">$21</li>
+															<li><i class="icon-star3"></i><i class="icon-star3"></i><i class="icon-star3"></i><i class="icon-star3"></i><i class="icon-star-half-full"></i></li>
+														</ul>
+													</div>
+												</div>
+											</div>
+										</div>
+
+										<div class="entry col-12">
+											<div class="grid-inner row no-gutters">
+												<div class="col-auto">
+													<div class="entry-image">
+														<a href="#"><img src="{{asset('client')}}/images/shop/small/5.jpg" alt="Image"></a>
+													</div>
+												</div>
+												<div class="col pl-3">
+													<div class="entry-title">
+														<h4><a href="#">Blue Round-Neck Tshirt</a></h4>
+													</div>
+													<div class="entry-meta no-separator">
+														<ul>
+															<li class="color">$19.99</li>
+															<li><i class="icon-star3"></i><i class="icon-star3"></i><i class="icon-star3"></i><i class="icon-star-empty"></i><i class="icon-star-empty"></i></li>
+														</ul>
+													</div>
+												</div>
+											</div>
+										</div>
+
+										<div class="entry col-12">
+											<div class="grid-inner row no-gutters">
+												<div class="col-auto">
+													<div class="entry-image">
+														<a href="#"><img src="{{asset('client')}}/images/shop/small/12.jpg" alt="Image"></a>
+													</div>
+												</div>
+												<div class="col pl-3">
+													<div class="entry-title">
+														<h4><a href="#">Men Aviator Sunglasses</a></h4>
+													</div>
+													<div class="entry-meta no-separator">
+														<ul>
+															<li class="color">$14.99</li>
+															<li><i class="icon-star3"></i><i class="icon-star3"></i><i class="icon-star-half-full"></i><i class="icon-star-empty"></i><i class="icon-star-empty"></i></li>
+														</ul>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+
+								</div>
+
+								<div class="widget clearfix">
+									<iframe src="{{asset('client')}}///www.facebook.com/plugins/likebox.php?href=https%3A%2F%2Fwww.facebook.com%2FEnvato&amp;width=240&amp;height=290&amp;colorscheme=light&amp;show_faces=true&amp;header=true&amp;stream=false&amp;show_border=true&amp;appId=499481203443583" style="border:none; overflow:hidden; width:100% !important; height: 290px;"></iframe>
+								</div>
+
+								<div class="widget subscribe-widget clearfix">
+
+									<h4>Subscribe For Latest Offers</h4>
+									<h5>Subscribe to Our Newsletter to get Important News, Amazing Offers &amp; Inside Scoops:</h5>
+									<form action="#" class="my-0">
+										<div class="input-group mx-auto">
+											<input type="text" class="form-control" placeholder="Enter your Email" required="">
+											<div class="input-group-append">
+												<button class="btn btn-success" type="submit"><i class="icon-email2"></i></button>
+											</div>
+										</div>
+									</form>
+								</div>
+
+								<div class="widget clearfix">
+
+									<div id="oc-clients-full" class="owl-carousel image-carousel carousel-widget" data-items="1" data-margin="10" data-loop="true" data-nav="false" data-autoplay="5000" data-pagi="false">
+
+										<div class="oc-item"><a href="#"><img src="{{asset('client')}}/images/clients/1.png" alt="Clients"></a></div>
+										<div class="oc-item"><a href="#"><img src="{{asset('client')}}/images/clients/2.png" alt="Clients"></a></div>
+										<div class="oc-item"><a href="#"><img src="{{asset('client')}}/images/clients/3.png" alt="Clients"></a></div>
+										<div class="oc-item"><a href="#"><img src="{{asset('client')}}/images/clients/4.png" alt="Clients"></a></div>
+										<div class="oc-item"><a href="#"><img src="{{asset('client')}}/images/clients/5.png" alt="Clients"></a></div>
+										<div class="oc-item"><a href="#"><img src="{{asset('client')}}/images/clients/6.png" alt="Clients"></a></div>
+										<div class="oc-item"><a href="#"><img src="{{asset('client')}}/images/clients/7.png" alt="Clients"></a></div>
+										<div class="oc-item"><a href="#"><img src="{{asset('client')}}/images/clients/8.png" alt="Clients"></a></div>
+
+									</div>
+
+								</div>
+
+							</div>
+						</div><!-- .sidebar end -->
+					</div>
+
+				</div>
+			</div>
+		</section><!-- #content end -->
 @endsection
 
 @section('script')
-    <script>
-        
+<script>
+      function productDetailsModal(id) {
+
+let url = "{{ route('client.getsingleProductdata') }}";
+axios.post(url, {
+        id: id
+    })
+    .then(function(response) {
+        console.log(response.data);
+        if (response.status == 200) {
+            var jsonData = response.data;
+
+
+            var url = `product/${jsonData[0].product_slug}`;
 
 
 
-        $('#cartForm').on('submit', function(event) {
-            event.preventDefault();
-            let formData = $(this).serializeArray();
-            let meserment = formData[0]['value'];
-            let color = formData[1]['value'];
-            let quantity = formData[2]['value'];
-            let product_ids = formData[3]['value'];
-
-            let url = "{{ route('client.addCart') }}";
-            axios.post(url, {
-                meserment: meserment,
-                color: color,
-                quantity: quantity,
-                product_id: product_ids
-            }).then(function(response) {
-                console.log(response.data);
-                if (response.status == 200 && response.data == 1) {
-                    $('#quick-view-modal').modal('hide');
-                    toastr.success('Product Add Successfully');
-
-                    getcartData()
-
-
-
-                } else {
-                    toastr.error('Product not Added ! Try Again');
-                }
-
-            }).catch(function(error) {
-                toastr.error('Product not Added  ! Try Again');
-            })
-
-
-        })
-
-
-
-
-
-
-
-
-
-
-
-
-        getcartData()
-
-        function getcartData() {
-
-            axios.get("{{ route('client.cartData') }}")
-                .then(function(response) {
-
-                    if (response.status = 200) {
-                        var dataJSON = response.data;
-                        var cartData = dataJSON.cart;
-
-                        var a = Object.keys(cartData).length;
-
-
-                        $("#cart_quantity").html(a);
-                        $("#total_cart_price").html(' &#2547; ' + dataJSON.total);
-
-                        var imageViewHtml = "";
-                        $.each(cartData, function(i, item) {
-
-                            imageViewHtml += '<li>';
-                            imageViewHtml += '<a class="aa-cartbox-img" href="#"><img src=" ' + cartData[i]
-                                .image +
-                                ' " alt="img"></a>';
-                            imageViewHtml += '<div class="aa-cartbox-info"> <h4><a href="#">' + cartData[i]
-                                .title +
-                                '</a> </h4> <p>' + cartData[i].quantity + ' x &#2547; ' + cartData[i]
-                                .unit_price +
-                                '</p>  </div>';
-                            imageViewHtml +=
-                                '<div class="aa-remove-product"><button class="cartDeleteIcon" data-id=' +
-                                i +
-                                '  style=" display:inline-block" type="submit" class="fa fa-times"><i class="fa fa-remove"></i></button> </div>';
-                            imageViewHtml += '</li>';
-                        });
-
-
-                        $('#headerCart').html(imageViewHtml);
-
-                        console.log(a);
-
-                        if (a == 0) {
-                            $("#HeaderPreview").css("display", "none");
-                        }else{
-                            $("#HeaderPreview").css("display", "block");
-                        }
-
-
-                        //Carts click on delete icon
-                        $(".cartDeleteIcon").click(function() {
-                            var id = $(this).data('id');
-                            $('#CartsDeleteId').html(id);
-                            DeleteDataCart(id);
-                        })
-                    } else {
-                        toastr.error('Something Went Wrong');
-                    }
-                }).catch(function(error) {
-
-                    toastr.error('Something Went Wrong...');
-                });
-        }
-
-
-
-
-
-        $('#confirmDeleteCart').click(function() {
-            ;
-            var id = $(this).data('id');
-            DeleteDataCart(id);
-        })
-
-
-        //delete Cart function
-        function DeleteDataCart(id) {
-
-            axios.post("{{ route('client.cartRemove') }}", {
-                    product_id: id
-                })
-                .then(function(response) {
-
-                    if (response.status == 200) {
-                        toastr.success('Cart Removed Success.');
-                        getcartData();
-                    } else {
-                        toastr.error('Something Went Wrong');
-                    }
-                }).catch(function(error) {
-
-                    toastr.error('Something Went Wrong......');
-                });
-        }
-
-
-
-
-
-
-
-
-
-//Quick Order Details
-
-$('#quick-order-form').on('submit', function (event) {
-    event.preventDefault();
-
-    let product_title = $('#pdTitle_order').val();
-    let meserment = $("input[name=meserment_chooses]").val();
-    let color = $("input[name=color_chooses]").val();
-    let product_price = $('#pdPrices').val();
-    let quantity = $('#quantitys').val();
-    let customer_name = $('#customer_name').val();
-    let customer_phone_number = $('#customer_phone_number').val();
-
-    if (product_title.length == 0) {
-        toastr.error('Product Title Is Empty');
-    } else if (customer_name.length == 0) {
-        toastr.error('Your Name Is Empty');
-    } else if (customer_phone_number.length == 0) {
-        toastr.error('Mobile Number Is Empty');
-    }  else if (product_title.length == 0) {
-        toastr.error('Product Is Empty');
-    }  else if (product_price.length == 0) {
-        toastr.error('Price Is Empty');
-    } else {
-        let quick_order_url ="{{route('client.quickOrder')}}";
-        axios.post(quick_order_url, {
-
-            product_title: product_title,
-            meserment: meserment,
-            color: color,
-            quantity: quantity,
-            product_price: product_price,
-            customer_phone_number: customer_phone_number,
-            customer_name: customer_name
-
-        }).then(function (response) {
-            
-            if (response.status == 200 && response.data == 1) {
-                $('#quick-order').modal('hide');
-                toastr.success('Order Place Successfully');
+            var inStock = '';
+            if (jsonData[0].product_in_stock == 0) {
+                inStock = "STOCK OUT!"
             } else {
-                toastr.error('Order Not Place ! Try Again');
+                inStock = "SALE!"
             }
 
-        }).catch(function (error) {
-         
-            toastr.error('Order Not Place ! Try Again..');
-        })
+            $('#pdTitle').html(jsonData[0].product_title);
+            $('#pdPrice').html("&#2547;   " + jsonData[0].product_selling_price);
+            $('#pdMainPrice').html("&#2547;   " + jsonData[0].product_price);
+            $('#inStock').html(inStock);
+            $('#pdCategory').html(jsonData[0].cat.name);
+            $('#pDescription').html(jsonData[0].product_discription);
+            $('#product_ids').val(id);
+            $('#modalSingleView').attr("href", url);
+
+
+
+
+            var imageDiv = "";
+            for (let index = 0; index < jsonData[0].img.length; index++) {
+                const element = jsonData[0].img[index];
+                imageDiv += '<div  class="slide">';
+                imageDiv += '<a href="#" title="Pink Printed Dress - Front View">';
+                imageDiv += '<img src="' + element.image_path + '" alt="Pink Printed Dress">';
+                imageDiv += '</a>';
+                imageDiv += '</div>';
+
+            }
+
+            $('.slider-wrap').html(imageDiv);
+
+            var maserment = "";
+            for (let index = 0; index < jsonData[0].maserment.length; index++) {
+                const element = jsonData[0].maserment[index];
+                checked = ""
+                if (index == 0) {
+                    checked = "checked"
+                } else {
+                    checked = ""
+                }
+
+                maserment += '<div>';
+                maserment += '<input type="radio" id="' + element.meserment_value + '" name="maserment" ' +
+                    checked + ' value="' + element.meserment_value + '">';
+                maserment += '<label for="' + element.meserment_value +
+                    '"><span style="background-color:#000;"></span></label>';
+                maserment += '<span>' + element.meserment_value + '</span>&nbsp;';
+                maserment += '</div>';
+
+            }
+
+            $('.meserment-choose').html(maserment);
+
+
+
+
+            var color = "";
+            for (let index = 0; index < jsonData[0].color.length; index++) {
+                const elementColor = jsonData[0].color[index];
+
+                colorChecked = ""
+                if (index == 0) {
+                    colorChecked = "checked"
+                } else {
+                    colorChecked = ""
+                }
+                color += '<div>';
+                color += '<input type="radio" id="' + elementColor.product_color_code + '" name="color" ' +
+                    colorChecked + ' value="' + elementColor.product_color_code + '">';
+                color += '<label for="' + elementColor.product_color_code +
+                    '"><span style="background-color:' + elementColor.product_color_code +
+                    ';"></span></label>';
+                color += '</div>';
+
+            }
+
+            $('.color-choose').html(color);
+
+
+
+
+        } else {
+
+        }
+    }).catch(function(error) {
+
+    });
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Add to cart
+
+
+$('#cartForm').on('submit', function(event) {
+event.preventDefault();
+let formData = $(this).serializeArray();
+let meserment = formData[0]['value'];
+let color = formData[1]['value'];
+let quantity = formData[2]['value'];
+let product_ids = formData[3]['value'];
+console.log(formData);
+let url = "{{ route('client.addCart') }}";
+axios.post(url, {
+    meserment: meserment,
+    color: color,
+    quantity: quantity,
+    product_id: product_ids
+}).then(function(response) {
+    console.log(response.data);
+    if (response.status == 200 && response.data == 1) {
+        $('.bd-example-modal-lg').modal('hide');
+        toastr.success('Product Add Successfully');
+        getcartData()
+    } else {
+        toastr.error('Product not Added ! Try Again');
     }
 
+}).catch(function(error) {
+    toastr.error('Product not Added  ! Something Error');
+})
 
 
 })
 
 
 
-function productQuickOrder(id) {
-   
-    var productQuickOrder_url ="{{route('client.getsingleProductdata')}}";
-    axios.post(productQuickOrder_url, {
-        id: id
-    })
-        .then(function (response) {
-            console.log(response.data);
-            if (response.status == 200) {
-                var jsonData = response.data;
-                console.log(jsonData);
-
-                $('#pdTitle_order').val(jsonData[0].product_title);
-                $('#pdPrices').val(jsonData[0].product_selling_price);
-                $('#pdTitles').html(jsonData[0].product_title);
-                $('#pdPricesShow').html(jsonData[0].product_selling_price);
 
 
+getcartData()
+
+function getcartData() {
+
+axios.get("{{ route('client.cartData') }}")
+    .then(function(response) {
+
+        if (response.status = 200) {
+            var dataJSON = response.data;
+            var cartData = dataJSON.cart;
+
+            var a = Object.keys(cartData).length;
 
 
-                var maserment = "";
-                for (let index = 0; index < jsonData[0].maserment.length; index++) {
-                    const element = jsonData[0].maserment[index];
-                    checked = ""
-                    if (index == 0) {
-                        checked = "checked"
-                    } else {
-                        checked = ""
-                    }
+            $("#cart_quantity").html(a);
+            var tp = parseFloat(dataJSON.total).toFixed(2);
+            $("#total_cart_price").html(' &#2547; ' + tp);
 
-                    maserment += '<div>';
-                    maserment += '<input type="radio" id="' + element.meserment_value + '" name="meserment_chooses" id="meserment_chooses" ' +
-                        checked + ' value="' + element.meserment_value + '">';
-                    maserment += '<label for="' + element.meserment_value +
-                        '"><span style="background-color:#000;"></span></label>';
-                    maserment += '<span>' + element.meserment_value + '</span>&nbsp;';
-                    maserment += '</div>';
-
-                }
-
-                $('#meserment-chooses').html(maserment);
-
+            var imageViewHtml = "";
+            $.each(cartData, function(i, item) {
+                imageViewHtml += `<div class="top-cart-item">
+                                         <div class="top-cart-item-image">
+                                             <a href="#"><img src="${cartData[i].image}"
+                                                     alt="Blue Round-Neck Tshirt" /></a>
+                                         </div>
+                                         <div class="top-cart-item-desc">
+                                             <div class="top-cart-item-desc-title">
+                                                 <a href="#">${cartData[i].title}</a>
+                                                 <span class="top-cart-item-price d-block"> ${cartData[i].quantity} x &#2547; ${cartData[i].unit_price}</span>
+                                             </div>
+                                             <div class="top-cart-item-quantity"><button class="cartDeleteIcon" data-id="${i}" type="submit"><i class="icon-remove"> </i></button></div>
+                                         </div>
+                                </div>`
+            });
 
 
+            $('.top-cart-items').html(imageViewHtml);
 
-                var color = "";
-                for (let index = 0; index < jsonData[0].color.length; index++) {
-                    const elementColor = jsonData[0].color[index];
+            console.log(a);
 
-                    colorChecked = ""
-                    if (index == 0) {
-                        colorChecked = "checked"
-                    } else {
-                        colorChecked = ""
-                    }
-                    color += '<div>';
-                    color += '<input type="radio" id="' + elementColor.product_color_code + '" name="color_chooses" id="color_chooses" ' +
-                        colorChecked + ' value="' + elementColor.product_color_code + '">';
-                    color += '<label for="' + elementColor.product_color_code +
-                        '"><span style="background-color:' + elementColor.product_color_code +
-                        ';"></span></label>';
-                    color += '</div>';
-
-                }
-
-                $('#color-chooses').html(color);
-
-
+            if (a == 0) {
+                $("#HeaderPreview").css("display", "none");
             } else {
-
-                toastr.error('Something Went Wrong...');
+                $("#HeaderPreview").css("display", "block");
             }
-        }).catch(function (error) {
-
-            toastr.error('Something Went Wrong...');
-        });
-}
 
 
-
-
-
-
-
-
-
-
-
-
-
-/// SIngle Product View
-
-function productDetailsModal(id) {
-   
-    let url ="{{route('client.getsingleProductdata')}}";
-    axios.post(url, {
-                id: id
+            //Carts click on delete icon
+            $(".cartDeleteIcon").click(function() {
+                var id = $(this).data('id');
+                $('#CartsDeleteId').html(id);
+                DeleteDataCart(id);
             })
-        .then(function(response) {
-            console.log(response.data);
-            if (response.status == 200) {
-                var jsonData = response.data;
+        } else {
+            toastr.error('Something Went Wrong');
+        }
+    }).catch(function(error) {
 
-
-                var url= `product/${jsonData[0].product_slug}`;
-                var simpleLensImageUrl = jsonData[0].img[0].image_path;
-
-
-                var inStock = '';
-                if (jsonData[0].product_in_stock == 0) {
-                    inStock = "STOCK OUT!"
-                } else {
-                    inStock = "SALE!"
-                }
-
-                $('#pdTitle').html(jsonData[0].product_title);
-                $('#pdPrice').html("&#2547;   " + jsonData[0].product_selling_price);
-                $('#inStock').html(inStock);
-                $('#pdCategory').html(jsonData[0].cat.name);
-                $('#product_ids').val(id);
-                $('#modalSingleView').attr("href" , url );
-                $('#simpleLensImage').attr("data-lens-image" , simpleLensImageUrl );
-                $('#simpleLensBigImage').attr("src" , simpleLensImageUrl );
-
-
-
-
-                var maserment="";
-                for (let index = 0; index < jsonData[0].maserment.length; index++) {
-                    const element =  jsonData[0].maserment[index];
-                    checked=""
-                    if (index==0) {
-                        checked="checked"
-                    }else{
-                        checked=""
-                    }
-
-                    maserment+='<div>';
-                    maserment+='<input type="radio" id="'+element.meserment_value+'" name="maserment" '+checked+' value="'+element.meserment_value+'">';
-                    maserment+='<label for="'+element.meserment_value+'"><span style="background-color:#000;"></span></label>';
-                    maserment+='<span>'+element.meserment_value+'</span>&nbsp;';
-                    maserment+='</div>';
-
-                }
-
-                $('.meserment-choose').html(maserment);
-
-
-
-
-                var color="";
-                for (let index = 0; index < jsonData[0].color.length; index++) {
-                    const elementColor =  jsonData[0].color[index];
-
-                    colorChecked=""
-                    if (index==0) {
-                        colorChecked="checked"
-                    }else{
-                        colorChecked=""
-                    }
-                    color+='<div>';
-                    color+='<input type="radio" id="'+elementColor.product_color_code+'" name="color" '+colorChecked+' value="'+elementColor.product_color_code+'">';
-                    color+='<label for="'+elementColor.product_color_code+'"><span style="background-color:'+elementColor.product_color_code+';"></span></label>';
-                    color+='</div>';
-
-                }
-
-                $('.color-choose').html(color);
-
-                var img="";
-                for (let i = 0; i < jsonData[0].img.length; i++) {
-                    const elementImg =  jsonData[0].img[i];
-
-                    img+='<a  href="'+elementImg.image_path+'" class="simpleLens-thumbnail-wrapper"  data-lens-image="'+elementImg.image_path+'"  data-big-image="'+elementImg.image_path+'" ><img width="50px" height="50px" src="'+elementImg.image_path+'"></a>';
-
-                }
-                $('.simpleLens-thumbnails-container').html(img);
-
-
-            } else {
-
-            }
-        }).catch(function(error) {
-
-        });
+        toastr.error('Something Went Wrong...');
+    });
 }
 
 
@@ -855,11 +882,34 @@ function productDetailsModal(id) {
 
 
 
+$('#confirmDeleteCart').click(function() {
 
 
+alert("hello")
+var id = $(this).data('id');
+DeleteDataCart(id);
+})
 
 
+//delete Cart function
+function DeleteDataCart(id) {
 
+axios.post("{{ route('client.cartRemove') }}", {
+        product_id: id
+    })
+    .then(function(response) {
 
-    </script>
+        if (response.status == 200) {
+            toastr.success('Cart Removed Success.');
+            getcartData();
+        } else {
+            toastr.error('Something Went Wrong');
+        }
+    }).catch(function(error) {
+
+        toastr.error('Something Went Wrong......');
+    });
+}
+
+</script>
 @endsection

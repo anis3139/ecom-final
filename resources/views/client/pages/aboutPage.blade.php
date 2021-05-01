@@ -3,70 +3,64 @@
 @section('css')
 
 
-@include('client.aboutPartial.css')
+    @include('client.aboutPartial.css')
 
 @endsection
 @section('content')
-@php
-$others=App\Models\OthersModel::first();
-$socialData=App\Models\SocialModel::first();
-
-@endphp
-
-
-
- @include('client.aboutPartial.aboutIntro')
-
- 
- {{-- @include('client.aboutPartial.aboutProducts') --}}
+    @php
+    $others = App\Models\OthersModel::first();
+    $socialData = App\Models\SocialModel::first();
+    $HomeAboutSectionData = json_decode(
+        App\Models\HomeAboutSecTionModel::orderBy('id', 'desc')
+            ->get()
+            ->first(),
+    );
+    @endphp
 
 
-  <!-- / popular section -->
 
-  {{-- @include('client.component.specialFeatureSection') --}}
-  <!-- / Support section -->
-  <!-- Testimonial -->
-  {{-- @include('client.component.testimonial') --}}
+    <!-- Page Title
+              ============================================= -->
+    <section id="page-title" class="page-title-parallax include-header"
+        style="padding-top: 150px; background-image: url('@if ($HomeAboutSectionData) {{ $HomeAboutSectionData->image2 }} @endif'); background-size: cover; background-position:
+        center center;" data-bottom-top="background-position:0px 400px;" data-top-bottom="background-position:0px -500px;">
 
-  @include('client.aboutPartial.contactForm')
+        @include('client.aboutPartial.AboutIntro')
+
+    </section><!-- #page-title end -->
+
+    <!-- Content
+              ============================================= -->
+    <section id="content">
+        <div class="content-wrap">
+
+
+            @include('client.component.SpecialFeatureSection')
+
+
+
+            @include('client.component.Testimonial')
+
+
+        </div>
+        <div class="col-md-8 offset-md-2 mt-5">
+            <div class="fancy-title title-border">
+                <h3>Send us an Email</h3>
+            </div>
+
+            <div class="form-widget">
+                @include('client.aboutPartial.ContactForm')
+            </div>
+        </div>
+    </section><!-- #content end -->
+
 @endsection
 
 
 @section('script')
 
 
-<script>
-
-let sortBtn = document.querySelector('.filter-menu').children;
-let sortItem = document.querySelector('.filter-item').children;
-
-for(let i = 0; i < sortBtn.length; i++){
-    sortBtn[i].addEventListener('click', function(){
-        for(let j = 0; j< sortBtn.length; j++){
-            sortBtn[j].classList.remove('current');
-        }
-
-        this.classList.add('current');
-
-
-        let targetData = this.getAttribute('data-target');
-
-        for(let k = 0; k < sortItem.length; k++){
-            sortItem[k].classList.remove('active');
-            sortItem[k].classList.add('delete');
-
-            if(sortItem[k].getAttribute('data-item') == targetData || targetData == "all"){
-                sortItem[k].classList.remove('delete');
-                sortItem[k].classList.add('active');
-            }
-        }
-    });
-}
-
-
-
-
-
+    <script>
 
 
 
@@ -74,94 +68,151 @@ for(let i = 0; i < sortBtn.length; i++){
 
 getcartData()
 
-function getcartData() {
+        function getcartData() {
 
-    axios.get("{{ route('client.cartData') }}")
-        .then(function(response) {
+            axios.get("{{ route('client.cartData') }}")
+                .then(function(response) {
 
-            if (response.status = 200) {
-                var dataJSON = response.data;
-                var cartData = dataJSON.cart;
+                    if (response.status = 200) {
+                        var dataJSON = response.data;
+                        var cartData = dataJSON.cart;
 
-                var a = Object.keys(cartData).length;
-
-
-                $("#cart_quantity").html(a);
-                $("#total_cart_price").html(' &#2547; ' + dataJSON.total);
-
-                var imageViewHtml = "";
-                $.each(cartData, function (i, item) {
-
-                    imageViewHtml += '<li>';
-                    imageViewHtml += '<a class="aa-cartbox-img" href="#"><img src=" ' + cartData[i].image +
-                        ' " alt="img"></a>';
-                    imageViewHtml += '<div class="aa-cartbox-info"> <h4><a href="#">' + cartData[i].title +
-                        '</a> </h4> <p>' + cartData[i].quantity + ' x &#2547; ' + cartData[i].unit_price +
-                        '</p>  </div>';
-                    imageViewHtml += '<div class="aa-remove-product"><button class="cartDeleteIcon" data-id=' +
-                        i +
-                        '  style=" display:inline-block" type="submit" class="fa fa-times"><i class="fa fa-remove"></i></button> </div>';
-                    imageViewHtml += '</li>';
-                });
+                        var a = Object.keys(cartData).length;
 
 
-                $('#headerCart').html(imageViewHtml);
+                        $("#cart_quantity").html(a);
+                        var tp = parseFloat(dataJSON.total).toFixed(2);
+                        $("#total_cart_price").html(' &#2547; ' + tp);
 
-                    console.log(a);
+                        var imageViewHtml = "";
+                        $.each(cartData, function(i, item) {
+                            imageViewHtml += `<div class="top-cart-item">
+                                                 <div class="top-cart-item-image">
+                                                     <a href="#"><img src="${cartData[i].image}"
+                                                             alt="Blue Round-Neck Tshirt" /></a>
+                                                 </div>
+                                                 <div class="top-cart-item-desc">
+                                                     <div class="top-cart-item-desc-title">
+                                                         <a href="#">${cartData[i].title}</a>
+                                                         <span class="top-cart-item-price d-block"> ${cartData[i].quantity} x &#2547; ${cartData[i].unit_price}</span>
+                                                     </div>
+                                                     <div class="top-cart-item-quantity"><button class="cartDeleteIcon" data-id="${i}" type="submit"><i class="icon-remove"> </i></button></div>
+                                                 </div>
+                                        </div>`
+                        });
 
-                    if (a == 0) {
+
+                        $('.top-cart-items').html(imageViewHtml);
+
+                        console.log(a);
+
+                        if (a == 0) {
                             $("#HeaderPreview").css("display", "none");
-                        }else{
+                        } else {
                             $("#HeaderPreview").css("display", "block");
                         }
 
 
-                //Carts click on delete icon
-                $(".cartDeleteIcon").click(function() {
-                    var id = $(this).data('id');
-                    $('#CartsDeleteId').html(id);
-                    DeleteDataCart(id);
-                })
-            } else {
-                toastr.error('Something Went Wrong');
-            }
-        }).catch(function(error) {
+                        //Carts click on delete icon
+                        $(".cartDeleteIcon").click(function() {
+                            var id = $(this).data('id');
+                            $('#CartsDeleteId').html(id);
+                            DeleteDataCart(id);
+                        })
+                    } else {
+                        toastr.error('Something Went Wrong');
+                    }
+                }).catch(function(error) {
 
-            toastr.error('Something Went Wrong...');
-        });
-}
-
-
+                    toastr.error('Something Went Wrong...');
+                });
+        }
 
 
 
-$('#confirmDeleteCart').click(function() {
-    ;
-    var id = $(this).data('id');
-    DeleteDataCart(id);
-})
 
 
-//delete Cart function
-function DeleteDataCart(id) {
 
-    axios.post("{{ route('client.cartRemove') }}", {
-            product_id: id
+
+
+
+
+
+
+        $('#confirmDeleteCart').click(function() {
+
+
+            alert("hello")
+            var id = $(this).data('id');
+            DeleteDataCart(id);
         })
-        .then(function(response) {
-
-            if (response.status == 200) {
-                toastr.success('Cart Removed Success.');
-                getcartData();
-            } else {
-                toastr.error('Something Went Wrong');
-            }
-        }).catch(function(error) {
-
-            toastr.error('Something Went Wrong......');
-        });
-}
 
 
-</script>
+        //delete Cart function
+        function DeleteDataCart(id) {
+
+            axios.post("{{ route('client.cartRemove') }}", {
+                    product_id: id
+                })
+                .then(function(response) {
+
+                    if (response.status == 200) {
+                        toastr.success('Cart Removed Success.');
+                        getcartData();
+                    } else {
+                        toastr.error('Something Went Wrong');
+                    }
+                }).catch(function(error) {
+
+                    toastr.error('Something Went Wrong......');
+                });
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+        let sortBtn = document.querySelector('.filter-menu').children;
+        let sortItem = document.querySelector('.filter-item').children;
+
+        for (let i = 0; i < sortBtn.length; i++) {
+            sortBtn[i].addEventListener('click', function() {
+                for (let j = 0; j < sortBtn.length; j++) {
+                    sortBtn[j].classList.remove('current');
+                }
+
+                this.classList.add('current');
+
+
+                let targetData = this.getAttribute('data-target');
+
+                for (let k = 0; k < sortItem.length; k++) {
+                    sortItem[k].classList.remove('active');
+                    sortItem[k].classList.add('delete');
+
+                    if (sortItem[k].getAttribute('data-item') == targetData || targetData == "all") {
+                        sortItem[k].classList.remove('delete');
+                        sortItem[k].classList.add('active');
+                    }
+                }
+            });
+        }
+
+
+
+
+
+
+
+
+    </script>
 @endsection

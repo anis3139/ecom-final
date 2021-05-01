@@ -5,10 +5,10 @@
 		<section id="page-title">
 
 			<div class="container clearfix">
-				<h1>Pink Printed Dress</h1>
+				<h1>{!! $productDetails->product_title !!}</h1>
 				<ol class="breadcrumb">
-					<li class="breadcrumb-item"><a href="#">Home</a></li>
-					<li class="breadcrumb-item"><a href="#">Shop</a></li>
+					<li class="breadcrumb-item"><a href="{{ route('client.home') }}">Home</a></li>
+					<li class="breadcrumb-item"><a href="{{ route('client.shop') }}">Shop</a></li>
 					<li class="breadcrumb-item active" aria-current="page">Shop Single</li>
 				</ol>
 			</div>
@@ -33,13 +33,17 @@
 										<div class="fslider" data-pagi="false" data-arrows="false" data-thumbs="true">
 											<div class="flexslider">
 												<div class="slider-wrap" data-lightbox="gallery">
-													<div class="slide" data-thumb="{{asset('client')}}/images/shop/thumbs/dress/3.jpg"><a href="images/shop/dress/3.jpg" title="Pink Printed Dress - Front View" data-lightbox="gallery-item"><img src="{{asset('client')}}/images/shop/dress/3.jpg" alt="Pink Printed Dress"></a></div>
-													<div class="slide" data-thumb="{{asset('client')}}/images/shop/thumbs/dress/3-1.jpg"><a href="images/shop/dress/3-1.jpg" title="Pink Printed Dress - Side View" data-lightbox="gallery-item"><img src="{{asset('client')}}/images/shop/dress/3-1.jpg" alt="Pink Printed Dress"></a></div>
-													<div class="slide" data-thumb="{{asset('client')}}/images/shop/thumbs/dress/3-2.jpg"><a href="images/shop/dress/3-2.jpg" title="Pink Printed Dress - Back View" data-lightbox="gallery-item"><img src="{{asset('client')}}/images/shop/dress/3-2.jpg" alt="Pink Printed Dress"></a></div>
+                                                    @foreach ($productDetails->img as $images)
+													<div class="slide" data-thumb="{{ $images->image_path }}"><a href="{{ $images->image_path }}" title="Pink Printed Dress - Front View" data-lightbox="gallery-item"><img src="{{ $images->image_path }}" alt="Pink Printed Dress"></a></div>
+                                                    @endforeach
 												</div>
 											</div>
 										</div>
+                                        @if ($productDetails->product_in_stock)
 										<div class="sale-flash badge badge-danger p-2">Sale!</div>
+                                        @else
+                                        <div class="sale-flash badge badge-danger p-2">Out of Stock!</div>
+                                    @endif
 									</div><!-- Product Single - Gallery End -->
 
 								</div>
@@ -50,7 +54,7 @@
 
 										<!-- Product Single - Price
 										============================================= -->
-										<div class="product-price"><del>$39.99</del> <ins>$24.99</ins></div><!-- Product Single - Price End -->
+										<div class="product-price"> @if($productDetails->product_price!= $productDetails->product_selling_price)<del>&#2547;   {{ $productDetails->product_price}}</del>@endif <ins>&#2547;  {{ $productDetails->product_selling_price}}</ins></div><!-- Product Single - Price End -->
 
 										<!-- Product Single - Rating
 										============================================= -->
@@ -71,24 +75,28 @@
 
 									<!-- Product Single - Quantity & Cart Button
 									============================================= -->
-									<form class="cart mb-0 d-flex justify-content-between align-items-center" method="post" enctype='multipart/form-data'>
+
+                                    <form  id="cartForm" method="post">
+									<div class="cart mb-0 d-flex justify-content-between align-items-center">
 										<div class="quantity clearfix">
 											<input type="button" value="-" class="minus">
-											<input type="number" step="1" min="1" name="quantity" value="1" title="Qty" class="qty" />
+											<input type="number" step="1" min="1" name="quantity" id="quantity" value="1" title="Qty" class="qty" />
 											<input type="button" value="+" class="plus">
 										</div>
+                                        <input type="hidden" id="product_id" name="product_id"
+                                                value="{{ $productDetails->id }}">
 										<button type="submit" class="add-to-cart button m-0">Add to cart</button>
-									</form><!-- Product Single - Quantity & Cart Button End -->
-
+									</div><!-- Product Single - Quantity & Cart Button End -->
+                                </form>
 									<div class="line"></div>
 
 									<!-- Product Single - Short Description
 									============================================= -->
-									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Libero velit id eaque ex quae laboriosam nulla optio doloribus! Perspiciatis, libero, neque, perferendis at nisi optio dolor!</p>
+									<p>{!! $productDetails->product_discription !!}</p>
 
 									<ul class="list-group list-group-flush">
 										<li class="list-group-item d-flex justify-content-between align-items-center px-0">
-											<span class="text-muted">Category:</span><span class="text-dark font-weight-semibold">Dress</span>
+											<span class="text-muted">Category:</span><span class="text-dark font-weight-semibold">{{ $productDetails->category->name}}</span>
 										</li>
 										<li class="list-group-item d-flex justify-content-between align-items-center px-0">
 											<span class="text-muted">Color:</span><span class="text-dark font-weight-semibold">Light Pink</span>
@@ -97,18 +105,15 @@
 											<span class="text-muted">Size:</span><span class="text-dark font-weight-semibold">Medium, Large</span>
 										</li>
 										<li class="list-group-item d-flex justify-content-between align-items-center px-0">
-											<span class="text-muted">Quantity:</span><span class="text-dark font-weight-semibold">7 Pcs</span>
+											<span class="text-muted">Quantity:</span><span class="text-dark font-weight-semibold">{{ $productDetails->product_quantity}} Pcs</span>
 										</li>
-										<li class="list-group-item d-flex justify-content-between align-items-center px-0">
-											<span class="text-muted">Return Policy:</span><span class="text-dark font-weight-semibold">30 days</span>
-										</li>
-										<li class="list-group-item d-flex justify-content-between align-items-center px-0">
-											<span class="text-muted">SKU:</span><span class="text-dark font-weight-semibold">8465415</span>
-										</li>
+
 									</ul>
 
 									<!-- Product Single - Share
 									============================================= -->
+
+
 									<div class="si-share d-flex justify-content-between align-items-center mt-4">
 										<span>Share:</span>
 										<div>
@@ -137,7 +142,10 @@
 												<i class="icon-email3"></i>
 											</a>
 										</div>
-									</div><!-- Product Single - Share End -->
+									</div>
+
+
+                                    <!-- Product Single - Share End -->
 
 								</div>
 
@@ -156,8 +164,8 @@
 										<div class="tab-container">
 
 											<div class="tab-content clearfix" id="tabs-1">
-												<p>Pink printed dress,  woven, round neck with a keyhole and buttoned closure at the back, sleeveless, concealed zip up at left side seam, belt loops along waist with slight gathers beneath, brand appliqu?? above left front hem, has an attached lining.</p>
-												Comes with a white, slim synthetic belt that has a tang clasp.
+												<p>{!! $productDetails->product_discription !!}</p>
+
 											</div>
 											<div class="tab-content clearfix" id="tabs-2">
 
@@ -171,26 +179,7 @@
 															<td>Color</td>
 															<td>Pink &amp; White</td>
 														</tr>
-														<tr>
-															<td>Waist</td>
-															<td>26 cm</td>
-														</tr>
-														<tr>
-															<td>Length</td>
-															<td>40 cm</td>
-														</tr>
-														<tr>
-															<td>Chest</td>
-															<td>33 inches</td>
-														</tr>
-														<tr>
-															<td>Fabric</td>
-															<td>Cotton, Silk &amp; Synthetic</td>
-														</tr>
-														<tr>
-															<td>Warranty</td>
-															<td>3 Months</td>
-														</tr>
+
 													</tbody>
 												</table>
 
@@ -492,3 +481,198 @@
 		</section><!-- #content end -->
 @endsection
 
+
+@section('script')
+
+
+    <script>
+
+
+
+
+
+getcartData()
+
+        function getcartData() {
+
+            axios.get("{{ route('client.cartData') }}")
+                .then(function(response) {
+
+                    if (response.status = 200) {
+                        var dataJSON = response.data;
+                        var cartData = dataJSON.cart;
+
+                        var a = Object.keys(cartData).length;
+
+
+                        $("#cart_quantity").html(a);
+                        var tp = parseFloat(dataJSON.total).toFixed(2);
+                        $("#total_cart_price").html(' &#2547; ' + tp);
+
+                        var imageViewHtml = "";
+                        $.each(cartData, function(i, item) {
+                            imageViewHtml += `<div class="top-cart-item">
+                                                 <div class="top-cart-item-image">
+                                                     <a href="#"><img src="${cartData[i].image}"
+                                                             alt="Blue Round-Neck Tshirt" /></a>
+                                                 </div>
+                                                 <div class="top-cart-item-desc">
+                                                     <div class="top-cart-item-desc-title">
+                                                         <a href="#">${cartData[i].title}</a>
+                                                         <span class="top-cart-item-price d-block"> ${cartData[i].quantity} x &#2547; ${cartData[i].unit_price}</span>
+                                                     </div>
+                                                     <div class="top-cart-item-quantity"><button class="cartDeleteIcon" data-id="${i}" type="submit"><i class="icon-remove"> </i></button></div>
+                                                 </div>
+                                        </div>`
+                        });
+
+
+                        $('.top-cart-items').html(imageViewHtml);
+
+                        console.log(a);
+
+                        if (a == 0) {
+                            $("#HeaderPreview").css("display", "none");
+                        } else {
+                            $("#HeaderPreview").css("display", "block");
+                        }
+
+
+                        //Carts click on delete icon
+                        $(".cartDeleteIcon").click(function() {
+                            var id = $(this).data('id');
+                            $('#CartsDeleteId').html(id);
+                            DeleteDataCart(id);
+                        })
+                    } else {
+                        toastr.error('Something Went Wrong');
+                    }
+                }).catch(function(error) {
+
+                    toastr.error('Something Went Wrong...');
+                });
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+        $('#confirmDeleteCart').click(function() {
+
+
+            alert("hello")
+            var id = $(this).data('id');
+            DeleteDataCart(id);
+        })
+
+
+        //delete Cart function
+        function DeleteDataCart(id) {
+
+            axios.post("{{ route('client.cartRemove') }}", {
+                    product_id: id
+                })
+                .then(function(response) {
+
+                    if (response.status == 200) {
+                        toastr.success('Cart Removed Success.');
+                        getcartData();
+                    } else {
+                        toastr.error('Something Went Wrong');
+                    }
+                }).catch(function(error) {
+
+                    toastr.error('Something Went Wrong......');
+                });
+        }
+
+
+
+
+
+
+
+
+        $('#cartForm').on('submit',function (event) {
+        event.preventDefault();
+        let formData=$(this).serializeArray();
+        let meserment=formData[0]['value'];
+        let color=formData[1]['value'];
+        let quantity=formData[2]['value'];
+        let product_ids=formData[3]['value'];
+
+        let url="{{route('client.addCart')}}";
+        axios.post(url,{
+            meserment:meserment,
+            color:color,
+            quantity:quantity,
+            product_id:product_ids
+        }).then(function (response) {
+          console.log(response.data);
+           if(response.status==200 && response.data==1){
+            $('#quick-view-modal').modal('hide');
+            toastr.success('Product Add Successfully');
+            getcartData()
+}
+           else{
+               toastr.error('Product not Added ! Try Again');
+           }
+
+        }).catch(function (error) {
+            toastr.error('Product not Added  ! Try Again');
+        })
+
+
+    })
+
+
+        $('#cartForm2').on('submit',function (event) {
+
+        event.preventDefault();
+        let formData=$(this).serializeArray();
+        let color=formData[0]['value'];
+        let meserment=formData[1]['value'];
+        let quantity=formData[2]['value'];
+        let product_ids=formData[3]['value'];
+            console.log();
+        let url="{{route('client.addCart')}}";
+        axios.post(url,{
+            meserment:meserment,
+            color:color,
+            quantity:quantity,
+            product_id:product_ids
+        }).then(function (response) {
+          console.log(response.data);
+           if(response.status==200 && response.data==1){
+            $('#quick-view-modal').modal('hide');
+            toastr.success('Product Add Successfully');
+            getcartData()
+}
+           else{
+               toastr.error('Product not Added ! Try Again');
+           }
+
+        }).catch(function (error) {
+            toastr.error('Product not Added  ! Try Again');
+        })
+
+
+    })
+
+
+
+
+
+
+
+
+
+    </script>
+@endsection

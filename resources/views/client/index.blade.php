@@ -347,7 +347,7 @@
                                                              <a href="#">${cartData[i].title}</a>
                                                              <span class="top-cart-item-price d-block"> ${cartData[i].quantity} x &#2547; ${cartData[i].unit_price}</span>
                                                          </div>
-                                                         <div class="top-cart-item-quantity"><button class="cartDeleteIcon" data-id="${i}" type="submit"><i class="fas fa-times"> </i></button></div>
+                                                         <div class="top-cart-item-quantity"><button class="cartDeleteIcon" data-id="${i}" type="submit"><i class="icon-remove"> </i></button></div>
                                                      </div>
                                             </div>`
                         });

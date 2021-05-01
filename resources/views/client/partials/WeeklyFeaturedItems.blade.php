@@ -40,7 +40,7 @@
                  </div>
                  <div class="product-desc">
                      <div class="product-title mb-1">
-                         <h3><a href="{{ $featureProduct->product_slug }}">{{ $featureProduct->product_title }}</a>
+                         <h3><a href="{{ route('client.showProductDetails', ['slug' => $featureProduct->product_slug]) }}">{{ $featureProduct->product_title }}</a>
                          </h3>
                      </div>
                      <div class="product-price font-primary">
