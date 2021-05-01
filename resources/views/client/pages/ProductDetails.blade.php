@@ -86,9 +86,9 @@
 @endsection
 @section('content')
     <!-- Page Title
-                                  ============================================= -->
+                                                                      ============================================= -->
     <section id="page-title">
-
+        <div id="rateYo"></div>
         <div class="container clearfix">
             <h1>{!! $productDetails->product_title !!}</h1>
             <ol class="breadcrumb">
@@ -101,7 +101,7 @@
     </section><!-- #page-title end -->
 
     <!-- Content
-                                  ============================================= -->
+                                                                      ============================================= -->
     <section id="content">
         <div class="content-wrap">
             <div class="container clearfix">
@@ -113,7 +113,7 @@
                             <div class="col-md-6">
 
                                 <!-- Product Single - Gallery
-                                         ============================================= -->
+                                                                             ============================================= -->
                                 <div class="product-image">
                                     <div class="fslider" data-pagi="false" data-arrows="false" data-thumbs="true">
                                         <div class="flexslider">
@@ -143,7 +143,7 @@
                                 <div class="d-flex align-items-center justify-content-between">
 
                                     <!-- Product Single - Price
-                                          ============================================= -->
+                                                                              ============================================= -->
                                     <div class="product-price">
                                         @if ($productDetails->product_price != $productDetails->product_selling_price)
                                             <del>&#2547; {{ $productDetails->product_price }}</del>
@@ -152,7 +152,7 @@
                                     </div><!-- Product Single - Price End -->
 
                                     <!-- Product Single - Rating
-                                          ============================================= -->
+                                                                              ============================================= -->
                                     <div class="d-flex align-items-center">
                                         <div class="product-rating">
                                             <i class="icon-star3"></i>
@@ -170,7 +170,7 @@
                                 <div class="line"></div>
 
                                 <!-- Product Single - Quantity & Cart Button
-                                         ============================================= -->
+                                                                             ============================================= -->
 
                                 <form id="cartForm2" method="post">
 
@@ -249,7 +249,7 @@
                                     </ul>
                                 </form>
                                 <!-- Product Single - Share
-                                         ============================================= -->
+                                                                             ============================================= -->
 
 
                                 <div class="si-share d-flex justify-content-between align-items-center mt-4">
@@ -299,7 +299,8 @@
                                         <li><a href="#tabs-2"><i class="icon-info-sign"></i><span
                                                     class="d-none d-md-inline-block"> Additional Information</span></a></li>
                                         <li><a href="#tabs-3"><i class="icon-star3"></i><span
-                                                    class="d-none d-md-inline-block"> Reviews (2)</span></a></li>
+                                                    class="d-none d-md-inline-block"> Reviews ( <span
+                                                        id="reviewCount"></span> )</span></a></li>
                                     </ul>
 
                                     <div class="tab-container">
@@ -367,175 +368,48 @@
 
                                             <div id="reviews" class="clearfix">
 
-                                                <ol class="commentlist clearfix">
 
-                                                    <li class="comment even thread-even depth-1" id="li-comment-1">
-                                                        <div id="comment-1" class="comment-wrap clearfix">
 
-                                                            <div class="comment-meta">
-                                                                <div class="comment-author vcard">
-                                                                    <span class="comment-avatar clearfix">
-                                                                        <img alt='Image'
-                                                                            src='https://0.gravatar.com/avatar/ad516503a11cd5ca435acc9bb6523536?s=60'
-                                                                            height='60' width='60' /></span>
-                                                                </div>
-                                                            </div>
+                                                <div class="aa-product-review-area">
+                                                    <h4> <span id="reviewCount"
+                                                            style="font-weight:bold; color:red; font-size:30px;">
+                                                        </span> Reviews for {!! $productDetails->product_title !!}</h4>
+                                                    <ul class="aa-review-nav" id="reviewResult"
+                                                        style="max-height: 500px; overflow:scroll; overflow-x:hidden;">
 
-                                                            <div class="comment-content clearfix">
-                                                                <div class="comment-author">John Doe<span><a href="#"
-                                                                            title="Permalink to this comment">April 24, 2021
-                                                                            at 10:46AM</a></span></div>
-                                                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                                                                    Quo perferendis aliquid tenetur. Aliquid, tempora, sit
-                                                                    aliquam officiis nihil autem eum at repellendus facilis
-                                                                    quaerat consequatur commodi laborum saepe non nemo nam
-                                                                    maxime quis error tempore possimus est quasi
-                                                                    reprehenderit fuga!</p>
-                                                                <div class="review-comment-ratings">
-                                                                    <i class="icon-star3"></i>
-                                                                    <i class="icon-star3"></i>
-                                                                    <i class="icon-star3"></i>
-                                                                    <i class="icon-star3"></i>
-                                                                    <i class="icon-star-half-full"></i>
-                                                                </div>
-                                                            </div>
 
-                                                            <div class="clear"></div>
-
+                                                    </ul>
+                                                    @auth
+                                                        <h4>Add a review</h4>
+                                                        <div class="aa-your-rating">
+                                                            <p>Your Rating</p>
+                                                            <div id="rateYo"></div>
                                                         </div>
-                                                    </li>
+                                                        <!-- review form -->
 
-                                                    <li class="comment even thread-even depth-1" id="li-comment-2">
-                                                        <div id="comment-2" class="comment-wrap clearfix">
-
-                                                            <div class="comment-meta">
-                                                                <div class="comment-author vcard">
-                                                                    <span class="comment-avatar clearfix">
-                                                                        <img alt='Image'
-                                                                            src='https://0.gravatar.com/avatar/ad516503a11cd5ca435acc9bb6523536?s=60'
-                                                                            height='60' width='60' /></span>
-                                                                </div>
+                                                        <form action="" class="aa-review-form" id="reating">
+                                                            <div class="form-group">
+                                                                <label for="message" id="reviewEmpty">Your Review <span
+                                                                        style="color:red">*</span></label>
+                                                                <textarea class="form-control" rows="3" id="massage"
+                                                                    wrap="hard"></textarea>
                                                             </div>
+                                                            <button type="submit"
+                                                                class="btn btn-primary add-to-cart button m-0">Submit</button>
+                                                            <p id="messegeview"></p>
+                                                        </form>
+                                                    @endauth
+                                                    @guest
 
-                                                            <div class="comment-content clearfix">
-                                                                <div class="comment-author">Mary Jane<span><a href="#"
-                                                                            title="Permalink to this comment">June 16, 2021
-                                                                            at 6:00PM</a></span></div>
-                                                                <p>Quasi, blanditiis, neque ipsum numquam odit asperiores
-                                                                    hic dolor necessitatibus libero sequi amet voluptatibus
-                                                                    ipsam velit qui harum temporibus cum nemo iste aperiam
-                                                                    explicabo fuga odio ratione sint fugiat consequuntur
-                                                                    vitae adipisci delectus eum incidunt possimus tenetur
-                                                                    excepturi at accusantium quod doloremque reprehenderit
-                                                                    aut expedita labore error atque?</p>
-                                                                <div class="review-comment-ratings">
-                                                                    <i class="icon-star3"></i>
-                                                                    <i class="icon-star3"></i>
-                                                                    <i class="icon-star3"></i>
-                                                                    <i class="icon-star-empty"></i>
-                                                                    <i class="icon-star-empty"></i>
-                                                                </div>
-                                                            </div>
+                                                        <h2 style="color: #FF6666; font-weight:bold; text-align:center;">Please
+                                                            <a href="{{ route('client.login') }}"
+                                                                class="text-center text-decoration-none text-primary">Login</a>
+                                                            For Reating
+                                                            And Review
+                                                        </h2>
 
-                                                            <div class="clear"></div>
-
-                                                        </div>
-                                                    </li>
-
-                                                </ol>
-
-                                                <!-- Modal Reviews
-                                             ============================================= -->
-                                                <a href="#" data-toggle="modal" data-target="#reviewFormModal"
-                                                    class="button button-3d m-0 float-right">Add a Review</a>
-
-                                                <div class="modal fade" id="reviewFormModal" tabindex="-1" role="dialog"
-                                                    aria-labelledby="reviewFormModalLabel" aria-hidden="true">
-                                                    <div class="modal-dialog">
-                                                        <div class="modal-content">
-                                                            <div class="modal-header">
-                                                                <h4 class="modal-title" id="reviewFormModalLabel">Submit a
-                                                                    Review</h4>
-                                                                <button type="button" class="close" data-dismiss="modal"
-                                                                    aria-hidden="true">&times;</button>
-                                                            </div>
-                                                            <div class="modal-body">
-                                                                <form class="row mb-0" id="template-reviewform"
-                                                                    name="template-reviewform" action="#" method="post">
-
-                                                                    <div class="col-6 mb-3">
-                                                                        <label for="template-reviewform-name">Name
-                                                                            <small>*</small></label>
-                                                                        <div class="input-group">
-                                                                            <div class="input-group-prepend">
-                                                                                <div class="input-group-text"><i
-                                                                                        class="icon-user"></i></div>
-                                                                            </div>
-                                                                            <input type="text" id="template-reviewform-name"
-                                                                                name="template-reviewform-name" value=""
-                                                                                class="form-control required" />
-                                                                        </div>
-                                                                    </div>
-
-                                                                    <div class="col-6 mb-3">
-                                                                        <label for="template-reviewform-email">Email
-                                                                            <small>*</small></label>
-                                                                        <div class="input-group">
-                                                                            <div class="input-group-prepend">
-                                                                                <div class="input-group-text">@</div>
-                                                                            </div>
-                                                                            <input type="email"
-                                                                                id="template-reviewform-email"
-                                                                                name="template-reviewform-email" value=""
-                                                                                class="required email form-control" />
-                                                                        </div>
-                                                                    </div>
-
-                                                                    <div class="w-100"></div>
-
-                                                                    <div class="col-12 mb-3">
-                                                                        <label
-                                                                            for="template-reviewform-rating">Rating</label>
-                                                                        <select id="template-reviewform-rating"
-                                                                            name="template-reviewform-rating"
-                                                                            class="form-control">
-                                                                            <option value="">-- Select One --</option>
-                                                                            <option value="1">1</option>
-                                                                            <option value="2">2</option>
-                                                                            <option value="3">3</option>
-                                                                            <option value="4">4</option>
-                                                                            <option value="5">5</option>
-                                                                        </select>
-                                                                    </div>
-
-                                                                    <div class="w-100"></div>
-
-                                                                    <div class="col-12 mb-3">
-                                                                        <label for="template-reviewform-comment">Comment
-                                                                            <small>*</small></label>
-                                                                        <textarea class="required form-control"
-                                                                            id="template-reviewform-comment"
-                                                                            name="template-reviewform-comment" rows="6"
-                                                                            cols="30"></textarea>
-                                                                    </div>
-
-                                                                    <div class="col-12">
-                                                                        <button class="button button-3d m-0" type="submit"
-                                                                            id="template-reviewform-submit"
-                                                                            name="template-reviewform-submit"
-                                                                            value="submit">Submit Review</button>
-                                                                    </div>
-
-                                                                </form>
-                                                            </div>
-                                                            <div class="modal-footer">
-                                                                <button type="button" class="btn btn-secondary"
-                                                                    data-dismiss="modal">Close</button>
-                                                            </div>
-                                                        </div><!-- /.modal-content -->
-                                                    </div><!-- /.modal-dialog -->
-                                                </div><!-- /.modal -->
-                                                <!-- Modal Reviews End -->
+                                                    @endguest
+                                                </div>
 
                                             </div>
 
@@ -607,7 +481,8 @@
                                         <div class="product-price">
                                             @if ($relProduct->product_price != $relProduct->product_selling_price)
                                                 <del>&#2547;
-                                                    {{ $relProduct->product_selling_price }}</del> @endif<ins>&#2547;
+                                                    {{ $relProduct->product_selling_price }}</del>
+                                            @endif<ins>&#2547;
                                                 {{ $relProduct->product_price }}</ins>
                                         </div>
                                         <div class="product-rating">
@@ -715,13 +590,175 @@
     </div>
 
 
+
 @endsection
 
 
 @section('script')
 
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.js"></script>
     <script>
+
+
+        $(function() {
+
+            $("#rateYo").rateYo({
+
+                rating: 5.00,
+                spacing: "5px",
+                halfStar: true,
+                multiColor: {
+
+                    "startColor": "#FF0000", //RED
+                    "endColor": "#00FF00" //GREEN
+                }
+            });
+
+        });
+
+
+
+
+
+
+        $('#reating').submit(function(e) {
+            e.preventDefault();
+            var $rateYo = $("#rateYo").rateYo();
+            var rating = $rateYo.rateYo("rating");
+            var review = $('#massage').val();
+            var product_id = $('#product_id').val();
+
+
+
+            if (review.length == 0) {
+
+                $('#massage').focus();
+                var html = "";
+
+                html += '<p class="text-capitalize" style="color:red">Please Type Your Review *</p>';
+
+                $('#reviewEmpty').html(html,
+                    setTimeout(function() {
+                        $('#reviewEmpty').html("Your Review <span style='color:red'> *</span>");
+                    }, 3000)
+                );
+
+
+            } else {
+                axios.post("{{ route('clint.reatingReview') }}", {
+                    rating: rating,
+                    review: review,
+                    product_id: product_id
+                }).then(function(response) {
+
+
+                    if (response.data) {
+
+                        var html = "";
+
+                        html +=
+                            '<div class="alert alert-success" role="alert"><p class="text-capitalize">Thanks for your rate and review.</p></div>';
+
+                        $('#messegeview').html(html,
+                            setTimeout(function() {
+                                $('#messegeview').html("");
+                            }, 5000)
+                        );
+
+                        $('#reating')[0].reset();
+                        getReviewData();
+
+                    } else {
+                        html += '<div class="alert alert-danger" role="alert">Incomplete Review</div>';
+
+                        $('#messegeview').html(html,
+                            setTimeout(function() {
+                                $('#messegeview').html("");
+                            }, 5000)
+                        );
+
+                    }
+                }).catch(function(error) {
+                    console.log(error);
+                })
+            }
+
+        });
+
+
+        $(document).ready(function() {
+            getReviewData();
+        });
+
+
+
+
+        function getReviewData() {
+            var product_id = $('#product_id').val();
+            axios.post("{{ route('getproductreating') }}", {
+                product_id: product_id
+            }).then(function(respones) {
+
+                var jsonData = respones.data.review;
+                $('#reviewCount').html(jsonData.length);
+                var html = "";
+                for (let rv = 0; rv < jsonData.length; rv++) {
+                    const element = jsonData[rv];
+                    var date = new Date(element.review_date);
+                    var convertedDate = date.toLocaleDateString('es-ES');
+                    var reviewData = element.product_review.substring(0, 200).replace(/\r?\n/g, '<br />');
+                    var userImage = element.image != null ? element.image : window.location.protocol + "//" + window
+                        .document.location.host + "/default-image.png";
+
+
+                    html += '<li>';
+                    html += '<div class="media">';
+                    html += '<div class="media-left">';
+                    html += '<a href="#"><img class="media-object" src="' + userImage +
+                        '" alt="Profile Image" style=" border-radius:50%; width:100px; height:100px;"></a>';
+                    html += '</div>';
+                    html += '<div class="media-body">';
+                    html += '<h4 class="media-heading"><strong>' + element.name + '</strong> - <span> ' +
+                        convertedDate + ' </span></h4>';
+                    html += '<div class="aa-product-rating' + rv + '" style="padding:0px"> </div>';
+                    html += '<p>' + reviewData + '</p>';
+                    html += '</div>';
+                    html += '</div>';
+                    html += '</li>';
+                }
+
+                $('#reviewResult').html(html);
+                for (let rate = 0; rate < jsonData.length; rate++) {
+                    const element2 = jsonData[rate];
+
+                    $(".aa-product-rating" + rate).rateYo({
+                        rating: element2.star_reating,
+                        readOnly: true,
+                        starWidth: "15px"
+                    });
+                }
+            }).catch(function(error) {
+                console.log(error);
+            });
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         getcartData()
 
         function getcartData() {
@@ -743,18 +780,18 @@
                         var imageViewHtml = "";
                         $.each(cartData, function(i, item) {
                             imageViewHtml += `<div class="top-cart-item">
-                                                                                 <div class="top-cart-item-image">
-                                                                                     <a href="#"><img src="${cartData[i].image}"
-                                                                                             alt="Blue Round-Neck Tshirt" /></a>
-                                                                                 </div>
-                                                                                 <div class="top-cart-item-desc">
-                                                                                     <div class="top-cart-item-desc-title">
-                                                                                         <a href="#">${cartData[i].title}</a>
-                                                                                         <span class="top-cart-item-price d-block"> ${cartData[i].quantity} x &#2547; ${cartData[i].unit_price}</span>
-                                                                                     </div>
-                                                                                     <div class="top-cart-item-quantity"><button class="cartDeleteIcon" data-id="${i}" type="submit"><i class="icon-remove"> </i></button></div>
-                                                                                 </div>
-                                                                        </div>`
+                                                                                                                     <div class="top-cart-item-image">
+                                                                                                                         <a href="#"><img src="${cartData[i].image}"
+                                                                                                                                 alt="Blue Round-Neck Tshirt" /></a>
+                                                                                                                     </div>
+                                                                                                                     <div class="top-cart-item-desc">
+                                                                                                                         <div class="top-cart-item-desc-title">
+                                                                                                                             <a href="#">${cartData[i].title}</a>
+                                                                                                                             <span class="top-cart-item-price d-block"> ${cartData[i].quantity} x &#2547; ${cartData[i].unit_price}</span>
+                                                                                                                         </div>
+                                                                                                                         <div class="top-cart-item-quantity"><button class="cartDeleteIcon" data-id="${i}" type="submit"><i class="icon-remove"> </i></button></div>
+                                                                                                                     </div>
+                                                                                                            </div>`
                         });
 
 
