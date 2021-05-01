@@ -73,7 +73,7 @@
                                                 onkeydown="javascript: return event.keyCode === 8 || event.keyCode === 46 ? true : !isNaN(Number(event.key))">
                                             <button type="submit"
                                                 style="background-color: #dad9d1; color:#ff6666; margin:5px 0px 0px 5px;"><i
-                                                    style="font-size:20px;" class="fa fa-check fa-2x"></i></button>
+                                                    style="font-size:15px;" class="icon-ok"></i></button>
                                         </form>
                                     </div>
                                 </td>

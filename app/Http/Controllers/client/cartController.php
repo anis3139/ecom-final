@@ -48,7 +48,7 @@ class cartController extends Controller
 
     public function addToCart(Request $request)
     {
-
+            
 
 
         $cart=[];
