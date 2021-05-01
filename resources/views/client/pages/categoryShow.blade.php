@@ -97,7 +97,11 @@
 
 
                         </div><!-- #shop end -->
+                        <div class="d-block m-5">
 
+                            {{ $allProducts->links('vendor.pagination.simple-bootstrap-4') }}
+
+                        </div>
                     </div><!-- .postcontent end -->
 
                     <!-- Sidebar

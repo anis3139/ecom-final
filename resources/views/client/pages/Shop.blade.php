@@ -18,18 +18,18 @@
 
 
     <!-- Content
-                                                                              ============================================= -->
+                                                                                      ============================================= -->
     <section id="content">
         <div class="content-wrap">
             <div class="container clearfix">
 
                 <div class="row gutter-40 col-mb-80">
                     <!-- Post Content
-                                                                                  ============================================= -->
+                                                                                          ============================================= -->
                     <div class="postcontent col-lg-9 order-lg-last">
 
                         <!-- Shop
-                                                                                   ============================================= -->
+                                                                                           ============================================= -->
                         <div id="shop" class="shop row grid-container gutter-20" data-layout="fitRows">
 
 
@@ -94,16 +94,25 @@
                                     </div>
                                 </div>
                             @endforeach
-                           <div class="m-5">
-                            {{ $allProducts->links() }}
-                           </div>
 
-                        </div><!-- #shop end -->
 
-                    </div><!-- .postcontent end -->
+                        </div>
+                        <div class="d-block m-5">
+
+                            {{ $allProducts->links('vendor.pagination.simple-bootstrap-4') }}
+
+                        </div>
+
+                        <!-- #shop end -->
+
+                    </div>
+
+
+
+                    <!-- .postcontent end -->
 
                     <!-- Sidebar
-                                                                                  ============================================= -->
+                                                                                          ============================================= -->
                     <div class="sidebar col-lg-3">
                         <div class="sidebar-widgets-wrap">
 
@@ -508,18 +517,18 @@
                         var imageViewHtml = "";
                         $.each(cartData, function(i, item) {
                             imageViewHtml += `<div class="top-cart-item">
-                                                                                                             <div class="top-cart-item-image">
-                                                                                                                 <a href="#"><img src="${cartData[i].image}"
-                                                                                                                         alt="Blue Round-Neck Tshirt" /></a>
-                                                                                                             </div>
-                                                                                                             <div class="top-cart-item-desc">
-                                                                                                                 <div class="top-cart-item-desc-title">
-                                                                                                                     <a href="#">${cartData[i].title}</a>
-                                                                                                                     <span class="top-cart-item-price d-block"> ${cartData[i].quantity} x &#2547; ${cartData[i].unit_price}</span>
-                                                                                                                 </div>
-                                                                                                                 <div class="top-cart-item-quantity"><button class="cartDeleteIcon" data-id="${i}" type="submit"><i class="icon-remove"> </i></button></div>
-                                                                                                             </div>
-                                                                                                    </div>`
+                                                                                                                     <div class="top-cart-item-image">
+                                                                                                                         <a href="#"><img src="${cartData[i].image}"
+                                                                                                                                 alt="Blue Round-Neck Tshirt" /></a>
+                                                                                                                     </div>
+                                                                                                                     <div class="top-cart-item-desc">
+                                                                                                                         <div class="top-cart-item-desc-title">
+                                                                                                                             <a href="#">${cartData[i].title}</a>
+                                                                                                                             <span class="top-cart-item-price d-block"> ${cartData[i].quantity} x &#2547; ${cartData[i].unit_price}</span>
+                                                                                                                         </div>
+                                                                                                                         <div class="top-cart-item-quantity"><button class="cartDeleteIcon" data-id="${i}" type="submit"><i class="icon-remove"> </i></button></div>
+                                                                                                                     </div>
+                                                                                                            </div>`
                         });
 
 

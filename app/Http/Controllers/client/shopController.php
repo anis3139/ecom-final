@@ -13,7 +13,7 @@ class shopController extends Controller
 {
    public function shopIndex()
    {
-     $allProducts=product_table::with(['img'])->where('product_active', 1)->orderBy('id', 'desc')->paginate(2);
+     $allProducts=product_table::with(['img'])->where('product_active', 1)->orderBy('id', 'desc')->paginate(15);
 
      $popular_products= OrderProducts::with('product')
             ->select('product_id', DB::raw('COUNT(product_id) as maxSell'))
