@@ -48,7 +48,7 @@ class cartController extends Controller
 
     public function addToCart(Request $request)
     {
-            
+
 
 
         $cart=[];
@@ -314,7 +314,7 @@ class cartController extends Controller
 
         }
 
-        // auth()->user()->notify(new orderConfirmNotification($order));
+        auth()->user()->notify(new orderConfirmNotification($order));
 
         session()->forget(['cart','price']);
 

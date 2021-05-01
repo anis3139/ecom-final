@@ -18,7 +18,7 @@ class contactController extends Controller
     }
 
      function ContactSend(Request $request){
-                
+
         $validator=Validator::make(request()->all(),[
         'name'=>'required',
         'subject'=>'required',

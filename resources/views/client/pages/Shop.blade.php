@@ -248,22 +248,17 @@
 
 
 
-
-
-
-
-
-
-
-
     <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
         aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
 
                 <div class="single-product shop-quick-view-ajax">
-                    <div class="ajax-modal-title text-center">
-                        <h2 id="pdTitle"></h2>
+
+                    <div class="ajax-modal-title text-center w-100">
+                        <h2 id="pdTitle">
+
+                        </h2>
                     </div>
 
                     <div class="product modal-padding">

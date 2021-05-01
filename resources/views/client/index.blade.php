@@ -77,7 +77,7 @@
             <div class="modal-content">
 
                 <div class="single-product shop-quick-view-ajax">
-                    <div class="ajax-modal-title text-center">
+                    <div class="ajax-modal-title text-center w-100">
                         <h2 id="pdTitle"></h2>
                     </div>
 
@@ -88,7 +88,7 @@
                                 <div class="product-image">
                                     <div class="fslider" data-pagi="false">
                                         <div class="flexslider">
-                                            <div class="slider-wrap">
+                                            <div class="slider-wrap" style="overflow: hidden">
 
                                             </div>
                                         </div>
