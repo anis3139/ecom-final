@@ -88,7 +88,7 @@
     <!-- Page Title
                                                                       ============================================= -->
     <section id="page-title">
-        <div id="rateYo"></div>
+        
         <div class="container clearfix">
             <h1>{!! $productDetails->product_title !!}</h1>
             <ol class="breadcrumb">
