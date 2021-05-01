@@ -27,7 +27,7 @@ class cartController extends Controller
         $data['total_main_price']= array_sum( array_column($data['cart'], 'total_main_price'));
         // session()->forget(['cart']);
         // dd( $data);
-        return view('client.pages.cart', $data);
+        return view('client.pages.Cart', $data);
     }
 
     public function cartData()
@@ -200,7 +200,7 @@ class cartController extends Controller
         $data['total_discount']= array_sum( array_column($data['cart'], 'total_discount'));
         $data['total_main_price']= array_sum( array_column($data['cart'], 'total_main_price'));
 
-       return view('client.pages.checkout', $data);
+       return view('client.pages.Checkout', $data);
     }
     public function order(Request $request)
     {

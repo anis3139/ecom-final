@@ -31,7 +31,7 @@ class HomeSliderController extends Controller
         $photoName = (explode('/', $photoPath))[1];
             $host = $_SERVER['HTTP_HOST'];
             $protocol = $_SERVER['PROTOCOL'] = isset($_SERVER['HTTPS']) && !empty($_SERVER['HTTPS']) ? 'https://' : 'http://';
-            $location = $protocol . $host .  "/storage/" . $photoName;
+            $location = $protocol . $host .  "/public/storage/" . $photoName;
         $result = SliderModel::insert([
             'title' => $name,
             'sub_title' => $description,
@@ -77,7 +77,7 @@ class HomeSliderController extends Controller
   $photoName = (explode('/', $photoPath))[1];
             $host = $_SERVER['HTTP_HOST'];
             $protocol = $_SERVER['PROTOCOL'] = isset($_SERVER['HTTPS']) && !empty($_SERVER['HTTPS']) ? 'https://' : 'http://';
-            $location = $protocol . $host .  "/storage/" . $photoName;
+            $location = $protocol . $host .  "/public/storage/" . $photoName;
 
             $result = SliderModel::where('id', '=', $id)->update(['title' => $name, 'sub_title' => $description, 'image' => $location]);
             if ($result == true) {

@@ -88,7 +88,7 @@
                                 <div class="product-image">
                                     <div class="fslider" data-pagi="false">
                                         <div class="flexslider">
-                                            <div class="slider-wrap" style="overflow: hidden">
+                                            <div class="slider-wrap">
 
                                             </div>
                                         </div>

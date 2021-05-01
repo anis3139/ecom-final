@@ -88,7 +88,7 @@ class AboutPageController extends Controller
         $fileName = (explode('/', $fileNames))[1];
         $hostName = $_SERVER['HTTP_HOST'];
         $protocol = $_SERVER['PROTOCOL'] = isset($_SERVER['HTTPS']) && !empty($_SERVER['HTTPS']) ? 'https://' : 'http://';
-        $imageRealPath =  $protocol . $hostName . "/storage/" . $fileName;
+        $imageRealPath =  $protocol . $hostName . "/public/storage/" . $fileName;
 
 
         if( count($valuecheck)>0){
@@ -116,7 +116,7 @@ class AboutPageController extends Controller
         $fileName = (explode('/', $fileNames))[1];
         $hostName = $_SERVER['HTTP_HOST'];
         $protocol = $_SERVER['PROTOCOL'] = isset($_SERVER['HTTPS']) && !empty($_SERVER['HTTPS']) ? 'https://' : 'http://';
-        $imageRealPath =  $protocol . $hostName . "/storage/" . $fileName;
+        $imageRealPath =  $protocol . $hostName . "/public/storage/" . $fileName;
 
         if( count($valuecheck)>0){
 
@@ -139,7 +139,7 @@ class AboutPageController extends Controller
         $fileName = (explode('/', $fileNames))[1];
         $hostName = $_SERVER['HTTP_HOST'];
         $protocol = $_SERVER['PROTOCOL'] = isset($_SERVER['HTTPS']) && !empty($_SERVER['HTTPS']) ? 'https://' : 'http://';
-        $imageRealPath =  $protocol . $hostName . "/storage/" . $fileName;
+        $imageRealPath =  $protocol . $hostName . "/public/storage/" . $fileName;
 
 
         if( count($valuecheck)>0){
@@ -168,7 +168,7 @@ class AboutPageController extends Controller
         $fileName = (explode('/', $fileNames))[1];
         $hostName = $_SERVER['HTTP_HOST'];
         $protocol = $_SERVER['PROTOCOL'] = isset($_SERVER['HTTPS']) && !empty($_SERVER['HTTPS']) ? 'https://' : 'http://';
-        $imageRealPath =  $protocol . $hostName . "/storage/" . $fileName;
+        $imageRealPath =  $protocol . $hostName . "/public/storage/" . $fileName;
 
 
         if( count($valuecheck)>0){
@@ -372,7 +372,7 @@ class AboutPageController extends Controller
         $fileName = (explode('/', $fileNames))[1];
         $hostName = $_SERVER['HTTP_HOST'];
         $protocol = $_SERVER['PROTOCOL'] = isset($_SERVER['HTTPS']) && !empty($_SERVER['HTTPS']) ? 'https://' : 'http://';
-        $imageRealPath =  $protocol . $hostName . "/storage/" . $fileName;
+        $imageRealPath =  $protocol . $hostName . "/public/storage/" . $fileName;
 
 
             try {
@@ -449,7 +449,7 @@ class AboutPageController extends Controller
         $fileName = (explode('/', $fileNames))[1];
         $hostName = $_SERVER['HTTP_HOST'];
         $protocol = $_SERVER['PROTOCOL'] = isset($_SERVER['HTTPS']) && !empty($_SERVER['HTTPS']) ? 'https://' : 'http://';
-        $imageRealPath =  $protocol . $hostName . "/storage/" . $fileName;
+        $imageRealPath =  $protocol . $hostName . "/public/storage/" . $fileName;
 
 
 

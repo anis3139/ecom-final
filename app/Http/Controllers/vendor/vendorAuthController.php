@@ -226,7 +226,7 @@ class vendorAuthController extends Controller
             $photoName = (explode('/', $photoPath))[1];
             $host = $_SERVER['HTTP_HOST'];
             $protocol = $_SERVER['PROTOCOL'] = isset($_SERVER['HTTPS']) && !empty($_SERVER['HTTPS']) ? 'https://' : 'http://';
-            $location = $protocol . $host .  "/storage/" . $photoName;
+            $location = $protocol . $host .  "/public/storage/" . $photoName;
             $user->image = $location;
         }
 

@@ -24,7 +24,7 @@ class shopController extends Controller
     $topRatedProducts= product_table::orderBy('product_price', 'desc')->where('product_active', 1)->limit(4)->get();
 
     $recentProducts=product_table::where('product_active', 1)->orderBy('id', 'asc')->limit(5)->get();
-      return view('client.pages.shop')->with([
+      return view('client.pages.Shop')->with([
           'allProducts'=> $allProducts,
           'popular_products'=> $popular_products,
           'topRatedProducts'=> $topRatedProducts,

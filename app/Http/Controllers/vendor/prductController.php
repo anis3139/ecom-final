@@ -95,7 +95,7 @@ class prductController extends Controller
                 $productImageOnehost = $_SERVER['HTTP_HOST'];
                 $host = $_SERVER['HTTP_HOST'];
                 $protocol = $_SERVER['PROTOCOL'] = isset($_SERVER['HTTPS']) && !empty($_SERVER['HTTPS']) ? 'https://' : 'http://';
-                $productImageOnelocation = $protocol . $productImageOnehost .  "/storage/" . $img;
+                $productImageOnelocation = $protocol . $productImageOnehost .  "/public/storage/" . $img;
                 $imagemodel = new product_has_images();
                 $imagemodel->image_path = "$productImageOnelocation";
                 $imagemodel->has_images_product_id = $last_id;
@@ -232,7 +232,7 @@ class prductController extends Controller
                 $productImageOnehost = $_SERVER['HTTP_HOST'];
                 $protocol = $_SERVER['PROTOCOL'] = isset($_SERVER['HTTPS']) && !empty($_SERVER['HTTPS']) ? 'https://' : 'http://';
 
-                $productImageOnelocation = $protocol . $productImageOnehost .  "/storage/" . $img;
+                $productImageOnelocation = $protocol . $productImageOnehost .  "/public/storage/" . $img;
                 $imagemodel = new product_has_images();
                 $imagemodel->image_path = $productImageOnelocation;
                 $imagemodel->has_images_product_id = $product_id_edit;
