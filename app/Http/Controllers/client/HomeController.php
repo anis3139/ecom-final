@@ -52,7 +52,7 @@ class HomeController extends Controller
 
         if($key != ""){
             $searchProducts=product_table::with(['img'])->where('product_active', 1)->Where('product_title','LIKE',"%{$key}%")->orderBy('id', 'desc')->paginate(15);
-
+            $recentProducts=product_table::where('product_active', 1)->orderBy('id', 'asc')->limit(5)->get();
             $popular_products= OrderProducts::with('product')
             ->select('product_id', DB::raw('COUNT(product_id) as maxSell'))
             ->groupBy('product_id')
@@ -62,17 +62,14 @@ class HomeController extends Controller
             if(count($searchProducts)>0){
                 return view('client.pages.search', compact('searchProducts','popular_products','topRatedProducts','key'));
             }
+
+            
         }
-        return view('client.pages.search', compact('searchProducts','popular_products','topRatedProducts','key'));
+        return view('client.pages.Search', compact('searchProducts','popular_products','topRatedProducts','key', 'recentProducts'));
 
 
     }
 
 
-
-    public function modal()
-    {
-        return view('client.component.Modal');
-    }
 
 }

@@ -81,9 +81,11 @@ $others = App\Models\OthersModel::first();
                 @include('client.component.Menu')
                 <!-- #primary-menu end -->
 
-                <form class="top-search-form" action="search.html" method="get">
-                    <input type="text" name="q" class="form-control" value="" placeholder="Type &amp; Hit Enter.."
+                <form class="top-search-form" action="{{ route('client.search') }}" method="post">
+                    @csrf
+                    <input required type="text" name="key" class="form-control" value="" placeholder="Type &amp; Hit Enter.."
                         autocomplete="off">
+
                 </form>
 
             </div>
