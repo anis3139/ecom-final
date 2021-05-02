@@ -4,14 +4,14 @@
              <h4>Brands who give Flat <span class="text-danger">40%</span> Off</h4>
          </div>
 
-         <ul class="clients-grid grid-2 grid-sm-3 grid-md-6 grid-lg-8 mb-0">
+         <ul class="clients-grid grid-2 grid-sm-3 grid-md-6 grid-lg-8 mb-0 justify-content-center">
              @foreach ($allCategory as $category )
-              
-                     <li class="grid-item"><a href="{{ route('client.category', $category->slug) }}"><img src="{{ $category ->image }}"
+
+                     <li class="grid-item"><a href="{{ route('client.category', $category->slug) }}"><img src="{{$category->icon}}"
                          alt="Clients"></a></li>
-               
+
              @endforeach
-            
+
 
          </ul>
      </div>

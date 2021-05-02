@@ -48,7 +48,7 @@
                         <tr>
                             <td>
                                 <div class="form-group mb-2">
-                                    <h3>Banner Upload:</h3>
+                                    <h3>Promo Banner Upload:</h3>
                                 </div>
                             </td>
                             <td>

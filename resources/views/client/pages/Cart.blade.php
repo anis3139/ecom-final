@@ -21,7 +21,7 @@
         <div class="content-wrap">
             <div class="container">
 
-                <table class="table cart mb-5">
+                <table class="table table-bordered table-striped table-hover cart mb-5">
                     <thead>
                         <tr>
                             <th class="cart-product-remove">&nbsp;</th>
@@ -78,10 +78,10 @@
                                     </div>
                                 </td>
 
-                                <td class="cart-product-color text-center">
+                                <td class="cart-product-color text-center hidden-xs">
                                     @if ($cartItem['maserment'])
 
-                                        <div
+                                        <div class="text-center"
                                             style=" width:20px; height:20px; border:1px solid #000; border-radius:50%; background-color: {{ $cartItem['color'] }};">
                                         </div>
                                     @else

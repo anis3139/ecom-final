@@ -1,8 +1,3 @@
- @php
-     $others = App\Models\OthersModel::first();
-     $socialData=App\Models\SocialModel::first();
- @endphp
-
 
  <div class="section my-4">
      <div class="container">

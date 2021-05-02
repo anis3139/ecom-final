@@ -88,7 +88,7 @@
     <!-- Page Title
                                                                       ============================================= -->
     <section id="page-title">
-        
+
         <div class="container clearfix">
             <h1>{!! $productDetails->product_title !!}</h1>
             <ol class="breadcrumb">
@@ -571,6 +571,7 @@
                                 </form>
 
                                 <div class="clear"></div>
+                                <a href="">View Details</a>
                                 <div class="line"></div>
                                 <p id="pDescription"></p>
 

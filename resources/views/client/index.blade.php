@@ -1,4 +1,8 @@
 @extends('client.layouts.app')
+@php
+$others = App\Models\OthersModel::first();
+$socialData=App\Models\SocialModel::first();
+@endphp
 
 @section('content')
     <div id="wrapper" class="clearfix">

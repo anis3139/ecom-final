@@ -19,7 +19,9 @@
 						============================================= -->
 						<div class="top-links">
 							<ul class="top-links-container">
-								<li class="top-links-item"><a href="{{route('client.about')}}">About</a></li>
+                                @auth()
+								<li class="top-links-item"><a href="{{route('client.profile')}}">My Account</a></li>
+                                @endauth
 								<li class="top-links-item"><a href="{{route('client.showCart')}}">My Cart</a></li>
 								<li class="top-links-item"><a href="{{ route('client.checkout') }}">Checkout</a></li>
 								<li class="top-links-item"><a href="#">EN</a>
