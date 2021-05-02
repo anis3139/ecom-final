@@ -29,25 +29,20 @@
                                     <input id="addLogo" required type="file" class="form-control ">
                                     <hr>
 
-                                            <img id="addimagepreview"
-                                            style="height: 100px !important; width: 200px !important;"
-                                            class="imgPreview mx-auto"
-                                            src="
-                                        @if($results)
-                                            @isset($results)
-                                            {{ $results->logo }}
+                                    <img id="addimagepreview" style="height: 100px !important; width: 200px !important;"
+                                        class="imgPreview mx-auto" src="
+                                            @if ($results) @isset($results)
+                                                {{ $results->logo }}
                                             @endisset
-                                        @else
+                                    @else
                                             @empty($records)
-                                                            {{ asset('admin/images/default-image.png') }}
-                                            @endempty
-                                        @endif
-                                        " />
+                                                                {{ asset('admin/images/default-image.png') }}
+                                                @endempty @endif " />
 
-                                </div>
-                            </td>
-                            <td>
-                                <button id="submitLogo" type="submit" class="btn btn-primary mb-2">Update</button>
+                                    </div>
+                                </td>
+                                <td>
+                                    <button id=" submitLogo" type="submit" class="btn btn-primary mb-2">Update</button>
                             </td>
                         </tr>
                         <tr>
@@ -62,27 +57,22 @@
                                     <input id="Banner" required type="file" class="form-control ">
                                     <hr>
 
-                                            <img id="BannerImg"
-                                            style="height: 100px !important; width: 200px !important;"
-                                            class="imgPreview mx-auto"
-                                            src="@if($results)
-                                            @isset($results)
-                                            {{ $results->hero_banner }}
+                                    <img id="BannerImg" style="height: 100px !important; width: 200px !important;"
+                                        class="imgPreview mx-auto" src="@if ($results) @isset($results)
+                                                {{ $results->hero_banner }}
                                             @endisset
-                                        @else
+                                    @else
                                             @empty($records)
-                                                            {{ asset('admin/images/default-image.png') }}
-                                            @endempty
-                                        @endif
-                                        " />
+                                                                {{ asset('admin/images/default-image.png') }}
+                                                @endempty @endif " />
 
-                                </div>
-                            </td>
-                            <td>
-                                <button id="submitBanner" type="submit" class="btn btn-primary mb-2">Update</button>
+                                    </div>
+                                </td>
+                                <td>
+                                    <button id=" submitBanner" type="submit" class="btn btn-primary mb-2">Update</button>
                             </td>
                         </tr>
-                                   <tr>
+                        <tr>
                             <td>
                                 <div class="form-group mb-2">
                                     <h3>Promo Image One:</h3>
@@ -94,25 +84,21 @@
                                     <input id="promoImageOne" required type="file" class="form-control ">
                                     <hr>
 
-                                            <img id="promoImageOneImg"
-                                            style="height: 100px !important; width: 200px !important;"
-                                            class="imgPreview mx-auto"
-                                            src="
-                                            @if($results)
-                                            @isset($results)
-                                            {{ $results->promo_image_one }}
+                                    <img id="promoImageOneImg" style="height: 100px !important; width: 200px !important;"
+                                        class="imgPreview mx-auto" src="
+                                                @if ($results) @isset($results)
+                                                {{ $results->promo_image_one }}
                                             @endisset
-                                        @else
+                                    @else
                                             @empty($records)
-                                                            {{ asset('admin/images/default-image.png') }}
-                                            @endempty
-                                        @endif
-                                            " />
+                                                                {{ asset('admin/images/default-image.png') }}
+                                                @endempty @endif " />
 
-                                </div>
-                            </td>
-                            <td>
-                                <button id="submitpromoImageOne" type="submit" class="btn btn-primary mb-2">Update</button>
+                                    </div>
+                                </td>
+                                <td>
+                                    <button id=" submitpromoImageOne" type="submit"
+                                        class="btn btn-primary mb-2">Update</button>
                             </td>
                         </tr>
 
@@ -128,25 +114,21 @@
                                     <input id="promoImageTwo" required type="file" class="form-control ">
                                     <hr>
 
-                                            <img id="promoImageTwoImg"
-                                            style="height: 100px !important; width: 200px !important;"
-                                            class="imgPreview mx-auto"
-                                            src="
-                                            @if($results)
-                                            @isset($results)
-                                            {{ $results->promo_image_two }}
+                                    <img id="promoImageTwoImg" style="height: 100px !important; width: 200px !important;"
+                                        class="imgPreview mx-auto" src="
+                                                @if ($results) @isset($results)
+                                                {{ $results->promo_image_two }}
                                             @endisset
-                                        @else
+                                    @else
                                             @empty($records)
-                                                            {{ asset('admin/images/default-image.png') }}
-                                            @endempty
-                                        @endif
-                                            " />
+                                                                {{ asset('admin/images/default-image.png') }}
+                                                @endempty @endif " />
 
-                                </div>
-                            </td>
-                            <td>
-                                <button id="submitpromoImageTwo" type="submit" class="btn btn-primary mb-2">Update</button>
+                                    </div>
+                                </td>
+                                <td>
+                                    <button id=" submitpromoImageTwo" type="submit"
+                                        class="btn btn-primary mb-2">Update</button>
                             </td>
                         </tr>
                         <tr>
@@ -161,25 +143,21 @@
                                     <input id="promoImageThree" required type="file" class="form-control ">
                                     <hr>
 
-                                            <img id="promoImageThreeImg"
-                                            style="height: 100px !important; width: 200px !important;"
-                                            class="imgPreview mx-auto"
-                                            src="
-                                            @if($results)
-                                            @isset($results)
-                                            {{ $results->promo_image_three }}
+                                    <img id="promoImageThreeImg" style="height: 100px !important; width: 200px !important;"
+                                        class="imgPreview mx-auto" src="
+                                                @if ($results) @isset($results)
+                                                {{ $results->promo_image_three }}
                                             @endisset
-                                        @else
+                                    @else
                                             @empty($records)
-                                                            {{ asset('admin/images/default-image.png') }}
-                                            @endempty
-                                        @endif
-                                            " />
+                                                                {{ asset('admin/images/default-image.png') }}
+                                                @endempty @endif " />
 
-                                </div>
-                            </td>
-                            <td>
-                                <button id="submitpromoImageThree" type="submit" class="btn btn-primary mb-2">Update</button>
+                                    </div>
+                                </td>
+                                <td>
+                                    <button id=" submitpromoImageThree" type="submit"
+                                        class="btn btn-primary mb-2">Update</button>
                             </td>
                         </tr>
                         <tr>
@@ -191,7 +169,7 @@
                             <td>
                                 <div class="form-group mx-sm-3 mb-2">
                                     <label for="facebook" class="sr-only">Title</label>
-                                    <input id="addTitle" required type="text" class="form-control " id="facebook" value="<?php if ($results) {
+                                    <input id="addTitle" required type="text" class="form-control " value="<?php if ($results) {
                                             echo $results->title;
                                         } ?>">
 
@@ -199,6 +177,26 @@
                             </td>
                             <td>
                                 <button id="submitTitle" type="submit" class="btn btn-primary mb-2">Update</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="form-group mb-2">
+                                    <h3>Sub Title:</h3>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="form-group mx-sm-3 mb-2">
+                                    <label for="addSubTitle" class="sr-only">Sub Title</label>
+
+                                    <textarea required name="" id="addSubTitle" class="form-control" cols="30" rows="5"><?php if ($results) {
+                                                 echo $results->sub_title;
+                                             } ?></textarea>
+
+                                </div>
+                            </td>
+                            <td>
+                                <button id="submitSubTitle" type="submit" class="btn btn-primary mb-2">Update</button>
                             </td>
                         </tr>
                         <tr>
@@ -212,7 +210,7 @@
                             <td>
                                 <div class="form-group mx-sm-3 mb-2">
                                     <label for="facebook" class="sr-only">mobile</label>
-                                    <input id="addPhone" required type="text" class="form-control " id="facebook" value="<?php if ($results) {
+                                    <input id="addPhone" required type="text" class="form-control " value="<?php if ($results) {
                                             echo $results->phone;
                                         } ?>">
 
@@ -462,6 +460,48 @@
         // Title Add
 
 
+        // Sub Title Add
+
+
+        $('#submitSubTitle').click(function() {
+            var sub_title = $('#addSubTitle').val();
+            addSubTitle(sub_title);
+        })
+
+        function addSubTitle(sub_title) {
+            if (sub_title.length == 0) {
+                toastr.error('Sub Title url is empty!');
+
+            } else {
+                $('#submitSubTitle').html(
+                    "<div class='spinner-border spinner-border-sm text-primary' role='status'></div>"); //animation
+                axios.post("{{ route('admin.subTitle') }}", {
+                        sub_title: sub_title
+                    })
+                    .then(function(response) {
+                        console.log(response.data);
+                        $('#submitSubTitle').html("Update");
+                        if (response.status = 200) {
+                            if (response.data == 1) {
+                                toastr.success('Updated Success .');
+
+
+                            } else {
+                                toastr.error('Updated Failed');
+                            }
+                        } else {
+                            toastr.error('Something Went Wrong');
+                        }
+                    }).catch(function(error) {
+                        toastr.error('Something Went Wrong');
+                    });
+            }
+        }
+
+
+
+        // Gmap Add
+
         $('#submitGmap').click(function() {
             var gmap = $('#addGmap').val();
             addGmap(gmap);
@@ -632,7 +672,7 @@
 
         $('#submitpromoImageOne').click(function() {
             var promoImageOne = $('#promoImageOne').prop('files')[0];
-           addpromoImageOne(promoImageOne)
+            addpromoImageOne(promoImageOne)
         })
 
         $('#promoImageOne').change(function() {
@@ -660,7 +700,7 @@
                     'Content-Type': 'multipart/form-data'
                 }
             }).then(function(response) {
-  console.log(response.data);
+                console.log(response.data);
                 $('#submitpromoImageOne').html("Update");
 
                 if (response.status = 200) {
@@ -692,9 +732,9 @@
 
 
 
-         //promoImageTwo Add  save button
+        //promoImageTwo Add  save button
 
-         $('#submitpromoImageTwo').click(function() {
+        $('#submitpromoImageTwo').click(function() {
             var promoImageTwo = $('#promoImageTwo').prop('files')[0];
             addpromoImageTwo(promoImageTwo);
         })
@@ -754,9 +794,9 @@
         }
 
 
-         //promoImageThree Add  save button
+        //promoImageThree Add  save button
 
-         $('#submitpromoImageThree').click(function() {
+        $('#submitpromoImageThree').click(function() {
             var promoImageThree = $('#promoImageThree').prop('files')[0];
             addpromoImageThree(promoImageThree);
         })
@@ -815,7 +855,6 @@
 
 
         }
-
 
     </script>
 @endsection

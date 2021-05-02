@@ -106,6 +106,29 @@ class OthersSettingsController extends Controller
             return 0;
         }
     }
+    public function addsubTitle(Request $request)
+    {
+
+
+        $sub_title = $request->input("sub_title");
+
+
+        $valuecheck = (OthersModel::orderBy('id', 'desc')->get());
+
+
+
+        if( count($valuecheck)>0){
+            $result = OthersModel::where('id', '=',  $valuecheck['0']->id)->update(['sub_title' => $sub_title]);
+        }
+        else{
+            $result = OthersModel::insert(['sub_title' => $sub_title]);
+        }
+        if ($result == true) {
+            return 1;
+        } else {
+            return 0;
+        }
+    }
 
     public function addGmap(Request $request)
     {

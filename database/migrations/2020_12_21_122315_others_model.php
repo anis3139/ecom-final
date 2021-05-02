@@ -17,10 +17,11 @@ class OthersModel extends Migration
             $table->increments('id');
             $table->string('logo')->nullable();
             $table->string('hero_banner')->nullable();
-             $table->string('promo_image_one')->nullable();
-              $table->string('promo_image_two')->nullable();
-               $table->string('promo_image_three')->nullable();
+            $table->string('promo_image_one')->nullable();
+            $table->string('promo_image_two')->nullable();
+            $table->string('promo_image_three')->nullable();
             $table->string('title')->nullable();
+            $table->text('sub_title')->nullable();
             $table->string('phone')->nullable();
             $table->string('email')->nullable();
             $table->text('address')->nullable();
