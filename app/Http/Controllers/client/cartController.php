@@ -206,7 +206,6 @@ class cartController extends Controller
     {
 
 
-
         $cart = session()->has('cart') ? session()->get('cart') : [];
         $total= array_sum( array_column($cart, 'total_price'));
 

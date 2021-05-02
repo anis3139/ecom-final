@@ -1,9 +1,31 @@
 @extends('client.layouts.app')
+@section('css')
+    <style>
+        .box {
+            color: #fff;
+            padding: 20px;
+            display: none;
+        }
 
+        .red {
+            background: #1b8cc0;
+        }
+
+        .green {
+            background: #228B22;
+        }
+
+        .blue {
+            background: #0000ff;
+        }
+
+    </style>
+
+@endsection
 @section('content')
 
     <!-- Page Title
-                                                                                          ============================================= -->
+                                                                                                                                                                      ============================================= -->
     <section id="page-title">
 
         <div class="container clearfix">
@@ -18,7 +40,7 @@
     </section><!-- #page-title end -->
 
     <!-- Content
-                                                                                          ============================================= -->
+                                                                                                                                                                      ============================================= -->
     <section id="content">
         <div class="content-wrap">
             <div class="container clearfix">
@@ -93,8 +115,7 @@
                                     <div class="col-12 form-group">
                                         <label for="billing-form-city">City / Town: </label>
                                         <input type="text" id="billing-form-city" name="city"
-                                            value="{{ auth()->user()->city }}"
-                                        class="sm-form-control" />
+                                            value="{{ auth()->user()->city }}" class="sm-form-control" />
                                     </div>
                                     <div class="col-12 form-group">
                                         <label for="billing-form-city">District: </label>
@@ -306,6 +327,21 @@
                                             </tr>
                                             <tr class="cart_item">
                                                 <td class="cart-product-name">
+                                                    <label><input type="radio" checked name="payment_details" id="red" value=" Cash  On  Delivery"> Cash
+                                                        On
+                                                        Delivery</label>
+                                                    <label><input type="radio" name="payment_details" id="green" value="Bkash">
+                                                        Bkash</label>
+                                                </td>
+
+                                                <td class="cart-product-name">
+                                                    <div class="red box">Selected For Cash on Delivery</div>
+                                                    <div class="green box">Selected For Bkash</div>
+                                                </td>
+                                            </tr>
+
+                                            <tr class="cart_item">
+                                                <td class="cart-product-name">
 
                                                 </td>
 
@@ -320,51 +356,6 @@
 
 
 
-                                <div class="accordion clearfix">
-                                    <div class="accordion-header">
-                                        <div class="accordion-icon">
-                                            <i class="accordion-closed icon-line-minus"></i>
-                                            <i class="accordion-open icon-line-check"></i>
-                                        </div>
-                                        <div class="accordion-title">
-                                            Direct Bank Transfer
-                                        </div>
-                                    </div>
-                                    <div class="accordion-content clearfix">Donec sed odio dui. Nulla vitae elit libero, a
-                                        pharetra
-                                        augue. Nullam id dolor id nibh ultricies vehicula ut id elit. Integer posuere erat a
-                                        ante
-                                        venenatis dapibus posuere velit aliquet.</div>
-
-                                    <div class="accordion-header">
-                                        <div class="accordion-icon">
-                                            <i class="accordion-closed icon-line-minus"></i>
-                                            <i class="accordion-open icon-line-check"></i>
-                                        </div>
-                                        <div class="accordion-title">
-                                            Cheque Payment
-                                        </div>
-                                    </div>
-                                    <div class="accordion-content clearfix">Integer posuere erat a ante venenatis dapibus
-                                        posuere
-                                        velit aliquet. Duis mollis, est non commodo luctus. Aenean lacinia bibendum nulla sed
-                                        consectetur. Cras mattis consectetur purus sit amet fermentum.</div>
-
-                                    <div class="accordion-header">
-                                        <div class="accordion-icon">
-                                            <i class="accordion-closed icon-line-minus"></i>
-                                            <i class="accordion-open icon-line-check"></i>
-                                        </div>
-                                        <div class="accordion-title">
-                                            Paypal
-                                        </div>
-                                    </div>
-                                    <div class="accordion-content clearfix">Nullam id dolor id nibh ultricies vehicula ut id
-                                        elit.
-                                        Integer posuere erat a ante venenatis dapibus posuere velit aliquet. Duis mollis, est
-                                        non
-                                        commodo luctus. Aenean lacinia bibendum nulla sed consectetur.</div>
-                                </div>
 
                                 @if ($total > 0)
                                     <button type="submit" class="button button-3d float-right">Place Order</button>
@@ -384,68 +375,78 @@
     <script>
         // Single product Show in modal
 
+        $(document).ready(function() {
+            $('input[type="radio"]').click(function() {
+                var inputValue = $(this).attr("id");
+                var targetBox = $("." + inputValue);
+                $(".box").not(targetBox).hide();
+                $(targetBox).show();
+            });
+        });
+
+
 
         getcartData()
 
-function getcartData() {
+        function getcartData() {
 
-    axios.get("{{ route('client.cartData') }}")
-        .then(function(response) {
+            axios.get("{{ route('client.cartData') }}")
+                .then(function(response) {
 
-            if (response.status = 200) {
-                var dataJSON = response.data;
-                var cartData = dataJSON.cart;
+                    if (response.status = 200) {
+                        var dataJSON = response.data;
+                        var cartData = dataJSON.cart;
 
-                var a = Object.keys(cartData).length;
+                        var a = Object.keys(cartData).length;
 
 
-                $("#cart_quantity").html(a);
-                var tp = parseFloat(dataJSON.total).toFixed(2);
-                $("#total_cart_price").html(' &#2547; ' + tp);
+                        $("#cart_quantity").html(a);
+                        var tp = parseFloat(dataJSON.total).toFixed(2);
+                        $("#total_cart_price").html(' &#2547; ' + tp);
 
-                var imageViewHtml = "";
-                $.each(cartData, function(i, item) {
-                    imageViewHtml += `<div class="top-cart-item">
-                                         <div class="top-cart-item-image">
-                                             <a href="#"><img src="${cartData[i].image}"
-                                                     alt="Blue Round-Neck Tshirt" /></a>
-                                         </div>
-                                         <div class="top-cart-item-desc">
-                                             <div class="top-cart-item-desc-title">
-                                                 <a href="#">${cartData[i].title}</a>
-                                                 <span class="top-cart-item-price d-block"> ${cartData[i].quantity} x &#2547; ${cartData[i].unit_price}</span>
-                                             </div>
-                                             <div class="top-cart-item-quantity"><button class="cartDeleteIcon" data-id="${i}" type="submit"><i class="icon-remove"> </i></button></div>
-                                         </div>
-                                </div>`
+                        var imageViewHtml = "";
+                        $.each(cartData, function(i, item) {
+                            imageViewHtml += `<div class="top-cart-item">
+                                                                                                                     <div class="top-cart-item-image">
+                                                                                                                         <a href="#"><img src="${cartData[i].image}"
+                                                                                                                                 alt="Blue Round-Neck Tshirt" /></a>
+                                                                                                                     </div>
+                                                                                                                     <div class="top-cart-item-desc">
+                                                                                                                         <div class="top-cart-item-desc-title">
+                                                                                                                             <a href="#">${cartData[i].title}</a>
+                                                                                                                             <span class="top-cart-item-price d-block"> ${cartData[i].quantity} x &#2547; ${cartData[i].unit_price}</span>
+                                                                                                                         </div>
+                                                                                                                         <div class="top-cart-item-quantity"><button class="cartDeleteIcon" data-id="${i}" type="submit"><i class="icon-remove"> </i></button></div>
+                                                                                                                     </div>
+                                                                                                            </div>`
+                        });
+
+
+                        $('.top-cart-items').html(imageViewHtml);
+
+                        console.log(a);
+
+                        if (a == 0) {
+                            $("#HeaderPreview").css("display", "none");
+                        } else {
+                            $("#HeaderPreview").css("display", "block");
+                        }
+
+
+                        //Carts click on delete icon
+                        $(".cartDeleteIcon").click(function() {
+                            var id = $(this).data('id');
+                            $('#CartsDeleteId').html(id);
+                            DeleteDataCart(id);
+                        })
+                    } else {
+                        toastr.error('Something Went Wrong');
+                    }
+                }).catch(function(error) {
+
+                    toastr.error('Something Went Wrong...');
                 });
-
-
-                $('.top-cart-items').html(imageViewHtml);
-
-                console.log(a);
-
-                if (a == 0) {
-                    $("#HeaderPreview").css("display", "none");
-                } else {
-                    $("#HeaderPreview").css("display", "block");
-                }
-
-
-                //Carts click on delete icon
-                $(".cartDeleteIcon").click(function() {
-                    var id = $(this).data('id');
-                    $('#CartsDeleteId').html(id);
-                    DeleteDataCart(id);
-                })
-            } else {
-                toastr.error('Something Went Wrong');
-            }
-        }).catch(function(error) {
-
-            toastr.error('Something Went Wrong...');
-        });
-}
+        }
 
 
 
@@ -458,34 +459,34 @@ function getcartData() {
 
 
 
-$('#confirmDeleteCart').click(function() {
+        $('#confirmDeleteCart').click(function() {
 
 
-    alert("hello")
-    var id = $(this).data('id');
-    DeleteDataCart(id);
-})
-
-
-//delete Cart function
-function DeleteDataCart(id) {
-
-    axios.post("{{ route('client.cartRemove') }}", {
-            product_id: id
+            alert("hello")
+            var id = $(this).data('id');
+            DeleteDataCart(id);
         })
-        .then(function(response) {
 
-            if (response.status == 200) {
-                toastr.success('Cart Removed Success.');
-                getcartData();
-            } else {
-                toastr.error('Something Went Wrong');
-            }
-        }).catch(function(error) {
 
-            toastr.error('Something Went Wrong......');
-        });
-}
+        //delete Cart function
+        function DeleteDataCart(id) {
+
+            axios.post("{{ route('client.cartRemove') }}", {
+                    product_id: id
+                })
+                .then(function(response) {
+
+                    if (response.status == 200) {
+                        toastr.success('Cart Removed Success.');
+                        getcartData();
+                    } else {
+                        toastr.error('Something Went Wrong');
+                    }
+                }).catch(function(error) {
+
+                    toastr.error('Something Went Wrong......');
+                });
+        }
 
         var dValue = $('input[name=in_dhaka]:checked').val();
         var value = parseInt(dValue);
