@@ -141,7 +141,7 @@ public function profile()
 {
 
     $data= [];
-    $data['orders']=Orders::where('user_id', auth()->user()->id)->get();
+    $data['orders']=Orders::where('user_id', auth()->user()->id)->orderBy('id', 'DESC')->get();
 
     return view('client.pages.Profile', $data);
 }
