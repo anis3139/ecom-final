@@ -33,7 +33,7 @@
 
 
     @else
-    
+
         <section id="content">
             <div class="content-wrap">
                 <h1 class="pb-3 text-center"> You Search for: <span class="text-danger">{{ $key }}</span> </h1>
@@ -292,7 +292,7 @@
 
                                 <div class="card product-meta mb-0">
                                     <div class="card-body">
-                                        <span class="posted_in">Category: <a href="#" rel="tag" id="pdCategory"></a>.</span>
+                                        <span class="posted_in">Category: <a href="#" rel="tag" id="pdCategory"></a> &nbsp; &nbsp;  <a href="" id="modalSingleView" class="add-to-cart button m-0">View Details</a></span>
                                     </div>
                                 </div>
 
@@ -319,8 +319,8 @@
                     if (response.status == 200) {
                         var jsonData = response.data;
 
-
-                        var url = `product/${jsonData[0].product_slug}`;
+                          let domain=window.location.origin
+                        var url = `${domain}/product/${jsonData[0].product_slug}`;
 
 
 
