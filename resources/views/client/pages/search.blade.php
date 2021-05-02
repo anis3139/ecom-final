@@ -33,6 +33,7 @@
 
 
     @else
+    
         <section id="content">
             <div class="content-wrap">
                 <h1 class="pb-3 text-center"> You Search for: <span class="text-danger">{{ $key }}</span> </h1>
