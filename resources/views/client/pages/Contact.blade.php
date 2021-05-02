@@ -13,7 +13,7 @@ $socialData=App\Models\SocialModel::first();
             <h1>Contact</h1>
             <span>Get in Touch with Us</span>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('client.home') }}">Home</a></li>
                 <li class="breadcrumb-item active" aria-current="page">Contact</li>
             </ol>
         </div>

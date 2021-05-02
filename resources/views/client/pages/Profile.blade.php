@@ -1,14 +1,4 @@
 @extends('client.layouts.app')
-@section('css')
-
-    <style>
-        .profile {
-            margin: 20px 0px !important;
-        }
-
-    </style>
-
-@endsection
 
 @section('content')
     <div class="container">
@@ -47,11 +37,9 @@
                     </tr>
                     <tr>
 
-                        <td colspan="2">
-                            <a class="btn btn-success"
-                                href="{{ route('client.profileEdit', auth()->user()->id) }}"
-                                style="margin:20px  auto !important; display:block;">
-                                <h4>Profile Edit</h4>
+                        <td colspan="2" class="text-center">
+                            <a class="btn btn-primary btn-lg btn-block" href="{{ route('client.profileEdit', auth()->user()->id) }}"><span>Profile Edit</span></a>
+
                         </td>
                     </tr>
                 </table>

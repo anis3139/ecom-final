@@ -242,7 +242,8 @@
                                     <div class="fslider" data-pagi="false">
                                         <div class="flexslider">
                                             <div class="slider-wrap">
-
+                                                <div class="slide22"><a href="#" title="Pink Printed Dress - Front View"><img
+                                                    src="" id="modalSingleImage" alt="Pink Printed Dress"></a></div>
                                             </div>
                                         </div>
                                     </div>
@@ -322,7 +323,7 @@
                           let domain=window.location.origin
                         var url = `${domain}/product/${jsonData[0].product_slug}`;
 
-
+                        let imgSingle=jsonData[0].img[0].image_path
 
                         var inStock = '';
                         if (jsonData[0].product_in_stock == 0) {
@@ -339,22 +340,22 @@
                         $('#pDescription').html(jsonData[0].product_discription);
                         $('#product_ids').val(id);
                         $('#modalSingleView').attr("href", url);
+                        $('#modalSingleImage').attr("src", imgSingle);
 
 
 
+                        // var imageDiv = "";
+                        // for (let index = 0; index < jsonData[0].img.length; index++) {
+                        //     const element = jsonData[0].img[index];
+                        //     imageDiv += '<div  class="slide">';
+                        //     imageDiv += '<a href="#" title="Pink Printed Dress - Front View">';
+                        //     imageDiv += '<img src="' + element.image_path + '" alt="Pink Printed Dress">';
+                        //     imageDiv += '</a>';
+                        //     imageDiv += '</div>';
 
-                        var imageDiv = "";
-                        for (let index = 0; index < jsonData[0].img.length; index++) {
-                            const element = jsonData[0].img[index];
-                            imageDiv += '<div  class="slide">';
-                            imageDiv += '<a href="#" title="Pink Printed Dress - Front View">';
-                            imageDiv += '<img src="' + element.image_path + '" alt="Pink Printed Dress">';
-                            imageDiv += '</a>';
-                            imageDiv += '</div>';
+                        // }
 
-                        }
-
-                        $('.slider-wrap').html(imageDiv);
+                        // $('.slider-wrap').html(imageDiv);
 
                         var maserment = "";
                         for (let index = 0; index < jsonData[0].maserment.length; index++) {

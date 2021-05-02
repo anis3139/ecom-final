@@ -6,9 +6,8 @@
 
         <div class="container clearfix">
             <h1>Shop</h1>
-            <span>Start Buying your Favourite Theme</span>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('client.home') }}">Home</a></li>
                 <li class="breadcrumb-item active" aria-current="page">Shop</li>
             </ol>
         </div>
@@ -18,18 +17,18 @@
 
 
     <!-- Content
-                                                                                      ============================================= -->
+                                                                                              ============================================= -->
     <section id="content">
         <div class="content-wrap">
             <div class="container clearfix">
 
                 <div class="row gutter-40 col-mb-80">
                     <!-- Post Content
-                                                                                          ============================================= -->
+                                                                                                  ============================================= -->
                     <div class="postcontent col-lg-9 order-lg-last">
 
                         <!-- Shop
-                                                                                           ============================================= -->
+                                                                                                   ============================================= -->
                         <div id="shop" class="shop row grid-container gutter-20" data-layout="fitRows">
 
 
@@ -112,7 +111,7 @@
                     <!-- .postcontent end -->
 
                     <!-- Sidebar
-                                                                                          ============================================= -->
+                                                                                                  ============================================= -->
                     <div class="sidebar col-lg-3">
                         <div class="sidebar-widgets-wrap">
 
@@ -269,7 +268,8 @@
                                     <div class="fslider" data-pagi="false">
                                         <div class="flexslider">
                                             <div class="slider-wrap">
-
+                                                <div class="slide22"><a href="#" title="Pink Printed Dress - Front View"><img
+                                                    src="" id="modalSingleImage" alt="Pink Printed Dress"></a></div>
                                             </div>
                                         </div>
                                     </div>
@@ -319,7 +319,9 @@
 
                                 <div class="card product-meta mb-0">
                                     <div class="card-body">
-                                        <span class="posted_in">Category: <a href="#" rel="tag" id="pdCategory"></a> &nbsp; &nbsp;  <a href="" id="modalSingleView" class="add-to-cart button m-0">View Details</a></span>
+                                        <span class="posted_in">Category: <a href="#" rel="tag" id="pdCategory"></a> &nbsp;
+                                            &nbsp; <a href="" id="modalSingleView" class="add-to-cart button m-0">View
+                                                Details</a></span>
                                     </div>
                                 </div>
 
@@ -346,10 +348,10 @@
                     if (response.status == 200) {
                         var jsonData = response.data;
 
-                          let domain=window.location.origin
+                        let domain = window.location.origin
                         var url = `${domain}/product/${jsonData[0].product_slug}`;
 
-
+                        let imgSingle=jsonData[0].img[0].image_path
 
                         var inStock = '';
                         if (jsonData[0].product_in_stock == 0) {
@@ -366,22 +368,22 @@
                         $('#pDescription').html(jsonData[0].product_discription);
                         $('#product_ids').val(id);
                         $('#modalSingleView').attr("href", url);
+                        $('#modalSingleImage').attr("src", imgSingle);
 
 
 
+                        // var imageDiv = "";
+                        // for (let index = 0; index < jsonData[0].img.length; index++) {
+                        //     const element = jsonData[0].img[index];
+                        //     imageDiv += '<div  class="slide">';
+                        //     imageDiv += '<a href="#" title="Pink Printed Dress - Front View">';
+                        //     imageDiv += '<img src="' + element.image_path + '" alt="Pink Printed Dress">';
+                        //     imageDiv += '</a>';
+                        //     imageDiv += '</div>';
 
-                        var imageDiv = "";
-                        for (let index = 0; index < jsonData[0].img.length; index++) {
-                            const element = jsonData[0].img[index];
-                            imageDiv += '<div  class="slide">';
-                            imageDiv += '<a href="#" title="Pink Printed Dress - Front View">';
-                            imageDiv += '<img src="' + element.image_path + '" alt="Pink Printed Dress">';
-                            imageDiv += '</a>';
-                            imageDiv += '</div>';
+                        // }
 
-                        }
-
-                        $('.slider-wrap').html(imageDiv);
+                        // $('.slider-wrap').html(imageDiv);
 
                         var maserment = "";
                         for (let index = 0; index < jsonData[0].maserment.length; index++) {
@@ -512,18 +514,18 @@
                         var imageViewHtml = "";
                         $.each(cartData, function(i, item) {
                             imageViewHtml += `<div class="top-cart-item">
-                                                                                                                     <div class="top-cart-item-image">
-                                                                                                                         <a href="#"><img src="${cartData[i].image}"
-                                                                                                                                 alt="Blue Round-Neck Tshirt" /></a>
-                                                                                                                     </div>
-                                                                                                                     <div class="top-cart-item-desc">
-                                                                                                                         <div class="top-cart-item-desc-title">
-                                                                                                                             <a href="#">${cartData[i].title}</a>
-                                                                                                                             <span class="top-cart-item-price d-block"> ${cartData[i].quantity} x &#2547; ${cartData[i].unit_price}</span>
-                                                                                                                         </div>
-                                                                                                                         <div class="top-cart-item-quantity"><button class="cartDeleteIcon" data-id="${i}" type="submit"><i class="icon-remove"> </i></button></div>
-                                                                                                                     </div>
-                                                                                                            </div>`
+                                                                                                                             <div class="top-cart-item-image">
+                                                                                                                                 <a href="#"><img src="${cartData[i].image}"
+                                                                                                                                         alt="Blue Round-Neck Tshirt" /></a>
+                                                                                                                             </div>
+                                                                                                                             <div class="top-cart-item-desc">
+                                                                                                                                 <div class="top-cart-item-desc-title">
+                                                                                                                                     <a href="#">${cartData[i].title}</a>
+                                                                                                                                     <span class="top-cart-item-price d-block"> ${cartData[i].quantity} x &#2547; ${cartData[i].unit_price}</span>
+                                                                                                                                 </div>
+                                                                                                                                 <div class="top-cart-item-quantity"><button class="cartDeleteIcon" data-id="${i}" type="submit"><i class="icon-remove"> </i></button></div>
+                                                                                                                             </div>
+                                                                                                                    </div>`
                         });
 
 

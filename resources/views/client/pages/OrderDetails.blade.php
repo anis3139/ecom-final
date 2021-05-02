@@ -2,11 +2,12 @@
 @section('css')
 
     <style>
-        .profile {
+        .pBtn {
             margin: 20px 0px !important;
+            z-index: 999999;
         }
 
-        .profile-link {
+        .pBtn {
             position: fixed;
             top: 200px;
             right: 5px;
@@ -39,111 +40,252 @@
 @endsection
 
 @section('content')
-    <div class="container">
-        <div class="col-md-10 offset-md-1">
-            @auth
-                <div class=" text-center ">
+    @if ($orders)
+        <div class="container">
+            <div class="col-md-10 offset-md-1">
+                @auth
+                    <div class=" text-center pBtn">
+                        <a href="{{ route('client.profile') }}">Go Your Profile</a>
+                    </div>
+                @endauth
+                <h2 class=" profile  text-center mt-3">Order id: {{ $orders->id }}</h2>
+                @include('client.component.Message')
 
-                    <a class="btn btn-success m-5" href="{{ route('client.profile') }}">Go Your Profile</a>
-                </div>
-            @endauth
-            <h2 class=" profile  text-center">Order id: {{ $orders->id }}</h2>
-            @include('client.component.Message')
-            <table class="table table-bordered table-hover">
-                <thead>
-                    <tr>
 
-                        <th>Title</th>
-                        <th>Details</th>
+                <table class="table table-bordered table-striped table-hover cart mb-5">
+                    <thead>
+                        <tr>
+                            <th class="cart-product-remove">Title</th>
+                            <th class="cart-product-thumbnail">Details</th>
+                        </tr>
+                    </thead>
+                    <tbody>
 
-                    </tr>
-                </thead>
-                <tbody>
 
-                    @foreach ($orders->toArray() as $column => $value)
-                        @if (is_string($value))
+                        <tr class="cart_item">
+                            <td class="cart-product-subtotal">
+                                <span class="amount">Customer Name:</span>
+                            </td>
+                            <td class="cart-product-subtotal">
+                                <span class="amount">{{ $orders->customer_name }}</span>
+                            </td>
+                        </tr>
 
-                            @if ($column == 'user_id') @continue
-                            @elseif ($column=='id') @continue
-                            @elseif ($column=='order_product_id') @continue
-                            @elseif ($column=='product_owner_id') @continue
+                        <tr class="cart_item">
+                            <td class="cart-product-subtotal">
+                                <span class="amount">Mobile Number:</span>
+                            </td>
+                            <td class="cart-product-subtotal">
+                                <span class="amount">{{ $orders->customer_phone_number }}</span>
+                            </td>
+                        </tr>
+
+                        <tr class="cart_item">
+                            <td class="cart-product-subtotal">
+                                <span class="amount">Address:</span>
+                            </td>
+                            <td class="cart-product-subtotal">
+                                <span class="amount">{{ $orders->address }}</span>
+                            </td>
+                        </tr>
+
+
+
+                        <tr class="cart_item">
+                            <td class="cart-product-subtotal">
+                                <span class="amount">City:</span>
+                            </td>
+                            <td class="cart-product-subtotal">
+                                <span class="amount">{{ $orders->city }}</span>
+                            </td>
+                        </tr>
+
+                        <tr class="cart_item">
+                            <td class="cart-product-subtotal">
+                                <span class="amount">District:</span>
+                            </td>
+                            <td class="cart-product-subtotal">
+                                <span class="amount">{{ $orders->district }}</span>
+                            </td>
+                        </tr>
+
+                        <tr class="cart_item">
+                            <td class="cart-product-subtotal">
+                                <span class="amount">Country:</span>
+                            </td>
+                            <td class="cart-product-subtotal">
+                                <span class="amount">{{ $orders->country }}</span>
+                            </td>
+                        </tr>
+
+                        <tr class="cart_item">
+                            <td class="cart-product-subtotal">
+                                <span class="amount">Postal Code:</span>
+                            </td>
+                            <td class="cart-product-subtotal">
+                                <span class="amount">{{ $orders->postal_code }}</span>
+                            </td>
+                        </tr>
+
+                        <tr class="cart_item">
+                            <td class="cart-product-subtotal">
+                                <span class="amount">Sub Total:</span>
+                            </td>
+                            <td class="cart-product-subtotal">
+                                <span class="amount">{{ $orders->price_without_discount }}</span>
+                            </td>
+                        </tr>
+
+                        <tr class="cart_item">
+                            <td class="cart-product-subtotal">
+                                <span class="amount">Discount Amount:</span>
+                            </td>
+                            <td class="cart-product-subtotal">
+                                <span class="amount">{{ $orders->discount_amount }}</span>
+                            </td>
+                        </tr>
+
+                        <tr class="cart_item">
+                            <td class="cart-product-subtotal">
+                                <span class="amount">Total (After Discount):</span>
+                            </td>
+                            <td class="cart-product-subtotal">
+                                <span class="amount">{{ $orders->total_amount }}</span>
+                            </td>
+                        </tr>
+
+                        <tr class="cart_item">
+                            <td class="cart-product-subtotal">
+                                <span class="amount">Tax:</span>
+                            </td>
+                            <td class="cart-product-subtotal">
+                                <span class="amount">{{ $orders->total_tax }}</span>
+                            </td>
+                        </tr>
+
+                        <tr class="cart_item">
+                            <td class="cart-product-subtotal">
+                                <span class="amount">Delivery Charge:</span>
+                            </td>
+                            <td class="cart-product-subtotal">
+                                <span class="amount">{{ $orders->total_delivery_charge }}</span>
+                            </td>
+                        </tr>
+
+                        <tr class="cart_item">
+                            <td class="cart-product-subtotal">
+                                <span class="amount">Grand Total:</span>
+                            </td>
+                            <td class="cart-product-subtotal">
+                                <span class="amount">{{ $orders->paid_amount }}</span>
+                            </td>
+                        </tr>
+
+                        <tr class="cart_item">
+                            <td class="cart-product-subtotal">
+                                <span class="amount">Delivery Status:</span>
+                            </td>
+                            <td class="cart-product-subtotal">
+                                <span class="amount btn btn-success">{{ $orders->payment_status }}</span>
+                            </td>
+                        </tr>
+
+                        <tr class="cart_item">
+                            <td class="cart-product-subtotal">
+                                <span class="amount">Payment Details:</span>
+                            </td>
+                            <td class="cart-product-subtotal">
+                                <span class="amount">{{ $orders->payment_details }}</span>
+                            </td>
+                        </tr>
+
+                        <tr class="cart_item">
+                            <td class="cart-product-subtotal">
+                                <span class="amount">Order Issued :</span>
+                            </td>
+                            <td class="cart-product-subtotal">
+                                <span class="amount">{{ date('d-M-Y', strtotime($orders->created_at)) }}</span>
+                            </td>
+                        </tr>
+
+
+                    </tbody>
+
+                </table>
+
+
+
+            </div>
+            <div class="col-md-10 offset-md-1">
+
+
+
+                <table class="table table-bordered table-striped table-hover cart mb-5">
+                    <thead>
+                        <tr>
+
+
+                            <th class="cart-product-remove">Product Title</th>
+                            <th class="cart-product-thumbnail">Quantity</th>
+                            <th class="cart-product-name">Color</th>
+                            <th class="cart-product-price">Maserment</th>
+                            <th class="cart-product-subtotal">Total Price</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($orders->product as $product)
+                            @if ($product->product)
+                                <tr class="cart_item">
+
+
+
+
+                                    <td class="cart-product-subtotal">
+                                        <span class="amount">{{ $product->product->product_title }}</span>
+                                    </td>
+                                    <td class="cart-product-subtotal">
+                                        <span class="amount"> {{ $product->quantity }}</span>
+                                    </td>
+
+                                    <td class="cart-product-subtotal">
+                                        <span class="amount"
+                                            style="display:flex; justify-content:center; align-items: center;">
+                                            @if ($product->color)
+
+                                                <div
+                                                    style=" width:20px; height:20px; border:1px solid #000; border-radius:50%; background-color: {{ $product->color }};">
+                                                </div>
+                                            @else
+                                                {{ 'N/A' }}
+                                            @endif
+                                        </span>
+                                    </td>
+
+
+                                    <td class="cart-product-subtotal">
+                                        <span class="amount">
+                                            @if ($product->maserment)
+                                                {{ $product->maserment }}
+                                            @else
+                                                {{ 'N/A' }}
+                                            @endif
+                                        </span>
+                                    </td>
+
+
+
+                                    <td class="cart-product-subtotal">
+                                        <span class="amount"> &#2547; {{ number_format($product->price, 2) }}</span>
+                                    </td>
+                                </tr>
                             @endif
+                        @endforeach
+                    </tbody>
 
-                            <tr>
-
-                                <td>{{ ucwords(str_replace('_', ' ', $column)) }}</td>
-                                <td>{{ $value }}</td>
-                            </tr>
-                        @endif
-                    @endforeach
-
-                </tbody>
-            </table>
+                </table>
+            </div>
         </div>
-        <div class="col-md-10 offset-md-1">
-
-
-
-            <table class="table table-bordered table-striped table-hover cart mb-5">
-                <thead>
-                    <tr>
-
-
-                        <th class="cart-product-remove">Product Title</th>
-                        <th class="cart-product-thumbnail">Quantity</th>
-                        <th class="cart-product-name">Color</th>
-                        <th class="cart-product-price">Maserment</th>
-                        <th class="cart-product-subtotal">Total Price</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($orders->product as $product)
-                        @if ($product->product)
-                            <tr class="cart_item">
-
-
-
-
-                                <td class="cart-product-subtotal">
-                                    <span class="amount">{{ $product->product->product_title }}</span>
-                                </td>
-                                <td class="cart-product-subtotal">
-                                    <span class="amount"> {{ $product->quantity }}</span>
-                                </td>
-
-                                <td class="cart-product-subtotal">
-                                    <span class="amount" style="display:flex; justify-content:center; align-items: center;">@if ($product->color)
-
-                                        <div
-                                            style=" width:20px; height:20px; border:1px solid #000; border-radius:50%; background-color: {{ $product->color }};">
-                                        </div>
-                                    @else
-                                        {{ 'N/A' }}
-                                    @endif</span>
-                                </td>
-
-
-                                <td class="cart-product-subtotal">
-                                    <span class="amount"> @if ($product->maserment)
-                                        {{ $product->maserment }}
-                                    @else
-                                        {{ 'N/A' }}
-                                    @endif</span>
-                                </td>
-
-
-
-                                <td class="cart-product-subtotal">
-                                    <span class="amount"> &#2547; {{ number_format($product->price, 2) }}</span>
-                                </td>
-                            </tr>
-                        @endif
-                    @endforeach
-                </tbody>
-
-            </table>
-        </div>
-    </div>
+    @endif
 @endsection
 
 

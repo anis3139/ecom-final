@@ -33,7 +33,7 @@
 
     <link rel="stylesheet" href="{{ asset('client') }}/css/style.css">
 
-    
+    @yield('css')
 
     <!-- Document Title
  ============================================= -->
