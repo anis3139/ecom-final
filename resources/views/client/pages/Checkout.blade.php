@@ -22,8 +22,8 @@
             background: #0000ff;
         }
         .yellow {
-            background: #ffff00;
-            color:#000000;
+            background: #074980;
+
         }
 
     </style>
@@ -308,11 +308,11 @@
 
                                                 <td class="cart-product-name">
                                                     <label>
-                                                        <input type="radio" id="in_dhaka" checked value="50" name="in_dhaka">
+                                                        <input type="radio" id="in_dhaka" checked value="70" name="in_dhaka">
                                                         Inside Dhaka
                                                     </label>
                                                     <label>
-                                                        <input type="radio" id="in_dhaka" value="80" name="in_dhaka"> Out side
+                                                        <input type="radio" id="in_dhaka" value="130" name="in_dhaka"> Out side
                                                         of
                                                         Dhaka
                                                     </label>

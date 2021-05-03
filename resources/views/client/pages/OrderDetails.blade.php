@@ -186,7 +186,7 @@
                                 <span class="amount">Delivery Status:</span>
                             </td>
                             <td class="cart-product-subtotal">
-                                <span class="amount btn btn-success">{{ $orders->payment_status }}</span>
+                                <span class="amount btn btn-success  px-3">{{ $orders->payment_status }}</span>
                             </td>
                         </tr>
 
@@ -196,6 +196,14 @@
                             </td>
                             <td class="cart-product-subtotal">
                                 <span class="amount">{{ $orders->payment_details }}</span>
+                            </td>
+                        </tr>
+                        <tr class="cart_item">
+                            <td class="cart-product-subtotal">
+                                <span class="amount">Transection Id:</span>
+                            </td>
+                            <td class="cart-product-subtotal">
+                                <span class="amount">{{ $orders->transection_id }}</span>
                             </td>
                         </tr>
 
