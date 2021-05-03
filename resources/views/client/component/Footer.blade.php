@@ -87,7 +87,7 @@ $socialData = App\Models\SocialModel::first();
                     </div>
                 </div>
 
-                <div class="col-lg-3 col-md-3 col-6 text-center">
+                <div class="col-lg-3 col-md-3 col-6 text-center d-none d-md-block">
                     <div class="widget clearfix">
                         <h4 class="ls0 mb-3 nott">About us</h4>
 

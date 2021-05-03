@@ -45,7 +45,8 @@
         <div class="content-wrap">
             <div class="container clearfix">
 
-
+                @include('client.component.Message')
+                @include('client.component.ErrorMessage')
 
                 <div class="row col-mb-30 gutter-50 mb-4">
                     @guest
@@ -358,9 +359,9 @@
 
 
                                 @if ($total > 0)
-                                    <button type="submit" class="button button-3d float-right">Place Order</button>
+                                    <button type="submit" class="button btn-block button-3d float-right">Place Order</button>
                                 @else
-                                    <button type="button" disabled class="button button-3d float-right">Place Order</button>
+                                    <button type="button" onclick="alert('Your Cart is Empty')" class="button btn-block button-3d float-right">Place Order</button>
                                 @endif
 
                             </div>

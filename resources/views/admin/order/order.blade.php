@@ -144,7 +144,7 @@
                                     </tr>
 
                                     <tr>
-                                        <td style="max-width:200px !important;">Total Amount</td>
+                                        <td style="max-width:200px !important;">Sub Total</td>
                                         <td id="total_amount"> </td>
                                     </tr>
 
@@ -157,7 +157,7 @@
                                         <td id="total_delivery_charge"> </td>
                                     </tr>
                                     <tr>
-                                        <td style="max-width:200px !important;">Paid Amount </td>
+                                        <td style="max-width:200px !important;">Grand Total </td>
                                         <td id="paid_amount"> </td>
                                     </tr>
 
@@ -166,8 +166,8 @@
                                         <td id="payment_details"> </td>
                                     </tr>
                                     <tr>
-                                        <td style="max-width:200px !important;">Product Owner </td>
-                                        <td id="product_owner_id"> </td>
+                                        <td style="max-width:200px !important;">Order Issued </td>
+                                        <td id="order_issued"> </td>
                                     </tr>
 
                                 </table>
@@ -344,6 +344,7 @@
                         $('#total_price').html('&#2547;  ' + dataJSON[0].paid_amount);
                         $('#tax').html(dataJSON[0].total_tax);
                         $('#delivary_charge').html(dataJSON[0].total_delivery_charge);
+                        $('#order_issued').html(dataJSON[0].created_at);
 
 
                         $('#payment_status_id').val(dataJSON[0].id);

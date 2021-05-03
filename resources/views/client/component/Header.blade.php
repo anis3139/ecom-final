@@ -36,7 +36,7 @@ $others = App\Models\OthersModel::first();
 
                     <!-- Top Cart
   ============================================= -->
-                    <div id="top-cart" class="header-misc-icon d-none d-sm-block">
+                    <div id="top-cart" class="header-misc-icon">
                         <a href="#" id="top-cart-trigger"><i class="icon-line-bag"></i><span class="top-cart-number"
                                 id="cart_quantity"></span></a>
                         <div class="top-cart-content">

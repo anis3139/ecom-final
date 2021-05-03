@@ -15,8 +15,14 @@
 
     </section><!-- #page-title end -->
 
-    <!-- Content
-                                                                                      ============================================= -->
+    <!-- Content  ============================================= -->
+
+    @if (empty($cart))
+
+    <div class="alert alert-info alert-block text-center py-5">
+        <p>Please Add Some Product On Your Cart. <a class="text-primary" href="{{route('client.shop')}}"> Go Shop Page</a></p>
+    </div>
+    @else
     <section id="content">
         <div class="content-wrap">
             <div class="container">
@@ -30,7 +36,7 @@
                             <th class="cart-product-price">Unit Price</th>
                             <th class="cart-product-quantity">Quantity</th>
                             <th class="cart-product-color">Color</th>
-                            <th class="cart-product-mesement">Meserment</th>
+                            <th class="cart-product-mesement text-center">Meserment</th>
                             <th class="cart-product-subtotal">Total</th>
                         </tr>
                     </thead>
@@ -79,16 +85,15 @@
                                 </td>
 
                                 <td class="cart-product-color text-center hidden-xs">
-                                    @if ($cartItem['maserment'])
-
+                                    @if ($cartItem['color'])
                                         <div class="text-center"
-                                            style=" width:20px; height:20px; border:1px solid #000; border-radius:50%; background-color: {{ $cartItem['color'] }};">
+                                            style=" width:20px; margin:auto; height:20px; border:1px solid #000; border-radius:50%; background-color: {{ $cartItem['color'] }};">
                                         </div>
                                     @else
                                         {{ 'N/A' }}
                                     @endif
                                 </td>
-                                <td class="cart-product-mesement">
+                                <td class="cart-product-mesement text-center">
                                     @if ($cartItem['maserment'])
                                         {{ $cartItem['maserment'] }}
                                     @else
@@ -132,7 +137,7 @@
                                         <td class="cart-product-name">
                                             <div class="col-12 form-group mt-5">
                                                 <a href="{{ route('client.checkout') }}"
-                                                    class="button button-3d m-0 button-black text-light">Process
+                                                    class="button btn-block button-3d m-0 button-black text-light">Process
                                                     Checkout</a>
                                             </div>
                                         </td>
@@ -147,71 +152,72 @@
             </div>
         </div>
     </section><!-- #content end -->
+
+    @endif
 @endsection
 @section('script')
     <script>
+        getcartData()
 
-getcartData()
+        function getcartData() {
 
-function getcartData() {
+            axios.get("{{ route('client.cartData') }}")
+                .then(function(response) {
 
-    axios.get("{{ route('client.cartData') }}")
-        .then(function(response) {
+                    if (response.status = 200) {
+                        var dataJSON = response.data;
+                        var cartData = dataJSON.cart;
 
-            if (response.status = 200) {
-                var dataJSON = response.data;
-                var cartData = dataJSON.cart;
-
-                var a = Object.keys(cartData).length;
+                        var a = Object.keys(cartData).length;
 
 
-                $("#cart_quantity").html(a);
-                var tp = parseFloat(dataJSON.total).toFixed(2);
-                $("#total_cart_price").html(' &#2547; ' + tp);
+                        $("#cart_quantity").html(a);
+                        var tp = parseFloat(dataJSON.total).toFixed(2);
+                        $("#total_cart_price").html(' &#2547; ' + tp);
 
-                var imageViewHtml = "";
-                $.each(cartData, function(i, item) {
-                    imageViewHtml += `<div class="top-cart-item">
-                                         <div class="top-cart-item-image">
-                                             <a href="#"><img src="${cartData[i].image}"
-                                                     alt="Blue Round-Neck Tshirt" /></a>
-                                         </div>
-                                         <div class="top-cart-item-desc">
-                                             <div class="top-cart-item-desc-title">
-                                                 <a href="#">${cartData[i].title}</a>
-                                                 <span class="top-cart-item-price d-block"> ${cartData[i].quantity} x &#2547; ${cartData[i].unit_price}</span>
-                                             </div>
-                                             <div class="top-cart-item-quantity"><button class="cartDeleteIcon" data-id="${i}" type="submit"><i class="icon-remove"> </i></button></div>
-                                         </div>
-                                </div>`
+                        var imageViewHtml = "";
+                        $.each(cartData, function(i, item) {
+                            imageViewHtml += `<div class="top-cart-item">
+                                                 <div class="top-cart-item-image">
+                                                     <a href="#"><img src="${cartData[i].image}"
+                                                             alt="Blue Round-Neck Tshirt" /></a>
+                                                 </div>
+                                                 <div class="top-cart-item-desc">
+                                                     <div class="top-cart-item-desc-title">
+                                                         <a href="#">${cartData[i].title}</a>
+                                                         <span class="top-cart-item-price d-block"> ${cartData[i].quantity} x &#2547; ${cartData[i].unit_price}</span>
+                                                     </div>
+                                                     <div class="top-cart-item-quantity"><button class="cartDeleteIcon" data-id="${i}" type="submit"><i class="icon-remove"> </i></button></div>
+                                                 </div>
+                                        </div>`
+                        });
+
+
+                        $('.top-cart-items').html(imageViewHtml);
+
+                        console.log(a);
+
+                        if (a == 0) {
+                            $("#HeaderPreview").css("display", "none");
+                        } else {
+                            $("#HeaderPreview").css("display", "block");
+                        }
+
+
+                        //Carts click on delete icon
+                        $(".cartDeleteIcon").click(function() {
+                            var id = $(this).data('id');
+                            $('#CartsDeleteId').html(id);
+                            DeleteDataCart(id);
+                        })
+                    } else {
+                        toastr.error('Something Went Wrong');
+                    }
+                }).catch(function(error) {
+
+                    toastr.error('Something Went Wrong...');
                 });
-
-
-                $('.top-cart-items').html(imageViewHtml);
-
-                console.log(a);
-
-                if (a == 0) {
-                    $("#HeaderPreview").css("display", "none");
-                } else {
-                    $("#HeaderPreview").css("display", "block");
-                }
-
-
-                //Carts click on delete icon
-                $(".cartDeleteIcon").click(function() {
-                    var id = $(this).data('id');
-                    $('#CartsDeleteId').html(id);
-                    DeleteDataCart(id);
-                })
-            } else {
-                toastr.error('Something Went Wrong');
-            }
-        }).catch(function(error) {
-
-            toastr.error('Something Went Wrong...');
-        });
-}
+        }
 
 
 
@@ -224,33 +230,34 @@ function getcartData() {
 
 
 
-$('#confirmDeleteCart').click(function() {
+        $('#confirmDeleteCart').click(function() {
 
 
-    alert("hello")
-    var id = $(this).data('id');
-    DeleteDataCart(id);
-})
-
-
-//delete Cart function
-function DeleteDataCart(id) {
-
-    axios.post("{{ route('client.cartRemove') }}", {
-            product_id: id
+            alert("hello")
+            var id = $(this).data('id');
+            DeleteDataCart(id);
         })
-        .then(function(response) {
 
-            if (response.status == 200) {
-                toastr.success('Cart Removed Success.');
-                getcartData();
-            } else {
-                toastr.error('Something Went Wrong');
-            }
-        }).catch(function(error) {
 
-            toastr.error('Something Went Wrong......');
-        });
-}
+        //delete Cart function
+        function DeleteDataCart(id) {
+
+            axios.post("{{ route('client.cartRemove') }}", {
+                    product_id: id
+                })
+                .then(function(response) {
+
+                    if (response.status == 200) {
+                        toastr.success('Cart Removed Success.');
+                        getcartData();
+                    } else {
+                        toastr.error('Something Went Wrong');
+                    }
+                }).catch(function(error) {
+
+                    toastr.error('Something Went Wrong......');
+                });
+        }
+
     </script>
 @endsection

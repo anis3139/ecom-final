@@ -22,7 +22,6 @@ class cartController extends Controller
         $data['cart'] = session()->has('cart') ? session()->get('cart') : [];
         $data['total']= array_sum( array_column($data['cart'], 'total_price'));
         $data['total_tax']= array_sum( array_column($data['cart'], 'total_tax'));
-        $data['total_delivery_charge']= array_sum( array_column($data['cart'], 'total_delivery_charge'));
         $data['total_discount']= array_sum( array_column($data['cart'], 'total_discount'));
         $data['total_main_price']= array_sum( array_column($data['cart'], 'total_main_price'));
         // session()->forget(['cart']);
@@ -39,7 +38,6 @@ class cartController extends Controller
         $data['cart'] = session()->has('cart') ? session()->get('cart') : [];
         $data['total']= array_sum( array_column($data['cart'], 'total_price'));
         $data['total_tax']= array_sum( array_column($data['cart'], 'total_tax'));
-        $data['total_delivery_charge']= array_sum( array_column($data['cart'], 'total_delivery_charge'));
         $data['total_discount']= array_sum( array_column($data['cart'], 'total_discount'));
         $data['total_main_price']= array_sum( array_column($data['cart'], 'total_main_price'));
 
@@ -83,9 +81,6 @@ class cartController extends Controller
             $cart[$product->id]['total_price']= $cart[$product->id]['quantity'] *  $cart[$product->id]['unit_price'];
             $cart[$product->id]['total_tax']= $cart[$product->id]['quantity'] *  $cart[$product->id]['product_tax'];
 
-            if ($product->product_delivary_charge_type != 0) {
-                $cart[$product->id]['total_delivery_charge']= $cart[$product->id]['quantity'] *  $cart[$product->id]['product_delivary_charge'];
-            }
 
 
         } else {
@@ -106,7 +101,6 @@ class cartController extends Controller
                 'product_tax' =>$product_tax,
                 'total_tax' =>$product_tax,
                 'product_delivary_charge' =>$product_delivary_charge,
-                'total_delivery_charge' =>$product_delivary_charge,
                 'product_delivary_charge_type' =>$product->product_delivary_charge_type,
             ];
 
@@ -149,9 +143,6 @@ class cartController extends Controller
             $cart[$product->id]['total_price']= $cart[$product->id]['quantity'] *  $cart[$product->id]['unit_price'];
             $cart[$product->id]['total_tax']= $cart[$product->id]['quantity'] *  $cart[$product->id]['product_tax'];
 
-            if ($product->product_delivary_charge_type != 0) {
-                $cart[$product->id]['total_delivery_charge']= $cart[$product->id]['quantity'] *  $cart[$product->id]['product_delivary_charge'];
-            }
         }
 
         session(['cart' => $cart]);
@@ -196,7 +187,6 @@ class cartController extends Controller
         $data['cart'] = session()->has('cart') ? session()->get('cart') : [];
         $data['total']= array_sum( array_column($data['cart'], 'total_price'));
         $data['total_tax']= array_sum( array_column($data['cart'], 'total_tax'));
-        $data['total_delivery_charge']= array_sum( array_column($data['cart'], 'total_delivery_charge'));
         $data['total_discount']= array_sum( array_column($data['cart'], 'total_discount'));
         $data['total_main_price']= array_sum( array_column($data['cart'], 'total_main_price'));
 
@@ -210,7 +200,6 @@ class cartController extends Controller
         $total= array_sum( array_column($cart, 'total_price'));
 
         $total_tax= array_sum( array_column($cart, 'total_tax'));
-        $total_delivery_charge= array_sum( array_column($cart, 'total_delivery_charge'));
 
         $total_discount= array_sum( array_column($cart, 'total_discount'));
         $total_main_price= array_sum( array_column($cart, 'total_main_price'));
@@ -231,6 +220,7 @@ class cartController extends Controller
                 $shipping_city = $request->Input('shipping_city');
                 $shipping_district = $request->Input('shipping_district');
                 $shipping_postal_code = $request->Input('shipping_postal_code');
+                $total_delivery_charge = $request->Input('total_delivery_charge');
 
 
               if (isset($shipping_address)) {
