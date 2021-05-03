@@ -203,7 +203,7 @@
                                 <span class="amount">Transection Id:</span>
                             </td>
                             <td class="cart-product-subtotal">
-                                <span class="amount">{{ $orders->transection_id }}</span>
+                                <span class="amount">{{ $orders->transection_id ?? "Payment Incomplete" }}</span>
                             </td>
                         </tr>
 
