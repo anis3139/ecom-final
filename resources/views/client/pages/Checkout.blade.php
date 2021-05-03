@@ -63,7 +63,7 @@
                         <div class="col-md-6">
                             <div class="card">
                                 <div class="card-body">
-                                    <h4> Welcome to Mr. {{ auth()->user()->name }}</h4>
+                                    <h4> Welcome {{ auth()->user()->name }}</h4>
                                 </div>
                             </div>
                         </div>
@@ -71,7 +71,7 @@
                         <div class="col-md-6">
                             <div class="card">
                                 <div class="card-body">
-                                    Have a coupon? <a href="login-register.html">Click here to enter your code</a>
+                                    Have a coupon? <a href="">Click here to enter your code</a>
                                 </div>
                             </div>
                         </div>
