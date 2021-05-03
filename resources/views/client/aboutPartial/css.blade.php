@@ -8,7 +8,7 @@
  img{
      max-width: 100%;
  }
- 
+
  .main-div{
      background: linear-gradient(to left, #ffffcc 0%, #ffffcc 100%);
      box-sizing: border-box;
@@ -16,16 +16,16 @@
  }
 
 
- 
+
  /* about-section */
- 
+
  .about-section{
      padding: 50px 0;
      background: linear-gradient(to bottom left, #ffffff 50%, #ffff00 100%);
      /* background: linear-gradient(to top right, #ffff99 50%, #ffffff 100%); */
- 
+
  }
- 
+
  .left-contain{
      /* background: linear-gradient(to right, #cccc00 50%, #339966 100%); */
      padding: 20px 5px;
@@ -34,19 +34,19 @@
      transform: scale(.9);
      image-rendering: auto;
      transition: all 250ms;
- 
+
  }
  .left-contain img{
      width: 100%;
      height: 0 auto;
      border-radius: 10%;
- 
+
  }
  .left-contain:hover{
      transform: scale(1);
      transition: all 250ms;
  }
- 
+
  .right-contain{
      padding: 100px 20px;
      border-radius: 5px;
@@ -54,7 +54,7 @@
      background: linear-gradient(to right, #cccc00 50%, #339966 100%);
      margin-top: 40px;
      box-shadow: 0 0.4rem 0.5rem 0 rgba(0, 0, 50, 0.5);
- 
+
  }
  .right-header{
      width: 400px;
@@ -66,7 +66,7 @@
      position: relative;
      border-radius: 45px 0px 45px 0px;
      display: inline-block;
- 
+
      transform: perspective(1px) translateZ(0);
  }
  .right-header::before{
@@ -82,11 +82,11 @@
      z-index: -1;
      transform: scale(0);
  }
- 
+
  .right-header:hover::before{
      transform: scale(1);
      border-radius: 45px 0px 45px 0px;
- 
+
  }
  .right-header h1:hover{
      color: #fff;
@@ -100,11 +100,11 @@
      z-index: 999;
      padding: 5px 0px;
      font-family: italic;
- 
+
  }
  .right-header span{
      color: #b9b948e6;
- 
+
  }
  .right-header h1::before{
      content: "";
@@ -115,16 +115,16 @@
      display: inline-block;
      top: 60px;
  }
- 
+
  .right-details{
     text-align: justify;
     font-family: italic;
     font-size: 17px;
     color: #fff;
  }
- 
+
  /* about section end */
- 
+
  /* isotope section */
  ul{
      list-style: none;
@@ -135,12 +135,12 @@
      padding-bottom: 50px;
      overflow: hidden;
      max-width: 1200px;
-     
+
      background: linear-gradient(to top right, #ffff99 50%, #ffffff 100%);
      text-align: center;
  }
- 
- 
+
+
  .filter-menu{
      margin-bottom: 20px;
  }
@@ -155,27 +155,27 @@
  .filter-menu li.current{
      background: #ff7979;
  }
- 
- 
- 
+
+
+
  .filter-item li{
      width: 50%;
      padding: 2px;
      float: left;
  }
- 
+
  .filter-item li.active{
      width: 50%;
      padding: 2px;
      transition: all 0.5s ease;
  }
- 
+
  .filter-item li.delete{
      width: 0%;
      padding: 0;
      transition: all 0.5s ease;
  }
- 
+
  .filter-item img{
      display: block;
      width: 100%;
@@ -223,32 +223,31 @@
          height: 120px;
      }
  }
- 
+
  @media screen and (min-width: 768px){
      .filter-item li.active,
      .filter-item li{
          width: 33.33%;
      }
- 
+
      h2{
          font-size: 190%;
      }
  }
- 
+
  @media screen and (min-width: 1280px){
      .filter-item li.active,
      .filter-item li{
          width: 25%;
      }
- 
+
      h2{
          font-size: 270%;
      }
  }
- 
- 
+
+
  /* isotope section end*/
- 
+
  </style>
- 
- 
+

@@ -3,7 +3,7 @@
 @section('css')
 
 
-    @include('client.aboutPartial.css')
+
 
 @endsection
 @section('content')
@@ -180,7 +180,7 @@ getcartData()
 
 
 
-        
+
         let sortBtn = document.querySelector('.filter-menu').children;
         let sortItem = document.querySelector('.filter-item').children;
 

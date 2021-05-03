@@ -1,8 +1,18 @@
 <nav class="primary-menu">
     <ul class="menu-container">
+        @auth()
+            <li class="menu-item custom-menu-my-account"><a class="menu-link" href="{{ route('client.profile') }}">
+                    <div>My Account</div>
+                </a>
+            </li>
+        @endauth
+
+
         <li class="menu-item"><a class="menu-link" href="{{ route('client.home') }}">
                 <div>Home</div>
-            </a></li>
+            </a>
+        </li>
+
         <li class="menu-item"><a class="menu-link" href="{{ route('client.shop') }}">
                 <div>Shop</div>
             </a></li>

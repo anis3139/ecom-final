@@ -35,6 +35,24 @@
 
     @yield('css')
 
+    <style>
+        @media (max-width: 767.98px) {
+            .custom-menu-my-account {
+                display: block;
+            }
+        }
+
+        @media (min-width: 767.98px) {
+            .custom-menu-my-account {
+                display: none;
+            }
+        }
+
+
+
+
+    </style>
+
     <!-- Document Title
  ============================================= -->
     <title>Shop Demo | Canvas</title>
@@ -77,10 +95,10 @@
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <!-- ADD-ONS JS FILES -->
 
-
+    @include('client.component.toastr')
 
     @yield('script')
-
+  
 
 
 
