@@ -9,16 +9,16 @@ use Illuminate\Http\Request;
 
 class productController extends Controller
 {
-    public function showProductDetails($slug){
-        $singleData=[];
+    public function showProductDetails($slug)
+    {
 
-        $singleData['productDetails']=product_table::with('cat', 'img', 'maserment', 'color')->where('product_slug', $slug)->where('product_active', 1)->first();
 
-        if( $singleData['productDetails'] == null){
+        $productDetails = product_table::with('cat', 'img', 'maserment', 'color', 'rating')->where('product_slug', $slug)->where('product_active', 1)->first();
+
+        if ($productDetails == null) {
             return redirect()->route('client.home');
         }
 
-        return view('client.pages.ProductDetails', $singleData);
-
+        return view('client.pages.ProductDetails', compact('productDetails'));
     }
 }

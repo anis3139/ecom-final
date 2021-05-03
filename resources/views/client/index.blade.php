@@ -7,7 +7,6 @@ $socialData=App\Models\SocialModel::first();
 @section('content')
     <div id="wrapper" class="clearfix">
 
-
         <!-- Slider
                                                                                                                                                           ============================================= -->
         @include('client.component.Slider')

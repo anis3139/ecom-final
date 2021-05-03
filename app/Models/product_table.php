@@ -65,7 +65,13 @@ class product_table extends Model
     public function img() {
         return $this->hasMany(product_has_images::class,'has_images_product_id', 'id');
     }
-  
+
+    public function rating() {
+        return $this->hasMany(ReatingReview::class,'product_id', 'id');
+    }
+
+
+
 
 
 }

@@ -1,7 +1,22 @@
 @extends('client.layouts.app')
+@php
+$arr = $productDetails->rating;
+$sum = 0;
+foreach ($arr as $item) {
+    $sum += $item['star_reating'];
+}
+
+if (count($arr) > 0) {
+    $average = $sum / count($arr);
+    $ratingValue = round(intval($average));
+} else {
+    $ratingValue = 0;
+}
+
+@endphp
 @section('content')
     <!-- Page Title
-                                                                      ============================================= -->
+                                                                                                              ============================================= -->
     <section id="page-title">
 
         <div class="container clearfix">
@@ -16,7 +31,7 @@
     </section><!-- #page-title end -->
 
     <!-- Content
-                                                                      ============================================= -->
+                                                                                                              ============================================= -->
     <section id="content">
         <div class="content-wrap">
             <div class="container clearfix">
@@ -28,7 +43,7 @@
                             <div class="col-md-6">
 
                                 <!-- Product Single - Gallery
-                                                                             ============================================= -->
+                                                                                                                     ============================================= -->
                                 <div class="product-image">
                                     <div class="fslider" data-pagi="false" data-arrows="false" data-thumbs="true">
                                         <div class="flexslider">
@@ -58,7 +73,7 @@
                                 <div class="d-flex align-items-center justify-content-between">
 
                                     <!-- Product Single - Price
-                                                                              ============================================= -->
+                                                                                                                      ============================================= -->
                                     <div class="product-price">
                                         @if ($productDetails->product_price != $productDetails->product_selling_price)
                                             <del>&#2547; {{ $productDetails->product_price }}</del>
@@ -67,14 +82,24 @@
                                     </div><!-- Product Single - Price End -->
 
                                     <!-- Product Single - Rating
-                                                                              ============================================= -->
+                                                                                                                      ============================================= -->
                                     <div class="d-flex align-items-center">
                                         <div class="product-rating">
-                                            <i class="icon-star3"></i>
-                                            <i class="icon-star3"></i>
-                                            <i class="icon-star3"></i>
-                                            <i class="icon-star-half-full"></i>
-                                            <i class="icon-star-empty"></i>
+                                            @if ($ratingValue > 0)
+                                                @for ($i = 0; $i < $ratingValue; $i++)
+                                                    <i class="icon-star3"></i>
+                                                @endfor
+                                                @php
+                                                    $emptyValue = 5 - $ratingValue;
+                                                @endphp
+                                                @for ($i = 0; $i < $emptyValue; $i++)
+                                                    <i class="icon-star-empty"></i>
+                                                @endfor
+                                            @endif
+
+
+
+
                                         </div><!-- Product Single - Rating End -->
                                         <button type="button" class="btn btn-sm btn-secondary ml-3"><i
                                                 class="icon-heart"></i></button>
@@ -85,7 +110,7 @@
                                 <div class="line"></div>
 
                                 <!-- Product Single - Quantity & Cart Button
-                                                                             ============================================= -->
+                                                                                                                     ============================================= -->
 
                                 <form id="cartForm2" method="post">
 
@@ -165,7 +190,7 @@
                                     </ul>
                                 </form>
                                 <!-- Product Single - Share
-                                                                             ============================================= -->
+                                                                                                                     ============================================= -->
 
 
                                 <div class="si-share d-flex justify-content-between align-items-center mt-4">
@@ -442,8 +467,9 @@
                                     <div class="fslider" data-pagi="false">
                                         <div class="flexslider">
                                             <div class="slider-wrap">
-                                                <div class="slide22"><a href="#" title="Pink Printed Dress - Front View"><img
-                                                    src="" id="modalSingleImage" alt="Pink Printed Dress"></a></div>
+                                                <div class="slide22"><a href="#"
+                                                        title="Pink Printed Dress - Front View"><img src=""
+                                                            id="modalSingleImage" alt="Pink Printed Dress"></a></div>
                                             </div>
                                         </div>
                                     </div>
@@ -494,7 +520,9 @@
 
                                 <div class="card product-meta mb-0">
                                     <div class="card-body">
-                                        <span class="posted_in">Category: <a href="#" rel="tag" id="pdCategory"></a> &nbsp; &nbsp;  <a href="" id="modalSingleView" class="add-to-cart button m-0">View Details</a></span>
+                                        <span class="posted_in">Category: <a href="#" rel="tag" id="pdCategory"></a> &nbsp;
+                                            &nbsp; <a href="" id="modalSingleView" class="add-to-cart button m-0">View
+                                                Details</a></span>
                                     </div>
                                 </div>
 
@@ -516,8 +544,6 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.js"></script>
     <script>
-
-
         $(function() {
 
             $("#rateYo").rateYo({
@@ -697,19 +723,20 @@
 
                         var imageViewHtml = "";
                         $.each(cartData, function(i, item) {
-                            imageViewHtml += `<div class="top-cart-item">
-                                                                                                                     <div class="top-cart-item-image">
-                                                                                                                         <a href="#"><img src="${cartData[i].image}"
-                                                                                                                                 alt="Blue Round-Neck Tshirt" /></a>
-                                                                                                                     </div>
-                                                                                                                     <div class="top-cart-item-desc">
-                                                                                                                         <div class="top-cart-item-desc-title">
-                                                                                                                             <a href="#">${cartData[i].title}</a>
-                                                                                                                             <span class="top-cart-item-price d-block"> ${cartData[i].quantity} x &#2547; ${cartData[i].unit_price}</span>
-                                                                                                                         </div>
-                                                                                                                         <div class="top-cart-item-quantity"><button class="cartDeleteIcon" data-id="${i}" type="submit"><i class="icon-remove"> </i></button></div>
-                                                                                                                     </div>
-                                                                                                            </div>`
+                            imageViewHtml +=
+                                `<div class="top-cart-item">
+                                                                                                                                                             <div class="top-cart-item-image">
+                                                                                                                                                                 <a href="#"><img src="${cartData[i].image}"
+                                                                                                                                                                         alt="Blue Round-Neck Tshirt" /></a>
+                                                                                                                                                             </div>
+                                                                                                                                                             <div class="top-cart-item-desc">
+                                                                                                                                                                 <div class="top-cart-item-desc-title">
+                                                                                                                                                                     <a href="#">${cartData[i].title}</a>
+                                                                                                                                                                     <span class="top-cart-item-price d-block"> ${cartData[i].quantity} x &#2547; ${cartData[i].unit_price}</span>
+                                                                                                                                                                 </div>
+                                                                                                                                                                 <div class="top-cart-item-quantity"><button class="cartDeleteIcon" data-id="${i}" type="submit"><i class="icon-remove"> </i></button></div>
+                                                                                                                                                             </div>
+                                                                                                                                                    </div>`
                         });
 
 
@@ -878,10 +905,10 @@
                         var jsonData = response.data;
 
 
-                          let domain=window.location.origin
+                        let domain = window.location.origin
                         var url = `${domain}/product/${jsonData[0].product_slug}`;
 
-                        let imgSingle=jsonData[0].img[0].image_path
+                        let imgSingle = jsonData[0].img[0].image_path
 
                         var inStock = '';
                         if (jsonData[0].product_in_stock == 0) {

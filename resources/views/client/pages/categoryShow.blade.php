@@ -84,11 +84,31 @@
                                                     {{ $allProduct->product_price }}</ins>
                                             </div>
                                             <div class="product-rating">
-                                                <i class="icon-star3"></i>
-                                                <i class="icon-star3"></i>
-                                                <i class="icon-star3"></i>
-                                                <i class="icon-star3"></i>
-                                                <i class="icon-star-half-full"></i>
+                                                @php
+                                                $arr = $allProduct->rating;
+                                                $sum = 0;
+                                                foreach ($arr as $item) {
+                                                    $sum += $item['star_reating'];
+                                                }
+
+                                                if (count($arr) > 0) {
+                                                    $average = $sum / count($arr);
+                                                    $ratingValue = round(intval($average));
+                                                } else {
+                                                    $ratingValue = 0;
+                                                }
+                                            @endphp
+                                            @if ($ratingValue > 0)
+                                                @for ($i = 0; $i < $ratingValue; $i++)
+                                                    <i class="icon-star3"></i>
+                                                @endfor
+                                                @php
+                                                    $emptyValue = 5 - $ratingValue;
+                                                @endphp
+                                                @for ($i = 0; $i < $emptyValue; $i++)
+                                                    <i class="icon-star-empty"></i>
+                                                @endfor
+                                            @endif
                                             </div>
                                         </div>
                                     </div>
