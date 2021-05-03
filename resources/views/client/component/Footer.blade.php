@@ -2,7 +2,7 @@
 $others = App\Models\OthersModel::first();
 $socialData = App\Models\SocialModel::first();
 @endphp
-<footer id="footer" class="bg-transparent border-0">
+<footer id="footer" class=" border-0" style="background-color: #cfcece; color:#000;">
 
     <div class="container clearfix">
 
@@ -74,12 +74,12 @@ $socialData = App\Models\SocialModel::first();
 
                             <p class="mb-1 ">
                                 @if ($others)
-                                <i class="icon-call" style="font-size: 15px"></i> &nbsp; {!! nl2br(e($others->phone)) !!}
+                                <i class="icon-call" style="font-size: 15px"></i> &nbsp; <a href="tel:{{$others->phone }}">{!! nl2br(e($others->phone)) !!}</a>
                                 @endif
                             </p>
                             <p class="mb-1">
                                 @if ($others)
-                                <i class="icon-email" style="font-size: 15px"></i> &nbsp; {!! nl2br(e($others->email)) !!}
+                                <i class="icon-email" style="font-size: 15px"></i> &nbsp; <a href="mailto:{{$others->email }}">{!! nl2br(e($others->email)) !!}</a>
                                 @endif
                             </p>
                         </div>
@@ -111,23 +111,23 @@ $socialData = App\Models\SocialModel::first();
 
     <!-- Copyrights
    ============================================= -->
-    <div id="copyrights" class="bg-transparent">
+    <div id="copyrights" class="bg-dark text-light">
 
         <div class="container clearfix">
 
             <div class="row justify-content-between align-items-center">
                 <div class="col-md-6">
-                    Copyrights &copy; 2020 All Rights Reserved by <a href="https://facebook.com/anis3139">Anis
+                    Copyrights &copy; 2020 All Rights Reserved by <a class="text-light font-weight-bold ml-1" href="https://facebook.com/anis3139">Anis
                         Arronno</a><br>
 
                 </div>
 
                 <div class="col-md-6 d-md-flex flex-md-column align-items-md-end mt-4 mt-md-0">
-                    <div class="copyrights-menu copyright-links clearfix">
-                        <a href="{{ route('client.about') }}">About</a>/
-                        <a href="{{ route('client.showCart') }}">My Cart</a>/
-                        <a href="{{ route('client.checkout') }}">Checkout</a>/
-                        <a href="{{ route('client.contact') }}">Contact</a>
+                    <div class="copyrights-menu copyright-links clearfix text-light">
+                        <a class="text-light" href="{{ route('client.about') }}">About</a>/
+                        <a class="text-light" href="{{ route('client.showCart') }}">My Cart</a>/
+                        <a class="text-light" href="{{ route('client.checkout') }}">Checkout</a>/
+                        <a class="text-light" href="{{ route('client.contact') }}">Contact</a>
                     </div>
                 </div>
             </div>

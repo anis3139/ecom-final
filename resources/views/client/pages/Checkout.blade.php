@@ -6,9 +6,12 @@
             padding: 20px;
             display: none;
         }
-
+        .box p{
+            margin-bottom: 5px;
+            line-height: 1;
+        }
         .red {
-            background: #1b8cc0;
+            background: #ff0000;
         }
 
         .green {
@@ -17,6 +20,10 @@
 
         .blue {
             background: #0000ff;
+        }
+        .yellow {
+            background: #ffff00;
+            color:#000000;
         }
 
     </style>
@@ -300,15 +307,16 @@
                                                 </td>
 
                                                 <td class="cart-product-name">
-                                                    <label for="cashdelivery">
+                                                    <label>
                                                         <input type="radio" id="in_dhaka" checked value="50" name="in_dhaka">
                                                         Inside Dhaka
                                                     </label>
-                                                    <label for="paypal">
+                                                    <label>
                                                         <input type="radio" id="in_dhaka" value="80" name="in_dhaka"> Out side
                                                         of
                                                         Dhaka
                                                     </label>
+
                                                 </td>
                                             </tr>
                                             <tr class="cart_item">
@@ -330,14 +338,34 @@
                                                 <td class="cart-product-name">
                                                     <label><input type="radio" checked name="payment_details" id="red" value=" Cash  On  Delivery"> Cash
                                                         On
-                                                        Delivery</label>
+                                                        Delivery</label><br>
                                                     <label><input type="radio" name="payment_details" id="green" value="Bkash">
-                                                        Bkash</label>
+                                                        Bkash</label><br>
+                                                    <label><input type="radio" name="payment_details" id="blue" value="Rocket">
+                                                        Rocket</label><br>
+                                                    <label><input type="radio" name="payment_details" id="yellow" value="Nagad">
+                                                        Nagad</label><br>
                                                 </td>
 
                                                 <td class="cart-product-name">
-                                                    <div class="red box">Selected For Cash on Delivery</div>
-                                                    <div class="green box">Selected For Bkash</div>
+                                                    <div class="red box">
+                                                        <p style="min-height: 100px">Selected For Cash on Delivery</p>
+                                                    </div>
+                                                    <div class="green box">
+                                                        <p>Personal Bkash Number:</p>
+                                                        <p>01816366535</p>
+                                                            <input class="form-control" type="text"  name="transection_id[]"  placeholder="Input Your Transaction ID">
+                                                    </div>
+                                                    <div class="blue box">
+                                                        <p>Personal Rocket Number:</p>
+                                                        <p>01816366535</p>
+                                                        <input class="form-control" type="text" name="transection_id[]"  placeholder="Input Your Transaction ID">
+                                                    </div>
+                                                    <div class="yellow box">
+                                                        <p>Personal Nagad Number:</p>
+                                                        <p>01816366535</p>
+                                                        <input class="form-control" type="text" name="transection_id[]"  placeholder="Input Your Transaction ID">
+                                                    </div>
                                                 </td>
                                             </tr>
 

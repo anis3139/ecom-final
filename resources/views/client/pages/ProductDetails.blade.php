@@ -1,89 +1,4 @@
 @extends('client.layouts.app')
-@section('css')
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.css">
-    <style>
-        /* Product Color */
-        .product-color {
-            margin-bottom: 20px;
-        }
-
-        .color-choose div {
-            display: inline-block;
-            margin-top: 10px;
-        }
-
-        .color-choose input[type="radio"] {
-            display: none;
-        }
-
-        .color-choose input[type="radio"]+label span {
-            display: inline-block;
-            width: 40px;
-            height: 40px;
-            margin: -1px 4px 0 0;
-            vertical-align: middle;
-            cursor: pointer;
-            border-radius: 50%;
-        }
-
-        .color-choose input[type="radio"]+label span {
-            border: 2px solid #FFFFFF;
-            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.33);
-        }
-
-
-
-        .color-choose input[type="radio"]:checked+label span {
-            background-image: url(/client/img/check-icn.svg);
-            background-repeat: no-repeat;
-            background-position: center;
-        }
-
-
-
-
-
-        /* Product Size */
-        .product-color {
-            margin-bottom: 20px;
-        }
-
-        .meserment-choose div {
-            display: inline-block;
-            margin-top: 10px;
-        }
-
-        .meserment-choose input[type="radio"] {
-            display: none;
-        }
-
-        .meserment-choose input[type="radio"]+label span {
-            display: inline-block;
-            width: 30px;
-            height: 30px;
-            margin: -1px 4px 0 0;
-            vertical-align: middle;
-            cursor: pointer;
-            border-radius: 50%;
-        }
-
-        .meserment-choose input[type="radio"]+label span {
-            border: 2px solid #FFFFFF;
-            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.33);
-        }
-
-
-
-        .meserment-choose input[type="radio"]:checked+label span {
-            background-image: url(/client/img/check-icn.svg);
-            background-size: 15px;
-            background-repeat: no-repeat;
-            background-position: center;
-        }
-
-    </style>
-
-@endsection
 @section('content')
     <!-- Page Title
                                                                       ============================================= -->
@@ -205,6 +120,7 @@
 
 
                                                     <div class="color-choose">
+
                                                         @foreach ($productDetails->color as $color)
                                                             <div>
                                                                 <input type="radio" id="{{ $color->product_color_code }}"
@@ -985,19 +901,6 @@
                         $('#modalSingleImage').attr("src", imgSingle);
 
 
-
-                        // var imageDiv = "";
-                        // for (let index = 0; index < jsonData[0].img.length; index++) {
-                        //     const element = jsonData[0].img[index];
-                        //     imageDiv += '<div  class="slide">';
-                        //     imageDiv += '<a href="#" title="Pink Printed Dress - Front View">';
-                        //     imageDiv += '<img src="' + element.image_path + '" alt="Pink Printed Dress">';
-                        //     imageDiv += '</a>';
-                        //     imageDiv += '</div>';
-
-                        // }
-
-                        // $('.slider-wrap').html(imageDiv);
 
                         var maserment = "";
                         for (let index = 0; index < jsonData[0].maserment.length; index++) {

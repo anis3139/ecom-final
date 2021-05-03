@@ -113,7 +113,7 @@
                 <div class="row col-mb-30">
                     <div class="col-lg-6">
                         <div class="col-12 form-group">
-                            <a href="{{ route('client.ClearCart') }}" class="btn btn-danger">Clear All</a>
+                            <a href="{{ route('client.ClearCart') }}" class="button button-large button-circle text-right button-3d gradient-blue-purple"><i class="icon-repeat"></i> Clear  Cart</a>
                         </div>
                     </div>
 
@@ -137,8 +137,8 @@
                                         <td class="cart-product-name">
                                             <div class="col-12 form-group mt-5">
                                                 <a href="{{ route('client.checkout') }}"
-                                                    class="button btn-block button-3d m-0 button-black text-light">Process
-                                                    Checkout</a>
+                                                    class="button button-xlarge button-black button-rounded text-right text-light button-3d">Process
+                                                    Checkout <i class="icon-circle-arrow-right"></i></a>
                                             </div>
                                         </td>
                                     </tr>

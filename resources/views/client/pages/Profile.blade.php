@@ -38,7 +38,8 @@
                     <tr>
 
                         <td colspan="2" class="text-center">
-                            <a class="btn btn-primary btn-lg btn-block" href="{{ route('client.profileEdit', auth()->user()->id) }}"><span>Profile Edit</span></a>
+                            <a class="btn btn-primary btn-lg btn-block"
+                                href="{{ route('client.profileEdit', auth()->user()->id) }}"><span>Profile Edit</span></a>
 
                         </td>
                     </tr>
@@ -65,7 +66,8 @@
                                 <td class="cart-product-name">{{ $order->customer_phone_number }}</td>
                                 <td class="cart-product-name">&#2547; {{ number_format($order->total_amount, 2) }}</td>
                                 <td class="cart-product-name">&#2547; {{ number_format($order->paid_amount, 2) }}</td>
-                                <td class="cart-product-name"><a class="text-primary" href="{{ route('client.orderDetails', $order->id) }}">View
+                                <td class="cart-product-name"><a class="text-primary"
+                                        href="{{ route('client.orderDetails', $order->id) }}">View
                                         Details</a></td>
                             </tr>
                         @endforeach
@@ -99,29 +101,28 @@
 
 
                         $("#cart_quantity").html(a);
-                        $("#total_cart_price").html(' &#2547; ' + dataJSON.total);
+                        var tp = parseFloat(dataJSON.total).toFixed(2);
+                        $("#total_cart_price").html(' &#2547; ' + tp);
 
                         var imageViewHtml = "";
                         $.each(cartData, function(i, item) {
-
-                            imageViewHtml += '<li>';
-                            imageViewHtml += '<a class="aa-cartbox-img" href="#"><img src=" ' + cartData[i]
-                                .image +
-                                ' " alt="img"></a>';
-                            imageViewHtml += '<div class="aa-cartbox-info"> <h4><a href="#">' + cartData[i]
-                                .title +
-                                '</a> </h4> <p>' + cartData[i].quantity + ' x &#2547; ' + cartData[i]
-                                .unit_price +
-                                '</p>  </div>';
-                            imageViewHtml +=
-                                '<div class="aa-remove-product"><button class="cartDeleteIcon" data-id=' +
-                                i +
-                                '  style=" display:inline-block" type="submit" class="fa fa-times"><i class="fa fa-remove"></i></button> </div>';
-                            imageViewHtml += '</li>';
+                            imageViewHtml += `<div class="top-cart-item">
+                                                                 <div class="top-cart-item-image">
+                                                                     <a href="#"><img src="${cartData[i].image}"
+                                                                             alt="Blue Round-Neck Tshirt" /></a>
+                                                                 </div>
+                                                                 <div class="top-cart-item-desc">
+                                                                     <div class="top-cart-item-desc-title">
+                                                                         <a href="#">${cartData[i].title}</a>
+                                                                         <span class="top-cart-item-price d-block"> ${cartData[i].quantity} x &#2547; ${cartData[i].unit_price}</span>
+                                                                     </div>
+                                                                     <div class="top-cart-item-quantity"><button class="cartDeleteIcon" data-id="${i}" type="submit"><i class="icon-remove"> </i></button></div>
+                                                                 </div>
+                                                        </div>`
                         });
 
 
-                        $('#headerCart').html(imageViewHtml);
+                        $('.top-cart-items').html(imageViewHtml);
 
                         console.log(a);
 
@@ -151,8 +152,17 @@
 
 
 
+
+
+
+
+
+
+
         $('#confirmDeleteCart').click(function() {
-            ;
+
+
+            alert("hello")
             var id = $(this).data('id');
             DeleteDataCart(id);
         })

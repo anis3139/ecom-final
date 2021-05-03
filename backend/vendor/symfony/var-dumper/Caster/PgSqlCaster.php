@@ -36,7 +36,7 @@ class PgSqlCaster
     ];
 
     private static $transactionStatus = [
-        \PGSQL_TRANSACTION_IDLE => 'PGSQL_TRANSACTION_IDLE',
+        \PGSQL_transection_idLE => 'PGSQL_transection_idLE',
         \PGSQL_TRANSACTION_ACTIVE => 'PGSQL_TRANSACTION_ACTIVE',
         \PGSQL_TRANSACTION_INTRANS => 'PGSQL_TRANSACTION_INTRANS',
         \PGSQL_TRANSACTION_INERROR => 'PGSQL_TRANSACTION_INERROR',

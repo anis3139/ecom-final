@@ -212,7 +212,15 @@ class cartController extends Controller
                 $district = $request->Input('district');
                 $postal_code = $request->Input('postal_code');
                 $payment_details = $request->Input('payment_details');
-
+                $t_id = $request->Input('transection_id');
+                if($t_id[2]!=null){
+                        $transection_id=$t_id[2];
+                }else if($t_id[1]!=null){
+                    $transection_id=$t_id[1];
+                }else{
+                    $transection_id=$t_id[0];
+                }
+               
                 $shipping_customer_name = $request->Input('shipping_customer_name');
                 $shipping_customer_phone_number = $request->Input('shipping_customer_phone_number');
                 $shipping_address =$request->Input('shipping_address');
@@ -254,6 +262,7 @@ class cartController extends Controller
                 $order->total_amount= $total;
                 $order->paid_amount= $total+$total_tax+$total_delivery_charge;
                 $order->payment_details= $payment_details;
+                $order->transection_id= $transection_id;
                 $order->save();
               }else {
                 $validator=Validator::make(request()->all(),[
@@ -287,6 +296,7 @@ class cartController extends Controller
                 $order->total_amount= $total;
                 $order->paid_amount= $total+$total_tax+$total_delivery_charge;
                 $order->payment_details= $payment_details;
+                $order->transection_id= $transection_id;
                 $order->save();
               }
 

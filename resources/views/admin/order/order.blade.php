@@ -165,6 +165,11 @@
                                         <td style="max-width:200px !important;">Payment Details </td>
                                         <td id="payment_details"> </td>
                                     </tr>
+
+                                    <tr>
+                                        <td style="max-width:200px !important;">Transection ID </td>
+                                        <td id="transection_id"> </td>
+                                    </tr>
                                     <tr>
                                         <td style="max-width:200px !important;">Order Issued </td>
                                         <td id="order_issued"> </td>
@@ -344,6 +349,7 @@
                         $('#total_price').html('&#2547;  ' + dataJSON[0].paid_amount);
                         $('#tax').html(dataJSON[0].total_tax);
                         $('#delivary_charge').html(dataJSON[0].total_delivery_charge);
+                        $('#transection_id').html(dataJSON[0].transection_id);
                         $('#order_issued').html(dataJSON[0].created_at);
 
 

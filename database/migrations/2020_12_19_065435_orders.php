@@ -31,7 +31,8 @@ class Orders extends Migration
             $table->decimal('paid_amount',10,2);
 
             $table->string('payment_status', 32)->default('pending');
-            $table->text('payment_details', 32)->nullable();
+            $table->string('payment_details', 32)->nullable();
+            $table->string('transection_id', 191)->nullable();
 
             $table->unsignedInteger('user_id');
             $table->unsignedInteger('processed_by')->nullable();

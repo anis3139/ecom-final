@@ -3,7 +3,7 @@
 @endphp
 
 
-  <div class="section footer-stick">
+  <div class="section footer-stick" style="background-color: #fff !important;">
 
     <h4 class="text-uppercase center">What <span>Clients</span> Say?</h4>
 

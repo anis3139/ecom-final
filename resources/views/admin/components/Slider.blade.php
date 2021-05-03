@@ -231,11 +231,7 @@
         })
         //slider Add Method
         function SliderAdd(name, des, img) {
-            if (name.length == 0) {
-                toastr.error('Slider name is empty!');
-            } else if (des == 0) {
-                toastr.error('Slider description is empty!');
-            } else {
+
                 $('#SliderAddConfirmBtn').html(
                     "<div class='spinner-border spinner-border-sm text-primary' role='status'></div>"); //animation
                 my_data = [{
@@ -275,7 +271,7 @@
                     $('#addSliderModal').modal('hide');
                     toastr.error('Something Went Wrong');
                 });
-            }
+
         }
         //each Slider  Details data show for edit
         function SliderUpdateDetails(id) {
@@ -318,11 +314,7 @@
         })
         //update Slider data using modal
         function SliderUpdate(idUpdate, nameUpdate, desUpdate, imgUpdate) {
-            if (nameUpdate.length == 0) {
-                toastr.error('Proejct name is empty!');
-            } else if (desUpdate == 0) {
-                toastr.error('Proejct description is empty!');
-            } else {
+           
                 $('#SliderupdateConfirmBtn').html(
                     "<div class='spinner-border spinner-border-sm text-primary' role='status'></div>"); //animation
                 updateData = [{
@@ -358,7 +350,7 @@
                     $('#updateSliderModal').modal('hide');
                     toastr.error('Something Went Wrong');
                 });
-            }
+
         }
           //  slider delete modal yes button
           $('#confirmDeleteSlider').click(function() {
