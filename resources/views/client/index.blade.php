@@ -183,7 +183,7 @@ $socialData=App\Models\SocialModel::first();
                         var url = `${domain}/product/${jsonData[0].product_slug}`;
 
                         let imgSingle=jsonData[0].img[0].image_path
-                       
+
 
                         var inStock = '';
                         if (jsonData[0].product_in_stock == 0) {
