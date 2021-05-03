@@ -1,4 +1,8 @@
 @extends('client.layouts.app')
+@php
+$OrderSettings = App\Models\OrderSettings::first();
+
+@endphp
 @section('css')
     <style>
         .box {
@@ -6,10 +10,12 @@
             padding: 20px;
             display: none;
         }
-        .box p{
+
+        .box p {
             margin-bottom: 5px;
             line-height: 1;
         }
+
         .red {
             background: #ff0000;
         }
@@ -21,6 +27,7 @@
         .blue {
             background: #0000ff;
         }
+
         .yellow {
             background: #074980;
 
@@ -32,7 +39,7 @@
 @section('content')
 
     <!-- Page Title
-                                                                                                                                                                      ============================================= -->
+                                                                                                                                                                              ============================================= -->
     <section id="page-title">
 
         <div class="container clearfix">
@@ -47,7 +54,7 @@
     </section><!-- #page-title end -->
 
     <!-- Content
-                                                                                                                                                                      ============================================= -->
+                                                                                                                                                                              ============================================= -->
     <section id="content">
         <div class="content-wrap">
             <div class="container clearfix">
@@ -306,16 +313,16 @@
                                                     <strong>Shipping Area</strong>
                                                 </td>
 
-                                                <td class="cart-product-name">
-                                                    <label>
-                                                        <input type="radio" id="in_dhaka" checked value="70" name="in_dhaka">
-                                                        Inside Dhaka
-                                                    </label>
-                                                    <label>
-                                                        <input type="radio" id="in_dhaka" value="130" name="in_dhaka"> Out side
-                                                        of
-                                                        Dhaka
-                                                    </label>
+                                                    <td class="cart-product-name">
+                                                        <label>
+                                                            <input type="radio" id="in_dhaka" checked value=" {{ $OrderSettings->delivary_in_city ?? 0 }} " name="in_dhaka">
+                                                            Inside Dhaka
+                                                        </label>
+                                                        <label>
+                                                            <input type="radio" id="in_dhaka" value="{{ $OrderSettings->delivary_out_city ?? 0 }} " name="in_dhaka"> Out side
+                                                            of
+                                                            Dhaka
+                                                        </label>
 
                                                 </td>
                                             </tr>
@@ -334,9 +341,11 @@
                                                 </td>
 
                                             </tr>
+
                                             <tr class="cart_item">
                                                 <td class="cart-product-name">
-                                                    <label><input type="radio" checked name="payment_details" id="red" value=" Cash  On  Delivery"> Cash
+                                                    <label><input type="radio" checked name="payment_details" id="red"
+                                                            value=" Cash  On  Delivery"> Cash
                                                         On
                                                         Delivery</label><br>
                                                     <label><input type="radio" name="payment_details" id="green" value="Bkash">
@@ -347,26 +356,38 @@
                                                         Nagad</label><br>
                                                 </td>
 
-                                                <td class="cart-product-name">
-                                                    <div class="red box">
-                                                        <p style="min-height: 100px">Selected For Cash on Delivery</p>
-                                                    </div>
-                                                    <div class="green box">
-                                                        <p>Personal Bkash Number:</p>
-                                                        <p>01816366535</p>
-                                                            <input class="form-control" type="text"  name="transection_id[]"  placeholder="Input Your Transaction ID">
-                                                    </div>
-                                                    <div class="blue box">
-                                                        <p>Personal Rocket Number:</p>
-                                                        <p>01816366535</p>
-                                                        <input class="form-control" type="text" name="transection_id[]"  placeholder="Input Your Transaction ID">
-                                                    </div>
-                                                    <div class="yellow box">
-                                                        <p>Personal Nagad Number:</p>
-                                                        <p>01816366535</p>
-                                                        <input class="form-control" type="text" name="transection_id[]"  placeholder="Input Your Transaction ID">
-                                                    </div>
-                                                </td>
+                                                    <td class="cart-product-name">
+                                                        <div class="red box">
+                                                            <p style="min-height: 100px">Selected For Cash on Delivery</p>
+                                                        </div>
+                                                        <div class="green box">
+                                                            <p>Personal Bkash Number:</p>
+                                                            <p>
+
+                                                                    {{ $OrderSettings->bkash_number  ?? '01816366535'}}
+                                                            </p>
+                                                            <input class="form-control" type="text" name="transection_id[]"
+                                                                placeholder="Input Your Transaction ID">
+                                                        </div>
+                                                        <div class="blue box">
+                                                            <p>Personal Rocket Number:</p>
+                                                            <p>
+
+                                                                    {{ $OrderSettings->rocket_number  ?? '018163665358'}}
+                                                            </p>
+                                                            <input class="form-control" type="text" name="transection_id[]"
+                                                                placeholder="Input Your Transaction ID">
+                                                        </div>
+                                                        <div class="yellow box">
+                                                            <p>Personal Nagad Number:</p>
+                                                            <p>
+
+                                                                    {{ $OrderSettings->nagad_number  ?? '01816366535'}}
+                                                            </p>
+                                                            <input class="form-control" type="text" name="transection_id[]"
+                                                                placeholder="Input Your Transaction ID">
+                                                        </div>
+                                                    </td>
                                             </tr>
 
                                             <tr class="cart_item">
@@ -389,7 +410,8 @@
                                 @if ($total > 0)
                                     <button type="submit" class="button btn-block button-3d float-right">Place Order</button>
                                 @else
-                                    <button type="button" onclick="alert('Your Cart is Empty')" class="button btn-block button-3d float-right">Place Order</button>
+                                    <button type="button" onclick="alert('Your Cart is Empty')"
+                                        class="button btn-block button-3d float-right">Place Order</button>
                                 @endif
 
                             </div>
@@ -436,18 +458,18 @@
                         var imageViewHtml = "";
                         $.each(cartData, function(i, item) {
                             imageViewHtml += `<div class="top-cart-item">
-                                                                                                                     <div class="top-cart-item-image">
-                                                                                                                         <a href="#"><img src="${cartData[i].image}"
-                                                                                                                                 alt="Blue Round-Neck Tshirt" /></a>
-                                                                                                                     </div>
-                                                                                                                     <div class="top-cart-item-desc">
-                                                                                                                         <div class="top-cart-item-desc-title">
-                                                                                                                             <a href="#">${cartData[i].title}</a>
-                                                                                                                             <span class="top-cart-item-price d-block"> ${cartData[i].quantity} x &#2547; ${cartData[i].unit_price}</span>
-                                                                                                                         </div>
-                                                                                                                         <div class="top-cart-item-quantity"><button class="cartDeleteIcon" data-id="${i}" type="submit"><i class="icon-remove"> </i></button></div>
-                                                                                                                     </div>
-                                                                                                            </div>`
+                                                                                                                             <div class="top-cart-item-image">
+                                                                                                                                 <a href="#"><img src="${cartData[i].image}"
+                                                                                                                                         alt="Blue Round-Neck Tshirt" /></a>
+                                                                                                                             </div>
+                                                                                                                             <div class="top-cart-item-desc">
+                                                                                                                                 <div class="top-cart-item-desc-title">
+                                                                                                                                     <a href="#">${cartData[i].title}</a>
+                                                                                                                                     <span class="top-cart-item-price d-block"> ${cartData[i].quantity} x &#2547; ${cartData[i].unit_price}</span>
+                                                                                                                                 </div>
+                                                                                                                                 <div class="top-cart-item-quantity"><button class="cartDeleteIcon" data-id="${i}" type="submit"><i class="icon-remove"> </i></button></div>
+                                                                                                                             </div>
+                                                                                                                    </div>`
                         });
 
 

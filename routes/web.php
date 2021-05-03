@@ -135,6 +135,16 @@ Route::group(['prefix' => 'admin'], function () {
         Route::post('/promoImageThree', [\App\Http\Controllers\admin\OthersSettingsController::class,'promoImageThree'])->name('admin.promoImageThree');
 
 
+        //admin panel order Settings
+        Route::get('/order-settings', [App\Http\Controllers\admin\order\OrderSettingsController::class,'index'])->name('admin.orderSettings');
+        Route::post('/addRocketNumber', [App\Http\Controllers\admin\order\OrderSettingsController::class,'addRocketNumber'])->name('admin.addRocketNumber');
+        Route::post('/addBkashNumber', [App\Http\Controllers\admin\order\OrderSettingsController::class,'addBkashNumber'])->name('admin.addBkashNumber');
+        Route::post('/addNagadNumber', [App\Http\Controllers\admin\order\OrderSettingsController::class,'addNagadNumber'])->name('admin.addNagadNumber');
+        Route::post('/addDelivaryInCity', [App\Http\Controllers\admin\order\OrderSettingsController::class,'addDelivaryInCity'])->name('admin.addDelivaryInCity');
+        Route::post('/addDelivaryOutCity', [App\Http\Controllers\admin\order\OrderSettingsController::class,'addDelivaryOutCity'])->name('admin.addDelivaryOutCity');
+
+
+
         //admin panel Orders
         Route::get('/ordeIndex', [App\Http\Controllers\admin\order\orderController::class,'ordeIndex'])->name('admin.ordeIndex');
         Route::get('/getOrdersData', [App\Http\Controllers\admin\order\orderController::class,'getOrdersData'])->name('admin.getOrdersData');
