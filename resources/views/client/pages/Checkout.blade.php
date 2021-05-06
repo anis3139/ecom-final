@@ -4,36 +4,37 @@ $OrderSettings = App\Models\OrderSettings::first();
 
 @endphp
 @section('css')
-    <style>
-        .box {
-            color: #fff;
-            padding: 20px;
-            display: none;
-        }
+<style>
+    .box {
+        color: #fff;
+        padding: 20px;
+        display: none;
+    }
 
-        .box p {
-            margin-bottom: 5px;
-            line-height: 1;
-        }
+    .box p {
+        margin-bottom: 5px;
+        line-height: 1;
+    }
 
-        .red {
-            background: #ff0000;
-        }
+    .red {
+        background: blue;
+    }
 
-        .green {
-            background: #228B22;
-        }
+    .green {
+        background: pink;
+    }
 
-        .blue {
-            background: #0000ff;
-        }
+    .blue {
+        background: violet;
+    }
 
-        .yellow {
-            background: #074980;
+    .yellow {
+        background: orange;
 
-        }
+    }
 
-    </style>
+</style>
+
 
 @endsection
 @section('content')

@@ -22,8 +22,8 @@
                                         @endif
 
                                     </h2>
-                                    <a href="{{ route('client.shop') }}"
-                                        class="button bg-white text-dark button-light">Go Shop</a>
+                                    {{-- <a href="{{ route('client.shop') }}"
+                                        class="button bg-white text-dark button-light">Go Shop</a> --}}
                                 </div>
                             </div>
                         </div>

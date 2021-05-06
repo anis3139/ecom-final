@@ -125,6 +125,12 @@
                                                         @for ($i = 0; $i < $emptyValue; $i++)
                                                             <i class="icon-star-empty"></i>
                                                         @endfor
+                                                        @else
+                                                        <i class="icon-star-empty"></i>
+                                                        <i class="icon-star-empty"></i>
+                                                        <i class="icon-star-empty"></i>
+                                                        <i class="icon-star-empty"></i>
+                                                        <i class="icon-star-empty"></i>
                                                     @endif
                                                 </div>
                                             </div>
