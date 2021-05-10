@@ -109,20 +109,31 @@
                     </tbody>
 
                 </table>
+                <div class="col-lg-12">
+                    <div class="col-12 form-group">
+                        <a href="{{ route('client.ClearCart') }}" class="button button-large button-circle text-right button-3d gradient-blue-purple"><i class="icon-repeat"></i> Clear  Cart</a>
+                    </div>
+                </div>
 
-                <div class="row col-mb-30">
+                <div class="row col-mb-30 mt-5">
+                   
                     <div class="col-lg-6">
-                        <div class="col-12 form-group">
-                            <a href="{{ route('client.ClearCart') }}" class="button button-large button-circle text-right button-3d gradient-blue-purple"><i class="icon-repeat"></i> Clear  Cart</a>
+                        <div class="col-12 form-group p-3">
+                           <form action="{{route('client.cupon')}}" method="post">
+                            @csrf
+                               <label for="cupon">Have Cupon?</label>
+                               <input required class="form-control" type="text" id="cupon" name="cupon">
+                               <button type="submit" class="button button-large button-black button-rounded text-right text-light button-3d mt-3">Apply Cupon</button>
+                           </form>
                         </div>
                     </div>
-
                     <div class="col-lg-6">
                         <h4>Cart Totals</h4>
 
                         <div class="table-responsive">
                             <table class="table cart cart-totals">
                                 <tbody>
+                                    @if(empty($total_cupon_discount))
                                     <tr class="cart_item">
                                         <td class="cart-product-name">
                                             <strong>Total</strong>
@@ -133,6 +144,40 @@
                                                     {{ number_format($total, 2) }}</strong></span>
                                         </td>
                                     </tr>
+                                    @else
+                                    <tr class="cart_item">
+                                        <td class="cart-product-name">
+                                            <strong>Total</strong>
+                                        </td>
+
+                                        <td class="cart-product-name">
+                                            <span class="amount color lead"><strong> &#2547;
+                                                    {{ number_format($total, 2) }}</strong></span>
+                                        </td>
+                                    </tr>
+                                    <tr class="cart_item">
+                                        <td class="cart-product-name">
+                                            <strong>Cupon Discount</strong>
+                                        </td>
+                                      
+                                        <td class="cart-product-name">
+                                            <span class="amount color lead"><strong> &#2547;
+                                                    {{ number_format($total_cupon_discount, 2) }}</strong></span>
+                                        </td>
+                                    </tr>
+                                    <tr class="cart_item">
+                                        <td class="cart-product-name">
+                                            <strong>Total</strong>
+                                        </td>
+                                        @php
+                                        $grandTotal=$total-$total_cupon_discount
+                                         @endphp
+                                        <td class="cart-product-name">
+                                            <span class="amount color lead"><strong> &#2547;
+                                                    {{ number_format($grandTotal, 2) }}</strong></span>
+                                        </td>
+                                    </tr>
+                                    @endif
                                     <tr class="cart_item">
                                         <td class="cart-product-name">
                                             <div class="col-12 form-group mt-5">

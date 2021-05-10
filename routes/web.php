@@ -284,6 +284,7 @@ Route::get('/cartData', [App\Http\Controllers\client\cartController::class, 'car
 Route::post('/cart', [App\Http\Controllers\client\cartController::class, 'addToCart'])->name('client.addCart');
 Route::post('/cartUpdate', [App\Http\Controllers\client\cartController::class, 'cartUpdate'])->name('client.cartUpdate');
 Route::post('/cartRemove', [App\Http\Controllers\client\cartController::class, 'RemoveFromCart'])->name('client.cartRemove');
+Route::post('/cupon', [App\Http\Controllers\client\cartController::class, 'cupon'])->name('client.cupon');
 Route::get('/cartClear', [App\Http\Controllers\client\cartController::class, 'clearCart'])->name('client.ClearCart');
 Route::get('/checkout', [App\Http\Controllers\client\cartController::class, 'checkout'])->name('client.checkout');
 

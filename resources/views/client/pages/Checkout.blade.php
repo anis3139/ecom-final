@@ -4,43 +4,43 @@ $OrderSettings = App\Models\OrderSettings::first();
 
 @endphp
 @section('css')
-<style>
-    .box {
-        color: #fff;
-        padding: 20px;
-        display: none;
-    }
+    <style>
+        .box {
+            color: #fff;
+            padding: 20px;
+            display: none;
+        }
 
-    .box p {
-        margin-bottom: 5px;
-        line-height: 1;
-    }
+        .box p {
+            margin-bottom: 5px;
+            line-height: 1;
+        }
 
-    .red {
-        background: blue;
-    }
+        .red {
+            background: blue;
+        }
 
-    .green {
-        background: pink;
-    }
+        .green {
+            background: pink;
+        }
 
-    .blue {
-        background: violet;
-    }
+        .blue {
+            background: violet;
+        }
 
-    .yellow {
-        background: orange;
+        .yellow {
+            background: orange;
 
-    }
+        }
 
-</style>
+    </style>
 
 
 @endsection
 @section('content')
 
     <!-- Page Title
-                                                                                                                                                                              ============================================= -->
+                                                                                                                                                                                      ============================================= -->
     <section id="page-title">
 
         <div class="container clearfix">
@@ -55,7 +55,7 @@ $OrderSettings = App\Models\OrderSettings::first();
     </section><!-- #page-title end -->
 
     <!-- Content
-                                                                                                                                                                              ============================================= -->
+                                                                                                                                                                                      ============================================= -->
     <section id="content">
         <div class="content-wrap">
             <div class="container clearfix">
@@ -82,16 +82,15 @@ $OrderSettings = App\Models\OrderSettings::first();
                                 </div>
                             </div>
                         </div>
-
                         <div class="col-md-6">
                             <div class="card">
                                 <div class="card-body">
-                                    Have a coupon? <a href="">Click here to enter your code</a>
+                                    Have a coupon? <a href="{{ route('client.showCart') }}">Click here to enter your code</a>
+
                                 </div>
                             </div>
                         </div>
                     </div>
-
 
 
 
@@ -269,6 +268,37 @@ $OrderSettings = App\Models\OrderSettings::first();
                                                         {{ number_format($total_main_price, 2) }}</span>
                                                 </td>
                                             </tr>
+                                            @if (!empty($total_cupon_discount))
+                                                <tr class="cart_item">
+                                                    <td class="border-top-0 cart-product-name">
+                                                        <strong>Cupon Discount</strong>
+                                                    </td>
+
+                                                    <td class="border-top-0 cart-product-name">
+                                                        <span class="amount">&#2547;
+                                                            {{ number_format($total_cupon_discount, 2) }}</span>
+                                                    </td>
+                                                </tr>
+                                                <tr class="cart_item">
+                                                    <td class="border-top-0 cart-product-name">
+                                                        <strong>Total Discount</strong>
+                                                    </td>
+    
+                                                    <td class="border-top-0 cart-product-name">
+                                                        <span class="amount">&#2547;
+                                                            {{ number_format($total_discount + $total_cupon_discount, 2) }}</span>
+                                                    </td>
+                                                </tr>
+                                                <tr class="cart_item">
+                                                    <td class="border-top-0 cart-product-name">
+                                                        <strong>Cart Total (After Discount)</strong>
+                                                    </td>
+    
+                                                    <td class="border-top-0 cart-product-name">
+                                                        <span class="amount">&#2547; {{ number_format($total-$total_cupon_discount, 2) }}</span>
+                                                    </td>
+                                                </tr>
+                                            @else                       
                                             <tr class="cart_item">
                                                 <td class="border-top-0 cart-product-name">
                                                     <strong>Total Discount</strong>
@@ -288,6 +318,10 @@ $OrderSettings = App\Models\OrderSettings::first();
                                                     <span class="amount">&#2547; {{ number_format($total, 2) }}</span>
                                                 </td>
                                             </tr>
+                                            @endif
+
+                     
+                                   
                                             <tr class="cart_item">
                                                 <td class="border-top-0 cart-product-name">
                                                     <strong>Tax</strong>
@@ -314,16 +348,20 @@ $OrderSettings = App\Models\OrderSettings::first();
                                                     <strong>Shipping Area</strong>
                                                 </td>
 
-                                                    <td class="cart-product-name">
-                                                        <label>
-                                                            <input type="radio" id="in_dhaka" checked value=" {{ $OrderSettings->delivary_in_city ?? 0 }} " name="in_dhaka">
-                                                            Inside Dhaka
-                                                        </label>
-                                                        <label>
-                                                            <input type="radio" id="in_dhaka" value="{{ $OrderSettings->delivary_out_city ?? 0 }} " name="in_dhaka"> Out side
-                                                            of
-                                                            Dhaka
-                                                        </label>
+                                                <td class="cart-product-name">
+                                                    <label>
+                                                        <input type="radio" id="in_dhaka" checked
+                                                            value=" {{ $OrderSettings->delivary_in_city ?? 0 }} "
+                                                            name="in_dhaka">
+                                                        Inside Dhaka
+                                                    </label>
+                                                    <label>
+                                                        <input type="radio" id="in_dhaka"
+                                                            value="{{ $OrderSettings->delivary_out_city ?? 0 }} "
+                                                            name="in_dhaka"> Out side
+                                                        of
+                                                        Dhaka
+                                                    </label>
 
                                                 </td>
                                             </tr>
@@ -332,8 +370,11 @@ $OrderSettings = App\Models\OrderSettings::first();
                                                     <strong>Payable Amount</strong>
                                                 </td>
 
-
-                                                <input id="taxAndTotal" type="hidden" value="{{ $total + $total_tax }}">
+                                                @if(!empty($total_cupon_discount))
+                                                <input id="taxAndTotal" type="hidden" value="{{ ($total + $total_tax)-$total_cupon_discount }}">
+                                                @else
+                                                <input id="taxAndTotal" type="hidden" value="{{ ($total + $total_tax) }}">
+                                                @endif
                                                 <input type="hidden" placeholder="Name*" value="" class="form-control"
                                                     name="total_main_price" id="total_main_price">
 
@@ -357,38 +398,38 @@ $OrderSettings = App\Models\OrderSettings::first();
                                                         Nagad</label><br>
                                                 </td>
 
-                                                    <td class="cart-product-name">
-                                                        <div class="red box">
-                                                            <p style="min-height: 100px">Selected For Cash on Delivery</p>
-                                                        </div>
-                                                        <div class="green box">
-                                                            <p>Personal Bkash Number:</p>
-                                                            <p>
+                                                <td class="cart-product-name">
+                                                    <div class="red box">
+                                                        <p style="min-height: 100px">Selected For Cash on Delivery</p>
+                                                    </div>
+                                                    <div class="green box">
+                                                        <p>Personal Bkash Number:</p>
+                                                        <p>
 
-                                                                    {{ $OrderSettings->bkash_number  ?? '01816366535'}}
-                                                            </p>
-                                                            <input class="form-control" type="text" name="transection_id[]"
-                                                                placeholder="Input Your Transaction ID">
-                                                        </div>
-                                                        <div class="blue box">
-                                                            <p>Personal Rocket Number:</p>
-                                                            <p>
+                                                            {{ $OrderSettings->bkash_number ?? '01816366535' }}
+                                                        </p>
+                                                        <input class="form-control" type="text" name="transection_id[]"
+                                                            placeholder="Input Your Transaction ID">
+                                                    </div>
+                                                    <div class="blue box">
+                                                        <p>Personal Rocket Number:</p>
+                                                        <p>
 
-                                                                    {{ $OrderSettings->rocket_number  ?? '018163665358'}}
-                                                            </p>
-                                                            <input class="form-control" type="text" name="transection_id[]"
-                                                                placeholder="Input Your Transaction ID">
-                                                        </div>
-                                                        <div class="yellow box">
-                                                            <p>Personal Nagad Number:</p>
-                                                            <p>
+                                                            {{ $OrderSettings->rocket_number ?? '018163665358' }}
+                                                        </p>
+                                                        <input class="form-control" type="text" name="transection_id[]"
+                                                            placeholder="Input Your Transaction ID">
+                                                    </div>
+                                                    <div class="yellow box">
+                                                        <p>Personal Nagad Number:</p>
+                                                        <p>
 
-                                                                    {{ $OrderSettings->nagad_number  ?? '01816366535'}}
-                                                            </p>
-                                                            <input class="form-control" type="text" name="transection_id[]"
-                                                                placeholder="Input Your Transaction ID">
-                                                        </div>
-                                                    </td>
+                                                            {{ $OrderSettings->nagad_number ?? '01816366535' }}
+                                                        </p>
+                                                        <input class="form-control" type="text" name="transection_id[]"
+                                                            placeholder="Input Your Transaction ID">
+                                                    </div>
+                                                </td>
                                             </tr>
 
                                             <tr class="cart_item">
@@ -458,19 +499,20 @@ $OrderSettings = App\Models\OrderSettings::first();
 
                         var imageViewHtml = "";
                         $.each(cartData, function(i, item) {
-                            imageViewHtml += `<div class="top-cart-item">
-                                                                                                                             <div class="top-cart-item-image">
-                                                                                                                                 <a href="#"><img src="${cartData[i].image}"
-                                                                                                                                         alt="Blue Round-Neck Tshirt" /></a>
-                                                                                                                             </div>
-                                                                                                                             <div class="top-cart-item-desc">
-                                                                                                                                 <div class="top-cart-item-desc-title">
-                                                                                                                                     <a href="#">${cartData[i].title}</a>
-                                                                                                                                     <span class="top-cart-item-price d-block"> ${cartData[i].quantity} x &#2547; ${cartData[i].unit_price}</span>
-                                                                                                                                 </div>
-                                                                                                                                 <div class="top-cart-item-quantity"><button class="cartDeleteIcon" data-id="${i}" type="submit"><i class="icon-remove"> </i></button></div>
-                                                                                                                             </div>
-                                                                                                                    </div>`
+                            imageViewHtml +=
+                                `<div class="top-cart-item">
+                                                                                                                                     <div class="top-cart-item-image">
+                                                                                                                                         <a href="#"><img src="${cartData[i].image}"
+                                                                                                                                                 alt="Blue Round-Neck Tshirt" /></a>
+                                                                                                                                     </div>
+                                                                                                                                     <div class="top-cart-item-desc">
+                                                                                                                                         <div class="top-cart-item-desc-title">
+                                                                                                                                             <a href="#">${cartData[i].title}</a>
+                                                                                                                                             <span class="top-cart-item-price d-block"> ${cartData[i].quantity} x &#2547; ${cartData[i].unit_price}</span>
+                                                                                                                                         </div>
+                                                                                                                                         <div class="top-cart-item-quantity"><button class="cartDeleteIcon" data-id="${i}" type="submit"><i class="icon-remove"> </i></button></div>
+                                                                                                                                     </div>
+                                                                                                                            </div>`
                         });
 
 

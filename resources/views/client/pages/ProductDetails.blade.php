@@ -16,7 +16,7 @@ if (count($arr) > 0) {
 @endphp
 @section('content')
     <!-- Page Title
-                                                                                                              ============================================= -->
+                                                                                                                  ============================================= -->
     <section id="page-title">
 
         <div class="container clearfix">
@@ -31,7 +31,7 @@ if (count($arr) > 0) {
     </section><!-- #page-title end -->
 
     <!-- Content
-                                                                                                              ============================================= -->
+                                                                                                                  ============================================= -->
     <section id="content">
         <div class="content-wrap">
             <div class="container clearfix">
@@ -43,7 +43,7 @@ if (count($arr) > 0) {
                             <div class="col-md-6">
 
                                 <!-- Product Single - Gallery
-                                                                                                                     ============================================= -->
+                                                                                                                         ============================================= -->
                                 <div class="product-image">
                                     <div class="fslider" data-pagi="false" data-arrows="false" data-thumbs="true">
                                         <div class="flexslider">
@@ -73,7 +73,7 @@ if (count($arr) > 0) {
                                 <div class="d-flex align-items-center justify-content-between">
 
                                     <!-- Product Single - Price
-                                                                                                                      ============================================= -->
+                                                                                                                          ============================================= -->
                                     <div class="product-price">
                                         @if ($productDetails->product_price != $productDetails->product_selling_price)
                                             <del>&#2547; {{ $productDetails->product_price }}</del>
@@ -82,7 +82,7 @@ if (count($arr) > 0) {
                                     </div><!-- Product Single - Price End -->
 
                                     <!-- Product Single - Rating
-                                                                                                                      ============================================= -->
+                                                                                                                          ============================================= -->
                                     <div class="d-flex align-items-center">
                                         <div class="product-rating">
                                             @if ($ratingValue > 0)
@@ -95,7 +95,7 @@ if (count($arr) > 0) {
                                                 @for ($i = 0; $i < $emptyValue; $i++)
                                                     <i class="icon-star-empty"></i>
                                                 @endfor
-                                                @else
+                                            @else
                                                 <i class="icon-star-empty"></i>
                                                 <i class="icon-star-empty"></i>
                                                 <i class="icon-star-empty"></i>
@@ -107,8 +107,26 @@ if (count($arr) > 0) {
 
 
                                         </div><!-- Product Single - Rating End -->
-                                        <button type="button" class="btn btn-sm btn-secondary ml-3"><i
-                                                class="icon-heart"></i></button>
+                                        
+                                        @guest
+                                            <a href="javascript:void(0);" onclick="toastr.info('To add Favorite List. You need to login first.','Info',{
+                                                           closeButton: true,
+                                                           progressBar: true,
+                                                       })" class="btn btn-sm btn-secondary ml-3"><i class="icon-heart3"></i> <span>
+                                                    ({{ $productDetails->favorite_to_users->count() }})</span></a>
+                                        @else
+                                            <a href="javascript:void(0);"
+                                                onclick="document.getElementById('favorite-form-{{ $productDetails->id }}').submit();"
+                                                class="{{ !Auth::user()->favorite_product->where('pivot.product_id', $productDetails->id)->count() == 0 ? 'favorite_posts': '' }}  btn btn-secondary ml-3">
+                                                <i class="icon-heart"></i><span class="text-dark">&nbsp;(<span
+                                                        class="favorite_posts">{{ $productDetails->favorite_to_users->count() }}</span>)</span></a>
+
+                                            <form id="favorite-form-{{ $productDetails->id }}" method="POST"
+                                                action="{{ route('client.favorite', $productDetails->id) }}"
+                                                style="display: none;">
+                                                @csrf
+                                            </form>
+                                        @endguest
                                     </div>
 
                                 </div>
@@ -116,7 +134,7 @@ if (count($arr) > 0) {
                                 <div class="line"></div>
 
                                 <!-- Product Single - Quantity & Cart Button
-                                                                                                                     ============================================= -->
+                                                                                                                         ============================================= -->
 
                                 <form id="cartForm2" method="post">
 
@@ -133,6 +151,17 @@ if (count($arr) > 0) {
                                     </div>
                                     <!-- Product Single - Quantity & Cart Button End -->
 
+
+                                    <div class="row mt-3">
+                                        <div class="col-md-6 form-group">
+                                            <label for="note1">Note</label>
+                                            <input type="text"  class="form-control" id="note1" name="note1">
+                                        </div>
+                                        <div class="col-md-6 form-group">
+                                            <label for="note1">Special Note</label>
+                                            <input type="text"  class="form-control" id="note2" name="note2">
+                                        </div>
+                                    </div>
                                     <div class="line"></div>
 
                                     <!-- Product Single - Short Description  -->
@@ -196,7 +225,7 @@ if (count($arr) > 0) {
                                     </ul>
                                 </form>
                                 <!-- Product Single - Share
-                                                                                                                     ============================================= -->
+                                                                                                                         ============================================= -->
 
 
                                 <div class="si-share d-flex justify-content-between align-items-center mt-4">
@@ -384,7 +413,7 @@ if (count($arr) > 0) {
                             ->take(12)
                             ->inRandomOrder()
                             ->get();
-
+                        
                     @endphp
                     <div class="owl-carousel product-carousel carousel-widget" data-margin="30" data-pagi="false"
                         data-autoplay="5000" data-items-xs="1" data-items-md="2" data-items-lg="3" data-items-xl="4">
@@ -410,18 +439,26 @@ if (count($arr) > 0) {
                                             <div class="bg-overlay-content align-items-end justify-content-between"
                                                 data-hover-animate="fadeIn" data-hover-speed="400">
                                                 @guest
-                                                <a href="javascript:void(0);" onclick="toastr.info('To add Favorite List. You need to login first.','Info',{
-                                                   closeButton: true,
-                                                   progressBar: true,
-                                               })" class="btn btn-dark mr-2"><i class="icon-heart3"></i> <span> ({{ $relProduct->favorite_to_users->count() }})</span></a>
-                                            @else
-                                                <a href="javascript:void(0);" onclick="document.getElementById('favorite-form-{{ $relProduct->id }}').submit();"
-                                                   class="{{ !Auth::user()->favorite_product->where('pivot.product_id',$relProduct->id)->count()  == 0 ? 'favorite_posts' : ''}}"><i class="icon-heart3"></i><span class="text-dark">(<span class="favorite_posts">{{ $relProduct->favorite_to_users->count() }}</span>)</span></a>
-                   
-                                                <form id="favorite-form-{{ $relProduct->id }}" method="POST" action="{{ route('client.favorite',$relProduct->id) }}" style="display: none;">
-                                                    @csrf
-                                                </form>
-                                            @endguest
+                                                    <a href="javascript:void(0);" onclick="toastr.info('To add Favorite List. You need to login first.','Info',{
+                                                           closeButton: true,
+                                                           progressBar: true,
+                                                       })" class="btn btn-dark mr-2"><i class="icon-heart3"></i> <span>
+                                                            ({{ $relProduct->favorite_to_users->count() }})</span></a>
+                                                @else
+                                                    <a href="javascript:void(0);"
+                                                        onclick="document.getElementById('favorite-form-{{ $relProduct->id }}').submit();"
+                                                        class="{{ !Auth::user()->favorite_product->where('pivot.product_id', $relProduct->id)->count() == 0
+    ? 'favorite_posts'
+    : '' }}"><i
+                                                            class="icon-heart3"></i><span class="text-dark">(<span
+                                                                class="favorite_posts">{{ $relProduct->favorite_to_users->count() }}</span>)</span></a>
+
+                                                    <form id="favorite-form-{{ $relProduct->id }}" method="POST"
+                                                        action="{{ route('client.favorite', $relProduct->id) }}"
+                                                        style="display: none;">
+                                                        @csrf
+                                                    </form>
+                                                @endguest
                                                 <a href="" data-toggle="modal" data-target=".bd-example-modal-lg"
                                                     onclick="productDetailsModal({{ $relProduct->id }})"
                                                     class="btn btn-dark"><i class="icon-line-expand"></i></a>
@@ -444,36 +481,36 @@ if (count($arr) > 0) {
                                         </div>
                                         <div class="product-rating">
                                             @php
-                                            $arr = $relProduct->rating;
-                                            $sum = 0;
-                                            foreach ($arr as $item) {
-                                                $sum += $item['star_reating'];
-                                            }
-
-                                            if (count($arr) > 0) {
-                                                $average = $sum / count($arr);
-                                                $ratingValue = round(intval($average));
-                                            } else {
-                                                $ratingValue = 0;
-                                            }
-                                        @endphp
-                                        @if ($ratingValue > 0)
-                                            @for ($i = 0; $i < $ratingValue; $i++)
-                                                <i class="icon-star3"></i>
-                                            @endfor
-                                            @php
-                                                $emptyValue = 5 - $ratingValue;
+                                                $arr = $relProduct->rating;
+                                                $sum = 0;
+                                                foreach ($arr as $item) {
+                                                    $sum += $item['star_reating'];
+                                                }
+                                                
+                                                if (count($arr) > 0) {
+                                                    $average = $sum / count($arr);
+                                                    $ratingValue = round(intval($average));
+                                                } else {
+                                                    $ratingValue = 0;
+                                                }
                                             @endphp
-                                            @for ($i = 0; $i < $emptyValue; $i++)
-                                                <i class="icon-star-empty"></i>
-                                            @endfor
+                                            @if ($ratingValue > 0)
+                                                @for ($i = 0; $i < $ratingValue; $i++)
+                                                    <i class="icon-star3"></i>
+                                                @endfor
+                                                @php
+                                                    $emptyValue = 5 - $ratingValue;
+                                                @endphp
+                                                @for ($i = 0; $i < $emptyValue; $i++)
+                                                    <i class="icon-star-empty"></i>
+                                                @endfor
                                             @else
-                                            <i class="icon-star-empty"></i>
-                                            <i class="icon-star-empty"></i>
-                                            <i class="icon-star-empty"></i>
-                                            <i class="icon-star-empty"></i>
-                                            <i class="icon-star-empty"></i>
-                                        @endif
+                                                <i class="icon-star-empty"></i>
+                                                <i class="icon-star-empty"></i>
+                                                <i class="icon-star-empty"></i>
+                                                <i class="icon-star-empty"></i>
+                                                <i class="icon-star-empty"></i>
+                                            @endif
                                         </div>
                                     </div>
                                 </div>
@@ -683,24 +720,24 @@ if (count($arr) > 0) {
                         $.each(cartData, function(i, item) {
                             imageViewHtml +=
                                 `<div class="top-cart-item">
-                                                                                                                                                             <div class="top-cart-item-image">
-                                                                                                                                                                 <a href="#"><img src="${cartData[i].image}"
-                                                                                                                                                                         alt="Blue Round-Neck Tshirt" /></a>
-                                                                                                                                                             </div>
-                                                                                                                                                             <div class="top-cart-item-desc">
-                                                                                                                                                                 <div class="top-cart-item-desc-title">
-                                                                                                                                                                     <a href="#">${cartData[i].title}</a>
-                                                                                                                                                                     <span class="top-cart-item-price d-block"> ${cartData[i].quantity} x &#2547; ${cartData[i].unit_price}</span>
+                                                                                                                                                                 <div class="top-cart-item-image">
+                                                                                                                                                                     <a href="#"><img src="${cartData[i].image}"
+                                                                                                                                                                             alt="Blue Round-Neck Tshirt" /></a>
                                                                                                                                                                  </div>
-                                                                                                                                                                 <div class="top-cart-item-quantity"><button class="cartDeleteIcon" data-id="${i}" type="submit"><i class="icon-remove"> </i></button></div>
-                                                                                                                                                             </div>
-                                                                                                                                                    </div>`
+                                                                                                                                                                 <div class="top-cart-item-desc">
+                                                                                                                                                                     <div class="top-cart-item-desc-title">
+                                                                                                                                                                         <a href="#">${cartData[i].title}</a>
+                                                                                                                                                                         <span class="top-cart-item-price d-block"> ${cartData[i].quantity} x &#2547; ${cartData[i].unit_price}</span>
+                                                                                                                                                                     </div>
+                                                                                                                                                                     <div class="top-cart-item-quantity"><button class="cartDeleteIcon" data-id="${i}" type="submit"><i class="icon-remove"> </i></button></div>
+                                                                                                                                                                 </div>
+                                                                                                                                                        </div>`
                         });
 
 
                         $('.top-cart-items').html(imageViewHtml);
 
-                        console.log(a);
+                    
 
                         if (a == 0) {
                             $("#HeaderPreview").css("display", "none");
@@ -786,7 +823,7 @@ if (count($arr) > 0) {
                 quantity: quantity,
                 product_id: product_ids
             }).then(function(response) {
-                console.log(response.data);
+               
                 if (response.status == 200 && response.data == 1) {
                     $('.bd-example-modal-lg').modal('hide');
                     toastr.success('Product Add Successfully');
@@ -806,20 +843,24 @@ if (count($arr) > 0) {
         $('#cartForm2').on('submit', function(event) {
             event.preventDefault();
             let formData = $(this).serializeArray();
-            console.log(formData);
+           
             let quantity = formData[0]['value'];
             let product_ids = formData[1]['value'];
-            let color = formData[2]['value'];
-            let meserment = formData[3]['value'];
-            console.log();
+            let note1 = formData[2]['value'];
+            let note2 = formData[3]['value'];
+            let color = formData[4]['value'];
+            let meserment = formData[5]['value'];
+            console.log(formData);
             let url = "{{ route('client.addCart') }}";
             axios.post(url, {
                 meserment: meserment,
                 color: color,
                 quantity: quantity,
-                product_id: product_ids
+                product_id: product_ids,
+                note2: note2,
+                note1: note1,
             }).then(function(response) {
-                console.log(response.data);
+                
                 if (response.status == 200 && response.data == 1) {
                     $('.bd-example-modal-lg').modal('hide');
                     toastr.success('Product Add Successfully');
@@ -858,7 +899,6 @@ if (count($arr) > 0) {
                     id: id
                 })
                 .then(function(response) {
-                    console.log(response.data);
                     if (response.status == 200) {
                         var jsonData = response.data;
 
