@@ -32,15 +32,15 @@
                         <div id="shop" class="shop row grid-container gutter-20" data-layout="fitRows">
 
 
-                            @foreach ($allProducts as $allProduct)
+                            @foreach ($favourites as $favourite)
                                 <div class="product col-md-4 col-sm-6 col-12">
                                     <div class="grid-inner">
                                         <div class="product-image">
                                             @php $i= 2; @endphp
-                                            @foreach ($allProduct->img as $images)
+                                            @foreach ($favourite->img as $images)
                                                 @if ($i > 0)
                                                     <a
-                                                        href="{{ route('client.showProductDetails', ['slug' => $allProduct->product_slug]) }}"><img
+                                                        href="{{ route('client.showProductDetails', ['slug' => $favourite->product_slug]) }}"><img
                                                             src="{{ $images->image_path }}" alt="Checked Short Dress"></a>
                                                 @endif
                                                 @php $i--; @endphp
@@ -48,7 +48,7 @@
 
 
 
-                                            @if ($allProduct->product_in_stock)
+                                            @if ($favourite->product_in_stock)
                                                 <div class="sale-flash badge badge-secondary p-2">Sell!</div>
                                             @else
                                                 <div class="sale-flash badge badge-secondary p-2">Out of Stock</div>
@@ -58,21 +58,21 @@
                                                 <div class="bg-overlay-content align-items-end justify-content-between"
                                                     data-hover-animate="fadeIn" data-hover-speed="400">
                                                     @guest
-                                                    <a href="javascript:void(0);" onclick="toastr.info('To add Favorite List. You need to login first.','Info',{
-                                                       closeButton: true,
-                                                       progressBar: true,
-                                                   })" class="btn btn-dark mr-2"><i class="icon-heart3"></i> <span> ({{ $allProduct->favorite_to_users->count() }})</span></a>
-                                                @else
-                                                    <a href="javascript:void(0);" onclick="document.getElementById('favorite-form-{{ $allProduct->id }}').submit();"
-                                                       class="{{ !Auth::user()->favorite_product->where('pivot.product_id',$allProduct->id)->count()  == 0 ? 'favorite_posts' : ''}}"><i class="icon-heart3"></i><span class="text-dark">(<span class="favorite_posts">{{ $allProduct->favorite_to_users->count() }}</span>)</span></a>
-                       
-                                                    <form id="favorite-form-{{ $allProduct->id }}" method="POST" action="{{ route('client.favorite',$allProduct->id) }}" style="display: none;">
-                                                        @csrf
-                                                    </form>
-                                                @endguest
+                             <a href="javascript:void(0);" onclick="toastr.info('To add Favorite List. You need to login first.','Info',{
+                                closeButton: true,
+                                progressBar: true,
+                            })" class="btn btn-dark mr-2"><i class="icon-heart3"></i> <span> ({{ $favourite->favorite_to_users->count() }})</span></a>
+                         @else
+                             <a href="javascript:void(0);" onclick="document.getElementById('favorite-form-{{ $favourite->id }}').submit();"
+                                class="{{ !Auth::user()->favorite_product->where('pivot.product_id',$favourite->id)->count()  == 0 ? 'favorite_posts' : ''}}"><i class="icon-heart3"></i><span class="text-dark">(<span class="favorite_posts">{{ $favourite->favorite_to_users->count() }}</span>)</span></a>
+
+                             <form id="favorite-form-{{ $favourite->id }}" method="POST" action="{{ route('client.favorite',$favourite->id) }}" style="display: none;">
+                                 @csrf
+                             </form>
+                         @endguest
                                                     <a href="" class="btn btn-dark" data-toggle="modal"
                                                         data-target=".bd-example-modal-lg"
-                                                        onclick="productDetailsModal({{ $allProduct->id }})"><i
+                                                        onclick="productDetailsModal({{ $favourite->id }})"><i
                                                             class="icon-line-expand"></i></a>
                                                 </div>
                                                 <div class="bg-overlay-bg bg-transparent"></div>
@@ -81,21 +81,21 @@
                                         <div class="product-desc">
                                             <div class="product-title">
                                                 <h3><a
-                                                        href="{{ route('client.showProductDetails', ['slug' => $allProduct->product_slug]) }}">{{ $allProduct->product_title }}</a>
+                                                        href="{{ route('client.showProductDetails', ['slug' => $favourite->product_slug]) }}">{{ $favourite->product_title }}</a>
                                                 </h3>
                                             </div>
                                             <div class="product-price">
-                                                @if ($allProduct->product_price != $allProduct->product_selling_price)
+                                                @if ($favourite->product_price != $favourite->product_selling_price)
                                                     <del>&#2547;
-                                                        {{ $allProduct->product_selling_price }}</del>
+                                                        {{ $favourite->product_selling_price }}</del>
                                                 @endif<ins>&#2547;
-                                                    {{ $allProduct->product_price }}</ins>
+                                                    {{ $favourite->product_price }}</ins>
                                             </div>
 
 
                                             <div class="product-rating">
                                                 @php
-                                                    $arr = $allProduct->rating;
+                                                    $arr = $favourite->rating;
                                                     $sum = 0;
                                                     foreach ($arr as $item) {
                                                         $sum += $item['star_reating'];
@@ -135,7 +135,7 @@
                         </div>
                         <div class="d-block m-5">
 
-                            {{ $allProducts->links('vendor.pagination.simple-bootstrap-4') }}
+                            {{ $favourites->links('vendor.pagination.simple-bootstrap-4') }}
 
                         </div>
 

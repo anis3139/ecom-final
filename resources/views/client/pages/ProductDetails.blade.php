@@ -409,9 +409,19 @@ if (count($arr) > 0) {
                                         <div class="bg-overlay">
                                             <div class="bg-overlay-content align-items-end justify-content-between"
                                                 data-hover-animate="fadeIn" data-hover-speed="400">
-                                                <a href="#" data-toggle="modal" data-target=".bd-example-modal-lg"
-                                                    onclick="productDetailsModal({{ $relProduct->id }})"
-                                                    class="btn btn-dark mr-2"><i class="icon-shopping-cart"></i></a>
+                                                @guest
+                                                <a href="javascript:void(0);" onclick="toastr.info('To add Favorite List. You need to login first.','Info',{
+                                                   closeButton: true,
+                                                   progressBar: true,
+                                               })" class="btn btn-dark mr-2"><i class="icon-heart3"></i> <span> ({{ $relProduct->favorite_to_users->count() }})</span></a>
+                                            @else
+                                                <a href="javascript:void(0);" onclick="document.getElementById('favorite-form-{{ $relProduct->id }}').submit();"
+                                                   class="{{ !Auth::user()->favorite_product->where('pivot.product_id',$relProduct->id)->count()  == 0 ? 'favorite_posts' : ''}}"><i class="icon-heart3"></i><span class="text-dark">(<span class="favorite_posts">{{ $relProduct->favorite_to_users->count() }}</span>)</span></a>
+                   
+                                                <form id="favorite-form-{{ $relProduct->id }}" method="POST" action="{{ route('client.favorite',$relProduct->id) }}" style="display: none;">
+                                                    @csrf
+                                                </form>
+                                            @endguest
                                                 <a href="" data-toggle="modal" data-target=".bd-example-modal-lg"
                                                     onclick="productDetailsModal({{ $relProduct->id }})"
                                                     class="btn btn-dark"><i class="icon-line-expand"></i></a>

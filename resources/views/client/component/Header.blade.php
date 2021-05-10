@@ -1,6 +1,8 @@
 @php
 $others = App\Models\OthersModel::first();
+
 @endphp
+
 
 <header id="header" class="full-header header-size-md">
     <div id="header-wrap">
@@ -28,8 +30,8 @@ $others = App\Models\OthersModel::first();
                         @endguest
 
                         @auth
-                            <a href="{{ route('client.logout') }}"><i
-                                    class="icon-line2-user mr-1 position-relative" style="top: 1px;"></i><span
+                            <a href="{{ route('client.logout') }}"><i class="icon-line2-user mr-1 position-relative"
+                                    style="top: 1px;"></i><span
                                     class="d-none d-sm-inline-block font-primary font-weight-medium">Logout</span></a>
                         @endauth
                     </div><!-- #top-search end -->
@@ -54,6 +56,23 @@ $others = App\Models\OthersModel::first();
                             </div>
                         </div>
                     </div><!-- #top-cart end -->
+                    @auth
+                    <div id="top-cart" class="header-misc-icon">
+                        <a href="{{ route('client.favoriteShow') }}" id="top-cart-trigger"><i
+                                class="icon-heart3 text-danger"></i>
+                           
+                            @php
+                                       $userData = Auth::user();
+                                $FavoriteItem = $userData->favorite_product()->count();
+                            @endphp
+                         
+                                <span class="top-cart-number" id="favoriteShow">{{ $FavoriteItem }}</span>
+                            
+
+                        </a>
+                    </div>
+                    @endauth
+                    <!-- #top-cart end -->
 
                     <!-- Top Search
   ============================================= -->
@@ -83,8 +102,8 @@ $others = App\Models\OthersModel::first();
 
                 <form class="top-search-form" action="{{ route('client.search') }}" method="post">
                     @csrf
-                    <input required type="text" name="key" class="form-control" value="" placeholder="Type &amp; Hit Enter.."
-                        autocomplete="off">
+                    <input required type="text" name="key" class="form-control" value=""
+                        placeholder="Type &amp; Hit Enter.." autocomplete="off">
 
                 </form>
 

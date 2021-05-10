@@ -325,6 +325,7 @@ Route::group(['middleware' => 'auth'], function () {
     //Rating
     Route::post('/reating', [\App\Http\Controllers\client\ReatingReviewController::class, 'store'])->name('clint.reatingReview');
     Route::post('/favorite/{post}/add', [\App\Http\Controllers\client\FavouriteController::class, 'index'])->name('client.favorite');
+    Route::get('/favourite/show', [\App\Http\Controllers\client\FavouriteController::class, 'show'])->name('client.favoriteShow');
 });
 
 
