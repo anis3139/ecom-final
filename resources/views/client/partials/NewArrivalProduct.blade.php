@@ -8,7 +8,7 @@
 
         <div class="row grid-6">
             @php
-                $products = App\Models\product_table::with(['img'])
+                $products = App\Models\Product::with(['img'])
                     ->where('product_category_id', $catItem->id)
                     ->where('product_active', 1)
                     ->where('deleted_at', null)

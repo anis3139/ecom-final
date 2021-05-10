@@ -5,7 +5,7 @@ namespace App\Http\Controllers\client;
 use App\Http\Controllers\Controller;
 use App\Models\Orders;
 use App\Models\OrderProducts;
-use App\Models\product_table;
+use App\Models\Product;
 use App\Notifications\orderConfirmNotification;
 use Dotenv\Exception\ValidationException;
 use Illuminate\Contracts\Session\Session;
@@ -59,7 +59,7 @@ class cartController extends Controller
             return redirect()->back();
         }
 
-         $product = product_table::with('img','color')->findOrFail($request->input('product_id'));
+         $product = Product::with('img','color')->findOrFail($request->input('product_id'));
          $unit_price=($product->product_selling_price !== null && $product->product_selling_price > 0) ? $product->product_selling_price : $product->product_price;
          $total_discount=$product->product_price-$unit_price;
          $main_price=$product->product_price;
@@ -128,7 +128,7 @@ class cartController extends Controller
         } catch (ValidationException $e) {
             return redirect()->back();
         }
-        $product = product_table::with('img','color')->findOrFail($request->input('product_update_id'));
+        $product = Product::with('img','color')->findOrFail($request->input('product_update_id'));
 
 
          $cart = session()->has('cart') ? session()->get('cart') : [];

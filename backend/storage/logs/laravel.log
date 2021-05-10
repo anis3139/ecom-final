@@ -1326,7 +1326,7 @@
 #59 E:\\laravel-project\\ecom-final\\backend\\server.php(21): require_once('E:\\\\laravel-proj...')
 #60 {main}
 "} 
-[2020-12-29 16:43:20] local.ERROR: SQLSTATE[23000]: Integrity constraint violation: 1048 Column 'product_brand_id' cannot be null (SQL: insert into `product_tables` (`product_title`, `product_discription`, `product_price`, `product_selling_price`, `product_quantity`, `product_category_id`, `product_brand_id`, `product_in_stock`, `feture_products`, `product_active`, `product_slug`) values (testdsfgds, mbj, 20, 23, 14, 2, ?, 1, 0, 1, testdsfgds)) {"userId":1,"exception":"[object] (Illuminate\\Database\\QueryException(code: 23000): SQLSTATE[23000]: Integrity constraint violation: 1048 Column 'product_brand_id' cannot be null (SQL: insert into `product_tables` (`product_title`, `product_discription`, `product_price`, `product_selling_price`, `product_quantity`, `product_category_id`, `product_brand_id`, `product_in_stock`, `feture_products`, `product_active`, `product_slug`) values (testdsfgds, mbj, 20, 23, 14, 2, ?, 1, 0, 1, testdsfgds)) at E:\\laravel-project\\ecom-final\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connection.php:678)
+[2020-12-29 16:43:20] local.ERROR: SQLSTATE[23000]: Integrity constraint violation: 1048 Column 'product_brand_id' cannot be null (SQL: insert into `products` (`product_title`, `product_discription`, `product_price`, `product_selling_price`, `product_quantity`, `product_category_id`, `product_brand_id`, `product_in_stock`, `feture_products`, `product_active`, `product_slug`) values (testdsfgds, mbj, 20, 23, 14, 2, ?, 1, 0, 1, testdsfgds)) {"userId":1,"exception":"[object] (Illuminate\\Database\\QueryException(code: 23000): SQLSTATE[23000]: Integrity constraint violation: 1048 Column 'product_brand_id' cannot be null (SQL: insert into `products` (`product_title`, `product_discription`, `product_price`, `product_selling_price`, `product_quantity`, `product_category_id`, `product_brand_id`, `product_in_stock`, `feture_products`, `product_active`, `product_slug`) values (testdsfgds, mbj, 20, 23, 14, 2, ?, 1, 0, 1, testdsfgds)) at E:\\laravel-project\\ecom-final\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connection.php:678)
 [stacktrace]
 #0 E:\\laravel-project\\ecom-final\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connection.php(638): Illuminate\\Database\\Connection->runQueryCallback('insert into `pr...', Array, Object(Closure))
 #1 E:\\laravel-project\\ecom-final\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connection.php(472): Illuminate\\Database\\Connection->run('insert into `pr...', Array, Object(Closure))
@@ -1677,9 +1677,12 @@
 #44 E:\\laravel-project\\ecom-final\\backend\\server.php(21): require_once('E:\\\\laravel-proj...')
 #45 {main}
 "} 
-[2020-12-30 19:20:19] local.ERROR: Use of undefined constant dataJSON - assumed 'dataJSON' (this will throw an Error in a future version of PHP) (View: E:\laravel-project\ecom-final\backend\resources\views\admin\order\order.blade.php) {"userId":1,"exception":"[object] (Facade\\Ignition\\Exceptions\\ViewException(code: 0): Use of undefined constant dataJSON - assumed 'dataJSON' (this will throw an Error in a future version of PHP) (View: E:\\laravel-project\\ecom-final\\backend\esources\\views\\admin\\order\\order.blade.php) at E:\\laravel-project\\ecom-final\\backend\esources\\views/admin/order/order.blade.php:269)
+[2020-12-30 19:20:19] local.ERROR: Use of undefined constant dataJSON - assumed 'dataJSON' (this will throw an Error in a future version of PHP) (View: E:\laravel-project\ecom-final\backend\resources\views\admin\order\order.blade.php) {"userId":1,"exception":"[object] (Facade\\Ignition\\Exceptions\\ViewException(code: 0): Use of undefined constant dataJSON - assumed 'dataJSON' (this will throw an Error in a future version of PHP) (View: E:\\laravel-project\\ecom-final\\backend\
+esources\\views\\admin\\order\\order.blade.php) at E:\\laravel-project\\ecom-final\\backend\
+esources\\views/admin/order/order.blade.php:269)
 [stacktrace]
-#0 E:\\laravel-project\\ecom-final\\backend\esources\\views/admin/order/order.blade.php(269): Illuminate\\Foundation\\Bootstrap\\HandleExceptions->handleError(2, 'Use of undefine...', 'E:\\\\laravel-proj...', 269, Array)
+#0 E:\\laravel-project\\ecom-final\\backend\
+esources\\views/admin/order/order.blade.php(269): Illuminate\\Foundation\\Bootstrap\\HandleExceptions->handleError(2, 'Use of undefine...', 'E:\\\\laravel-proj...', 269, Array)
 #1 E:\\laravel-project\\ecom-final\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Filesystem\\Filesystem.php(107): require('E:\\\\laravel-proj...')
 #2 E:\\laravel-project\\ecom-final\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Filesystem\\Filesystem.php(108): Illuminate\\Filesystem\\Filesystem::Illuminate\\Filesystem\\{closure}()
 #3 E:\\laravel-project\\ecom-final\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\View\\Engines\\PhpEngine.php(58): Illuminate\\Filesystem\\Filesystem->getRequire('E:\\\\laravel-proj...', Array)
@@ -1793,9 +1796,12 @@
 #53 E:\\laravel-project\\ecom-final\\backend\\server.php(21): require_once('E:\\\\laravel-proj...')
 #54 {main}
 "} 
-[2020-12-30 19:23:00] local.ERROR: Use of undefined constant dataJSON - assumed 'dataJSON' (this will throw an Error in a future version of PHP) (View: E:\laravel-project\ecom-final\backend\resources\views\admin\order\order.blade.php) {"userId":1,"exception":"[object] (Facade\\Ignition\\Exceptions\\ViewException(code: 0): Use of undefined constant dataJSON - assumed 'dataJSON' (this will throw an Error in a future version of PHP) (View: E:\\laravel-project\\ecom-final\\backend\esources\\views\\admin\\order\\order.blade.php) at E:\\laravel-project\\ecom-final\\backend\esources\\views/admin/order/order.blade.php:269)
+[2020-12-30 19:23:00] local.ERROR: Use of undefined constant dataJSON - assumed 'dataJSON' (this will throw an Error in a future version of PHP) (View: E:\laravel-project\ecom-final\backend\resources\views\admin\order\order.blade.php) {"userId":1,"exception":"[object] (Facade\\Ignition\\Exceptions\\ViewException(code: 0): Use of undefined constant dataJSON - assumed 'dataJSON' (this will throw an Error in a future version of PHP) (View: E:\\laravel-project\\ecom-final\\backend\
+esources\\views\\admin\\order\\order.blade.php) at E:\\laravel-project\\ecom-final\\backend\
+esources\\views/admin/order/order.blade.php:269)
 [stacktrace]
-#0 E:\\laravel-project\\ecom-final\\backend\esources\\views/admin/order/order.blade.php(269): Illuminate\\Foundation\\Bootstrap\\HandleExceptions->handleError(2, 'Use of undefine...', 'E:\\\\laravel-proj...', 269, Array)
+#0 E:\\laravel-project\\ecom-final\\backend\
+esources\\views/admin/order/order.blade.php(269): Illuminate\\Foundation\\Bootstrap\\HandleExceptions->handleError(2, 'Use of undefine...', 'E:\\\\laravel-proj...', 269, Array)
 #1 E:\\laravel-project\\ecom-final\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Filesystem\\Filesystem.php(107): require('E:\\\\laravel-proj...')
 #2 E:\\laravel-project\\ecom-final\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Filesystem\\Filesystem.php(108): Illuminate\\Filesystem\\Filesystem::Illuminate\\Filesystem\\{closure}()
 #3 E:\\laravel-project\\ecom-final\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\View\\Engines\\PhpEngine.php(58): Illuminate\\Filesystem\\Filesystem->getRequire('E:\\\\laravel-proj...', Array)
@@ -1909,13 +1915,15 @@
 #53 E:\\laravel-project\\ecom-final\\backend\\server.php(21): require_once('E:\\\\laravel-proj...')
 #54 {main}
 "} 
-[2020-12-30 19:29:41] local.ERROR: Missing required parameters for [Route: admin.ordersPrint] [URI: admin/ordersPrint/{id}]. (View: E:\laravel-project\ecom-final\backend\resources\views\admin\order\order.blade.php) {"userId":1,"exception":"[object] (Facade\\Ignition\\Exceptions\\ViewException(code: 0): Missing required parameters for [Route: admin.ordersPrint] [URI: admin/ordersPrint/{id}]. (View: E:\\laravel-project\\ecom-final\\backend\esources\\views\\admin\\order\\order.blade.php) at E:\\laravel-project\\ecom-final\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Exceptions\\UrlGenerationException.php:17)
+[2020-12-30 19:29:41] local.ERROR: Missing required parameters for [Route: admin.ordersPrint] [URI: admin/ordersPrint/{id}]. (View: E:\laravel-project\ecom-final\backend\resources\views\admin\order\order.blade.php) {"userId":1,"exception":"[object] (Facade\\Ignition\\Exceptions\\ViewException(code: 0): Missing required parameters for [Route: admin.ordersPrint] [URI: admin/ordersPrint/{id}]. (View: E:\\laravel-project\\ecom-final\\backend\
+esources\\views\\admin\\order\\order.blade.php) at E:\\laravel-project\\ecom-final\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Exceptions\\UrlGenerationException.php:17)
 [stacktrace]
 #0 E:\\laravel-project\\ecom-final\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\RouteUrlGenerator.php(91): Illuminate\\Routing\\Exceptions\\UrlGenerationException::forMissingParameters(Object(Illuminate\\Routing\\Route))
 #1 E:\\laravel-project\\ecom-final\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\UrlGenerator.php(451): Illuminate\\Routing\\RouteUrlGenerator->to(Object(Illuminate\\Routing\\Route), Array, true)
 #2 E:\\laravel-project\\ecom-final\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\UrlGenerator.php(426): Illuminate\\Routing\\UrlGenerator->toRoute(Object(Illuminate\\Routing\\Route), Array, true)
 #3 E:\\laravel-project\\ecom-final\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\helpers.php(704): Illuminate\\Routing\\UrlGenerator->route('admin.ordersPri...', Array, true)
-#4 E:\\laravel-project\\ecom-final\\backend\esources\\views/admin/order/order.blade.php(205): route('admin.ordersPri...')
+#4 E:\\laravel-project\\ecom-final\\backend\
+esources\\views/admin/order/order.blade.php(205): route('admin.ordersPri...')
 #5 E:\\laravel-project\\ecom-final\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Filesystem\\Filesystem.php(107): require('E:\\\\laravel-proj...')
 #6 E:\\laravel-project\\ecom-final\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Filesystem\\Filesystem.php(108): Illuminate\\Filesystem\\Filesystem::Illuminate\\Filesystem\\{closure}()
 #7 E:\\laravel-project\\ecom-final\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\View\\Engines\\PhpEngine.php(58): Illuminate\\Filesystem\\Filesystem->getRequire('E:\\\\laravel-proj...', Array)
@@ -2033,13 +2041,15 @@
 #57 E:\\laravel-project\\ecom-final\\backend\\server.php(21): require_once('E:\\\\laravel-proj...')
 #58 {main}
 "} 
-[2020-12-30 19:46:24] local.ERROR: Missing required parameters for [Route: admin.ordersPrint] [URI: admin/ordersPrint/{id}]. (View: E:\laravel-project\ecom-final\backend\resources\views\admin\order\printOrder.blade.php) {"userId":1,"exception":"[object] (Facade\\Ignition\\Exceptions\\ViewException(code: 0): Missing required parameters for [Route: admin.ordersPrint] [URI: admin/ordersPrint/{id}]. (View: E:\\laravel-project\\ecom-final\\backend\esources\\views\\admin\\order\\printOrder.blade.php) at E:\\laravel-project\\ecom-final\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Exceptions\\UrlGenerationException.php:17)
+[2020-12-30 19:46:24] local.ERROR: Missing required parameters for [Route: admin.ordersPrint] [URI: admin/ordersPrint/{id}]. (View: E:\laravel-project\ecom-final\backend\resources\views\admin\order\printOrder.blade.php) {"userId":1,"exception":"[object] (Facade\\Ignition\\Exceptions\\ViewException(code: 0): Missing required parameters for [Route: admin.ordersPrint] [URI: admin/ordersPrint/{id}]. (View: E:\\laravel-project\\ecom-final\\backend\
+esources\\views\\admin\\order\\printOrder.blade.php) at E:\\laravel-project\\ecom-final\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Exceptions\\UrlGenerationException.php:17)
 [stacktrace]
 #0 E:\\laravel-project\\ecom-final\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\RouteUrlGenerator.php(91): Illuminate\\Routing\\Exceptions\\UrlGenerationException::forMissingParameters(Object(Illuminate\\Routing\\Route))
 #1 E:\\laravel-project\\ecom-final\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\UrlGenerator.php(451): Illuminate\\Routing\\RouteUrlGenerator->to(Object(Illuminate\\Routing\\Route), Array, true)
 #2 E:\\laravel-project\\ecom-final\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\UrlGenerator.php(426): Illuminate\\Routing\\UrlGenerator->toRoute(Object(Illuminate\\Routing\\Route), Array, true)
 #3 E:\\laravel-project\\ecom-final\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\helpers.php(704): Illuminate\\Routing\\UrlGenerator->route('admin.ordersPri...', Array, true)
-#4 E:\\laravel-project\\ecom-final\\backend\esources\\views/admin/order/printOrder.blade.php(108): route('admin.ordersPri...')
+#4 E:\\laravel-project\\ecom-final\\backend\
+esources\\views/admin/order/printOrder.blade.php(108): route('admin.ordersPri...')
 #5 E:\\laravel-project\\ecom-final\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Filesystem\\Filesystem.php(107): require('E:\\\\laravel-proj...')
 #6 E:\\laravel-project\\ecom-final\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Filesystem\\Filesystem.php(108): Illuminate\\Filesystem\\Filesystem::Illuminate\\Filesystem\\{closure}()
 #7 E:\\laravel-project\\ecom-final\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\View\\Engines\\PhpEngine.php(58): Illuminate\\Filesystem\\Filesystem->getRequire('E:\\\\laravel-proj...', Array)
@@ -2163,13 +2173,15 @@
 #60 E:\\laravel-project\\ecom-final\\backend\\server.php(21): require_once('E:\\\\laravel-proj...')
 #61 {main}
 "} 
-[2020-12-30 19:48:25] local.ERROR: Missing required parameters for [Route: admin.ordersPrint] [URI: admin/ordersPrint/{id}]. (View: E:\laravel-project\ecom-final\backend\resources\views\admin\order\printOrder.blade.php) {"userId":1,"exception":"[object] (Facade\\Ignition\\Exceptions\\ViewException(code: 0): Missing required parameters for [Route: admin.ordersPrint] [URI: admin/ordersPrint/{id}]. (View: E:\\laravel-project\\ecom-final\\backend\esources\\views\\admin\\order\\printOrder.blade.php) at E:\\laravel-project\\ecom-final\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Exceptions\\UrlGenerationException.php:17)
+[2020-12-30 19:48:25] local.ERROR: Missing required parameters for [Route: admin.ordersPrint] [URI: admin/ordersPrint/{id}]. (View: E:\laravel-project\ecom-final\backend\resources\views\admin\order\printOrder.blade.php) {"userId":1,"exception":"[object] (Facade\\Ignition\\Exceptions\\ViewException(code: 0): Missing required parameters for [Route: admin.ordersPrint] [URI: admin/ordersPrint/{id}]. (View: E:\\laravel-project\\ecom-final\\backend\
+esources\\views\\admin\\order\\printOrder.blade.php) at E:\\laravel-project\\ecom-final\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Exceptions\\UrlGenerationException.php:17)
 [stacktrace]
 #0 E:\\laravel-project\\ecom-final\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\RouteUrlGenerator.php(91): Illuminate\\Routing\\Exceptions\\UrlGenerationException::forMissingParameters(Object(Illuminate\\Routing\\Route))
 #1 E:\\laravel-project\\ecom-final\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\UrlGenerator.php(451): Illuminate\\Routing\\RouteUrlGenerator->to(Object(Illuminate\\Routing\\Route), Array, true)
 #2 E:\\laravel-project\\ecom-final\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\UrlGenerator.php(426): Illuminate\\Routing\\UrlGenerator->toRoute(Object(Illuminate\\Routing\\Route), Array, true)
 #3 E:\\laravel-project\\ecom-final\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\helpers.php(704): Illuminate\\Routing\\UrlGenerator->route('admin.ordersPri...', Array, true)
-#4 E:\\laravel-project\\ecom-final\\backend\esources\\views/admin/order/printOrder.blade.php(108): route('admin.ordersPri...')
+#4 E:\\laravel-project\\ecom-final\\backend\
+esources\\views/admin/order/printOrder.blade.php(108): route('admin.ordersPri...')
 #5 E:\\laravel-project\\ecom-final\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Filesystem\\Filesystem.php(107): require('E:\\\\laravel-proj...')
 #6 E:\\laravel-project\\ecom-final\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Filesystem\\Filesystem.php(108): Illuminate\\Filesystem\\Filesystem::Illuminate\\Filesystem\\{closure}()
 #7 E:\\laravel-project\\ecom-final\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\View\\Engines\\PhpEngine.php(58): Illuminate\\Filesystem\\Filesystem->getRequire('E:\\\\laravel-proj...', Array)
@@ -2293,13 +2305,15 @@
 #60 E:\\laravel-project\\ecom-final\\backend\\server.php(21): require_once('E:\\\\laravel-proj...')
 #61 {main}
 "} 
-[2020-12-30 19:48:32] local.ERROR: Missing required parameters for [Route: admin.ordersPrint] [URI: admin/ordersPrint/{id}]. (View: E:\laravel-project\ecom-final\backend\resources\views\admin\order\printOrder.blade.php) {"userId":1,"exception":"[object] (Facade\\Ignition\\Exceptions\\ViewException(code: 0): Missing required parameters for [Route: admin.ordersPrint] [URI: admin/ordersPrint/{id}]. (View: E:\\laravel-project\\ecom-final\\backend\esources\\views\\admin\\order\\printOrder.blade.php) at E:\\laravel-project\\ecom-final\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Exceptions\\UrlGenerationException.php:17)
+[2020-12-30 19:48:32] local.ERROR: Missing required parameters for [Route: admin.ordersPrint] [URI: admin/ordersPrint/{id}]. (View: E:\laravel-project\ecom-final\backend\resources\views\admin\order\printOrder.blade.php) {"userId":1,"exception":"[object] (Facade\\Ignition\\Exceptions\\ViewException(code: 0): Missing required parameters for [Route: admin.ordersPrint] [URI: admin/ordersPrint/{id}]. (View: E:\\laravel-project\\ecom-final\\backend\
+esources\\views\\admin\\order\\printOrder.blade.php) at E:\\laravel-project\\ecom-final\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Exceptions\\UrlGenerationException.php:17)
 [stacktrace]
 #0 E:\\laravel-project\\ecom-final\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\RouteUrlGenerator.php(91): Illuminate\\Routing\\Exceptions\\UrlGenerationException::forMissingParameters(Object(Illuminate\\Routing\\Route))
 #1 E:\\laravel-project\\ecom-final\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\UrlGenerator.php(451): Illuminate\\Routing\\RouteUrlGenerator->to(Object(Illuminate\\Routing\\Route), Array, true)
 #2 E:\\laravel-project\\ecom-final\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\UrlGenerator.php(426): Illuminate\\Routing\\UrlGenerator->toRoute(Object(Illuminate\\Routing\\Route), Array, true)
 #3 E:\\laravel-project\\ecom-final\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\helpers.php(704): Illuminate\\Routing\\UrlGenerator->route('admin.ordersPri...', Array, true)
-#4 E:\\laravel-project\\ecom-final\\backend\esources\\views/admin/order/printOrder.blade.php(108): route('admin.ordersPri...')
+#4 E:\\laravel-project\\ecom-final\\backend\
+esources\\views/admin/order/printOrder.blade.php(108): route('admin.ordersPri...')
 #5 E:\\laravel-project\\ecom-final\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Filesystem\\Filesystem.php(107): require('E:\\\\laravel-proj...')
 #6 E:\\laravel-project\\ecom-final\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Filesystem\\Filesystem.php(108): Illuminate\\Filesystem\\Filesystem::Illuminate\\Filesystem\\{closure}()
 #7 E:\\laravel-project\\ecom-final\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\View\\Engines\\PhpEngine.php(58): Illuminate\\Filesystem\\Filesystem->getRequire('E:\\\\laravel-proj...', Array)
@@ -2423,10 +2437,12 @@
 #60 E:\\laravel-project\\ecom-final\\backend\\server.php(21): require_once('E:\\\\laravel-proj...')
 #61 {main}
 "} 
-[2020-12-30 19:59:48] local.ERROR: Route [show-all-prescription] not defined. (View: E:\laravel-project\ecom-final\backend\resources\views\admin\order\order.blade.php) {"userId":1,"exception":"[object] (Facade\\Ignition\\Exceptions\\ViewException(code: 0): Route [show-all-prescription] not defined. (View: E:\\laravel-project\\ecom-final\\backend\esources\\views\\admin\\order\\order.blade.php) at E:\\laravel-project\\ecom-final\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\UrlGenerator.php:429)
+[2020-12-30 19:59:48] local.ERROR: Route [show-all-prescription] not defined. (View: E:\laravel-project\ecom-final\backend\resources\views\admin\order\order.blade.php) {"userId":1,"exception":"[object] (Facade\\Ignition\\Exceptions\\ViewException(code: 0): Route [show-all-prescription] not defined. (View: E:\\laravel-project\\ecom-final\\backend\
+esources\\views\\admin\\order\\order.blade.php) at E:\\laravel-project\\ecom-final\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\UrlGenerator.php:429)
 [stacktrace]
 #0 E:\\laravel-project\\ecom-final\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\helpers.php(704): Illuminate\\Routing\\UrlGenerator->route('show-all-prescr...', Array, true)
-#1 E:\\laravel-project\\ecom-final\\backend\esources\\views/admin/order/order.blade.php(261): route('show-all-prescr...')
+#1 E:\\laravel-project\\ecom-final\\backend\
+esources\\views/admin/order/order.blade.php(261): route('show-all-prescr...')
 #2 E:\\laravel-project\\ecom-final\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Filesystem\\Filesystem.php(107): require('E:\\\\laravel-proj...')
 #3 E:\\laravel-project\\ecom-final\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Filesystem\\Filesystem.php(108): Illuminate\\Filesystem\\Filesystem::Illuminate\\Filesystem\\{closure}()
 #4 E:\\laravel-project\\ecom-final\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\View\\Engines\\PhpEngine.php(58): Illuminate\\Filesystem\\Filesystem->getRequire('E:\\\\laravel-proj...', Array)
@@ -2541,9 +2557,12 @@
 #54 E:\\laravel-project\\ecom-final\\backend\\server.php(21): require_once('E:\\\\laravel-proj...')
 #55 {main}
 "} 
-[2020-12-30 20:01:35] local.ERROR: Use of undefined constant dataJSON - assumed 'dataJSON' (this will throw an Error in a future version of PHP) (View: E:\laravel-project\ecom-final\backend\resources\views\admin\order\order.blade.php) {"userId":1,"exception":"[object] (Facade\\Ignition\\Exceptions\\ViewException(code: 0): Use of undefined constant dataJSON - assumed 'dataJSON' (this will throw an Error in a future version of PHP) (View: E:\\laravel-project\\ecom-final\\backend\esources\\views\\admin\\order\\order.blade.php) at E:\\laravel-project\\ecom-final\\backend\esources\\views/admin/order/order.blade.php:261)
+[2020-12-30 20:01:35] local.ERROR: Use of undefined constant dataJSON - assumed 'dataJSON' (this will throw an Error in a future version of PHP) (View: E:\laravel-project\ecom-final\backend\resources\views\admin\order\order.blade.php) {"userId":1,"exception":"[object] (Facade\\Ignition\\Exceptions\\ViewException(code: 0): Use of undefined constant dataJSON - assumed 'dataJSON' (this will throw an Error in a future version of PHP) (View: E:\\laravel-project\\ecom-final\\backend\
+esources\\views\\admin\\order\\order.blade.php) at E:\\laravel-project\\ecom-final\\backend\
+esources\\views/admin/order/order.blade.php:261)
 [stacktrace]
-#0 E:\\laravel-project\\ecom-final\\backend\esources\\views/admin/order/order.blade.php(261): Illuminate\\Foundation\\Bootstrap\\HandleExceptions->handleError(2, 'Use of undefine...', 'E:\\\\laravel-proj...', 261, Array)
+#0 E:\\laravel-project\\ecom-final\\backend\
+esources\\views/admin/order/order.blade.php(261): Illuminate\\Foundation\\Bootstrap\\HandleExceptions->handleError(2, 'Use of undefine...', 'E:\\\\laravel-proj...', 261, Array)
 #1 E:\\laravel-project\\ecom-final\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Filesystem\\Filesystem.php(107): require('E:\\\\laravel-proj...')
 #2 E:\\laravel-project\\ecom-final\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Filesystem\\Filesystem.php(108): Illuminate\\Filesystem\\Filesystem::Illuminate\\Filesystem\\{closure}()
 #3 E:\\laravel-project\\ecom-final\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\View\\Engines\\PhpEngine.php(58): Illuminate\\Filesystem\\Filesystem->getRequire('E:\\\\laravel-proj...', Array)
@@ -2657,13 +2676,15 @@
 #53 E:\\laravel-project\\ecom-final\\backend\\server.php(21): require_once('E:\\\\laravel-proj...')
 #54 {main}
 "} 
-[2020-12-30 20:01:52] local.ERROR: Missing required parameters for [Route: admin.ordersPrint] [URI: admin/ordersPrint/{id}]. (View: E:\laravel-project\ecom-final\backend\resources\views\admin\order\order.blade.php) {"userId":1,"exception":"[object] (Facade\\Ignition\\Exceptions\\ViewException(code: 0): Missing required parameters for [Route: admin.ordersPrint] [URI: admin/ordersPrint/{id}]. (View: E:\\laravel-project\\ecom-final\\backend\esources\\views\\admin\\order\\order.blade.php) at E:\\laravel-project\\ecom-final\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Exceptions\\UrlGenerationException.php:17)
+[2020-12-30 20:01:52] local.ERROR: Missing required parameters for [Route: admin.ordersPrint] [URI: admin/ordersPrint/{id}]. (View: E:\laravel-project\ecom-final\backend\resources\views\admin\order\order.blade.php) {"userId":1,"exception":"[object] (Facade\\Ignition\\Exceptions\\ViewException(code: 0): Missing required parameters for [Route: admin.ordersPrint] [URI: admin/ordersPrint/{id}]. (View: E:\\laravel-project\\ecom-final\\backend\
+esources\\views\\admin\\order\\order.blade.php) at E:\\laravel-project\\ecom-final\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Exceptions\\UrlGenerationException.php:17)
 [stacktrace]
 #0 E:\\laravel-project\\ecom-final\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\RouteUrlGenerator.php(91): Illuminate\\Routing\\Exceptions\\UrlGenerationException::forMissingParameters(Object(Illuminate\\Routing\\Route))
 #1 E:\\laravel-project\\ecom-final\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\UrlGenerator.php(451): Illuminate\\Routing\\RouteUrlGenerator->to(Object(Illuminate\\Routing\\Route), Array, true)
 #2 E:\\laravel-project\\ecom-final\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\UrlGenerator.php(426): Illuminate\\Routing\\UrlGenerator->toRoute(Object(Illuminate\\Routing\\Route), Array, true)
 #3 E:\\laravel-project\\ecom-final\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\helpers.php(704): Illuminate\\Routing\\UrlGenerator->route('admin.ordersPri...', Array, true)
-#4 E:\\laravel-project\\ecom-final\\backend\esources\\views/admin/order/order.blade.php(261): route('admin.ordersPri...')
+#4 E:\\laravel-project\\ecom-final\\backend\
+esources\\views/admin/order/order.blade.php(261): route('admin.ordersPri...')
 #5 E:\\laravel-project\\ecom-final\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Filesystem\\Filesystem.php(107): require('E:\\\\laravel-proj...')
 #6 E:\\laravel-project\\ecom-final\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Filesystem\\Filesystem.php(108): Illuminate\\Filesystem\\Filesystem::Illuminate\\Filesystem\\{closure}()
 #7 E:\\laravel-project\\ecom-final\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\View\\Engines\\PhpEngine.php(58): Illuminate\\Filesystem\\Filesystem->getRequire('E:\\\\laravel-proj...', Array)
@@ -2781,9 +2802,12 @@
 #57 E:\\laravel-project\\ecom-final\\backend\\server.php(21): require_once('E:\\\\laravel-proj...')
 #58 {main}
 "} 
-[2020-12-30 20:06:06] local.ERROR: Use of undefined constant dataJSON - assumed 'dataJSON' (this will throw an Error in a future version of PHP) (View: E:\laravel-project\ecom-final\backend\resources\views\admin\order\order.blade.php) {"userId":1,"exception":"[object] (Facade\\Ignition\\Exceptions\\ViewException(code: 0): Use of undefined constant dataJSON - assumed 'dataJSON' (this will throw an Error in a future version of PHP) (View: E:\\laravel-project\\ecom-final\\backend\esources\\views\\admin\\order\\order.blade.php) at E:\\laravel-project\\ecom-final\\backend\esources\\views/admin/order/order.blade.php:261)
+[2020-12-30 20:06:06] local.ERROR: Use of undefined constant dataJSON - assumed 'dataJSON' (this will throw an Error in a future version of PHP) (View: E:\laravel-project\ecom-final\backend\resources\views\admin\order\order.blade.php) {"userId":1,"exception":"[object] (Facade\\Ignition\\Exceptions\\ViewException(code: 0): Use of undefined constant dataJSON - assumed 'dataJSON' (this will throw an Error in a future version of PHP) (View: E:\\laravel-project\\ecom-final\\backend\
+esources\\views\\admin\\order\\order.blade.php) at E:\\laravel-project\\ecom-final\\backend\
+esources\\views/admin/order/order.blade.php:261)
 [stacktrace]
-#0 E:\\laravel-project\\ecom-final\\backend\esources\\views/admin/order/order.blade.php(261): Illuminate\\Foundation\\Bootstrap\\HandleExceptions->handleError(2, 'Use of undefine...', 'E:\\\\laravel-proj...', 261, Array)
+#0 E:\\laravel-project\\ecom-final\\backend\
+esources\\views/admin/order/order.blade.php(261): Illuminate\\Foundation\\Bootstrap\\HandleExceptions->handleError(2, 'Use of undefine...', 'E:\\\\laravel-proj...', 261, Array)
 #1 E:\\laravel-project\\ecom-final\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Filesystem\\Filesystem.php(107): require('E:\\\\laravel-proj...')
 #2 E:\\laravel-project\\ecom-final\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Filesystem\\Filesystem.php(108): Illuminate\\Filesystem\\Filesystem::Illuminate\\Filesystem\\{closure}()
 #3 E:\\laravel-project\\ecom-final\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\View\\Engines\\PhpEngine.php(58): Illuminate\\Filesystem\\Filesystem->getRequire('E:\\\\laravel-proj...', Array)
@@ -2897,9 +2921,12 @@
 #53 E:\\laravel-project\\ecom-final\\backend\\server.php(21): require_once('E:\\\\laravel-proj...')
 #54 {main}
 "} 
-[2020-12-30 20:07:11] local.ERROR: Use of undefined constant dataJSON - assumed 'dataJSON' (this will throw an Error in a future version of PHP) (View: E:\laravel-project\ecom-final\backend\resources\views\admin\order\order.blade.php) {"userId":1,"exception":"[object] (Facade\\Ignition\\Exceptions\\ViewException(code: 0): Use of undefined constant dataJSON - assumed 'dataJSON' (this will throw an Error in a future version of PHP) (View: E:\\laravel-project\\ecom-final\\backend\esources\\views\\admin\\order\\order.blade.php) at E:\\laravel-project\\ecom-final\\backend\esources\\views/admin/order/order.blade.php:261)
+[2020-12-30 20:07:11] local.ERROR: Use of undefined constant dataJSON - assumed 'dataJSON' (this will throw an Error in a future version of PHP) (View: E:\laravel-project\ecom-final\backend\resources\views\admin\order\order.blade.php) {"userId":1,"exception":"[object] (Facade\\Ignition\\Exceptions\\ViewException(code: 0): Use of undefined constant dataJSON - assumed 'dataJSON' (this will throw an Error in a future version of PHP) (View: E:\\laravel-project\\ecom-final\\backend\
+esources\\views\\admin\\order\\order.blade.php) at E:\\laravel-project\\ecom-final\\backend\
+esources\\views/admin/order/order.blade.php:261)
 [stacktrace]
-#0 E:\\laravel-project\\ecom-final\\backend\esources\\views/admin/order/order.blade.php(261): Illuminate\\Foundation\\Bootstrap\\HandleExceptions->handleError(2, 'Use of undefine...', 'E:\\\\laravel-proj...', 261, Array)
+#0 E:\\laravel-project\\ecom-final\\backend\
+esources\\views/admin/order/order.blade.php(261): Illuminate\\Foundation\\Bootstrap\\HandleExceptions->handleError(2, 'Use of undefine...', 'E:\\\\laravel-proj...', 261, Array)
 #1 E:\\laravel-project\\ecom-final\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Filesystem\\Filesystem.php(107): require('E:\\\\laravel-proj...')
 #2 E:\\laravel-project\\ecom-final\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Filesystem\\Filesystem.php(108): Illuminate\\Filesystem\\Filesystem::Illuminate\\Filesystem\\{closure}()
 #3 E:\\laravel-project\\ecom-final\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\View\\Engines\\PhpEngine.php(58): Illuminate\\Filesystem\\Filesystem->getRequire('E:\\\\laravel-proj...', Array)
@@ -3013,9 +3040,12 @@
 #53 E:\\laravel-project\\ecom-final\\backend\\server.php(21): require_once('E:\\\\laravel-proj...')
 #54 {main}
 "} 
-[2020-12-30 20:09:52] local.ERROR: Use of undefined constant dataJSON - assumed 'dataJSON' (this will throw an Error in a future version of PHP) (View: E:\laravel-project\ecom-final\backend\resources\views\admin\order\order.blade.php) {"userId":1,"exception":"[object] (Facade\\Ignition\\Exceptions\\ViewException(code: 0): Use of undefined constant dataJSON - assumed 'dataJSON' (this will throw an Error in a future version of PHP) (View: E:\\laravel-project\\ecom-final\\backend\esources\\views\\admin\\order\\order.blade.php) at E:\\laravel-project\\ecom-final\\backend\esources\\views/admin/order/order.blade.php:261)
+[2020-12-30 20:09:52] local.ERROR: Use of undefined constant dataJSON - assumed 'dataJSON' (this will throw an Error in a future version of PHP) (View: E:\laravel-project\ecom-final\backend\resources\views\admin\order\order.blade.php) {"userId":1,"exception":"[object] (Facade\\Ignition\\Exceptions\\ViewException(code: 0): Use of undefined constant dataJSON - assumed 'dataJSON' (this will throw an Error in a future version of PHP) (View: E:\\laravel-project\\ecom-final\\backend\
+esources\\views\\admin\\order\\order.blade.php) at E:\\laravel-project\\ecom-final\\backend\
+esources\\views/admin/order/order.blade.php:261)
 [stacktrace]
-#0 E:\\laravel-project\\ecom-final\\backend\esources\\views/admin/order/order.blade.php(261): Illuminate\\Foundation\\Bootstrap\\HandleExceptions->handleError(2, 'Use of undefine...', 'E:\\\\laravel-proj...', 261, Array)
+#0 E:\\laravel-project\\ecom-final\\backend\
+esources\\views/admin/order/order.blade.php(261): Illuminate\\Foundation\\Bootstrap\\HandleExceptions->handleError(2, 'Use of undefine...', 'E:\\\\laravel-proj...', 261, Array)
 #1 E:\\laravel-project\\ecom-final\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Filesystem\\Filesystem.php(107): require('E:\\\\laravel-proj...')
 #2 E:\\laravel-project\\ecom-final\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Filesystem\\Filesystem.php(108): Illuminate\\Filesystem\\Filesystem::Illuminate\\Filesystem\\{closure}()
 #3 E:\\laravel-project\\ecom-final\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\View\\Engines\\PhpEngine.php(58): Illuminate\\Filesystem\\Filesystem->getRequire('E:\\\\laravel-proj...', Array)
@@ -3129,7 +3159,9 @@
 #53 E:\\laravel-project\\ecom-final\\backend\\server.php(21): require_once('E:\\\\laravel-proj...')
 #54 {main}
 "} 
-[2020-12-30 20:11:19] local.ERROR: syntax error, unexpected '<' (View: E:\laravel-project\ecom-final\backend\resources\views\admin\order\order.blade.php) {"userId":1,"exception":"[object] (Facade\\Ignition\\Exceptions\\ViewException(code: 0): syntax error, unexpected '<' (View: E:\\laravel-project\\ecom-final\\backend\esources\\views\\admin\\order\\order.blade.php) at E:\\laravel-project\\ecom-final\\backend\esources\\views/admin/order/order.blade.php:261)
+[2020-12-30 20:11:19] local.ERROR: syntax error, unexpected '<' (View: E:\laravel-project\ecom-final\backend\resources\views\admin\order\order.blade.php) {"userId":1,"exception":"[object] (Facade\\Ignition\\Exceptions\\ViewException(code: 0): syntax error, unexpected '<' (View: E:\\laravel-project\\ecom-final\\backend\
+esources\\views\\admin\\order\\order.blade.php) at E:\\laravel-project\\ecom-final\\backend\
+esources\\views/admin/order/order.blade.php:261)
 [stacktrace]
 #0 E:\\laravel-project\\ecom-final\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Filesystem\\Filesystem.php(108): Illuminate\\Filesystem\\Filesystem::Illuminate\\Filesystem\\{closure}()
 #1 E:\\laravel-project\\ecom-final\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\View\\Engines\\PhpEngine.php(58): Illuminate\\Filesystem\\Filesystem->getRequire('E:\\\\laravel-proj...', Array)
@@ -3241,7 +3273,9 @@
 #51 E:\\laravel-project\\ecom-final\\backend\\server.php(21): require_once('E:\\\\laravel-proj...')
 #52 {main}
 "} 
-[2020-12-30 20:11:46] local.ERROR: syntax error, unexpected '<' (View: E:\laravel-project\ecom-final\backend\resources\views\admin\order\order.blade.php) {"userId":1,"exception":"[object] (Facade\\Ignition\\Exceptions\\ViewException(code: 0): syntax error, unexpected '<' (View: E:\\laravel-project\\ecom-final\\backend\esources\\views\\admin\\order\\order.blade.php) at E:\\laravel-project\\ecom-final\\backend\esources\\views/admin/order/order.blade.php:261)
+[2020-12-30 20:11:46] local.ERROR: syntax error, unexpected '<' (View: E:\laravel-project\ecom-final\backend\resources\views\admin\order\order.blade.php) {"userId":1,"exception":"[object] (Facade\\Ignition\\Exceptions\\ViewException(code: 0): syntax error, unexpected '<' (View: E:\\laravel-project\\ecom-final\\backend\
+esources\\views\\admin\\order\\order.blade.php) at E:\\laravel-project\\ecom-final\\backend\
+esources\\views/admin/order/order.blade.php:261)
 [stacktrace]
 #0 E:\\laravel-project\\ecom-final\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Filesystem\\Filesystem.php(108): Illuminate\\Filesystem\\Filesystem::Illuminate\\Filesystem\\{closure}()
 #1 E:\\laravel-project\\ecom-final\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\View\\Engines\\PhpEngine.php(58): Illuminate\\Filesystem\\Filesystem->getRequire('E:\\\\laravel-proj...', Array)
@@ -3353,7 +3387,9 @@
 #51 E:\\laravel-project\\ecom-final\\backend\\server.php(21): require_once('E:\\\\laravel-proj...')
 #52 {main}
 "} 
-[2020-12-30 20:12:49] local.ERROR: syntax error, unexpected '<' (View: E:\laravel-project\ecom-final\backend\resources\views\admin\order\order.blade.php) {"userId":1,"exception":"[object] (Facade\\Ignition\\Exceptions\\ViewException(code: 0): syntax error, unexpected '<' (View: E:\\laravel-project\\ecom-final\\backend\esources\\views\\admin\\order\\order.blade.php) at E:\\laravel-project\\ecom-final\\backend\esources\\views/admin/order/order.blade.php:261)
+[2020-12-30 20:12:49] local.ERROR: syntax error, unexpected '<' (View: E:\laravel-project\ecom-final\backend\resources\views\admin\order\order.blade.php) {"userId":1,"exception":"[object] (Facade\\Ignition\\Exceptions\\ViewException(code: 0): syntax error, unexpected '<' (View: E:\\laravel-project\\ecom-final\\backend\
+esources\\views\\admin\\order\\order.blade.php) at E:\\laravel-project\\ecom-final\\backend\
+esources\\views/admin/order/order.blade.php:261)
 [stacktrace]
 #0 E:\\laravel-project\\ecom-final\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Filesystem\\Filesystem.php(108): Illuminate\\Filesystem\\Filesystem::Illuminate\\Filesystem\\{closure}()
 #1 E:\\laravel-project\\ecom-final\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\View\\Engines\\PhpEngine.php(58): Illuminate\\Filesystem\\Filesystem->getRequire('E:\\\\laravel-proj...', Array)
@@ -3465,7 +3501,9 @@
 #51 E:\\laravel-project\\ecom-final\\backend\\server.php(21): require_once('E:\\\\laravel-proj...')
 #52 {main}
 "} 
-[2020-12-30 20:15:23] local.ERROR: syntax error, unexpected '<' (View: E:\laravel-project\ecom-final\backend\resources\views\admin\order\order.blade.php) {"userId":1,"exception":"[object] (Facade\\Ignition\\Exceptions\\ViewException(code: 0): syntax error, unexpected '<' (View: E:\\laravel-project\\ecom-final\\backend\esources\\views\\admin\\order\\order.blade.php) at E:\\laravel-project\\ecom-final\\backend\esources\\views/admin/order/order.blade.php:261)
+[2020-12-30 20:15:23] local.ERROR: syntax error, unexpected '<' (View: E:\laravel-project\ecom-final\backend\resources\views\admin\order\order.blade.php) {"userId":1,"exception":"[object] (Facade\\Ignition\\Exceptions\\ViewException(code: 0): syntax error, unexpected '<' (View: E:\\laravel-project\\ecom-final\\backend\
+esources\\views\\admin\\order\\order.blade.php) at E:\\laravel-project\\ecom-final\\backend\
+esources\\views/admin/order/order.blade.php:261)
 [stacktrace]
 #0 E:\\laravel-project\\ecom-final\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Filesystem\\Filesystem.php(108): Illuminate\\Filesystem\\Filesystem::Illuminate\\Filesystem\\{closure}()
 #1 E:\\laravel-project\\ecom-final\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\View\\Engines\\PhpEngine.php(58): Illuminate\\Filesystem\\Filesystem->getRequire('E:\\\\laravel-proj...', Array)
@@ -3577,7 +3615,9 @@
 #51 E:\\laravel-project\\ecom-final\\backend\\server.php(21): require_once('E:\\\\laravel-proj...')
 #52 {main}
 "} 
-[2020-12-30 20:16:19] local.ERROR: syntax error, unexpected '.', expecting '}' (View: E:\laravel-project\ecom-final\backend\resources\views\admin\order\order.blade.php) {"userId":1,"exception":"[object] (Facade\\Ignition\\Exceptions\\ViewException(code: 0): syntax error, unexpected '.', expecting '}' (View: E:\\laravel-project\\ecom-final\\backend\esources\\views\\admin\\order\\order.blade.php) at E:\\laravel-project\\ecom-final\\backend\esources\\views/admin/order/order.blade.php:261)
+[2020-12-30 20:16:19] local.ERROR: syntax error, unexpected '.', expecting '}' (View: E:\laravel-project\ecom-final\backend\resources\views\admin\order\order.blade.php) {"userId":1,"exception":"[object] (Facade\\Ignition\\Exceptions\\ViewException(code: 0): syntax error, unexpected '.', expecting '}' (View: E:\\laravel-project\\ecom-final\\backend\
+esources\\views\\admin\\order\\order.blade.php) at E:\\laravel-project\\ecom-final\\backend\
+esources\\views/admin/order/order.blade.php:261)
 [stacktrace]
 #0 E:\\laravel-project\\ecom-final\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Filesystem\\Filesystem.php(108): Illuminate\\Filesystem\\Filesystem::Illuminate\\Filesystem\\{closure}()
 #1 E:\\laravel-project\\ecom-final\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\View\\Engines\\PhpEngine.php(58): Illuminate\\Filesystem\\Filesystem->getRequire('E:\\\\laravel-proj...', Array)
@@ -3689,9 +3729,12 @@
 #51 E:\\laravel-project\\ecom-final\\backend\\server.php(21): require_once('E:\\\\laravel-proj...')
 #52 {main}
 "} 
-[2020-12-30 20:21:56] local.ERROR: Use of undefined constant dataJSON - assumed 'dataJSON' (this will throw an Error in a future version of PHP) (View: E:\laravel-project\ecom-final\backend\resources\views\admin\order\order.blade.php) {"userId":1,"exception":"[object] (Facade\\Ignition\\Exceptions\\ViewException(code: 0): Use of undefined constant dataJSON - assumed 'dataJSON' (this will throw an Error in a future version of PHP) (View: E:\\laravel-project\\ecom-final\\backend\esources\\views\\admin\\order\\order.blade.php) at E:\\laravel-project\\ecom-final\\backend\esources\\views/admin/order/order.blade.php:261)
+[2020-12-30 20:21:56] local.ERROR: Use of undefined constant dataJSON - assumed 'dataJSON' (this will throw an Error in a future version of PHP) (View: E:\laravel-project\ecom-final\backend\resources\views\admin\order\order.blade.php) {"userId":1,"exception":"[object] (Facade\\Ignition\\Exceptions\\ViewException(code: 0): Use of undefined constant dataJSON - assumed 'dataJSON' (this will throw an Error in a future version of PHP) (View: E:\\laravel-project\\ecom-final\\backend\
+esources\\views\\admin\\order\\order.blade.php) at E:\\laravel-project\\ecom-final\\backend\
+esources\\views/admin/order/order.blade.php:261)
 [stacktrace]
-#0 E:\\laravel-project\\ecom-final\\backend\esources\\views/admin/order/order.blade.php(261): Illuminate\\Foundation\\Bootstrap\\HandleExceptions->handleError(2, 'Use of undefine...', 'E:\\\\laravel-proj...', 261, Array)
+#0 E:\\laravel-project\\ecom-final\\backend\
+esources\\views/admin/order/order.blade.php(261): Illuminate\\Foundation\\Bootstrap\\HandleExceptions->handleError(2, 'Use of undefine...', 'E:\\\\laravel-proj...', 261, Array)
 #1 E:\\laravel-project\\ecom-final\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Filesystem\\Filesystem.php(107): require('E:\\\\laravel-proj...')
 #2 E:\\laravel-project\\ecom-final\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Filesystem\\Filesystem.php(108): Illuminate\\Filesystem\\Filesystem::Illuminate\\Filesystem\\{closure}()
 #3 E:\\laravel-project\\ecom-final\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\View\\Engines\\PhpEngine.php(58): Illuminate\\Filesystem\\Filesystem->getRequire('E:\\\\laravel-proj...', Array)
@@ -3805,10 +3848,12 @@
 #53 E:\\laravel-project\\ecom-final\\backend\\server.php(21): require_once('E:\\\\laravel-proj...')
 #54 {main}
 "} 
-[2020-12-30 20:31:30] local.ERROR: Route [delivery] not defined. (View: E:\laravel-project\ecom-final\backend\resources\views\admin\order\order.blade.php) {"userId":1,"exception":"[object] (Facade\\Ignition\\Exceptions\\ViewException(code: 0): Route [delivery] not defined. (View: E:\\laravel-project\\ecom-final\\backend\esources\\views\\admin\\order\\order.blade.php) at E:\\laravel-project\\ecom-final\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\UrlGenerator.php:429)
+[2020-12-30 20:31:30] local.ERROR: Route [delivery] not defined. (View: E:\laravel-project\ecom-final\backend\resources\views\admin\order\order.blade.php) {"userId":1,"exception":"[object] (Facade\\Ignition\\Exceptions\\ViewException(code: 0): Route [delivery] not defined. (View: E:\\laravel-project\\ecom-final\\backend\
+esources\\views\\admin\\order\\order.blade.php) at E:\\laravel-project\\ecom-final\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\UrlGenerator.php:429)
 [stacktrace]
 #0 E:\\laravel-project\\ecom-final\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\helpers.php(704): Illuminate\\Routing\\UrlGenerator->route('delivery', Array, true)
-#1 E:\\laravel-project\\ecom-final\\backend\esources\\views/admin/order/order.blade.php(241): route('delivery')
+#1 E:\\laravel-project\\ecom-final\\backend\
+esources\\views/admin/order/order.blade.php(241): route('delivery')
 #2 E:\\laravel-project\\ecom-final\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Filesystem\\Filesystem.php(107): require('E:\\\\laravel-proj...')
 #3 E:\\laravel-project\\ecom-final\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Filesystem\\Filesystem.php(108): Illuminate\\Filesystem\\Filesystem::Illuminate\\Filesystem\\{closure}()
 #4 E:\\laravel-project\\ecom-final\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\View\\Engines\\PhpEngine.php(58): Illuminate\\Filesystem\\Filesystem->getRequire('E:\\\\laravel-proj...', Array)
@@ -3923,13 +3968,15 @@
 #54 E:\\laravel-project\\ecom-final\\backend\\server.php(21): require_once('E:\\\\laravel-proj...')
 #55 {main}
 "} 
-[2020-12-30 20:32:06] local.ERROR: Missing required parameters for [Route: admin.ordersPrint] [URI: admin/ordersPrint/{id}]. (View: E:\laravel-project\ecom-final\backend\resources\views\admin\order\order.blade.php) {"userId":1,"exception":"[object] (Facade\\Ignition\\Exceptions\\ViewException(code: 0): Missing required parameters for [Route: admin.ordersPrint] [URI: admin/ordersPrint/{id}]. (View: E:\\laravel-project\\ecom-final\\backend\esources\\views\\admin\\order\\order.blade.php) at E:\\laravel-project\\ecom-final\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Exceptions\\UrlGenerationException.php:17)
+[2020-12-30 20:32:06] local.ERROR: Missing required parameters for [Route: admin.ordersPrint] [URI: admin/ordersPrint/{id}]. (View: E:\laravel-project\ecom-final\backend\resources\views\admin\order\order.blade.php) {"userId":1,"exception":"[object] (Facade\\Ignition\\Exceptions\\ViewException(code: 0): Missing required parameters for [Route: admin.ordersPrint] [URI: admin/ordersPrint/{id}]. (View: E:\\laravel-project\\ecom-final\\backend\
+esources\\views\\admin\\order\\order.blade.php) at E:\\laravel-project\\ecom-final\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Exceptions\\UrlGenerationException.php:17)
 [stacktrace]
 #0 E:\\laravel-project\\ecom-final\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\RouteUrlGenerator.php(91): Illuminate\\Routing\\Exceptions\\UrlGenerationException::forMissingParameters(Object(Illuminate\\Routing\\Route))
 #1 E:\\laravel-project\\ecom-final\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\UrlGenerator.php(451): Illuminate\\Routing\\RouteUrlGenerator->to(Object(Illuminate\\Routing\\Route), Array, true)
 #2 E:\\laravel-project\\ecom-final\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\UrlGenerator.php(426): Illuminate\\Routing\\UrlGenerator->toRoute(Object(Illuminate\\Routing\\Route), Array, true)
 #3 E:\\laravel-project\\ecom-final\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\helpers.php(704): Illuminate\\Routing\\UrlGenerator->route('admin.ordersPri...', Array, true)
-#4 E:\\laravel-project\\ecom-final\\backend\esources\\views/admin/order/order.blade.php(241): route('admin.ordersPri...')
+#4 E:\\laravel-project\\ecom-final\\backend\
+esources\\views/admin/order/order.blade.php(241): route('admin.ordersPri...')
 #5 E:\\laravel-project\\ecom-final\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Filesystem\\Filesystem.php(107): require('E:\\\\laravel-proj...')
 #6 E:\\laravel-project\\ecom-final\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Filesystem\\Filesystem.php(108): Illuminate\\Filesystem\\Filesystem::Illuminate\\Filesystem\\{closure}()
 #7 E:\\laravel-project\\ecom-final\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\View\\Engines\\PhpEngine.php(58): Illuminate\\Filesystem\\Filesystem->getRequire('E:\\\\laravel-proj...', Array)
@@ -4047,13 +4094,15 @@
 #57 E:\\laravel-project\\ecom-final\\backend\\server.php(21): require_once('E:\\\\laravel-proj...')
 #58 {main}
 "} 
-[2020-12-30 20:32:46] local.ERROR: Missing required parameters for [Route: admin.ordersPrint] [URI: admin/ordersPrint/{id}]. (View: E:\laravel-project\ecom-final\backend\resources\views\admin\order\order.blade.php) {"userId":1,"exception":"[object] (Facade\\Ignition\\Exceptions\\ViewException(code: 0): Missing required parameters for [Route: admin.ordersPrint] [URI: admin/ordersPrint/{id}]. (View: E:\\laravel-project\\ecom-final\\backend\esources\\views\\admin\\order\\order.blade.php) at E:\\laravel-project\\ecom-final\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Exceptions\\UrlGenerationException.php:17)
+[2020-12-30 20:32:46] local.ERROR: Missing required parameters for [Route: admin.ordersPrint] [URI: admin/ordersPrint/{id}]. (View: E:\laravel-project\ecom-final\backend\resources\views\admin\order\order.blade.php) {"userId":1,"exception":"[object] (Facade\\Ignition\\Exceptions\\ViewException(code: 0): Missing required parameters for [Route: admin.ordersPrint] [URI: admin/ordersPrint/{id}]. (View: E:\\laravel-project\\ecom-final\\backend\
+esources\\views\\admin\\order\\order.blade.php) at E:\\laravel-project\\ecom-final\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Exceptions\\UrlGenerationException.php:17)
 [stacktrace]
 #0 E:\\laravel-project\\ecom-final\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\RouteUrlGenerator.php(91): Illuminate\\Routing\\Exceptions\\UrlGenerationException::forMissingParameters(Object(Illuminate\\Routing\\Route))
 #1 E:\\laravel-project\\ecom-final\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\UrlGenerator.php(451): Illuminate\\Routing\\RouteUrlGenerator->to(Object(Illuminate\\Routing\\Route), Array, true)
 #2 E:\\laravel-project\\ecom-final\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\UrlGenerator.php(426): Illuminate\\Routing\\UrlGenerator->toRoute(Object(Illuminate\\Routing\\Route), Array, true)
 #3 E:\\laravel-project\\ecom-final\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\helpers.php(704): Illuminate\\Routing\\UrlGenerator->route('admin.ordersPri...', Array, true)
-#4 E:\\laravel-project\\ecom-final\\backend\esources\\views/admin/order/order.blade.php(241): route('admin.ordersPri...')
+#4 E:\\laravel-project\\ecom-final\\backend\
+esources\\views/admin/order/order.blade.php(241): route('admin.ordersPri...')
 #5 E:\\laravel-project\\ecom-final\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Filesystem\\Filesystem.php(107): require('E:\\\\laravel-proj...')
 #6 E:\\laravel-project\\ecom-final\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Filesystem\\Filesystem.php(108): Illuminate\\Filesystem\\Filesystem::Illuminate\\Filesystem\\{closure}()
 #7 E:\\laravel-project\\ecom-final\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\View\\Engines\\PhpEngine.php(58): Illuminate\\Filesystem\\Filesystem->getRequire('E:\\\\laravel-proj...', Array)
@@ -4171,9 +4220,12 @@
 #57 E:\\laravel-project\\ecom-final\\backend\\server.php(21): require_once('E:\\\\laravel-proj...')
 #58 {main}
 "} 
-[2020-12-30 20:33:53] local.ERROR: Use of undefined constant dataJSON - assumed 'dataJSON' (this will throw an Error in a future version of PHP) (View: E:\laravel-project\ecom-final\backend\resources\views\admin\order\order.blade.php) {"userId":1,"exception":"[object] (Facade\\Ignition\\Exceptions\\ViewException(code: 0): Use of undefined constant dataJSON - assumed 'dataJSON' (this will throw an Error in a future version of PHP) (View: E:\\laravel-project\\ecom-final\\backend\esources\\views\\admin\\order\\order.blade.php) at E:\\laravel-project\\ecom-final\\backend\esources\\views/admin/order/order.blade.php:241)
+[2020-12-30 20:33:53] local.ERROR: Use of undefined constant dataJSON - assumed 'dataJSON' (this will throw an Error in a future version of PHP) (View: E:\laravel-project\ecom-final\backend\resources\views\admin\order\order.blade.php) {"userId":1,"exception":"[object] (Facade\\Ignition\\Exceptions\\ViewException(code: 0): Use of undefined constant dataJSON - assumed 'dataJSON' (this will throw an Error in a future version of PHP) (View: E:\\laravel-project\\ecom-final\\backend\
+esources\\views\\admin\\order\\order.blade.php) at E:\\laravel-project\\ecom-final\\backend\
+esources\\views/admin/order/order.blade.php:241)
 [stacktrace]
-#0 E:\\laravel-project\\ecom-final\\backend\esources\\views/admin/order/order.blade.php(241): Illuminate\\Foundation\\Bootstrap\\HandleExceptions->handleError(2, 'Use of undefine...', 'E:\\\\laravel-proj...', 241, Array)
+#0 E:\\laravel-project\\ecom-final\\backend\
+esources\\views/admin/order/order.blade.php(241): Illuminate\\Foundation\\Bootstrap\\HandleExceptions->handleError(2, 'Use of undefine...', 'E:\\\\laravel-proj...', 241, Array)
 #1 E:\\laravel-project\\ecom-final\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Filesystem\\Filesystem.php(107): require('E:\\\\laravel-proj...')
 #2 E:\\laravel-project\\ecom-final\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Filesystem\\Filesystem.php(108): Illuminate\\Filesystem\\Filesystem::Illuminate\\Filesystem\\{closure}()
 #3 E:\\laravel-project\\ecom-final\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\View\\Engines\\PhpEngine.php(58): Illuminate\\Filesystem\\Filesystem->getRequire('E:\\\\laravel-proj...', Array)
@@ -4287,9 +4339,12 @@
 #53 E:\\laravel-project\\ecom-final\\backend\\server.php(21): require_once('E:\\\\laravel-proj...')
 #54 {main}
 "} 
-[2020-12-30 20:34:16] local.ERROR: Use of undefined constant dataJSON - assumed 'dataJSON' (this will throw an Error in a future version of PHP) (View: E:\laravel-project\ecom-final\backend\resources\views\admin\order\order.blade.php) {"userId":1,"exception":"[object] (Facade\\Ignition\\Exceptions\\ViewException(code: 0): Use of undefined constant dataJSON - assumed 'dataJSON' (this will throw an Error in a future version of PHP) (View: E:\\laravel-project\\ecom-final\\backend\esources\\views\\admin\\order\\order.blade.php) at E:\\laravel-project\\ecom-final\\backend\esources\\views/admin/order/order.blade.php:241)
+[2020-12-30 20:34:16] local.ERROR: Use of undefined constant dataJSON - assumed 'dataJSON' (this will throw an Error in a future version of PHP) (View: E:\laravel-project\ecom-final\backend\resources\views\admin\order\order.blade.php) {"userId":1,"exception":"[object] (Facade\\Ignition\\Exceptions\\ViewException(code: 0): Use of undefined constant dataJSON - assumed 'dataJSON' (this will throw an Error in a future version of PHP) (View: E:\\laravel-project\\ecom-final\\backend\
+esources\\views\\admin\\order\\order.blade.php) at E:\\laravel-project\\ecom-final\\backend\
+esources\\views/admin/order/order.blade.php:241)
 [stacktrace]
-#0 E:\\laravel-project\\ecom-final\\backend\esources\\views/admin/order/order.blade.php(241): Illuminate\\Foundation\\Bootstrap\\HandleExceptions->handleError(2, 'Use of undefine...', 'E:\\\\laravel-proj...', 241, Array)
+#0 E:\\laravel-project\\ecom-final\\backend\
+esources\\views/admin/order/order.blade.php(241): Illuminate\\Foundation\\Bootstrap\\HandleExceptions->handleError(2, 'Use of undefine...', 'E:\\\\laravel-proj...', 241, Array)
 #1 E:\\laravel-project\\ecom-final\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Filesystem\\Filesystem.php(107): require('E:\\\\laravel-proj...')
 #2 E:\\laravel-project\\ecom-final\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Filesystem\\Filesystem.php(108): Illuminate\\Filesystem\\Filesystem::Illuminate\\Filesystem\\{closure}()
 #3 E:\\laravel-project\\ecom-final\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\View\\Engines\\PhpEngine.php(58): Illuminate\\Filesystem\\Filesystem->getRequire('E:\\\\laravel-proj...', Array)
@@ -4403,13 +4458,15 @@
 #53 E:\\laravel-project\\ecom-final\\backend\\server.php(21): require_once('E:\\\\laravel-proj...')
 #54 {main}
 "} 
-[2020-12-30 20:37:44] local.ERROR: Missing required parameters for [Route: admin.ordersPrint] [URI: admin/ordersPrint/{id}]. (View: E:\laravel-project\ecom-final\backend\resources\views\admin\order\order.blade.php) {"userId":1,"exception":"[object] (Facade\\Ignition\\Exceptions\\ViewException(code: 0): Missing required parameters for [Route: admin.ordersPrint] [URI: admin/ordersPrint/{id}]. (View: E:\\laravel-project\\ecom-final\\backend\esources\\views\\admin\\order\\order.blade.php) at E:\\laravel-project\\ecom-final\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Exceptions\\UrlGenerationException.php:17)
+[2020-12-30 20:37:44] local.ERROR: Missing required parameters for [Route: admin.ordersPrint] [URI: admin/ordersPrint/{id}]. (View: E:\laravel-project\ecom-final\backend\resources\views\admin\order\order.blade.php) {"userId":1,"exception":"[object] (Facade\\Ignition\\Exceptions\\ViewException(code: 0): Missing required parameters for [Route: admin.ordersPrint] [URI: admin/ordersPrint/{id}]. (View: E:\\laravel-project\\ecom-final\\backend\
+esources\\views\\admin\\order\\order.blade.php) at E:\\laravel-project\\ecom-final\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Exceptions\\UrlGenerationException.php:17)
 [stacktrace]
 #0 E:\\laravel-project\\ecom-final\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\RouteUrlGenerator.php(91): Illuminate\\Routing\\Exceptions\\UrlGenerationException::forMissingParameters(Object(Illuminate\\Routing\\Route))
 #1 E:\\laravel-project\\ecom-final\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\UrlGenerator.php(451): Illuminate\\Routing\\RouteUrlGenerator->to(Object(Illuminate\\Routing\\Route), Array, true)
 #2 E:\\laravel-project\\ecom-final\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\UrlGenerator.php(426): Illuminate\\Routing\\UrlGenerator->toRoute(Object(Illuminate\\Routing\\Route), Array, true)
 #3 E:\\laravel-project\\ecom-final\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\helpers.php(704): Illuminate\\Routing\\UrlGenerator->route('admin.ordersPri...', Array, true)
-#4 E:\\laravel-project\\ecom-final\\backend\esources\\views/admin/order/order.blade.php(204): route('admin.ordersPri...')
+#4 E:\\laravel-project\\ecom-final\\backend\
+esources\\views/admin/order/order.blade.php(204): route('admin.ordersPri...')
 #5 E:\\laravel-project\\ecom-final\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Filesystem\\Filesystem.php(107): require('E:\\\\laravel-proj...')
 #6 E:\\laravel-project\\ecom-final\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Filesystem\\Filesystem.php(108): Illuminate\\Filesystem\\Filesystem::Illuminate\\Filesystem\\{closure}()
 #7 E:\\laravel-project\\ecom-final\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\View\\Engines\\PhpEngine.php(58): Illuminate\\Filesystem\\Filesystem->getRequire('E:\\\\laravel-proj...', Array)
@@ -4527,9 +4584,12 @@
 #57 E:\\laravel-project\\ecom-final\\backend\\server.php(21): require_once('E:\\\\laravel-proj...')
 #58 {main}
 "} 
-[2020-12-30 20:38:38] local.ERROR: Undefined variable: result (View: E:\laravel-project\ecom-final\backend\resources\views\admin\order\order.blade.php) {"userId":1,"exception":"[object] (Facade\\Ignition\\Exceptions\\ViewException(code: 0): Undefined variable: result (View: E:\\laravel-project\\ecom-final\\backend\esources\\views\\admin\\order\\order.blade.php) at E:\\laravel-project\\ecom-final\\backend\esources\\views/admin/order/order.blade.php:204)
+[2020-12-30 20:38:38] local.ERROR: Undefined variable: result (View: E:\laravel-project\ecom-final\backend\resources\views\admin\order\order.blade.php) {"userId":1,"exception":"[object] (Facade\\Ignition\\Exceptions\\ViewException(code: 0): Undefined variable: result (View: E:\\laravel-project\\ecom-final\\backend\
+esources\\views\\admin\\order\\order.blade.php) at E:\\laravel-project\\ecom-final\\backend\
+esources\\views/admin/order/order.blade.php:204)
 [stacktrace]
-#0 E:\\laravel-project\\ecom-final\\backend\esources\\views/admin/order/order.blade.php(204): Illuminate\\Foundation\\Bootstrap\\HandleExceptions->handleError(8, 'Undefined varia...', 'E:\\\\laravel-proj...', 204, Array)
+#0 E:\\laravel-project\\ecom-final\\backend\
+esources\\views/admin/order/order.blade.php(204): Illuminate\\Foundation\\Bootstrap\\HandleExceptions->handleError(8, 'Undefined varia...', 'E:\\\\laravel-proj...', 204, Array)
 #1 E:\\laravel-project\\ecom-final\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Filesystem\\Filesystem.php(107): require('E:\\\\laravel-proj...')
 #2 E:\\laravel-project\\ecom-final\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Filesystem\\Filesystem.php(108): Illuminate\\Filesystem\\Filesystem::Illuminate\\Filesystem\\{closure}()
 #3 E:\\laravel-project\\ecom-final\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\View\\Engines\\PhpEngine.php(58): Illuminate\\Filesystem\\Filesystem->getRequire('E:\\\\laravel-proj...', Array)
@@ -4693,9 +4753,11 @@
 #45 E:\\laravel-project\\ecom-final\\backend\\server.php(21): require_once('E:\\\\laravel-proj...')
 #46 {main}
 "} 
-[2020-12-30 20:40:25] local.ERROR: Property [id] does not exist on this collection instance. (View: E:\laravel-project\ecom-final\backend\resources\views\admin\order\order.blade.php) {"userId":1,"exception":"[object] (Facade\\Ignition\\Exceptions\\ViewException(code: 0): Property [id] does not exist on this collection instance. (View: E:\\laravel-project\\ecom-final\\backend\esources\\views\\admin\\order\\order.blade.php) at E:\\laravel-project\\ecom-final\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Collections\\Traits\\EnumeratesValues.php:865)
+[2020-12-30 20:40:25] local.ERROR: Property [id] does not exist on this collection instance. (View: E:\laravel-project\ecom-final\backend\resources\views\admin\order\order.blade.php) {"userId":1,"exception":"[object] (Facade\\Ignition\\Exceptions\\ViewException(code: 0): Property [id] does not exist on this collection instance. (View: E:\\laravel-project\\ecom-final\\backend\
+esources\\views\\admin\\order\\order.blade.php) at E:\\laravel-project\\ecom-final\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Collections\\Traits\\EnumeratesValues.php:865)
 [stacktrace]
-#0 E:\\laravel-project\\ecom-final\\backend\esources\\views/admin/order/order.blade.php(204): Illuminate\\Support\\Collection->__get('id')
+#0 E:\\laravel-project\\ecom-final\\backend\
+esources\\views/admin/order/order.blade.php(204): Illuminate\\Support\\Collection->__get('id')
 #1 E:\\laravel-project\\ecom-final\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Filesystem\\Filesystem.php(107): require('E:\\\\laravel-proj...')
 #2 E:\\laravel-project\\ecom-final\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Filesystem\\Filesystem.php(108): Illuminate\\Filesystem\\Filesystem::Illuminate\\Filesystem\\{closure}()
 #3 E:\\laravel-project\\ecom-final\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\View\\Engines\\PhpEngine.php(58): Illuminate\\Filesystem\\Filesystem->getRequire('E:\\\\laravel-proj...', Array)
@@ -4809,13 +4871,15 @@
 #53 E:\\laravel-project\\ecom-final\\backend\\server.php(21): require_once('E:\\\\laravel-proj...')
 #54 {main}
 "} 
-[2020-12-30 20:42:29] local.ERROR: Missing required parameters for [Route: admin.ordersPrint] [URI: admin/ordersPrint/{id}]. (View: E:\laravel-project\ecom-final\backend\resources\views\admin\order\printOrder.blade.php) {"userId":1,"exception":"[object] (Facade\\Ignition\\Exceptions\\ViewException(code: 0): Missing required parameters for [Route: admin.ordersPrint] [URI: admin/ordersPrint/{id}]. (View: E:\\laravel-project\\ecom-final\\backend\esources\\views\\admin\\order\\printOrder.blade.php) at E:\\laravel-project\\ecom-final\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Exceptions\\UrlGenerationException.php:17)
+[2020-12-30 20:42:29] local.ERROR: Missing required parameters for [Route: admin.ordersPrint] [URI: admin/ordersPrint/{id}]. (View: E:\laravel-project\ecom-final\backend\resources\views\admin\order\printOrder.blade.php) {"userId":1,"exception":"[object] (Facade\\Ignition\\Exceptions\\ViewException(code: 0): Missing required parameters for [Route: admin.ordersPrint] [URI: admin/ordersPrint/{id}]. (View: E:\\laravel-project\\ecom-final\\backend\
+esources\\views\\admin\\order\\printOrder.blade.php) at E:\\laravel-project\\ecom-final\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Exceptions\\UrlGenerationException.php:17)
 [stacktrace]
 #0 E:\\laravel-project\\ecom-final\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\RouteUrlGenerator.php(91): Illuminate\\Routing\\Exceptions\\UrlGenerationException::forMissingParameters(Object(Illuminate\\Routing\\Route))
 #1 E:\\laravel-project\\ecom-final\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\UrlGenerator.php(451): Illuminate\\Routing\\RouteUrlGenerator->to(Object(Illuminate\\Routing\\Route), Array, true)
 #2 E:\\laravel-project\\ecom-final\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\UrlGenerator.php(426): Illuminate\\Routing\\UrlGenerator->toRoute(Object(Illuminate\\Routing\\Route), Array, true)
 #3 E:\\laravel-project\\ecom-final\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\helpers.php(704): Illuminate\\Routing\\UrlGenerator->route('admin.ordersPri...', Array, true)
-#4 E:\\laravel-project\\ecom-final\\backend\esources\\views/admin/order/printOrder.blade.php(108): route('admin.ordersPri...')
+#4 E:\\laravel-project\\ecom-final\\backend\
+esources\\views/admin/order/printOrder.blade.php(108): route('admin.ordersPri...')
 #5 E:\\laravel-project\\ecom-final\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Filesystem\\Filesystem.php(107): require('E:\\\\laravel-proj...')
 #6 E:\\laravel-project\\ecom-final\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Filesystem\\Filesystem.php(108): Illuminate\\Filesystem\\Filesystem::Illuminate\\Filesystem\\{closure}()
 #7 E:\\laravel-project\\ecom-final\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\View\\Engines\\PhpEngine.php(58): Illuminate\\Filesystem\\Filesystem->getRequire('E:\\\\laravel-proj...', Array)

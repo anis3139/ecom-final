@@ -26,7 +26,7 @@
                         <th class="th-sm">Delete</th>
                     </tr>
                 </thead>
-                <tbody id="product_table">
+                <tbody id="Product">
                 </tbody>
             </table>
 

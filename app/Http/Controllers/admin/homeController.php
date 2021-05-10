@@ -5,7 +5,7 @@ namespace App\Http\Controllers\admin;
 use App\Http\Controllers\Controller;
 use App\Models\ContactModel;
 use App\Models\Orders;
-use App\Models\product_table;
+use App\Models\Product;
 use App\Models\ProductsBrandModel;
 use App\Models\ProductsCategoryModel;
 use App\Models\VisitorTable;
@@ -21,7 +21,7 @@ class homeController extends Controller
         $data['TotalContact']= ContactModel::count();
         $data['TotalCategory']=ProductsCategoryModel::count();
         $data['TotalBrand']=ProductsBrandModel::count();
-        $data['TotalProduct']=product_table::count();
+        $data['TotalProduct']=Product::count();
         $data['TotalVisitor']=VisitorTable::count();
         $data['Orders']=Orders::count();
 

@@ -577,7 +577,7 @@ class ComposerStaticInit5b2cc261f4c821e8746e2275225cf5c7
         'App\\Models\\meserments' => __DIR__ . '/../..' . '/app/Models/meserments.php',
         'App\\Models\\product_color' => __DIR__ . '/../..' . '/app/Models/product_color.php',
         'App\\Models\\product_has_images' => __DIR__ . '/../..' . '/app/Models/product_has_images.php',
-        'App\\Models\\product_table' => __DIR__ . '/../..' . '/app/Models/product_table.php',
+        'App\\Models\\Product' => __DIR__ . '/../..' . '/app/Models/Product.php',
         'App\\Providers\\AppServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AppServiceProvider.php',
         'App\\Providers\\AuthServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AuthServiceProvider.php',
         'App\\Providers\\BroadcastServiceProvider' => __DIR__ . '/../..' . '/app/Providers/BroadcastServiceProvider.php',

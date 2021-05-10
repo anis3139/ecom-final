@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\meserments;
 use App\Models\product_color;
 use App\Models\product_has_images;
-use App\Models\product_table;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -33,7 +33,7 @@ class prductController extends Controller
     {
         $userid = Auth::guard('vendor')->user()->id;
 
-        $result = json_decode(product_table::with(['getCategory', 'getBrand', 'image', 'vendor'])->where('product_tables.product_owner_id', $userid)->orderBy('id', 'desc')->get());
+        $result = json_decode(Product::with(['getCategory', 'getBrand', 'image', 'vendor'])->where('products.product_owner_id', $userid)->orderBy('id', 'desc')->get());
 
         return $result;
     }
@@ -63,12 +63,12 @@ class prductController extends Controller
 
         $slug = Str::slug($product_title);
         $next = 2;
-        while (product_table::where('product_slug', '=', $slug)->first()) {
+        while (Product::where('product_slug', '=', $slug)->first()) {
             $slug = $slug . "-" . $next;
             $next++;
         }
 
-        $result = new product_table();
+        $result = new Product();
         $result->product_title = $product_title;
         $result->product_discription = $product_discription;
         $result->product_price = $product_price;
@@ -154,7 +154,7 @@ class prductController extends Controller
     public function edit(Request $req)
     {
         $id = $req->input('id');
-        $result = json_encode(product_table::with(['getCategory', 'getBrand', 'image', 'vendor', 'maserment', 'color'])->where('id', '=', $id)->get());
+        $result = json_encode(Product::with(['getCategory', 'getBrand', 'image', 'vendor', 'maserment', 'color'])->where('id', '=', $id)->get());
         return $result;
     }
 
@@ -241,7 +241,7 @@ class prductController extends Controller
             }
 
 
-            $result = product_table::where('id', '=', $product_id_edit)->first();
+            $result = Product::where('id', '=', $product_id_edit)->first();
             $result->product_title = $pdEditName;
             $result->product_discription = $pdEditDescription;
             $result->product_price = $pdEditPrice;
@@ -262,7 +262,7 @@ class prductController extends Controller
             }
         } else {
 
-            $result = product_table::where('id', '=', $product_id_edit)->first();
+            $result = Product::where('id', '=', $product_id_edit)->first();
             $result->product_title = $pdEditName;
             $result->product_discription = $pdEditDescription;
             $result->product_price = $pdEditPrice;
@@ -320,7 +320,7 @@ class prductController extends Controller
             $result4 = $delete_old_color_data->delete();
         }
 
-        $data = product_table::where('id', '=', $id)->first();
+        $data = Product::where('id', '=', $id)->first();
         $result = $data->delete();
         if ($result == true) {
             return 1;

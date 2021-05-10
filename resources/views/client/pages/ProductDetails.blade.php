@@ -378,7 +378,7 @@ if (count($arr) > 0) {
 
                     <h4>Related Products</h4>
                     @php
-                        $relProducts = App\Models\product_table::with('img')
+                        $relProducts = App\Models\Product::with('img')
                             ->where('product_category_id', $productDetails->product_category_id)
                             ->where('product_active', 1)
                             ->take(12)

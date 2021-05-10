@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\client;
 
 use App\Http\Controllers\Controller;
-use App\Models\product_table;
+use App\Models\Product;
 use App\Models\ReatingReview;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -13,7 +13,7 @@ class ReatingReviewController extends Controller
 {
     public function store(Request $request)
     {
-        $product = product_table::where('id', $request->product_id)->first();
+        $product = Product::where('id', $request->product_id)->first();
         $rete = new ReatingReview();
         $rete->product_id = $product->id;
         $rete->user_id = Auth::user()->id;

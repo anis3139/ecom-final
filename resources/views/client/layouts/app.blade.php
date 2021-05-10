@@ -47,8 +47,11 @@
                 display: none;
             }
         }
-
+        .favorite_posts{
+            color: red;
+        }
     </style>
+   
 
     <!-- Document Title
  ============================================= -->

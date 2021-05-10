@@ -324,7 +324,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/orderDetails/{id}', [App\Http\Controllers\client\cartController::class, 'orderDetails'])->name('client.orderDetails');
     //Rating
     Route::post('/reating', [\App\Http\Controllers\client\ReatingReviewController::class, 'store'])->name('clint.reatingReview');
-
+    Route::post('/favorite/{post}/add', [\App\Http\Controllers\client\FavouriteController::class, 'index'])->name('client.favorite');
 });
 
 

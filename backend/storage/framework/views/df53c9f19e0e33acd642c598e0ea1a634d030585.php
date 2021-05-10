@@ -55,7 +55,7 @@
                         $('#loadDivProducts').addClass('d-none');
 
                         $('#productDataTable').DataTable().destroy();
-                        $('#product_table').empty();
+                        $('#Product').empty();
                         var dataJSON = response.data;
 
                         var count = 1;
@@ -81,7 +81,7 @@
                                 "><i class='fas fa-edit'></i></a> </td>" +
                                 "<td><a class='productDeleteIcon' data-id=" + dataJSON[i].id +
                                 " ><i class='fas fa-trash-alt'></i></a> </td>"
-                            ).appendTo('#product_table');
+                            ).appendTo('#Product');
                         });
 
                         //Products click on delete icon

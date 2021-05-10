@@ -29,7 +29,7 @@ class ProductsCategoryModel extends Model
 
     public function products()
     {
-      return $this->hasMany(product_table::class);
+      return $this->hasMany(Product::class);
     }
 
     public static function ParentOrNotCategory($parent_id, $child_id)

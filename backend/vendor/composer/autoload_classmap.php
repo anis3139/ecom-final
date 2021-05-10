@@ -48,7 +48,7 @@ return array(
     'App\\Models\\meserments' => $baseDir . '/app/Models/meserments.php',
     'App\\Models\\product_color' => $baseDir . '/app/Models/product_color.php',
     'App\\Models\\product_has_images' => $baseDir . '/app/Models/product_has_images.php',
-    'App\\Models\\product_table' => $baseDir . '/app/Models/product_table.php',
+    'App\\Models\\Product' => $baseDir . '/app/Models/Product.php',
     'App\\Providers\\AppServiceProvider' => $baseDir . '/app/Providers/AppServiceProvider.php',
     'App\\Providers\\AuthServiceProvider' => $baseDir . '/app/Providers/AuthServiceProvider.php',
     'App\\Providers\\BroadcastServiceProvider' => $baseDir . '/app/Providers/BroadcastServiceProvider.php',

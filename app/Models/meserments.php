@@ -17,6 +17,6 @@ class meserments extends Model
     public  $timestamps = false;
 
     public function product() {
-        return $this->belongsTo(product_table::class,'product_id');
+        return $this->belongsTo(Product::class,'product_id');
     }
 }

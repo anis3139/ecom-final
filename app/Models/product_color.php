@@ -17,6 +17,6 @@ class product_color extends Model
     public  $timestamps = false;
 
     public function image() {
-        return $this->belongsTo(product_table::class,'product_color_product_id');
+        return $this->belongsTo(Product::class,'product_color_product_id');
     }
 }

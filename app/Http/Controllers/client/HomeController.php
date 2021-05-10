@@ -5,7 +5,7 @@ namespace App\Http\Controllers\client;
 use Illuminate\Contracts\Session\Session as SessionSession;
 use App\Http\Controllers\Controller;
 use App\Models\Orders;
-use App\Models\product_table;
+use App\Models\Product;
 use App\Models\ProductsCategoryModel;
 use App\Models\OrderProducts;
 use App\Models\ProductsBrandModel;
@@ -32,8 +32,8 @@ class HomeController extends Controller
 
   $allCategory=ProductsCategoryModel::orderBy('id', 'desc')->where('status', 1)->get();
 
-        $featureProducts=product_table::with(['img'])->where('feture_products', 1)->where('product_active', 1)->take(8)->get();
-        $latestProducts=product_table::with(['img'])->where('product_active', 1)->orderBy('id', 'desc')->take(8)->get();
+        $featureProducts=Product::with(['img'])->where('feture_products', 1)->where('product_active', 1)->take(8)->get();
+        $latestProducts=Product::with(['img'])->where('product_active', 1)->orderBy('id', 'desc')->take(8)->get();
 
         $promo_categories=ProductsCategoryModel::orderBy('id', 'asc')->where('is_homePage', 1)->where('status', 1)->limit(5)->get();
 
@@ -51,14 +51,14 @@ class HomeController extends Controller
         $key=$request->key;
 
         if($key != ""){
-            $searchProducts=product_table::with(['img'])->where('product_active', 1)->Where('product_title','LIKE',"%{$key}%")->orderBy('id', 'desc')->paginate(15);
+            $searchProducts=Product::with(['img'])->where('product_active', 1)->Where('product_title','LIKE',"%{$key}%")->orderBy('id', 'desc')->paginate(15);
 
             $popular_products= OrderProducts::with('product')
             ->select('product_id', DB::raw('COUNT(product_id) as maxSell'))
             ->groupBy('product_id')
             ->orderBy('maxSell', 'desc')
             ->take(4)->get();
-            $topRatedProducts= product_table::orderBy('product_price', 'desc')->where('product_active', 1)->limit(4)->get();
+            $topRatedProducts= Product::orderBy('product_price', 'desc')->where('product_active', 1)->limit(4)->get();
             if(count($searchProducts)>0){
                 return view('client.pages.search', compact('searchProducts','popular_products','topRatedProducts','key'));
             }

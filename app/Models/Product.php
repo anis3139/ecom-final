@@ -7,10 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
 
-class product_table extends Model
+class Product extends Model
 {
     use HasFactory, Notifiable, SoftDeletes;
-    public $table='product_tables';
+    public $table='products';
     const CREATED_AT = 'create_time';
     const UPDATED_AT = 'update_time';
     public $primaryKey = 'id';
@@ -71,7 +71,10 @@ class product_table extends Model
     }
 
 
-
+    public function favorite_to_users()
+    {
+        return $this->belongsToMany(User::class, 'product_user');
+    }
 
 
 }

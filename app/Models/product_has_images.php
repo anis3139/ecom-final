@@ -18,6 +18,6 @@ class product_has_images extends Model
 
 
     public function image() {
-        return $this->belongsTo(product_table::class,'has_images_product_id');
+        return $this->belongsTo(Product::class,'has_images_product_id');
     }
 }
