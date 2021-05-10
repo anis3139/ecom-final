@@ -383,7 +383,6 @@ Route::get('/storage', function() {
     return '<h1>Storage Link Created</h1>';
 });
 
-
 //Clear Config cache:
 Route::get('/seed-anis', function() {
     $exitCode = Artisan::call('db:seed');

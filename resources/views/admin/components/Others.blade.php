@@ -42,7 +42,7 @@
                                     </div>
                                 </td>
                                 <td>
-                                    <button id=" submitLogo" type="submit" class="btn btn-primary mb-2">Update</button>
+                                    <button id="submitLogo" type="submit" class="btn btn-primary mb-2">Update</button>
                             </td>
                         </tr>
                         <tr>
@@ -69,7 +69,7 @@
                                     </div>
                                 </td>
                                 <td>
-                                    <button id=" submitBanner" type="submit" class="btn btn-primary mb-2">Update</button>
+                                    <button id="submitBanner" type="submit" class="btn btn-primary mb-2">Update</button>
                             </td>
                         </tr>
                         <tr>
@@ -97,7 +97,7 @@
                                     </div>
                                 </td>
                                 <td>
-                                    <button id=" submitpromoImageOne" type="submit"
+                                    <button id="submitpromoImageOne" type="submit"
                                         class="btn btn-primary mb-2">Update</button>
                             </td>
                         </tr>
@@ -127,7 +127,7 @@
                                     </div>
                                 </td>
                                 <td>
-                                    <button id=" submitpromoImageTwo" type="submit"
+                                    <button id="submitpromoImageTwo" type="submit"
                                         class="btn btn-primary mb-2">Update</button>
                             </td>
                         </tr>
@@ -156,7 +156,7 @@
                                     </div>
                                 </td>
                                 <td>
-                                    <button id=" submitpromoImageThree" type="submit"
+                                    <button id="submitpromoImageThree" type="submit"
                                         class="btn btn-primary mb-2">Update</button>
                             </td>
                         </tr>
@@ -544,7 +544,7 @@
 
         $('#submitLogo').click(function() {
             var img = $('#addLogo').prop('files')[0];
-            addLogo(img);
+            addLogos(img);
         })
 
         $('#addLogo').change(function() {
@@ -557,12 +557,9 @@
         })
 
 
-        function addLogo(img) {
-
-
+        function addLogos(img) {
             $('#submitLogo').html(
                 "<div class='spinner-border spinner-border-sm text-primary' role='status'></div>"); //animation
-
             console.log(img);
             var formData = new FormData();
             formData.append('photo', img);
