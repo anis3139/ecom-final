@@ -99,7 +99,7 @@
                     <h5 id="OrdersViewId" class="mt-4 d-none"></h5>
                     <div class="container">
                         <div class="row">
-                            <div class="col-md-6 text-center">
+                            <div class="col-md-5 text-center">
                                 <h2>Order Details</h2>
                                 <table class="table table-bordered">
                                     <tr>
@@ -157,6 +157,10 @@
                                         <td id="total_delivery_charge"> </td>
                                     </tr>
                                     <tr>
+                                        <td style="max-width:200px !important;">Cupon Discount</td>
+                                        <td id="total_cupon_discount"> </td>
+                                    </tr>
+                                    <tr>
                                         <td style="max-width:200px !important;">Grand Total </td>
                                         <td id="paid_amount"> </td>
                                     </tr>
@@ -178,7 +182,7 @@
                                 </table>
 
                             </div>
-                            <div class="col-md-6 text-center">
+                            <div class="col-md-7 text-center">
                                 <h2>Ordered Product Details</h2>
                                 <table class="table table-bordered table-sm">
                                     <thead>
@@ -188,6 +192,8 @@
                                         <th>Product Color</th>
                                         <th>Product Maserment</th>
                                         <th>Product Quantity</th>
+                                        <th>Note 1</th>
+                                        <th>Note 2</th>
                                         <th>Product Unit Price</th>
                                     </thead>
                                     <tbody id="OrdersView">
@@ -196,17 +202,17 @@
                                     <tfoot>
 
                                         <tr>
-                                            <td colspan="6" style="max-width:200px !important;">Total Tax</td>
+                                            <td colspan="8" style="max-width:200px !important;">Total Tax</td>
                                             <td id="tax"> </td>
                                         </tr>
 
                                         <tr>
-                                            <td colspan="6" style="max-width:200px !important;">Delivery Charge</td>
+                                            <td colspan="8" style="max-width:200px !important;">Delivery Charge</td>
                                             <td id="delivary_charge"> </td>
                                         </tr>
 
                                         <tr>
-                                            <td colspan="6" class="total_price">Total Price</td>
+                                            <td colspan="8" class="total_price">Total Price</td>
                                             <td id="total_price" class="font-weight-bold"></td>
                                         </tr>
                                     </tfoot>
@@ -225,6 +231,7 @@
                                                     <option value="Pending">Pending</option>
                                                     <option value="Prograccing">Prograccing</option>
                                                     <option value="Complete">Complete</option>
+                                                    <option value="Cancel">Cancel</option>
                                                 </select>
                                             </div>
                                             <input type="hidden" id="payment_status_id">
@@ -351,6 +358,7 @@
                         $('#delivary_charge').html(dataJSON[0].total_delivery_charge);
                         $('#transection_id').html(dataJSON[0].transection_id);
                         $('#order_issued').html(dataJSON[0].created_at);
+                        $('#total_cupon_discount').html(dataJSON[0].total_cupon_discount);
 
 
                         $('#payment_status_id').val(dataJSON[0].id);
@@ -378,6 +386,8 @@
                                     imageViewHtml += '<td clsss="mx-auto" >N/A</td>';
                                 }
                             imageViewHtml += '<td clsss="mx-auto" >' + element.quantity + '</td>';
+                            imageViewHtml += '<td clsss="mx-auto" style="max-width:80px; overflow-wrap: break-word;" >' + element.note1 + '</td>';
+                            imageViewHtml += '<td clsss="mx-auto" style="max-width:80px; overflow-wrap: break-word;">' + element.note2 + '</td>';
                             imageViewHtml += '<td clsss="mx-auto" >&#2547;  ' + element.price + '</td>';
                             imageViewHtml += '</tr>';
                         }

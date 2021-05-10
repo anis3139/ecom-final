@@ -19,6 +19,8 @@ class OrderProducts extends Migration
 
             $table->string('color')->nullable();
             $table->string('maserment')->nullable();
+            $table->text('note1')->nullable();
+            $table->text('note2')->nullable();
 
             $table->decimal('price',10,2);
 

@@ -269,6 +269,16 @@ $OrderSettings = App\Models\OrderSettings::first();
                                                 </td>
                                             </tr>
                                             @if (!empty($total_cupon_discount))
+                                            <tr class="cart_item">
+                                                <td class="border-top-0 cart-product-name">
+                                                    <strong>Product Discount</strong>
+                                                </td>
+
+                                                <td class="border-top-0 cart-product-name">
+                                                    <span class="amount">&#2547;
+                                                        {{ number_format($total_discount, 2) }}</span>
+                                                </td>
+                                            </tr>
                                                 <tr class="cart_item">
                                                     <td class="border-top-0 cart-product-name">
                                                         <strong>Cupon Discount</strong>
@@ -279,6 +289,7 @@ $OrderSettings = App\Models\OrderSettings::first();
                                                             {{ number_format($total_cupon_discount, 2) }}</span>
                                                     </td>
                                                 </tr>
+            
                                                 <tr class="cart_item">
                                                     <td class="border-top-0 cart-product-name">
                                                         <strong>Total Discount</strong>
@@ -370,10 +381,10 @@ $OrderSettings = App\Models\OrderSettings::first();
                                                     <strong>Payable Amount</strong>
                                                 </td>
 
-                                                @if(!empty($total_cupon_discount))
-                                                <input id="taxAndTotal" type="hidden" value="{{ ($total + $total_tax)-$total_cupon_discount }}">
-                                                @else
+                                                @if(empty($total_cupon_discount))
                                                 <input id="taxAndTotal" type="hidden" value="{{ ($total + $total_tax) }}">
+                                                @else
+                                                <input id="taxAndTotal" type="hidden" value="{{($total + $total_tax)-$total_cupon_discount}}">
                                                 @endif
                                                 <input type="hidden" placeholder="Name*" value="" class="form-control"
                                                     name="total_main_price" id="total_main_price">
@@ -594,7 +605,7 @@ $OrderSettings = App\Models\OrderSettings::first();
         var totala = parseFloat(total).toFixed(2);
         $('#totalCharge').html("&#2547; " + totala);
         $('#total_main_price').val(totala);
-
+        console.log(totala);
         $('input[type=radio]').change(function() {
 
             var dValue = $('input[name=in_dhaka]:checked').val();
@@ -608,6 +619,7 @@ $OrderSettings = App\Models\OrderSettings::first();
             var totala = parseFloat(total).toFixed(2);
             $('#totalCharge').html("&#2547; " + totala);
             $('#total_main_price').val(totala);
+            console.log(totala);
         });
 
     </script>

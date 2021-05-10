@@ -171,7 +171,18 @@
                                 <span class="amount">{{ $orders->total_delivery_charge }}</span>
                             </td>
                         </tr>
-
+                        @if ( $orders->total_cupon_discount>0)
+                            
+                        
+                        <tr class="cart_item">
+                            <td class="cart-product-subtotal">
+                                <span class="amount">Cupon Discount:</span>
+                            </td>
+                            <td class="cart-product-subtotal">
+                                <span class="amount">{{ $orders->total_cupon_discount }}</span>
+                            </td>
+                        </tr>
+                        @endif
                         <tr class="cart_item">
                             <td class="cart-product-subtotal">
                                 <span class="amount">Grand Total:</span>
@@ -185,9 +196,17 @@
                             <td class="cart-product-subtotal">
                                 <span class="amount">Delivery Status:</span>
                             </td>
+                            @if ($orders->payment_status === "Cancel")
                             <td class="cart-product-subtotal">
-                                <span class="amount btn btn-success  px-3">{{ $orders->payment_status }}</span>
+                                <span class="amount btn btn-large btn-danger  px-3">{{ucfirst(trans($orders->payment_status))}}</span>
                             </td>
+                            @else
+ 
+                            <td class="cart-product-subtotal">
+                                <span class="amount btn-large btn btn-success  px-3">{{ucfirst(trans($orders->payment_status))}}</span>
+                            </td>
+                            @endif
+                          
                         </tr>
 
                         <tr class="cart_item">

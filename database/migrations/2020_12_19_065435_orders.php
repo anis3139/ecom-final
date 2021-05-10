@@ -29,6 +29,7 @@ class Orders extends Migration
             $table->decimal('total_tax', 8, 2);
             $table->integer('total_delivery_charge');
             $table->decimal('paid_amount',10,2);
+            $table->decimal('total_cupon_discount',10,2);
 
             $table->string('payment_status', 32)->default('pending');
             $table->string('payment_details', 32)->nullable();

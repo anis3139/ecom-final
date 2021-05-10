@@ -249,15 +249,17 @@ class cartController extends Controller
     public function order(Request $request)
     {
 
+           
         $cart = session()->has('cart') ? session()->get('cart') : [];
     
-        $total_cupon_discount=session()->has('total_cupon_discount') ? session()->get('total_cupon_discount') : [];
+        $total_cupon_discount=session()->has('total_cupon_discount') ? session()->get('total_cupon_discount') : 0;
         $total = array_sum(array_column($cart, 'total_price'));
 
         $total_tax = array_sum(array_column($cart, 'total_tax'));
 
         $total_discount = array_sum(array_column($cart, 'total_discount'));
         $total_main_price = array_sum(array_column($cart, 'total_main_price'));
+        
 
         $customer_name = $request->Input('customer_name');
         $customer_phone_number = $request->Input('customer_phone_number');
@@ -315,7 +317,7 @@ class cartController extends Controller
             $order->price_without_discount = $total_main_price;
             $order->discount_amount = $total_discount;
             $order->total_amount = $total;
-            $order->paid_amount = $total + $total_tax + $total_delivery_charge;
+            $order->paid_amount = ($total + $total_tax + $total_delivery_charge)-$total_cupon_discount;
             $order->payment_details = $payment_details;
             $order->transection_id = $transection_id;
             $order->total_cupon_discount = $total_cupon_discount;
@@ -350,7 +352,7 @@ class cartController extends Controller
             $order->price_without_discount = $total_main_price;
             $order->discount_amount = $total_discount;
             $order->total_amount = $total;
-            $order->paid_amount = $total + $total_tax + $total_delivery_charge;
+            $order->paid_amount = ($total + $total_tax + $total_delivery_charge)-$total_cupon_discount;
             $order->payment_details = $payment_details;
             $order->transection_id = $transection_id;
             $order->total_cupon_discount = $total_cupon_discount;
