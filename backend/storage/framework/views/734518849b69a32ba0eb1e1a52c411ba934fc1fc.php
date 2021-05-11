@@ -142,4 +142,4 @@
     </div>
 </div>
 
-<?php /**PATH E:\laravel-project\ecom-final\backend\resources\views/admin/components/specialFeature.blade.php ENDPATH**/ ?>
+<?php /**PATH E:\laravel-project\ecom-final\backend\resources\views/admin/components/SpecialFeature.blade.php ENDPATH**/ ?>

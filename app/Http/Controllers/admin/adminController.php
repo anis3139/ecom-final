@@ -6,10 +6,10 @@ use App\Models\adminModel;
 use Illuminate\Http\Request;
 class AdminController extends Controller
 {
-    public function adminIndex()
+    public function AdminIndex()
     {
 
-        return view('admin.components.adminIndex');
+        return view('admin.components.AdminIndex');
     }
 
 

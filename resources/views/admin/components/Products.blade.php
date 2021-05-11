@@ -31,7 +31,7 @@
 @endsection
 
 @section('content')
-    @include('admin.partials.productPartisal')
+    @include('admin.partials.ProductPartisal')
 
 @endsection
 

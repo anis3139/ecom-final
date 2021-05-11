@@ -194,4 +194,4 @@
         }
 
 
-</script><?php /**PATH E:\laravel-project\ecom-final\backend\resources\views/admin/order/printOrder.blade.php ENDPATH**/ ?>
+</script><?php /**PATH E:\laravel-project\ecom-final\backend\resources\views/admin/order/PrintOrder.blade.php ENDPATH**/ ?>

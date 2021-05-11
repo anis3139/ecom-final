@@ -526,4 +526,4 @@
         </div>
     </div>
 </div>
-<?php /**PATH E:\laravel-project\ecom-final\backend\resources\views/admin/partials/productPartisal.blade.php ENDPATH**/ ?>
+<?php /**PATH E:\laravel-project\ecom-final\backend\resources\views/admin/partials/ProductPartisal.blade.php ENDPATH**/ ?>

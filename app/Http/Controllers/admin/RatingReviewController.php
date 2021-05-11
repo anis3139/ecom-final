@@ -10,7 +10,7 @@ class RatingReviewController extends Controller
 {
     public function reviewIndex()
     {
-        return view('admin.components.reviewRating');
+        return view('admin.components.ReviewRating');
     }
 
     public function getReviewdata()

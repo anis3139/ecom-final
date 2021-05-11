@@ -75,4 +75,4 @@
 </script>
 <?php $__env->stopSection(); ?>
 
-<?php echo $__env->make('admin.Layouts.appLogin', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH E:\laravel-project\ecom-final\backend\resources\views/admin/adminLogin.blade.php ENDPATH**/ ?>
+<?php echo $__env->make('admin.Layouts.appLogin', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH E:\laravel-project\ecom-final\backend\resources\views/admin/AdminLogin.blade.php ENDPATH**/ ?>

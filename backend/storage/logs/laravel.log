@@ -2041,15 +2041,15 @@ esources\\views/admin/order/order.blade.php(205): route('admin.ordersPri...')
 #57 E:\\laravel-project\\ecom-final\\backend\\server.php(21): require_once('E:\\\\laravel-proj...')
 #58 {main}
 "} 
-[2020-12-30 19:46:24] local.ERROR: Missing required parameters for [Route: admin.ordersPrint] [URI: admin/ordersPrint/{id}]. (View: E:\laravel-project\ecom-final\backend\resources\views\admin\order\printOrder.blade.php) {"userId":1,"exception":"[object] (Facade\\Ignition\\Exceptions\\ViewException(code: 0): Missing required parameters for [Route: admin.ordersPrint] [URI: admin/ordersPrint/{id}]. (View: E:\\laravel-project\\ecom-final\\backend\
-esources\\views\\admin\\order\\printOrder.blade.php) at E:\\laravel-project\\ecom-final\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Exceptions\\UrlGenerationException.php:17)
+[2020-12-30 19:46:24] local.ERROR: Missing required parameters for [Route: admin.ordersPrint] [URI: admin/ordersPrint/{id}]. (View: E:\laravel-project\ecom-final\backend\resources\views\admin\order\PrintOrder.blade.php) {"userId":1,"exception":"[object] (Facade\\Ignition\\Exceptions\\ViewException(code: 0): Missing required parameters for [Route: admin.ordersPrint] [URI: admin/ordersPrint/{id}]. (View: E:\\laravel-project\\ecom-final\\backend\
+esources\\views\\admin\\order\\PrintOrder.blade.php) at E:\\laravel-project\\ecom-final\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Exceptions\\UrlGenerationException.php:17)
 [stacktrace]
 #0 E:\\laravel-project\\ecom-final\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\RouteUrlGenerator.php(91): Illuminate\\Routing\\Exceptions\\UrlGenerationException::forMissingParameters(Object(Illuminate\\Routing\\Route))
 #1 E:\\laravel-project\\ecom-final\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\UrlGenerator.php(451): Illuminate\\Routing\\RouteUrlGenerator->to(Object(Illuminate\\Routing\\Route), Array, true)
 #2 E:\\laravel-project\\ecom-final\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\UrlGenerator.php(426): Illuminate\\Routing\\UrlGenerator->toRoute(Object(Illuminate\\Routing\\Route), Array, true)
 #3 E:\\laravel-project\\ecom-final\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\helpers.php(704): Illuminate\\Routing\\UrlGenerator->route('admin.ordersPri...', Array, true)
 #4 E:\\laravel-project\\ecom-final\\backend\
-esources\\views/admin/order/printOrder.blade.php(108): route('admin.ordersPri...')
+esources\\views/admin/order/PrintOrder.blade.php(108): route('admin.ordersPri...')
 #5 E:\\laravel-project\\ecom-final\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Filesystem\\Filesystem.php(107): require('E:\\\\laravel-proj...')
 #6 E:\\laravel-project\\ecom-final\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Filesystem\\Filesystem.php(108): Illuminate\\Filesystem\\Filesystem::Illuminate\\Filesystem\\{closure}()
 #7 E:\\laravel-project\\ecom-final\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\View\\Engines\\PhpEngine.php(58): Illuminate\\Filesystem\\Filesystem->getRequire('E:\\\\laravel-proj...', Array)
@@ -2173,15 +2173,15 @@ esources\\views/admin/order/printOrder.blade.php(108): route('admin.ordersPri...
 #60 E:\\laravel-project\\ecom-final\\backend\\server.php(21): require_once('E:\\\\laravel-proj...')
 #61 {main}
 "} 
-[2020-12-30 19:48:25] local.ERROR: Missing required parameters for [Route: admin.ordersPrint] [URI: admin/ordersPrint/{id}]. (View: E:\laravel-project\ecom-final\backend\resources\views\admin\order\printOrder.blade.php) {"userId":1,"exception":"[object] (Facade\\Ignition\\Exceptions\\ViewException(code: 0): Missing required parameters for [Route: admin.ordersPrint] [URI: admin/ordersPrint/{id}]. (View: E:\\laravel-project\\ecom-final\\backend\
-esources\\views\\admin\\order\\printOrder.blade.php) at E:\\laravel-project\\ecom-final\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Exceptions\\UrlGenerationException.php:17)
+[2020-12-30 19:48:25] local.ERROR: Missing required parameters for [Route: admin.ordersPrint] [URI: admin/ordersPrint/{id}]. (View: E:\laravel-project\ecom-final\backend\resources\views\admin\order\PrintOrder.blade.php) {"userId":1,"exception":"[object] (Facade\\Ignition\\Exceptions\\ViewException(code: 0): Missing required parameters for [Route: admin.ordersPrint] [URI: admin/ordersPrint/{id}]. (View: E:\\laravel-project\\ecom-final\\backend\
+esources\\views\\admin\\order\\PrintOrder.blade.php) at E:\\laravel-project\\ecom-final\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Exceptions\\UrlGenerationException.php:17)
 [stacktrace]
 #0 E:\\laravel-project\\ecom-final\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\RouteUrlGenerator.php(91): Illuminate\\Routing\\Exceptions\\UrlGenerationException::forMissingParameters(Object(Illuminate\\Routing\\Route))
 #1 E:\\laravel-project\\ecom-final\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\UrlGenerator.php(451): Illuminate\\Routing\\RouteUrlGenerator->to(Object(Illuminate\\Routing\\Route), Array, true)
 #2 E:\\laravel-project\\ecom-final\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\UrlGenerator.php(426): Illuminate\\Routing\\UrlGenerator->toRoute(Object(Illuminate\\Routing\\Route), Array, true)
 #3 E:\\laravel-project\\ecom-final\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\helpers.php(704): Illuminate\\Routing\\UrlGenerator->route('admin.ordersPri...', Array, true)
 #4 E:\\laravel-project\\ecom-final\\backend\
-esources\\views/admin/order/printOrder.blade.php(108): route('admin.ordersPri...')
+esources\\views/admin/order/PrintOrder.blade.php(108): route('admin.ordersPri...')
 #5 E:\\laravel-project\\ecom-final\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Filesystem\\Filesystem.php(107): require('E:\\\\laravel-proj...')
 #6 E:\\laravel-project\\ecom-final\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Filesystem\\Filesystem.php(108): Illuminate\\Filesystem\\Filesystem::Illuminate\\Filesystem\\{closure}()
 #7 E:\\laravel-project\\ecom-final\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\View\\Engines\\PhpEngine.php(58): Illuminate\\Filesystem\\Filesystem->getRequire('E:\\\\laravel-proj...', Array)
@@ -2305,15 +2305,15 @@ esources\\views/admin/order/printOrder.blade.php(108): route('admin.ordersPri...
 #60 E:\\laravel-project\\ecom-final\\backend\\server.php(21): require_once('E:\\\\laravel-proj...')
 #61 {main}
 "} 
-[2020-12-30 19:48:32] local.ERROR: Missing required parameters for [Route: admin.ordersPrint] [URI: admin/ordersPrint/{id}]. (View: E:\laravel-project\ecom-final\backend\resources\views\admin\order\printOrder.blade.php) {"userId":1,"exception":"[object] (Facade\\Ignition\\Exceptions\\ViewException(code: 0): Missing required parameters for [Route: admin.ordersPrint] [URI: admin/ordersPrint/{id}]. (View: E:\\laravel-project\\ecom-final\\backend\
-esources\\views\\admin\\order\\printOrder.blade.php) at E:\\laravel-project\\ecom-final\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Exceptions\\UrlGenerationException.php:17)
+[2020-12-30 19:48:32] local.ERROR: Missing required parameters for [Route: admin.ordersPrint] [URI: admin/ordersPrint/{id}]. (View: E:\laravel-project\ecom-final\backend\resources\views\admin\order\PrintOrder.blade.php) {"userId":1,"exception":"[object] (Facade\\Ignition\\Exceptions\\ViewException(code: 0): Missing required parameters for [Route: admin.ordersPrint] [URI: admin/ordersPrint/{id}]. (View: E:\\laravel-project\\ecom-final\\backend\
+esources\\views\\admin\\order\\PrintOrder.blade.php) at E:\\laravel-project\\ecom-final\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Exceptions\\UrlGenerationException.php:17)
 [stacktrace]
 #0 E:\\laravel-project\\ecom-final\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\RouteUrlGenerator.php(91): Illuminate\\Routing\\Exceptions\\UrlGenerationException::forMissingParameters(Object(Illuminate\\Routing\\Route))
 #1 E:\\laravel-project\\ecom-final\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\UrlGenerator.php(451): Illuminate\\Routing\\RouteUrlGenerator->to(Object(Illuminate\\Routing\\Route), Array, true)
 #2 E:\\laravel-project\\ecom-final\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\UrlGenerator.php(426): Illuminate\\Routing\\UrlGenerator->toRoute(Object(Illuminate\\Routing\\Route), Array, true)
 #3 E:\\laravel-project\\ecom-final\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\helpers.php(704): Illuminate\\Routing\\UrlGenerator->route('admin.ordersPri...', Array, true)
 #4 E:\\laravel-project\\ecom-final\\backend\
-esources\\views/admin/order/printOrder.blade.php(108): route('admin.ordersPri...')
+esources\\views/admin/order/PrintOrder.blade.php(108): route('admin.ordersPri...')
 #5 E:\\laravel-project\\ecom-final\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Filesystem\\Filesystem.php(107): require('E:\\\\laravel-proj...')
 #6 E:\\laravel-project\\ecom-final\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Filesystem\\Filesystem.php(108): Illuminate\\Filesystem\\Filesystem::Illuminate\\Filesystem\\{closure}()
 #7 E:\\laravel-project\\ecom-final\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\View\\Engines\\PhpEngine.php(58): Illuminate\\Filesystem\\Filesystem->getRequire('E:\\\\laravel-proj...', Array)
@@ -4871,15 +4871,15 @@ esources\\views/admin/order/order.blade.php(204): Illuminate\\Support\\Collectio
 #53 E:\\laravel-project\\ecom-final\\backend\\server.php(21): require_once('E:\\\\laravel-proj...')
 #54 {main}
 "} 
-[2020-12-30 20:42:29] local.ERROR: Missing required parameters for [Route: admin.ordersPrint] [URI: admin/ordersPrint/{id}]. (View: E:\laravel-project\ecom-final\backend\resources\views\admin\order\printOrder.blade.php) {"userId":1,"exception":"[object] (Facade\\Ignition\\Exceptions\\ViewException(code: 0): Missing required parameters for [Route: admin.ordersPrint] [URI: admin/ordersPrint/{id}]. (View: E:\\laravel-project\\ecom-final\\backend\
-esources\\views\\admin\\order\\printOrder.blade.php) at E:\\laravel-project\\ecom-final\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Exceptions\\UrlGenerationException.php:17)
+[2020-12-30 20:42:29] local.ERROR: Missing required parameters for [Route: admin.ordersPrint] [URI: admin/ordersPrint/{id}]. (View: E:\laravel-project\ecom-final\backend\resources\views\admin\order\PrintOrder.blade.php) {"userId":1,"exception":"[object] (Facade\\Ignition\\Exceptions\\ViewException(code: 0): Missing required parameters for [Route: admin.ordersPrint] [URI: admin/ordersPrint/{id}]. (View: E:\\laravel-project\\ecom-final\\backend\
+esources\\views\\admin\\order\\PrintOrder.blade.php) at E:\\laravel-project\\ecom-final\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Exceptions\\UrlGenerationException.php:17)
 [stacktrace]
 #0 E:\\laravel-project\\ecom-final\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\RouteUrlGenerator.php(91): Illuminate\\Routing\\Exceptions\\UrlGenerationException::forMissingParameters(Object(Illuminate\\Routing\\Route))
 #1 E:\\laravel-project\\ecom-final\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\UrlGenerator.php(451): Illuminate\\Routing\\RouteUrlGenerator->to(Object(Illuminate\\Routing\\Route), Array, true)
 #2 E:\\laravel-project\\ecom-final\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\UrlGenerator.php(426): Illuminate\\Routing\\UrlGenerator->toRoute(Object(Illuminate\\Routing\\Route), Array, true)
 #3 E:\\laravel-project\\ecom-final\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\helpers.php(704): Illuminate\\Routing\\UrlGenerator->route('admin.ordersPri...', Array, true)
 #4 E:\\laravel-project\\ecom-final\\backend\
-esources\\views/admin/order/printOrder.blade.php(108): route('admin.ordersPri...')
+esources\\views/admin/order/PrintOrder.blade.php(108): route('admin.ordersPri...')
 #5 E:\\laravel-project\\ecom-final\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Filesystem\\Filesystem.php(107): require('E:\\\\laravel-proj...')
 #6 E:\\laravel-project\\ecom-final\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Filesystem\\Filesystem.php(108): Illuminate\\Filesystem\\Filesystem::Illuminate\\Filesystem\\{closure}()
 #7 E:\\laravel-project\\ecom-final\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\View\\Engines\\PhpEngine.php(58): Illuminate\\Filesystem\\Filesystem->getRequire('E:\\\\laravel-proj...', Array)

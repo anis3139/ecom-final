@@ -160,4 +160,4 @@
 </div>
 
 
-<?php /**PATH E:\laravel-project\ecom-final\backend\resources\views/admin/components/aboutSection.blade.php ENDPATH**/ ?>
+<?php /**PATH E:\laravel-project\ecom-final\backend\resources\views/admin/components/AboutSection.blade.php ENDPATH**/ ?>

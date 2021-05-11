@@ -12,7 +12,7 @@ class LoginController extends Controller
     
     
     function loginIndex(){
-    	return view('admin.adminLogin');
+    	return view('admin.AdminLogin');
     }
 
     function onLogin(Request $request){

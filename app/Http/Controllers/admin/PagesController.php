@@ -10,7 +10,7 @@ class PagesController extends Controller
 {
     public function PageIndex()
     {
-       return view('admin.components.pages');
+       return view('admin.components.Pages');
     }
 
     public function PagesData()

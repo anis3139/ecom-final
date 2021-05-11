@@ -12,7 +12,7 @@ class OrderController extends Controller
 {
    public function ordeIndex()
    {
-      return view('vendor.order.order');
+      return view('vendor.order.Order');
    }
 
 
@@ -59,7 +59,7 @@ class OrderController extends Controller
     {
         $orders = Orders::with(['orderProducts', 'orderProducts.product'])->findOrFail($id);
 
-        $pdf = PDF::loadView('vendor.order.printOrder', compact('orders') );
+        $pdf = PDF::loadView('vendor.order.PrintOrder', compact('orders') );
         return $pdf->download('invoice(' . $orders->id.').pdf');
         return $pdf->stream('invoice' . $orders->id.'.pdf');
     }

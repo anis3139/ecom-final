@@ -25,6 +25,6 @@ class HomeController extends Controller
         $data['TotalVisitor']=VisitorTable::count();
         $data['Orders']=Orders::count();
 
-        return view('admin.home',  $data);
+        return view('admin.Home',  $data);
     }
 }

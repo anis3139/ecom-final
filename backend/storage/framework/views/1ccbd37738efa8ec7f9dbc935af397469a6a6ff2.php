@@ -402,4 +402,4 @@ if (google.length == 0) {
 </script>
 <?php $__env->stopSection(); ?>
 
-<?php echo $__env->make('admin.Layouts.app', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH E:\laravel-project\ecom-final\backend\resources\views/admin/components/socialLink.blade.php ENDPATH**/ ?>
+<?php echo $__env->make('admin.Layouts.app', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH E:\laravel-project\ecom-final\backend\resources\views/admin/components/SocialLink.blade.php ENDPATH**/ ?>

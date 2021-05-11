@@ -4,10 +4,10 @@
 @section('content')
 
 
-@include('admin.components.aboutSection')
-@include('admin.components.specialFeature')
-@include('admin.components.exclusiveFeature')
-@include('admin.components.testimonial')
+@include('admin.components.AboutSection')
+@include('admin.components.SpecialFeature')
+@include('admin.components.ExclusiveFeature')
+@include('admin.components.Testimonial')
 
 
 

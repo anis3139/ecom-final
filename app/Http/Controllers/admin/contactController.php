@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 class ContactController extends Controller
 {
     public function MessageIndex(){
-        return view("admin.components.contact");
+        return view("admin.components.Contact");
     }
 
     public function getContactData()

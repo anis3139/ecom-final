@@ -13,7 +13,7 @@ class SocialController extends Controller
         $results = json_decode(SocialModel::orderBy('id', 'desc')->get()->first());
 
 
-        return view('admin.components.socialLink', [
+        return view('admin.components.SocialLink', [
             'results'=>$results
         ]);
     }

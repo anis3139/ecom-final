@@ -191,4 +191,4 @@ aria-labelledby="exampleModalLabel" aria-hidden="true">
 
 
 
-<?php /**PATH E:\laravel-project\ecom-final\backend\resources\views/admin/components/exclusiveFeature.blade.php ENDPATH**/ ?>
+<?php /**PATH E:\laravel-project\ecom-final\backend\resources\views/admin/components/ExclusiveFeature.blade.php ENDPATH**/ ?>

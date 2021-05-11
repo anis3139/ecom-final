@@ -61,7 +61,7 @@ class OrderController extends Controller
     $slug=Str::slug($orders->customer_name);
     $invoice='invoice-('.$orders->id.")-".$slug.'.pdf';
      
-        $pdf = PDF::loadView('admin.order.printOrder', compact('orders') );
+        $pdf = PDF::loadView('admin.order.PrintOrder', compact('orders') );
         return $pdf->download($invoice);
         return $pdf->stream($invoice);
     }

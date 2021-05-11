@@ -32,7 +32,7 @@ Route::group(['prefix' => 'admin'], function () {
 
         // Admin Route
         Route::get('/home', [App\Http\Controllers\admin\HomeController::class, 'adminHome'])->name('admin.adminHome');
-        Route::get('/adminPannel', [App\Http\Controllers\admin\AdminController::class, 'adminIndex'])->name('admin.adminPannel');
+        Route::get('/adminPannel', [App\Http\Controllers\admin\AdminController::class, 'AdminIndex'])->name('admin.adminPannel');
         Route::get('/getAdminData', [App\Http\Controllers\admin\AdminController::class, 'adminData'])->name('admin.getAdminData');
         Route::post('/adminAdd', [App\Http\Controllers\admin\AdminController::class, 'adminAdd'])->name('admin.adminAdd');
         Route::post('/adminDelete', [App\Http\Controllers\admin\AdminController::class, 'adminDelete'])->name('admin.adminDelete');
