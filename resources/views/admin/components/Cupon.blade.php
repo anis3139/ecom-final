@@ -61,7 +61,7 @@
                             <div class="row">
 
                                 <input id="cupon_code" type="text" class="form-control mb-3" placeholder="Cupon Code">
-                                <input id="discount" type="number" class="form-control mb-3" placeholder="Discount">
+                                <input id="discount" type="number" class="form-control mb-3" placeholder="Discount"  min="0"  onkeyup="calculate();" onchange="calculate();" onkeydown="javascript: return event.keyCode === 8 || event.keyCode === 46 ? true : !isNaN(Number(event.key))">
                                 <select name="type" id="type" class="form-control mb-3">
                                     <option selected value="1">Percentage</option>
                                     <option value="0">Fixed</option>
@@ -135,7 +135,7 @@
                                         placeholder="Title">
 
                                     <input id="CuponDesIdUpdate" type="number" class="form-control mb-3"
-                                        placeholder="Title">
+                                        placeholder="Title"  min="0"  onkeyup="calculate();" onchange="calculate();" onkeydown="javascript: return event.keyCode === 8 || event.keyCode === 46 ? true : !isNaN(Number(event.key))">
                                         
                                         <select name="type" id="typeCupon" class="form-control mb-3">
                                             <option  value="1">Percentage</option>
