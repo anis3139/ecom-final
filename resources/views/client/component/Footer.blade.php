@@ -1,7 +1,4 @@
-@php
-$others = App\Models\OthersModel::first();
-$socialData = App\Models\SocialModel::first();
-@endphp
+
 <footer id="footer" class=" border-0" style="background-color: #cfcece; color:#000;">
 
     <div class="container clearfix">

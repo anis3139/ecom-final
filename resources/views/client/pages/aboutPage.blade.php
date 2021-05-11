@@ -8,8 +8,7 @@
 @endsection
 @section('content')
     @php
-    $others = App\Models\OthersModel::first();
-    $socialData = App\Models\SocialModel::first();
+    
     $HomeAboutSectionData = json_decode(
         App\Models\HomeAboutSecTionModel::orderBy('id', 'desc')
             ->get()

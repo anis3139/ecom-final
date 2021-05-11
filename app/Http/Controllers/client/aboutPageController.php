@@ -15,7 +15,7 @@ class AboutPageController extends Controller
         
         $data['categories']=ProductsCategoryModel::orderBy('id', 'desc')->where('status', 1)->limit(5)->get();
         
-        return view('client.pages.aboutPage',  $data);
+        return view('client.pages.AboutPage',  $data);
     }
 
 }

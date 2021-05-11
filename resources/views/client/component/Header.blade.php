@@ -1,7 +1,3 @@
-@php
-$others = App\Models\OthersModel::first();
-
-@endphp
 
 
 <header id="header" class="full-header header-size-md">

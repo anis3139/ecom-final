@@ -1,7 +1,3 @@
-@php
-		$others = App\Models\OthersModel::first();
-		$socialData=App\Models\SocialModel::first();
-@endphp
 <div id="top-bar" class="dark" style="background-color: #a3a5a7;">
 			<div class="container">
 

@@ -5,10 +5,10 @@
     <section id="page-title">
 
         <div class="container clearfix">
-            <h1>Shop</h1>
+            <h1>Your Favourite Item</h1>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{ route('client.home') }}">Home</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Shop</li>
+                <li class="breadcrumb-item active" aria-current="page"><a href="{{ route('client.shop') }}">Shop</a></li>
             </ol>
         </div>
 

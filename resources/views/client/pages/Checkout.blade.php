@@ -1,7 +1,6 @@
 @extends('client.layouts.app')
 @php
 $OrderSettings = App\Models\OrderSettings::first();
-
 @endphp
 @section('css')
     <style>

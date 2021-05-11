@@ -12,7 +12,7 @@ class OrderController extends Controller
 {
    public function ordeIndex()
    {
-      return view('admin.order.order');
+      return view('admin.order.Order');
    }
 
 
