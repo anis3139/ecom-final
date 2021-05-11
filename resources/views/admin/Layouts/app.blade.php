@@ -50,7 +50,7 @@
     <script type="text/javascript" src="{{ asset('admin/js/axios.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('admin/js/bootstrap-colorpicker.js') }}"></script>
     <script type="text/javascript" src="{{ asset('admin/js/custom.js') }}"></script>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js" integrity="sha512-qTXRIMyZIFb8iQcfjXWCO8+M5Tbc38Qi5WzdPOYZHIlZpzBHG3L3by84BBBOiRGiEb7KKtAOAs5qYdUiZiQNNQ==" crossorigin="anonymous"></script>
 
     @yield('script')
 

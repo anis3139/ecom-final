@@ -142,6 +142,11 @@ Route::group(['prefix' => 'admin'], function () {
         Route::post('/addNagadNumber', [App\Http\Controllers\admin\order\OrderSettingsController::class,'addNagadNumber'])->name('admin.addNagadNumber');
         Route::post('/addDelivaryInCity', [App\Http\Controllers\admin\order\OrderSettingsController::class,'addDelivaryInCity'])->name('admin.addDelivaryInCity');
         Route::post('/addDelivaryOutCity', [App\Http\Controllers\admin\order\OrderSettingsController::class,'addDelivaryOutCity'])->name('admin.addDelivaryOutCity');
+        Route::post('/CuponAdd', [App\Http\Controllers\admin\order\OrderSettingsController::class,'CuponAdd'])->name('admin.CuponAdd');
+        Route::post('/CuponEdit', [App\Http\Controllers\admin\order\OrderSettingsController::class,'CuponEdit'])->name('admin.CuponEdit');
+        Route::post('/CuponUpdate', [App\Http\Controllers\admin\order\OrderSettingsController::class,'CuponUpdate'])->name('admin.CuponUpdate');
+        Route::post('/CuponDelete', [App\Http\Controllers\admin\order\OrderSettingsController::class,'CuponDelete'])->name('admin.CuponDelete');
+        Route::get('/getCuponData', [App\Http\Controllers\admin\order\OrderSettingsController::class,'getCuponData'])->name('admin.getCuponData');
 
 
 

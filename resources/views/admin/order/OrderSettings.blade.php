@@ -30,8 +30,8 @@
                                 <div class="form-group mx-sm-3 mb-2">
                                     <label for="facebook" class="sr-only">bkash_number</label>
                                     <input id="bkash_number" required type="number" class="form-control " value="<?php if ($results) {
-                                        echo $results->bkash_number;
-                                    } ?>">
+                                            echo $results->bkash_number;
+                                        } ?>">
 
                                 </div>
                             </td>
@@ -51,8 +51,8 @@
                                 <div class="form-group mx-sm-3 mb-2">
                                     <label for="facebook" class="sr-only">rocket_number</label>
                                     <input id="rocket_number" required type="number" class="form-control " value="<?php if ($results) {
-                                        echo $results->rocket_number;
-                                    } ?>">
+                                            echo $results->rocket_number;
+                                        } ?>">
 
                                 </div>
                             </td>
@@ -120,7 +120,8 @@
                                 </div>
                             </td>
                             <td>
-                                <button id="submitDeliveryOutCity" type="submit" class="btn btn-primary mb-2">Update</button>
+                                <button id="submitDeliveryOutCity" type="submit"
+                                    class="btn btn-primary mb-2">Update</button>
                             </td>
                         </tr>
 
@@ -145,10 +146,23 @@
             </div>
         </div>
     </div>
+
+
+
+    @include('admin.components.Cupon')
+
+
+
+
+
+
+
 @endsection
 
 
 @section('script')
+    
+
     <script>
         // bkash_number Add
 
@@ -194,10 +208,10 @@
 
 
 
- // rocket_number Add
+        // rocket_number Add
 
 
- $('#submitRocketNumber').click(function() {
+        $('#submitRocketNumber').click(function() {
             var rocket_number = $('#rocket_number').val();
             addRocketNumber(rocket_number);
         })
@@ -236,10 +250,10 @@
 
 
 
- // nagad_number Add
+        // nagad_number Add
 
 
- $('#submitNagadNumber').click(function() {
+        $('#submitNagadNumber').click(function() {
             var nagad_number = $('#nagad_number').val();
             addNagadNumber(nagad_number);
         })
@@ -277,10 +291,10 @@
 
 
 
- // delivary_in_city Add
+        // delivary_in_city Add
 
 
- $('#submitDeliveryInCity').click(function() {
+        $('#submitDeliveryInCity').click(function() {
             var delivary_in_city = $('#delivary_in_city').val();
             addDeliveryInCity(delivary_in_city);
         })
@@ -318,10 +332,10 @@
 
 
 
- // delivary_out_city Add
+        // delivary_out_city Add
 
 
- $('#submitDeliveryOutCity').click(function() {
+        $('#submitDeliveryOutCity').click(function() {
             var delivary_out_city = $('#delivary_out_city').val();
             addDeliveryOutCity(delivary_out_city);
         })
@@ -361,6 +375,396 @@
 
 
 
+
+
+
+
+
+
+
+
+        getCuponData();
+        // for Testimonial table
+
+        function getCuponData() {
+
+
+            axios.get("{{ route('admin.getCuponData') }}")
+                .then(function(response) {
+                    console.log(response.data);
+
+                    if (response.status = 200) {
+                        $('#mainDivCupon').removeClass('d-none');
+                        $('#loadDivCupon').addClass('d-none');
+
+                        $('#CuponDataTable').DataTable().destroy();
+                        $('#Cupon_table').empty();
+                        var count = 1;
+                        var dataJSON = response.data;
+
+                        $.each(dataJSON, function(i, item) {
+
+                            let status = '';
+                            if (dataJSON[i].status == 1) {
+                                status = "Active"
+                            } else {
+                                status = "Inactive"
+                            }
+
+                            let type = '';
+                            if (dataJSON[i].type == 1) {
+                                type = "Percentage"
+                            } else {
+                                type = "Fixed"
+                            }
+                            let expiry_date=moment(dataJSON[i].exp_date).format('Do-MMM-YYYY')
+
+                            $('<tr>').html(
+                                "<td>" + count++ + " </td>" +
+
+                                "<td class='text-break'>" + dataJSON[i].cupon_code + " </td>" +
+
+                                "<td class='text-break'>" + dataJSON[i].discount + " </td>" +
+                                "<td class='text-break'>" + type + " </td>" +
+                                "<td class='text-break'>" + status + " </td>" +
+                                "<td class='text-break'>" + expiry_date + " </td>" +
+
+                                "<td><a class='CuponEditIcon' data-id=" + dataJSON[i].id +
+                                "><i class='fas fa-edit'></i></a> </td>" +
+
+                                "<td><a class='CuponDeleteIcon' data-id=" + dataJSON[i].id +
+                                " ><i class='fas fa-trash-alt'></i></a> </td>"
+                            ).appendTo('#Cupon_table');
+                        });
+
+
+                        //Cupon click on delete icon
+
+                        $(".CuponDeleteIcon").click(function() {
+
+                            var id = $(this).data('id');
+                            $('#CuponDeleteId').html(id);
+                            $('#deleteModalCupon').modal('show');
+
+                        })
+
+
+
+                        //Project edit icon click
+
+                        $(".CuponEditIcon").click(function() {
+
+                            var id = $(this).data('id');
+                            $('#CuponEditId').html(id);
+
+                            $('#updateCuponModal').modal('show');
+                            CuponUpdateDetails(id);
+
+                        })
+
+
+
+                    } else {
+                        $('#wrongDivCupon').removeClass('d-none');
+                        $('#loadDivCupon').addClass('d-none');
+
+                    }
+                }).catch(function(error) {
+
+                    $('#wrongDivCupon').removeClass('d-none');
+                    $('#loadDivCupon').addClass('d-none');
+                });
+        }
+
+
+
+
+
+
+
+        //add button modal show for add new entity
+
+        $('#addbtnCupon').click(function() {
+            $('#addCuponModal').modal('show');
+        });
+
+        $(document).ready(function() {
+            $('#status').material_select();
+        });
+
+        $(document).ready(function() {
+            $('#type').material_select();
+        });
+
+
+
+
+
+
+
+        //Cupon Add modal save button
+
+        $('#CuponAddConfirmBtn').click(function() {
+            var cupon_code = $('#cupon_code').val();
+            var discount = $('#discount').val();
+            var type = $('#type').val();
+            var status = $('#status').val();
+            var exp_date = $('#exp_date').val();
+            CuponAdd(cupon_code, discount, type, status, exp_date);
+
+        })
+
+        function CuponAdd(cupon_code, discount, type, status, exp_date) {
+
+            if (cupon_code.length == 0) {
+
+                toastr.error('Cupon Code is empty!');
+
+            } else if (discount.length == 0) {
+
+                toastr.error('Discount is empty!');
+            } else if (exp_date.length == 0) {
+
+                toastr.error('Expiry Date is empty!');
+            } else {
+
+                $('#CuponAddConfirmBtn').html(
+                    "<div class='spinner-border spinner-border-sm text-primary' role='status'></div>"); //animation
+
+                axios.post("{{ route('admin.CuponAdd') }}", {
+                        cupon_code: cupon_code,
+                        discount: discount,
+                        type: type,
+                        status: status,
+                        exp_date: exp_date,
+                    })
+
+                    .then(function(response) {
+
+                        $('#CuponAddConfirmBtn').html("Save");
+
+                        if (response.status = 200) {
+                            if (response.data == 1) {
+                                $('#addCuponModal').modal('hide');
+                                toastr.success('Add New Success .');
+                                getCuponData();
+                            } else {
+                                $('#addCuponModal').modal('hide');
+                                toastr.error('Add New Failed');
+                                getCuponData();
+                            }
+                        } else {
+                            $('#addCuponModal').modal('hide');
+                            toastr.error('Something Went Wrong');
+                        }
+
+
+                    }).catch(function(error) {
+
+                        $('#addCuponModal').modal('hide');
+                        toastr.error('Something Went Wrong');
+
+                    });
+
+            }
+
+        }
+
+
+
+
+
+        //  Special Feature delete modal yes button
+
+        $('#confirmDeleteCupon').click(function() {
+            var id = $('#CuponDeleteId').html();
+            // var id = $(this).data('id');
+            DeleteDataCupon(id);
+
+        })
+
+
+        //delete FeaturedS pecials Extra Servicess function
+
+        function DeleteDataCupon(id) {
+            $('#confirmDeleteCupon').html(
+                "<div class='spinner-border spinner-border-sm text-primary' role='status'></div>"); //animation
+
+            axios.post("{{ route('admin.CuponDelete') }}", {
+                    id: id
+                })
+                .then(function(response) {
+                    $('#confirmDeleteCupon').html("Yes");
+
+                    if (response.status == 200) {
+
+
+                        if (response.data == 1) {
+                            $('#deleteModalCupon').modal('hide');
+                            toastr.error('Delete Success.');
+                            getCuponData();
+                        } else {
+                            $('#deleteModalCupon').modal('hide');
+                            toastr.error('Delete Failed');
+                            getCuponData();
+                        }
+
+                    } else {
+                        $('#deleteModalCupon').modal('hide');
+                        toastr.error('Something Went Wrong');
+                    }
+
+                }).catch(function(error) {
+
+                    $('#deleteModalCupon').modal('hide');
+                    toastr.error('Something Went Wrong');
+
+                });
+
+        }
+
+
+
+
+
+
+        $(document).ready(function() {
+            $('#typeCupon').material_select();
+        });
+
+        $(document).ready(function() {
+            $('#statusCupon').material_select();
+        });
+
+
+
+
+
+
+
+        //each Cupon  Details data show for edit
+
+        function CuponUpdateDetails(id) {
+
+            axios.post("{{ route('admin.CuponEdit') }}", {
+                    id: id
+                })
+                .then(function(response) {
+                    if (response.status == 200) {
+
+
+                        $('#projectLoader').addClass('d-none');
+                        $('#CuponEditForm').removeClass('d-none');
+                        let jsonData = response.data;
+                        let exp_date_data = moment(jsonData[0].exp_date).format('YYYY-MM-DD')
+                        console.log(exp_date_data);
+                        $('#cupon_codeIdUpdate').val(jsonData[0].cupon_code);
+                        $('#CuponDesIdUpdate').val(jsonData[0].discount);
+                        $('#typeCupon option[value=' + jsonData[0].type + ']').attr('selected', 'selected');
+                        $('#statusCupon option[value=' + jsonData[0].status + ']').attr('selected', 'selected');
+                        $('#exp_dateCupon').val(exp_date_data);
+
+                    } else {
+
+                        $('#projectLoader').addClass('d-none');
+                        $('#projectwrongLoader').removeClass('d-none');
+                    }
+
+                }).catch(function(error) {
+
+                    $('#projectLoader').addClass('d-none');
+                    $('#projectwrongLoader').removeClass('d-none');
+
+                });
+
+        }
+
+
+
+
+
+
+        //Featured Specials update modal save button
+
+        $('#CuponupdateConfirmBtn').click(function() {
+
+
+            var idUpdate = $('#CuponEditId').html();
+            var cupon_codeIdUpdate = $('#cupon_codeIdUpdate').val();
+            var CuponDesIdUpdate = $('#CuponDesIdUpdate').val();
+            var typeCupon = $('#typeCupon').val();
+            var statusCupon = $('#statusCupon').val();
+            var exp_dateCupon = $('#exp_dateCupon').val();
+
+            CuponUpdate(idUpdate, cupon_codeIdUpdate, CuponDesIdUpdate, typeCupon, statusCupon, exp_dateCupon);
+
+        })
+
+
+
+
+
+        //update Special Feature data using modal
+
+        function CuponUpdate(idUpdate, cupon_codeIdUpdate, CuponDesIdUpdate, typeCupon, statusCupon, exp_dateCupon) {
+
+            if (cupon_codeIdUpdate.length == 0) {
+
+                toastr.error('Cupon Code  is empty!');
+
+            } else if (CuponDesIdUpdate == 0) {
+
+                toastr.error(' Discount is empty!');
+
+            } else if (exp_dateCupon == 0) {
+
+                toastr.error('Expiry Date is empty!');
+
+            } else {
+                $('#CuponupdateConfirmBtn').html(
+                    "<div class='spinner-border spinner-border-sm text-primary' role='status'></div>"); //animation
+
+                updateData = {
+                    id: idUpdate,
+                    cupon_code: cupon_codeIdUpdate,
+                    discount: CuponDesIdUpdate,
+                    type: typeCupon,
+                    status: statusCupon,
+                    exp_date: exp_dateCupon,
+                }
+
+
+
+                axios.post("{{ route('admin.CuponUpdate') }}", updateData).then(function(response) {
+
+                    $('#CuponupdateConfirmBtn').html("Update");
+
+                    if (response.status = 200) {
+                        if (response.data == 1) {
+                            $('#updateCuponModal').modal('hide');
+                            toastr.success('Update Success.');
+                            getCuponData();
+
+                        } else {
+                            $('#updateCuponModal').modal('hide');
+                            toastr.error('Update Failed');
+                            getCuponData();
+
+                        }
+                    } else {
+                        $('#updateCuponModal').modal('hide');
+                        toastr.error('Something Went Wrong');
+                    }
+
+
+                }).catch(function(error) {
+
+                    $('#updateCuponModal').modal('hide');
+                    toastr.error('Something Went Wrong');
+
+                });
+            }
+        }
 
     </script>
 @endsection

@@ -3,6 +3,7 @@
 
 namespace App\Http\Controllers\admin\order;
 use App\Http\Controllers\Controller;
+use App\Models\Cupon;
 use App\Models\OrderSettings;
 use Illuminate\Http\Request;
 
@@ -132,6 +133,98 @@ class OrderSettingsController extends Controller
             return 0;
         }
     }
+
+
+
+
+
+    public function getCuponData()
+    {
+        $result = json_decode(Cupon::orderBy('id', 'desc')->get());
+        return $result;
+    }
+
+    function CuponAdd(Request $request)
+    {
+
+        $cupon_code = $request->input("cupon_code");
+        $discount = $request->input("discount");
+        $type = $request->input("type");
+        $status = $request->input("status");
+        $exp_date = $request->input("exp_date");
+
+        $result = Cupon::insert([
+            'cupon_code' => $cupon_code,
+            'discount' => $discount,
+            'type' => $type,
+            'status' => $status,
+            'exp_date' => $exp_date
+        ]);
+        if ($result == true) {
+            return 1;
+        } else {
+            return 0;
+        }
+    }
+
+
+
+
+
+
+    function CuponEdit(Request $req)
+    {
+        $id = $req->input('id');
+        try {
+            $result = json_encode(Cupon::where('id', '=', $id)->get());
+            return $result;
+        } catch (\Throwable $th) {
+           return response()->json(array('error'=>$th));
+        }
+
+    }
+
+
+
+    function CuponUpdate(Request $request)
+    {
+
+        $id = $request->input("id");
+        $cupon_code = $request->input("cupon_code");
+        $discount = $request->input("discount");
+        $type = $request->input("type");
+        $status = $request->input("status");
+        $exp_date = $request->input("exp_date");
+
+            $result = Cupon::where('id', '=', $id)->update(['cupon_code' => $cupon_code, 'discount' => $discount, 'type' => $type, 'status' => $status, 'exp_date' => $exp_date]);
+            if ($result == true) {
+                return 1;
+            } else {
+                return 0;
+            }
+
+    }
+
+
+
+
+
+
+    function CuponDelete(Request $req)
+    {
+        $id = $req->input('id');
+        $result = Cupon::where('id', '=', $id)->delete();
+        if ($result == true) {
+            return 1;
+        } else {
+            return 0;
+        }
+    }
+
+
+
+
+
 
 
 }
