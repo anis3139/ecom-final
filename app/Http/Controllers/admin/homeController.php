@@ -12,7 +12,7 @@ use App\Models\VisitorTable;
 use Illuminate\Http\Request;
 
 
-class homeController extends Controller
+class HomeController extends Controller
 {
     public function adminHome()
     {

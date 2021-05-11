@@ -9,7 +9,7 @@ use App\Models\ProductsCategoryModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class categoryController extends Controller
+class CategoryController extends Controller
 {
     public function catagoryWiseProduct($slug)
     {

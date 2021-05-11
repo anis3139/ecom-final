@@ -1,7 +1,7 @@
 <?php
 
-namespace App\Http\Controllers;
-
+namespace App\Http\Controllers\client;
+use App\Http\Controllers\Controller;
 use App\Models\Cupon;
 use Illuminate\Http\Request;
 

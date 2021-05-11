@@ -63,16 +63,12 @@ class HomeController extends Controller
                 return view('client.pages.search', compact('searchProducts','popular_products','topRatedProducts','key'));
             }
         }
-        return view('client.pages.search', compact('searchProducts','popular_products','topRatedProducts','key'));
+        return view('client.pages.Search', compact('searchProducts','popular_products','topRatedProducts','key'));
 
 
     }
 
 
 
-    public function modal()
-    {
-        return view('client.component.Modal');
-    }
 
 }

@@ -4,7 +4,7 @@ namespace App\Http\Controllers\admin;
 use App\Http\Controllers\Controller;
 use App\Models\adminModel;
 use Illuminate\Http\Request;
-class adminController extends Controller
+class AdminController extends Controller
 {
     public function adminIndex()
     {

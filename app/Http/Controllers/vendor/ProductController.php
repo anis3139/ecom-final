@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 
-class prductController extends Controller
+class ProductController extends Controller
 {
 
     /**

@@ -7,7 +7,7 @@ use App\Models\Product;
 use App\Models\ProductsCategoryModel;
 use Illuminate\Http\Request;
 
-class productController extends Controller
+class ProductController extends Controller
 {
     public function showProductDetails($slug)
     {

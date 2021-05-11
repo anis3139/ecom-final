@@ -7,7 +7,7 @@ use App\Models\Product;
 use App\Models\ProductsCategoryModel;
 use Illuminate\Http\Request;
 
-class aboutPageController extends Controller
+class AboutPageController extends Controller
 {
     public function aboutIndex()
     {

@@ -14,7 +14,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
 
-class cartController extends Controller
+class CartController extends Controller
 {
     public function showCart()
     {

@@ -7,7 +7,7 @@ use App\Models\adminModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Contracts\Auth\Authenticatable;
-class loginController extends Controller
+class LoginController extends Controller
 {
     
     

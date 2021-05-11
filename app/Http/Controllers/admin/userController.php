@@ -8,7 +8,7 @@ use App\Notifications\registerEmail;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 
-class userController extends Controller
+class UserController extends Controller
 {
     public function userIndex()
     {

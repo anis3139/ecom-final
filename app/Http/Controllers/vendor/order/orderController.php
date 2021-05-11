@@ -8,7 +8,7 @@ use PDF;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class orderController extends Controller
+class OrderController extends Controller
 {
    public function ordeIndex()
    {

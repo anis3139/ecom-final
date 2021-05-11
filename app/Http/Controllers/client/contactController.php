@@ -8,7 +8,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\ContactModel;
 use Illuminate\Support\Facades\Validator;
-class contactController extends Controller
+class ContactController extends Controller
 {
      public function contactIndex()
     {

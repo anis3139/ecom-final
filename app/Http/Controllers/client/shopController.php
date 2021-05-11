@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 
-class shopController extends Controller
+class ShopController extends Controller
 {
    public function shopIndex()
    {

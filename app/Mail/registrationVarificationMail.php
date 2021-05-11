@@ -32,6 +32,6 @@ class registrationVarificationMail extends Mailable
      */
     public function build()
     {
-        return $this->subject('Reset Password')->view('client.mail.passwordRecoveryMail')->with('user', $this->user);
+        return $this->subject('Reset Password')->view('client.mail.PasswordRecoveryMail')->with('user', $this->user);
     }
 }

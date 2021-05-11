@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 
-class vendorAuthController extends Controller
+class VendorAuthController extends Controller
 {
 
 
