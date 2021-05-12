@@ -1,11 +1,4 @@
 {
-    "/js/app.js": "/js/app.js?id=2575f56da9611b49ada6",
-    "/css/style.css": "/css/style.css?id=2c4fc5974f1b3687d214",
-    "/css/dark.css": "/css/dark.css?id=53a6671e1629c292427b",
-    "/css/swiper.css": "/css/swiper.css?id=42b006f763c95ee676d5",
-    "/css/shop.css": "/css/shop.css?id=6520f7d14ee8600737bd",
-    "/css/fonts.css": "/css/fonts.css?id=a9d9b811e9a0d4519b73",
-    "/css/font-icons.css": "/css/font-icons.css?id=b173fbfa011d7a0b9d9b",
-    "/css/animate.css": "/css/animate.css?id=0b495b41a7481e636e35",
-    "/css/custom.css": "/css/custom.css?id=d41d8cd98f00b204e980"
+    "/js/app.js": "/js/app.js?id=17a7bc640d5b2ef5b734",
+    "/css/app.css": "/css/app.css?id=0cc4652bc4c874435fac"
 }
