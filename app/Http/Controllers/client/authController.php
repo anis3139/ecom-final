@@ -58,8 +58,8 @@ class authController extends Controller
         ]);
 
         Auth::login($user, true);
-
-        session()->flash('success', 'Login Succesfull');
+    $massage="Welcome ".$name;
+        session()->flash('success', $massage);
         return redirect()->route('client.checkout');
 
         
@@ -310,20 +310,6 @@ public function upadeteProfile(Request $request, $id)
                 return redirect()->route('client.profile');
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
