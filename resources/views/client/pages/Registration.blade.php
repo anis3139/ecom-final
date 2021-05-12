@@ -1,4 +1,6 @@
 @extends('client.layouts.app')
+
+@section('title', 'Registration')
 @section('css')
 
 <style>

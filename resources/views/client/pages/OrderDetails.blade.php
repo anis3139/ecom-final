@@ -1,4 +1,5 @@
 @extends('client.layouts.app')
+@section('title', 'Order Details')
 @section('css')
 
     <style>

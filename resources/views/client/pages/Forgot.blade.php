@@ -1,5 +1,5 @@
 @extends('client.layouts.app')
-
+@section('title', 'Password Recover')
 @section('content')
 
     <!-- catg header banner section -->

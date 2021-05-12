@@ -1,5 +1,7 @@
 @extends('client.layouts.app')
-
+@section('title')
+{{ $category->name }}
+@endsection
 @section('content')
     <!-- Page Title
                                                           ============================================= -->

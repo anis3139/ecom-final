@@ -1,5 +1,5 @@
 @extends('client.layouts.app')
-
+@section('title', 'Home')
 
 @section('content')
     <div id="wrapper" class="clearfix">

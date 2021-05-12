@@ -1,5 +1,5 @@
 @extends('client.layouts.app')
-
+@section('title', 'Contact')
 @section('content')
     <!-- Page Title
       ============================================= -->

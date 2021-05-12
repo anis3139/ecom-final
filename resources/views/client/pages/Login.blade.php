@@ -1,4 +1,6 @@
-@extends('client.layouts.app') @section('content')
+@extends('client.layouts.app') 
+@section('title', 'Login')
+@section('content')
     <!-- catg header banner section -->
 
     <!-- / catg header banner section -->

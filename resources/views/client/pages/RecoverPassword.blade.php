@@ -1,4 +1,5 @@
 @extends('client.layouts.app')
+@section('title', 'Password Recover')
 @section('css')
 
 <style>

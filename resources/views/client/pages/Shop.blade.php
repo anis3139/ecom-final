@@ -1,5 +1,5 @@
 @extends('client.layouts.app')
-
+@section('title', 'Shop')
 @section('content')
     <!-- Page Title  ============================================= -->
     <section id="page-title">

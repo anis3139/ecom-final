@@ -54,7 +54,7 @@
 
     <!-- Document Title
  ============================================= -->
-    <title>{{env('APP_NAME')}}</title>
+    <title>{{env('APP_NAME')}} || @yield('title')</title>
 
 </head>
 

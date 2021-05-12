@@ -1,4 +1,7 @@
 @extends('client.layouts.app')
+@section('title')
+{{$productDetails->product_title }}
+@endsection
 @php
 $arr = $productDetails->rating;
 $sum = 0;
@@ -24,7 +27,7 @@ if (count($arr) > 0) {
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{ route('client.home') }}">Home</a></li>
                 <li class="breadcrumb-item"><a href="{{ route('client.shop') }}">Shop</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Shop Single</li>
+                <li class="breadcrumb-item active" aria-current="page">{!! $productDetails->product_title !!}</li>
             </ol>
         </div>
 

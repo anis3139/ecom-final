@@ -1,5 +1,6 @@
 @extends('client.layouts.app')
 
+@section('title', 'Profile Edit')
 @section('content')
 
 

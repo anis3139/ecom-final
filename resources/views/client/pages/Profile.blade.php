@@ -1,5 +1,5 @@
 @extends('client.layouts.app')
-
+@section('title', 'My Profile')
 @section('content')
     <div class="container">
         <div class="row">

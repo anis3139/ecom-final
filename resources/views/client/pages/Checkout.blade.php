@@ -1,4 +1,5 @@
 @extends('client.layouts.app')
+@section('title', 'Checkout')
 @php
 $OrderSettings = App\Models\OrderSettings::first();
 @endphp

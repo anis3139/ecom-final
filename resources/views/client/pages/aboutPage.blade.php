@@ -1,5 +1,5 @@
 @extends('client.layouts.app')
-
+@section('title', 'About')
 @section('css')
 
 

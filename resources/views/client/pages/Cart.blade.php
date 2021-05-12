@@ -1,5 +1,5 @@
 @extends('client.layouts.app')
-
+@section('title', 'My Cart')
 @section('content')
 
     <section id="page-title">
@@ -7,8 +7,8 @@
         <div class="container">
             <h1>Cart</h1>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="#">Home</a></li>
-                <li class="breadcrumb-item"><a href="#">Shop</a></li>
+                <li class="breadcrumb-item"><a href="{{route('client.home')}}">Home</a></li>
+                <li class="breadcrumb-item"><a href="{{route('client.shop')}}">Shop</a></li>
                 <li class="breadcrumb-item active" aria-current="page">Cart</li>
             </ol>
         </div>
