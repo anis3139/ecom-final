@@ -30,12 +30,24 @@
               <div class="col-md-8 offset-md-2">
                 @include('client.component.Message')
                 @include('client.component.ErrorMessage')
+                <div class="row mb-3">
+                    <div class="col-md-12 text-center">
+                        <div class="col-12">
+                            <h3>Registration</h3>
+                        </div>
+                        <a href="{{route('client.SSOLogin', 'facebook')}}" class="button button-large btn-block si-colored si-facebook nott font-weight-normal ls0 center m-0"><i class="icon-facebook-sign"></i> Sign up  with Facebook</a>
+    
+                        <a href="{{route('client.SSOLogin', 'google')}}" class=" mt-2 button button-large btn-block si-colored si-google nott font-weight-normal ls0 center m-0"><i class="icon-google"></i> Sign up with Google</a>
+                        
+                    
+                        <a href="{{route('client.SSOLogin', 'github')}}" class=" mt-2 button button-large btn-block si-colored si-github nott font-weight-normal ls0 center m-0"><i class="icon-github"></i> Sign up with Github</a>
+
+                    </div>
+                </div>
                 <div class="aa-myaccount-register">
                   <form id="login-form" name="login-form" class="row" action="{{ route('client.addUser') }}" method="post">
                     @csrf
-                    <div class="col-12">
-                        <h3>Registration</h3>
-                    </div>
+                   
 
                     <div class="col-12 form-group">
                         <label for="login-form-username">Full Name:</label>
@@ -61,9 +73,9 @@
                     </div>
 
                     <div class="col-12 form-group">
-                        <button class="btn btn-secondary m-0" id="login-form-submit" name="login-form-submit" value="login"> Registration </button>
+                        <button class="text-light p-1 button button-large si-colored si-github nott font-weight-normal ls0 center " id="login-form-submit" name="login-form-submit" value="login"> Registration </button>
                         <div class="float-right">
-                           <span>Have Account?</span> <a href="{{ route('client.login') }}" class="d-block text-primary p-1"> Login </a>
+                           <span>Have Account?</span> <a href="{{ route('client.login') }}" class="d-block text-primary p-1  text-light p-1 button button-large si-colored si-github nott font-weight-normal ls0 center "> Login </a>
                         </div>
 
                     </div>

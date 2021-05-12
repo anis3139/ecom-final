@@ -5,7 +5,12 @@
 				</div>
 				<div class="card-body mx-auto py-5" style="max-width: 70%;">
 
-					<a href="{{route('client.SSOLogin', 'github')}}" class="button button-large btn-block si-colored si-facebook nott font-weight-normal ls0 center m-0"><i class="icon-facebook-sign"></i> Log in with Facebook</a>
+					<a href="{{route('client.SSOLogin', 'facebook')}}" class="button button-large btn-block si-colored si-facebook nott font-weight-normal ls0 center m-0"><i class="icon-facebook-sign"></i> Log in with Facebook</a>
+					
+						<a href="{{route('client.SSOLogin', 'google')}}" class=" mt-2 button button-large btn-block si-colored si-google nott font-weight-normal ls0 center m-0"><i class="icon-google"></i> Log in with Google</a>
+						
+					
+						<a href="{{route('client.SSOLogin', 'github')}}" class=" mt-2 button button-large btn-block si-colored si-github nott font-weight-normal ls0 center m-0"><i class="icon-github"></i> Log in with Github</a>
 
 					<div class="divider divider-center"><span class="position-relative" style="top: -2px">OR</span></div>
 

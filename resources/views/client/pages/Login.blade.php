@@ -13,12 +13,24 @@
                         <div class="row">
                             <div class="col-md-8 offset-md-2"> @include('client.component.Message')
                                 @include('client.component.ErrorMessage')
-                                <div class="aa-myaccount-register">
-                                    <form id="login-form" name="login-form" class="row" action="{{ route('client.onlogin') }}" method="post">
-                                        @csrf
+                                <div class="row mb-3">
+                                    <div class="col-md-12 text-center">
                                         <div class="col-12">
                                             <h3>Login to your Account</h3>
                                         </div>
+                                        <a href="{{route('client.SSOLogin', 'facebook')}}" class="button button-large btn-block si-colored si-facebook nott font-weight-normal ls0 center m-0"><i class="icon-facebook-sign"></i> Log in with Facebook</a>
+					
+                                        <a href="{{route('client.SSOLogin', 'google')}}" class=" mt-2 button button-large btn-block si-colored si-google nott font-weight-normal ls0 center m-0"><i class="icon-google"></i> Log in with Google</a>
+                                        
+                                    
+                                        <a href="{{route('client.SSOLogin', 'github')}}" class=" mt-2 button button-large btn-block si-colored si-github nott font-weight-normal ls0 center m-0"><i class="icon-github"></i> Log in with Github</a>
+                
+                                    </div>
+                                </div>
+                                <div class="aa-myaccount-register">
+                                    <form id="login-form" name="login-form" class="row" action="{{ route('client.onlogin') }}" method="post">
+                                        @csrf
+                                       
 
                                         <div class="col-12 form-group">
                                             <label for="login-form-username">Username:</label>
@@ -31,10 +43,11 @@
                                         </div>
 
                                         <div class="col-12 form-group">
-                                            <button class="btn btn-secondary m-0" id="login-form-submit" name="login-form-submit" value="login">Login</button>
+                                            <button class="text-light p-1 button button-large si-colored si-github nott font-weight-normal ls0 center  px-3 py-2" id="login-form-submit" name="login-form-submit" value="login">Login</button>
                                             <div class="float-right">
+                                                
+                                                <a href="{{ route('client.registration') }}" class="d-block text-light p-1 button button-large si-colored si-github nott font-weight-normal ls0 center ">Register now! </a>
                                                 <a href="{{ route('client.forgot') }}" class="d-block text-primary p-1">Forgot Password?</a>
-                                                <a href="{{ route('client.registration') }}" class="d-block text-primary p-1">Register now! </a>
                                             </div>
 
                                         </div>
