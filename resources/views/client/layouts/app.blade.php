@@ -12,10 +12,12 @@
     <link
         href="https://fonts.googleapis.com/css?family=Lato:300,400,400i,700|Montserrat:300,400,500,600,700|Merriweather:300,400,300i,400i&display=swap"
         rel="stylesheet" type="text/css" />
+        
+    <link rel="stylesheet" href="{{ asset('client') }}/css/bootstrap.css" type="text/css" />
     <link rel="stylesheet" href="{{ asset('client') }}/css/magnific-popup.css" type="text/css" />
     <link rel="stylesheet" href="{{ asset('client') }}/css/colors.php?color=000000" type="text/css" />
-    <link rel="stylesheet" href="{{ asset('client') }}/css/style.css">
     <link rel="stylesheet" href="{{asset('/css/app.css')}}">
+    <link rel="stylesheet" href="{{ asset('client') }}/css/style.css">
     @yield('css')
 
     <style>
@@ -71,7 +73,7 @@
 
     <!-- JavaScripts -->
     <script src="{{ asset('client') }}/js/plugins.min.js"></script>
-    <script src="asset('js/app.js')"></script>
+    <script src="{{asset('js/app.js')}}"></script>
     <!-- JavaScripts -->
     @include('client.component.toastr')
 

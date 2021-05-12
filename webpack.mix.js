@@ -12,16 +12,14 @@ const mix = require('laravel-mix');
  */
 
 mix.js('resources/js/app.js', 'public/js')
-.postCss('resources/client/style.css', 'public/css/app.css')
-.postCss('resources/client/css/dark.css', 'public/css/app.css')
-.postCss('resources/client/css/swiper.css', 'public/css/app.css')
-.postCss('resources/client/css/font-icons.css', 'public/css/app.css')
-.postCss('resources/client/css/animate.css', 'public/css/app.css')
-.postCss('resources/client/css/custom.css', 'public/css/app.css')
-.postCss('resources/client/demos/shop/shop.css', 'public/css/app.css')
-.postCss('resources/client/demos/shop/css/fonts.css', 'public/css/app.css')
-// .postCss('resources/client/css/style.css', 'public/css/app.css')
-.postCss('resources/client/css/bootstrap.css', 'public/css/app.css')
+.postCss('resources/client/style.css', 'public/css')
+.postCss('resources/client/css/dark.css', 'public/css')
+.postCss('resources/client/css/swiper.css', 'public/css')
+.postCss('resources/client/demos/shop/shop.css', 'public/css')
+.postCss('resources/client/demos/shop/css/fonts.css', 'public/css')
+.postCss('resources/client/css/font-icons.css', 'public/css')
+.postCss('resources/client/css/animate.css', 'public/css')
+.postCss('resources/client/css/custom.css', 'public/css')
  
 
 
