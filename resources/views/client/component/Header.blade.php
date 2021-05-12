@@ -8,8 +8,8 @@
                 <!-- Logo
  ============================================= -->
                 <div id="logo" class="mr-lg-4">
-                    <a href="{{ route('client.home') }}" class="standard-logo"><img src="@if ($others) {{ $others->logo }} @endif" alt="Canvas Logo"></a>
-                    <a href="{{ route('client.home') }}" class="retina-logo"><img src="@if ($others) {{ $others->logo }} @endif" alt="Canvas Logo"></a>
+                    <a href="{{ route('client.home') }}" class="standard-logo"><img src="@if ($others) {{ $others->logo }} @endif" alt="Logo"></a>
+                    <a href="{{ route('client.home') }}" class="retina-logo"><img src="@if ($others) {{ $others->logo }} @endif" alt="Logo"></a>
 
 
                 </div><!-- #logo end -->
