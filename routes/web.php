@@ -338,7 +338,10 @@ Route::group(['middleware' => 'auth'], function () {
 
 
 
-
+Route::group(['prefix' => '/auth'], function() {
+    Route::get('/login/{service}', [App\Http\Controllers\client\authController::class, 'redirect'])->name('client.SSOLogin');
+    Route::get('/login/{service}/callback', [App\Http\Controllers\client\authController::class, 'callback']);
+});
 
 
 

@@ -14,10 +14,12 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
-use Symfony\Contracts\Service\Attribute\Required;
-
+use Illuminate\Support\Facades\Hash;
 use Symfony\Component\HttpFoundation\Session\Session as HttpFoundationSessionSession;
 use Session;
+use Laravel\Socialite\Facades\Socialite;
+
+
 class authController extends Controller
 {
 
@@ -26,6 +28,43 @@ class authController extends Controller
         $this->middleware('auth',['only'=>'logOut']);
     }
 
+
+    public function redirect($service)
+    {
+        return Socialite::driver($service)->redirect();
+    }
+
+    public function callback($service)
+    {
+        
+        $serviceUser = Socialite::driver($service)->user();
+        $name = $serviceUser->name ?? '';
+        $email = $serviceUser->email;
+        $phone_number = $serviceUser->user['mobile'] ?? " ";
+        $image = $serviceUser->avatar ?? '';
+        $token = $serviceUser->token ?? '';
+        $password = Hash::make(Str::random(32));
+        
+        $user=User::firstOrCreate([ 
+            'email'=> $email
+        ], [
+            'email'=> $email,
+            'password'=> $password,
+            'phone_number'=> $phone_number,
+            'image'=> $image,
+            'name'=> $name,
+            'provider'=> $service,
+            'provider_id'=> $token,
+        ]);
+
+        Auth::login($user, true);
+
+        session()->flash('success', 'Login Succesfull');
+        return redirect()->route('client.checkout');
+
+        
+
+    }
 
 
     public function registration()

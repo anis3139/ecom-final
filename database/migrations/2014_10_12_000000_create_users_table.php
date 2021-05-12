@@ -26,8 +26,8 @@ class CreateUsersTable extends Migration
             $table->string('postal_code')->nullable();
             $table->decimal('wallet', 8, 2)->nullable();
             $table->string('email_verification_token')->nullable();
-            $table->string('facebook_id')->nullable();
-            $table->string('google_id')->nullable();
+            $table->string('provider')->nullable();
+            $table->string('provider_id')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();
             $table->softDeletes();
