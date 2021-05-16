@@ -71,8 +71,12 @@
 
                             <div class="card product-meta mb-0">
                                 <div class="card-body">
-                                    <span class="posted_in">Category: <a href="#" rel="tag" id="pdCategory"></a> &nbsp;
-                                        &nbsp; <a href="" id="modalSingleView" class="add-to-cart button m-0">View
+                                    <span class="posted_in">Category: <a href="#" rel="tag" id="pdCategory"></a></span>
+                                </div>
+                            </div>
+                            <div class="card product-meta mb-0">
+                                <div class="card-body">
+                                    <span class="posted_in"><a href="" id="modalSingleView" class="add-to-cart button m-0">View
                                             Details</a></span>
                                 </div>
                             </div>
