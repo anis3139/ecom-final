@@ -26,9 +26,12 @@
                         @endguest
 
                         @auth
-                            <a href="{{ route('client.logout') }}"><i class="icon-line2-user mr-1 position-relative"
+                            <a onClick="return confirm('Are you sure you want to Logout?')" href="{{ route('client.logout') }}" class="d-none d-md-block"><i class="icon-line2-user mr-1 position-relative"
                                     style="top: 1px;"></i><span
-                                    class="d-none d-sm-inline-block font-primary font-weight-medium">Logout</span></a>
+                                    class="font-primary font-weight-medium ">Logout</span></a>
+
+                                <a onClick="return confirm('Are you sure you want to Logout?')" href="{{ route('client.logout') }}" class="text-danger d-sm-block d-md-none"><i class="icon-line-power mr-1 position-relative"
+                                    style="top: 1px;"></i></a>
                         @endauth
                     </div><!-- #top-search end -->
 
@@ -56,14 +59,14 @@
                     <div id="top-cart" class="header-misc-icon">
                         <a href="{{ route('client.favoriteShow') }}" id="top-cart-trigger"><i
                                 class="icon-heart3 text-danger"></i>
-                           
+
                             @php
                                        $userData = Auth::user();
                                 $FavoriteItem = $userData->favorite_product()->count();
                             @endphp
-                         
+
                                 <span class="top-cart-number" id="favoriteShow">{{ $FavoriteItem }}</span>
-                            
+
 
                         </a>
                     </div>
