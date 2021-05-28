@@ -137,6 +137,7 @@
                                 <option value="1">Size</option>
                                 <option value="2">Wight</option>
                                 <option value="3">Dimention</option>
+                                <option value="4">Custom</option>
                             </select>
 
                             <div class="meserment_input">
@@ -477,6 +478,7 @@
                                 <option value="1">Size</option>
                                 <option value="2">Wight</option>
                                 <option value="3">Dimention</option>
+                                <option value="4">Custom</option>
                             </select>
 
                             <div class="meserment_edit">
