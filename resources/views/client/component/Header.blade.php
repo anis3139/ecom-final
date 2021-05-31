@@ -30,7 +30,7 @@
                                     style="top: 1px;"></i><span
                                     class="font-primary font-weight-medium ">Logout</span></a>
 
-                                <a onClick="return confirm('Are you sure you want to Logout?')" href="{{ route('client.logout') }}" class="text-danger d-sm-block d-md-none"><i class="icon-line-power mr-1 position-relative"
+                                <a href="{{ route('client.profile') }}" class="text-success d-sm-block d-md-none"><i class="icon-line2-user mr-1 position-relative"
                                     style="top: 1px;"></i></a>
                         @endauth
                     </div><!-- #top-search end -->

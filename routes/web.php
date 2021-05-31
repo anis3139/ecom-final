@@ -294,6 +294,8 @@ Route::get('/cartClear', [App\Http\Controllers\client\CartController::class, 'cl
 Route::get('/checkout', [App\Http\Controllers\client\CartController::class, 'checkout'])->name('client.checkout');
 
 //shop page
+Route::get('/blog', [App\Http\Controllers\client\BlogController::class, 'index'])->name('client.blog');
+
 Route::get('/shop', [App\Http\Controllers\client\ShopController::class, 'shopIndex'])->name('client.shop');
 Route::post('/getsingleProductdata', [App\Http\Controllers\client\ShopController::class, 'getsingleProductdata'])->name('client.getsingleProductdata');
 

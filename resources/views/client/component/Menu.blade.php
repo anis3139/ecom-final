@@ -45,10 +45,27 @@
 
         <li class="menu-item"><a class="menu-link" href="{{ route('client.about') }}">
                 <div>About</div>
-            </a></li>
+            </a>
+        </li>
+        <li class="menu-item"><a class="menu-link" href="{{ route('client.blog') }}">
+                <div>Blog</div>
+            </a>
+        </li>
+
+
         <li class="menu-item"><a class="menu-link" href="{{ route('client.contact') }}">
                 <div>Contact</div>
-            </a></li>
+            </a>
+        </li>
+
+        @auth()
+            <li class="menu-item d-sm-block d-md-none"><a onClick="return confirm('Are you sure you want to Logout?')" class="menu-link" href="{{ route('client.logout') }}">
+                    <div>
+                       <i class="text-danger icon-line-power mr-1 position-relative" style="top: 1px;"></i>Logout
+                    </div>
+                </a>
+            </li>
+        @endauth
     </ul>
 
 </nav>

@@ -36,7 +36,7 @@ class authController extends Controller
 
     public function callback($service)
     {
-        
+
         $serviceUser = Socialite::driver($service)->user();
         $name = $serviceUser->name ?? '';
         $email = $serviceUser->email;
@@ -44,8 +44,8 @@ class authController extends Controller
         $image = $serviceUser->avatar ?? '';
         $token = $serviceUser->token ?? '';
         $password = Hash::make(Str::random(32));
-        
-        $user=User::firstOrCreate([ 
+
+        $user=User::firstOrCreate([
             'email'=> $email
         ], [
             'email'=> $email,
@@ -62,7 +62,7 @@ class authController extends Controller
         session()->flash('success', $massage);
         return redirect()->route('client.checkout');
 
-        
+
 
     }
 
@@ -224,7 +224,6 @@ public function recoverPassWord($id = null)
     if($user){
         return view('client.pages.RecoverPassword')->with([ 'user'=> $user]);
      }
-
 
 }
 
