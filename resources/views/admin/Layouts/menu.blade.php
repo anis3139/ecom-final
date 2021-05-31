@@ -37,6 +37,7 @@
 
                         <li> <a href="{{ route('admin.review') }}"><span><i class="far fa-comments"></i> </span><span class="hide-menu">Review</span></a></li>
                         <li> <a href="{{ route('admin.pages') }}"><span><i class="fas fa-book-open"></i></span><span class="hide-menu">Pages</span></a></li>
+                        <li> <a href="{{ route('admin.blog') }}"><span><i class="fas fa-blog"></i></span><span class="hide-menu">Blog</span></a></li>
                         <li> <a href="{{ route('admin.homePage') }}"><span> <i class="fas fa-sliders-h"></i> </span><span class="hide-menu">About Page</span></a></li>
                         <li> <a href="{{ route('admin.slider') }}"><span> <i class="fas fa-image"></i> </span><span class="hide-menu">Slider</span></a></li>
                         <li> <a href="{{ route('admin.others') }}"><span> <i class="fas fa-cog"></i> </span><span class="hide-menu">Generale Settings</span></a></li>

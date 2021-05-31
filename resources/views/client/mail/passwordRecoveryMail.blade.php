@@ -17,7 +17,7 @@
     </style>
 </head>
 <body>
-    <h1>Hello Mr. {{$user->name}}</h1>
+    <h1>Hello  {{$user->name}}</h1>
     <p>Welcome To Our Ecommerce System</p>
     <p>Please Click The Following Link to Reset Your Password</p>
     @php

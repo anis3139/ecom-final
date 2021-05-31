@@ -210,6 +210,14 @@ Route::group(['prefix' => 'admin'], function () {
          Route::post('/TestimonilaUpdate', [App\Http\Controllers\admin\AboutPageController::class,'TestimonilaUpdate'])->name('admin.TestimonilaUpdate');
 
 
+         //Blog
+
+         Route::get('/blog', [App\Http\Controllers\admin\BlogController::class, 'index'])->name('admin.blog');
+         Route::get('/blogData', [App\Http\Controllers\admin\BlogController::class, 'blogData'])->name('admin.blogData');
+         Route::post('/blog-edit', [App\Http\Controllers\admin\BlogController::class, 'edit'])->name('admin.blog.edit');
+         Route::post('/blog-update', [App\Http\Controllers\admin\BlogController::class, 'update'])->name('admin.blog.update');
+         Route::post('/blog-delete', [App\Http\Controllers\admin\BlogController::class, 'delete'])->name('admin.blog.delete');
+
     });
 
 
@@ -295,6 +303,7 @@ Route::get('/checkout', [App\Http\Controllers\client\CartController::class, 'che
 
 //shop page
 Route::get('/blog', [App\Http\Controllers\client\BlogController::class, 'index'])->name('client.blog');
+Route::post('/blog-create', [App\Http\Controllers\client\BlogController::class, 'store'])->name('client.blog.store');
 
 Route::get('/shop', [App\Http\Controllers\client\ShopController::class, 'shopIndex'])->name('client.shop');
 Route::post('/getsingleProductdata', [App\Http\Controllers\client\ShopController::class, 'getsingleProductdata'])->name('client.getsingleProductdata');

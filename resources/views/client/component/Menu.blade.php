@@ -48,7 +48,7 @@
             </a>
         </li>
         <li class="menu-item"><a class="menu-link" href="{{ route('client.blog') }}">
-                <div>Blog</div>
+                <div>News Feed</div>
             </a>
         </li>
 
