@@ -1,6 +1,6 @@
 @extends('client.layouts.app')
 @section('title')
-{{$productDetails->product_title }}
+    {{ $productDetails->product_title }}
 @endsection
 @php
 $arr = $productDetails->rating;
@@ -19,7 +19,7 @@ if (count($arr) > 0) {
 @endphp
 @section('content')
     <!-- Page Title
-                                                                                                                  ============================================= -->
+                                                                                                                          ============================================= -->
     <section id="page-title">
 
         <div class="container clearfix">
@@ -34,7 +34,7 @@ if (count($arr) > 0) {
     </section><!-- #page-title end -->
 
     <!-- Content
-                                                                                                                  ============================================= -->
+                                                                                                                          ============================================= -->
     <section id="content">
         <div class="content-wrap">
             <div class="container clearfix">
@@ -46,7 +46,7 @@ if (count($arr) > 0) {
                             <div class="col-md-6">
 
                                 <!-- Product Single - Gallery
-                                                                                                                         ============================================= -->
+                                                                                                                                 ============================================= -->
                                 <div class="product-image">
                                     <div class="fslider" data-pagi="false" data-arrows="false" data-thumbs="true">
                                         <div class="flexslider">
@@ -57,7 +57,7 @@ if (count($arr) > 0) {
                                                             title="Pink Printed Dress - Front View"
                                                             data-lightbox="gallery-item"><img
                                                                 src="{{ $images->image_path }}"
-                                                                alt="Pink Printed Dress"></a></div>
+                                                                alt="Pink Printed Dress" class="pinterest-img"></a></div>
                                                 @endforeach
                                             </div>
                                         </div>
@@ -76,7 +76,7 @@ if (count($arr) > 0) {
                                 <div class="d-flex align-items-center justify-content-between">
 
                                     <!-- Product Single - Price
-                                                                                                                          ============================================= -->
+                                                                                                                                  ============================================= -->
                                     <div class="product-price">
                                         @if ($productDetails->product_price != $productDetails->product_selling_price)
                                             <del>&#2547; {{ $productDetails->product_price }}</del>
@@ -85,7 +85,7 @@ if (count($arr) > 0) {
                                     </div><!-- Product Single - Price End -->
 
                                     <!-- Product Single - Rating
-                                                                                                                          ============================================= -->
+                                                                                                                                  ============================================= -->
                                     <div class="d-flex align-items-center">
                                         <div class="product-rating">
                                             @if ($ratingValue > 0)
@@ -110,17 +110,20 @@ if (count($arr) > 0) {
 
 
                                         </div><!-- Product Single - Rating End -->
-                                        
+
                                         @guest
                                             <a href="javascript:void(0);" onclick="toastr.info('To add Favorite List. You need to login first.','Info',{
-                                                           closeButton: true,
-                                                           progressBar: true,
-                                                       })" class="btn btn-sm btn-secondary ml-3"><i class="icon-heart3"></i> <span>
+                                                                           closeButton: true,
+                                                                           progressBar: true,
+                                                                       })" class="btn btn-sm btn-secondary ml-3"><i
+                                                    class="icon-heart3"></i> <span>
                                                     ({{ $productDetails->favorite_to_users->count() }})</span></a>
                                         @else
                                             <a href="javascript:void(0);"
                                                 onclick="document.getElementById('favorite-form-{{ $productDetails->id }}').submit();"
-                                                class="{{ !Auth::user()->favorite_product->where('pivot.product_id', $productDetails->id)->count() == 0 ? 'favorite_posts': '' }}  btn btn-secondary ml-3">
+                                                class="{{ !Auth::user()->favorite_product->where('pivot.product_id', $productDetails->id)->count() == 0
+    ? 'favorite_posts'
+    : '' }}  btn btn-secondary ml-3">
                                                 <i class="icon-heart"></i><span class="text-dark">&nbsp;(<span
                                                         class="favorite_posts">{{ $productDetails->favorite_to_users->count() }}</span>)</span></a>
 
@@ -137,7 +140,7 @@ if (count($arr) > 0) {
                                 <div class="line"></div>
 
                                 <!-- Product Single - Quantity & Cart Button
-                                                                                                                         ============================================= -->
+                                                                                                                                 ============================================= -->
 
                                 <form id="cartForm2" method="post">
 
@@ -158,11 +161,11 @@ if (count($arr) > 0) {
                                     <div class="row mt-3">
                                         <div class="col-md-6 form-group">
                                             <label for="note1">Note</label>
-                                            <input type="text"  class="form-control" id="note1" name="note1">
+                                            <input type="text" class="form-control" id="note1" name="note1">
                                         </div>
                                         <div class="col-md-6 form-group">
                                             <label for="note1">Special Note</label>
-                                            <input type="text"  class="form-control" id="note2" name="note2">
+                                            <input type="text" class="form-control" id="note2" name="note2">
                                         </div>
                                     </div>
                                     <div class="line"></div>
@@ -228,36 +231,34 @@ if (count($arr) > 0) {
                                     </ul>
                                 </form>
                                 <!-- Product Single - Share
-                                                                                                                         ============================================= -->
+                                                                                                                                 ============================================= -->
 
 
                                 <div class="si-share d-flex justify-content-between align-items-center mt-4">
                                     <span>Share:</span>
                                     <div>
-                                        <a href="#" class="social-icon si-borderless si-facebook">
+                                        <a href="#" class="social-icon si-borderless si-facebook facebook-btn">
                                             <i class="icon-facebook"></i>
                                             <i class="icon-facebook"></i>
                                         </a>
-                                        <a href="#" class="social-icon si-borderless si-twitter">
+                                        <a href="#" class="social-icon si-borderless si-twitter twitter-btn">
                                             <i class="icon-twitter"></i>
                                             <i class="icon-twitter"></i>
                                         </a>
-                                        <a href="#" class="social-icon si-borderless si-pinterest">
+                                        <a href="#" class="social-icon si-borderless si-pinterest pinterest-btn">
                                             <i class="icon-pinterest"></i>
                                             <i class="icon-pinterest"></i>
                                         </a>
-                                        <a href="#" class="social-icon si-borderless si-gplus">
-                                            <i class="icon-gplus"></i>
-                                            <i class="icon-gplus"></i>
+                                        <a href="#" class="social-icon si-borderless si-gplus linkedin-btn">
+                                            <i class="icon-linkedin"></i>
+                                            <i class="icon-linkedin"></i>
                                         </a>
-                                        <a href="#" class="social-icon si-borderless si-rss">
-                                            <i class="icon-rss"></i>
-                                            <i class="icon-rss"></i>
+                                        <a href="#" class="social-icon si-borderless si-rss  whatsapp-btn">
+                                            <i class="icon-whatsapp"></i>
+                                            <i class="icon-whatsapp"></i>
                                         </a>
-                                        <a href="#" class="social-icon si-borderless si-email3">
-                                            <i class="icon-email3"></i>
-                                            <i class="icon-email3"></i>
-                                        </a>
+
+
                                     </div>
                                 </div>
 
@@ -416,7 +417,7 @@ if (count($arr) > 0) {
                             ->take(12)
                             ->inRandomOrder()
                             ->get();
-                        
+
                     @endphp
                     <div class="owl-carousel product-carousel carousel-widget" data-margin="30" data-pagi="false"
                         data-autoplay="5000" data-items-xs="1" data-items-md="2" data-items-lg="3" data-items-xl="4">
@@ -443,9 +444,10 @@ if (count($arr) > 0) {
                                                 data-hover-animate="fadeIn" data-hover-speed="400">
                                                 @guest
                                                     <a href="javascript:void(0);" onclick="toastr.info('To add Favorite List. You need to login first.','Info',{
-                                                           closeButton: true,
-                                                           progressBar: true,
-                                                       })" class="btn btn-dark mr-2"><i class="icon-heart3"></i> <span>
+                                                                           closeButton: true,
+                                                                           progressBar: true,
+                                                                       })" class="btn btn-dark mr-2"><i
+                                                            class="icon-heart3"></i> <span>
                                                             ({{ $relProduct->favorite_to_users->count() }})</span></a>
                                                 @else
                                                     <a href="javascript:void(0);"
@@ -489,7 +491,7 @@ if (count($arr) > 0) {
                                                 foreach ($arr as $item) {
                                                     $sum += $item['star_reating'];
                                                 }
-                                                
+
                                                 if (count($arr) > 0) {
                                                     $average = $sum / count($arr);
                                                     $ratingValue = round(intval($average));
@@ -542,6 +544,50 @@ if (count($arr) > 0) {
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.js"></script>
     <script>
+        const facebookBtn = document.querySelector(".facebook-btn");
+        const twitterBtn = document.querySelector(".twitter-btn");
+        const pinterestBtn = document.querySelector(".pinterest-btn");
+        const linkedinBtn = document.querySelector(".linkedin-btn");
+        const whatsappBtn = document.querySelector(".whatsapp-btn");
+
+        function init() {
+            const pinterestImg = document.querySelector(".pinterest-img");
+
+            let postUrl = encodeURI(document.location.href);
+            let postTitle = encodeURI("Hi everyone, please check this out: ");
+            let postImg = encodeURI(pinterestImg.src);
+
+            facebookBtn.setAttribute(
+                "href",
+                `https://www.facebook.com/sharer.php?u=${postUrl}`
+            );
+
+            twitterBtn.setAttribute(
+                "href",
+                `https://twitter.com/share?url=${postUrl}&text=${postTitle}`
+            );
+
+            pinterestBtn.setAttribute(
+                "href",
+                `https://pinterest.com/pin/create/bookmarklet/?media=${postImg}&url=${postUrl}&description=${postTitle}`
+            );
+
+            linkedinBtn.setAttribute(
+                "href",
+                `https://www.linkedin.com/shareArticle?url=${postUrl}&title=${postTitle}`
+            );
+
+            whatsappBtn.setAttribute(
+                "href",
+                `https://wa.me/?text=${postTitle} ${postUrl}`
+            );
+        }
+
+        init();
+
+
+
+
         $(function() {
 
             $("#rateYo").rateYo({
@@ -723,24 +769,24 @@ if (count($arr) > 0) {
                         $.each(cartData, function(i, item) {
                             imageViewHtml +=
                                 `<div class="top-cart-item">
-                                                                                                                                                                 <div class="top-cart-item-image">
-                                                                                                                                                                     <a href="#"><img src="${cartData[i].image}"
-                                                                                                                                                                             alt="Blue Round-Neck Tshirt" /></a>
-                                                                                                                                                                 </div>
-                                                                                                                                                                 <div class="top-cart-item-desc">
-                                                                                                                                                                     <div class="top-cart-item-desc-title">
-                                                                                                                                                                         <a href="#">${cartData[i].title}</a>
-                                                                                                                                                                         <span class="top-cart-item-price d-block"> ${cartData[i].quantity} x &#2547; ${cartData[i].unit_price}</span>
-                                                                                                                                                                     </div>
-                                                                                                                                                                     <div class="top-cart-item-quantity"><button class="cartDeleteIcon" data-id="${i}" type="submit"><i class="icon-remove"> </i></button></div>
-                                                                                                                                                                 </div>
-                                                                                                                                                        </div>`
+                                                                                                                                                                         <div class="top-cart-item-image">
+                                                                                                                                                                             <a href="#"><img src="${cartData[i].image}"
+                                                                                                                                                                                     alt="Blue Round-Neck Tshirt" /></a>
+                                                                                                                                                                         </div>
+                                                                                                                                                                         <div class="top-cart-item-desc">
+                                                                                                                                                                             <div class="top-cart-item-desc-title">
+                                                                                                                                                                                 <a href="#">${cartData[i].title}</a>
+                                                                                                                                                                                 <span class="top-cart-item-price d-block"> ${cartData[i].quantity} x &#2547; ${cartData[i].unit_price}</span>
+                                                                                                                                                                             </div>
+                                                                                                                                                                             <div class="top-cart-item-quantity"><button class="cartDeleteIcon" data-id="${i}" type="submit"><i class="icon-remove"> </i></button></div>
+                                                                                                                                                                         </div>
+                                                                                                                                                                </div>`
                         });
 
 
                         $('.top-cart-items').html(imageViewHtml);
 
-                    
+
 
                         if (a == 0) {
                             $("#HeaderPreview").css("display", "none");
@@ -826,7 +872,7 @@ if (count($arr) > 0) {
                 quantity: quantity,
                 product_id: product_ids
             }).then(function(response) {
-               
+
                 if (response.status == 200 && response.data == 1) {
                     $('.bd-example-modal-lg').modal('hide');
                     toastr.success('Product Add Successfully');
@@ -846,7 +892,7 @@ if (count($arr) > 0) {
         $('#cartForm2').on('submit', function(event) {
             event.preventDefault();
             let formData = $(this).serializeArray();
-           
+
             let quantity = formData[0]['value'];
             let product_ids = formData[1]['value'];
             let note1 = formData[2]['value'];
@@ -863,7 +909,7 @@ if (count($arr) > 0) {
                 note2: note2,
                 note1: note1,
             }).then(function(response) {
-                
+
                 if (response.status == 200 && response.data == 1) {
                     $('.bd-example-modal-lg').modal('hide');
                     toastr.success('Product Add Successfully');
