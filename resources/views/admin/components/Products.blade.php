@@ -525,7 +525,7 @@
                         var masermentHtml = "";
                         for (let index = 0; index < dataJSON[0].maserment.length; index++) {
                             const element = dataJSON[0].maserment[index];
-                            console.log(element);
+
                             masermentHtml += '<li class="border border-secondary text-center p-2 m-1">';
                             masermentHtml += element.meserment_value;
 
@@ -707,9 +707,6 @@
 
 
                         var html9 = "";
-
-
-
                         if (jsonData[0].product_meserment_type == 1) {
                             html9 +=
                                 '<table class="table table-bordered"><thead clss="text-center"><tr><th>Entry</th><th>Meserments</th><th class="text-center"><button class="btn btn-success btn-sm ml-auto" onclick="addMoreBtnForMesermrntSizeEdit();">Add More</button></th></tr></thead><tbody id="MesermrntSizeEdit">';
@@ -825,8 +822,30 @@
 
                             }
 
-                        }
+                        } else if (jsonData[0].product_meserment_type == 4) {
 
+                            html9 +=
+                                '<table class="table table-bordered"><thead clss="text-center"><tr><th>Value</th><th class="text-center"><button class="btn btn-success btn-sm ml-auto" onclick="addMoreBtnForCustomDiamentionEdit();">Add More</button></th></tr></thead><tbody id="CustomDiamentionEdit">';
+
+                            for (let mesermentExist = 0; mesermentExist < jsonData[0].maserment
+                                .length; mesermentExist++) {
+                                const element2 = jsonData[0].maserment[mesermentExist];
+                                html9 += '<tr class="DiamentionRowedit' + mesermentExist + '">';
+                                html9 += '<td>';
+                                html9 += '<input  name="customValueInputEdit[]" type="text" value="' +
+                                    element2.meserment_value +
+                                    '" class="form-control" placeholder="Product Dimension"/>';
+                                html9 += '</td>';
+
+                                html9 += '<td class="text-center">';
+                                html9 +=
+                                    '<button class="btn btn-danger btn-sm mt-0" onclick="diamentionRowRemoveEdit(' +
+                                    mesermentExist + ');"><i class="fas fa-minus-circle"></i></button>';
+                                html9 += '</td>';
+                                html9 += '</tr>';
+
+                            }
+                        }
                         html9 += '</tbody><table>';
                         $('.meserment_edit').html(html9);
 
@@ -899,7 +918,7 @@
 
             } else if (slelctedmesermentEdit == 4) {
                 var pdmesermentValueEdit = [];
-                var pdmesermentValueEdit = $("input[name='customValueEdit[]']").map(function() {
+                var pdmesermentValueEdit = $("input[name='customValueInputEdit[]']").map(function() {
                     return $(this).val();
                 }).get();
 
@@ -943,8 +962,6 @@
             }
 
 
-            console.log(pdmesermentValueEdit);
-
 
             var editedValueOfColor = $("input[name='pdcolorEdit[]']").map(function() {
                 return $(this).val();
@@ -975,7 +992,7 @@
             var product_id_edit = $('#product_id_edit').val();
 
 
-
+            console.log(pdmesermentValueEdit);
             productUpadate(product_id_edit, pdEditName, pdEditDescription, pdEditPrice, pdEditSaving, pdEditOffer,
                 pdEditQuantity, pdEditCategory, pdEditBrand, pdEditStock, pdEditFeature, pdEditStatus,
                 editImagesValue, pdmesermentValueEdit, editedValueOfColor, slelctedmesermentEdit, pdEditTax)
@@ -1036,7 +1053,6 @@
                         'Content-Type': 'multipart/form-data'
                     }
                 }).then(function(response) {
-                    console.log(response.data);
 
                     $('#productEditConfirmBtn').html("Save");
                     if (response.status = 200) {
@@ -1099,7 +1115,7 @@
 
             } else if (pdmesermentId == 4) {
                 html +=
-                    '<table class="table table-bordered"><thead clss="text-center"><tr><th>Entry</th><th>Meserments</th><th class="text-center"><button class="btn btn-success btn-sm ml-auto" onclick="addMoreBtnForMesermrntCustom();">Add More</button></th></tr></thead><tbody id="MesermrntCustom">';
+                    '<table class="table table-bordered"><thead clss="text-center"><tr><th>Meserments</th><th class="text-center"><button class="btn btn-success btn-sm ml-auto" onclick="addMoreBtnForMesermrntCustom();">Add More</button></th></tr></thead><tbody id="MesermrntCustom">';
 
             } else {
                 html += '<h4>No Meserment Selected</h4>';
@@ -1226,7 +1242,7 @@
 
             var html5 = "";
             html5 += '<tr class="customRow' + customRow + '">';
-            html5 += '<td colspan="2">';
+            html5 += '<td>';
             html5 +=
                 '<input  name="customValue[]"  type="text" class="form-control" placeholder="Custom Product Meserment"/>';
             html5 += '</td>';
@@ -1398,7 +1414,7 @@
 
 
         function WightrowRemoveEdit(id) {
-            console.log(id);
+
             $('#WightdivEdit' + id).remove();
         }
 
@@ -1441,6 +1457,36 @@
             $('.DiamentionRowedit' + id).remove();
         }
 
+
+        function addMoreBtnForCustomDiamentionEdit() {
+            mesermenExitCount++;
+            var html14 = "";
+            html14 += '<tr class="CustomRowedit' + mesermenExitCount + '">';
+            html14 += '<td>';
+            html14 +=
+                '<input  name="customValueInputEdit[]" type="text" value="" class="form-control" placeholder="Product Dimension"/>';
+            html14 += '</td>';
+            html14 += '<td class="text-center">';
+            html14 += '<button class="btn btn-danger btn-sm mt-0" onclick="customRowRemoveEdit(' + mesermenExitCount +
+                ');"><i class="fas fa-minus-circle"></i></button>';
+            html14 += '</td>';
+            html14 += '</tr>';
+            $('#CustomDiamentionEdit').append(html14)
+        }
+
+        function customRowRemoveEdit(id) {
+            $('.CustomRowedit' + id).remove();
+        }
+
+
+
+
+
+
+
+
+
+
         $('#pdmesermentEdit').change(function() {
             var pdmesermentEdit = $('#pdmesermentEdit').val();
             var html13 = "";
@@ -1457,6 +1503,10 @@
             } else if (pdmesermentEdit == 3) {
                 html13 +=
                     '<table class="table table-bordered"><thead clss="text-center"><tr><th>Entry</th><th>Meserments</th><th class="text-center"><button class="btn btn-success btn-sm ml-auto" onclick="addMoreBtnForMesermrntDiamentionEdit();">Add More</button></th></tr></thead><tbody id="MesermrntDimentionEdit">';
+
+            } else if (pdmesermentEdit == 4) {
+                html13 +=
+                    '<table class="table table-bordered"><thead clss="text-center"><tr><th>Meserments</th><th class="text-center"><button class="btn btn-success btn-sm ml-auto" onclick="addMoreBtnForCustomDiamentionEdit();">Add More</button></th></tr></thead><tbody id="CustomDiamentionEdit">';
 
             }
 
