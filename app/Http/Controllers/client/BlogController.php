@@ -18,21 +18,27 @@ class BlogController extends Controller
         $validator=Validator::make(request()->all(),[
             'name'=>'required|string',
             'post'=>'required|string',
-
+            'image'=>'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
            ]);
 
            if ($validator->fails()) {
               return redirect()->back()->withErrors($validator)->withInput();
             }
 
-        $name=auth()->user()->name;
-        $post=$request->post;
 
-        $blog=Blog::create([
-            'name'=>$name,
-            'post'=>$post,
-        ]);
+        $blog = new Blog;
+        $blog->name = auth()->user()->name;
+        $blog->post =  $request->post;
 
+        if ($request->hasFile('image')) {
+            $photoPath =  $request->file('image')->store('public');
+            $photoName = (explode('/', $photoPath))[1];
+            $host = $_SERVER['HTTP_HOST'];
+            $protocol = $_SERVER['PROTOCOL'] = isset($_SERVER['HTTPS']) && !empty($_SERVER['HTTPS']) ? 'https://' : 'http://';
+            $location = $protocol . $host .  "/public/storage/" . $photoName;
+            $blog->image = $location;
+        }
+        $blog=$blog->save();
         if($blog==true){
             session()->flash('success', 'Post Create Successfully');
             return redirect()->back();

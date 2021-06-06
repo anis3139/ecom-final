@@ -1,22 +1,54 @@
 @extends('client.layouts.app')
 @section('title', 'My Cart')
+@section('css')
+    <style>
+        .blogImg {
+            margin: 10px;
+            text-align: center;
+        }
+
+        .blogImg>img {
+            width: 350px;
+            height: 200px;
+        }
+
+    </style>
+@endsection
 @section('content')
 
     <section id="page-title">
 
         <div class="container clearfix">
-            <div>
+            <div class="card">
                 @include('client.component.ErrorMessage')
                 @auth
-                    <form action="{{ route('client.blog.store') }}" method="POST">
+                    <div class="card-header text-center">
+                        <h2>Share Your Experiance</h2>
+                    </div>
+                    <div class="card-body">
+                        <form action="{{ route('client.blog.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
-                        <textarea required class="form-control" name="post" id="post" cols="30"
-                            rows="10">{{ old('post') }}</textarea>
+                        <div class="row">
+                            <div class="form-group col-md-6">
+                                <input required type="file" name="image" id="blogImage" class="form-control">
+                                <div class="blogImg">
+                                    <img src="{{ asset('default-image.png') }}" alt="{{ auth()->user()->name }}"
+                                        id="blogImagePreview">
+                                </div>
+                            </div>
+                            <div class="form-group col-md-6 p-1">
+                                <textarea required class="form-control" name="post" id="post" cols="30"
+                                    rows="10">{{ old('post') }}</textarea>
+                            </div>
+                        </div>
+
+
                         <input type="hidden" name="name" value="{{ auth()->user()->name }}">
                         <button
                             class="button button-xlarge button-black button-rounded text-right text-light button-3d float-right mt-3"
                             type="submit">Share Post</button>
                     </form>
+                    </div>
                 @endauth
                 @guest
                     <h2 class="text-center">You need to <a class="font-weight-bold text-primary"
@@ -35,20 +67,27 @@
                 <div id="posts" class="row grid-container gutter-40">
                     @if ($posts)
                         @foreach ($posts as $post)
-                            <div class="entry col-md-10 offset-md-1">
-                                <div>
-                                    <p>
-                                        {!! nl2br(e($post->post)) !!}
-                                    </p>
-
+                            <div class="entry col-md-10 offset-md-1 row">
+                                <div class="col-md-6">
+                                    <img src="{{ $post->image ?? asset('default-image.png') }}" alt="{{ $post->name }}">
                                 </div>
-                                <div class="entry-meta">
-                                    <ul>
-                                        <li><i class="icon-calendar3"></i>{{ $post->created_at->diffForHumans() }}</li>
-                                        <li><i class="icon-user"></i> {{ $post->name }}</li>
+                                <div class="col-md-6">
+                                    <div>
+                                        <p>
+                                            {!! nl2br(e($post->post)) !!}
+                                        </p>
 
-                                    </ul>
+                                    </div>
+                                    <div class="entry-meta">
+                                        <ul>
+                                            <li><i class="icon-calendar3"></i>{{ $post->created_at->diffForHumans() }}
+                                            </li>
+                                            <li><i class="icon-user"></i> {{ $post->name }}</li>
+
+                                        </ul>
+                                    </div>
                                 </div>
+
                             </div>
                         @endforeach
                     @endif
@@ -60,4 +99,20 @@
             </div>
         </div>
     </section>
+@endsection
+
+
+@section('script')
+    <script>
+        //image Preview
+        $('#blogImage').change(function() {
+            var reader = new FileReader();
+            reader.readAsDataURL(this.files[0]);
+            reader.onload = function(event) {
+                var ImgSource = event.target.result;
+                $('#blogImagePreview').attr('src', ImgSource)
+            }
+        })
+
+    </script>
 @endsection

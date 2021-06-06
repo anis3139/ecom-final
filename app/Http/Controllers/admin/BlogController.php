@@ -5,6 +5,7 @@ namespace App\Http\Controllers\admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Blog;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
 class BlogController extends Controller
@@ -31,29 +32,36 @@ class BlogController extends Controller
 
     public function update(Request $request)
     {
-        $validator = Validator::make(request()->all(), [
-            'post' => 'required|string',
-            'status' => 'required',
-            'id' => 'required',
-        ]);
 
-        if ($validator->fails()) {
-            return redirect()->back()->withErrors($validator)->withInput();
-        }
-        $id = $request->Input('id');
-        $post = $request->Input('post');
-        $status = $request->Input('status');
+        $data = json_decode($_POST['data'], true);
+        $id = $data['id'];
+        $post = $data['post'];
+        $status = $data['status'];
 
+        if ($request->file('photo')) {
+            $delete_old_file = Blog::where('id', '=', $id)->first();
 
-        $result = Blog::where('id', '=', $id)->update([
-            'post' => $post,
-            'status' => $status
-        ]);
+            $delete_old_file_name = (explode('/', $delete_old_file->image))[5];
+            Storage::delete("public/".$delete_old_file_name);
+            $photoPath =  $request->file('photo')->store('public');
+            $photoName = (explode('/', $photoPath))[1];
+            $host = $_SERVER['HTTP_HOST'];
+            $protocol = $_SERVER['PROTOCOL'] = isset($_SERVER['HTTPS']) && !empty($_SERVER['HTTPS']) ? 'https://' : 'http://';
+            $location = $protocol . $host . "/public/storage/" . $photoName;
 
-        if ($result == true) {
-            return 1;
+            $result = Blog::where('id', '=', $id)->update(['post' => $post, 'status' => $status, 'image' => $location]);
+            if ($result == true) {
+                return 1;
+            } else {
+                return 0;
+            }
         } else {
-            return 0;
+            $result = Blog::where('id', '=', $id)->update(['post' => $post, 'status' => $status]);
+            if ($result == true) {
+                return 1;
+            } else {
+                return 0;
+            }
         }
     }
 
@@ -61,7 +69,10 @@ class BlogController extends Controller
     function Delete(Request $req)
     {
         $id = $req->input('id');
-        $result = Blog::where('id', '=', $id)->delete();
+        $result = Blog::where('id', '=', $id)->first();
+        $delete_image = (explode('/', $result->image))[5];
+        Storage::delete("public/".$delete_image);
+        $result =$result->delete();
         if ($result == true) {
             return 1;
         } else {

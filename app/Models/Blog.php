@@ -11,6 +11,7 @@ class Blog extends Model
     use HasFactory;  protected $fillable = [
         'name',
         'post',
+        'image',
     ];
     protected $table="blogs";
     public function blog()
