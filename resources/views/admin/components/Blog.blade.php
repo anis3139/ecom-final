@@ -13,6 +13,7 @@
                                 <tr>
                                     <th class="th-sm">Sl.</th>
                                     <th class="th-sm">Name</th>
+                                    <th class="th-sm">Title</th>
                                     <th class="th-sm">Post</th>
                                     <th class="th-sm">Image</th>
                                     <th class="th-sm">Status</th>
@@ -95,6 +96,8 @@
                                     <div class="col-md-6">
                                         <input readonly id="name" type="text" class="form-control mb-3 mt-2"
                                             placeholder="Name">
+                                        <input required id="title" type="text" class="form-control mb-3 mt-2"
+                                            placeholder="Title">
                                         <textarea name="post" id="post" cols="30" rows="10"
                                             class="form-control mb-3"></textarea>
                                         <select name="status" id="status" class="form-control mb-3 mt-2">
@@ -164,6 +167,7 @@
 
                                 "<td>" + count++ + " </td>" +
                                 "<td class='text-break'>" + dataJSON[i].name + " </td>" +
+                                "<td class='text-break'>" + dataJSON[i].title + " </td>" +
                                 "<td class='text-break'>" + dataJSON[i].post + " </td>" +
                                 "<td class='text-break'> <img width='150px' src=" + blogImage + "> </td>" +
                                 "<td class='text-break'>" + status + " </td>" +
@@ -289,6 +293,7 @@
                         $('#BlogEditForm').removeClass('d-none');
                         let jsonData = response.data;
                         $('#name').val(jsonData[0].name);
+                        $('#title').val(jsonData[0].title);
                         $('#post').val(jsonData[0].post);
                         let ImgSource = (jsonData[0].image);
                         $('#blogImageUpdatePreview').attr('src', ImgSource)
@@ -328,18 +333,19 @@
 
         $('#BlogupdateConfirmBtn').click(function() {
             var id = $('#BlogEditId').html();
+            var title = $('#title').val();
             var post = $('#post').val();
             var status = $('#status').val();
             var blogImageUpdate = $('#blogImageUpdate').prop('files')[0];
 
-            BlogUpdate(id, post, status, blogImageUpdate);
+            BlogUpdate(id, post, title, status, blogImageUpdate);
 
         })
 
 
         //update Special Feature data using modal
 
-        function BlogUpdate(id, post, status, blogImageUpdate) {
+        function BlogUpdate(id, post, title, status, blogImageUpdate) {
 
             if (post.length == 0) {
 
@@ -352,6 +358,7 @@
                 updateData = {
                     id: id,
                     post: post,
+                    title: title,
                     status: status,
                 }
                 var formData = new FormData();

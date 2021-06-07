@@ -1,5 +1,5 @@
 @extends('client.layouts.app')
-@section('title', 'My Cart')
+@section('title', 'News Feed')
 @section('css')
     <style>
         .blogImg {
@@ -73,11 +73,11 @@
                                     <div class="entry-image col-md-4">
                                         <a href="{{ $post->image ?? asset('default-image.png') }}"
                                             data-lightbox="image"><img src="{{ $post->image ?? asset('default-image.png') }}"
-                                                alt=" {{ $post->name }}"></a>
+                                                alt="{{ $post->title }}"></a>
                                     </div>
                                     <div class="col-md-8 pl-md-4">
                                         <div class="entry-title title-sm">
-                                            <h2><a href="blog-single.html">This is a Standard post with a Preview Image</a>
+                                            <h2><a href="#"> {{ $post->title }}</a>
                                             </h2>
                                         </div>
                                         <div class="entry-meta">
@@ -89,7 +89,7 @@
                                         </div>
                                         <div class="entry-content">
                                             <p> {!! nl2br(e($post->post)) !!}</p>
-                                            <a href="blog-single.html" class="more-link">Read More</a>
+                                            {{-- <a href="blog-single.html" class="more-link">Read More</a> --}}
                                         </div>
                                     </div>
                                 </div>

@@ -36,6 +36,7 @@ class BlogController extends Controller
         $data = json_decode($_POST['data'], true);
         $id = $data['id'];
         $post = $data['post'];
+        $title = $data['title'];
         $status = $data['status'];
 
         if ($request->file('photo')) {
@@ -49,14 +50,14 @@ class BlogController extends Controller
             $protocol = $_SERVER['PROTOCOL'] = isset($_SERVER['HTTPS']) && !empty($_SERVER['HTTPS']) ? 'https://' : 'http://';
             $location = $protocol . $host . "/public/storage/" . $photoName;
 
-            $result = Blog::where('id', '=', $id)->update(['post' => $post, 'status' => $status, 'image' => $location]);
+            $result = Blog::where('id', '=', $id)->update(['title' => $title,'post' => $post, 'status' => $status, 'image' => $location]);
             if ($result == true) {
                 return 1;
             } else {
                 return 0;
             }
         } else {
-            $result = Blog::where('id', '=', $id)->update(['post' => $post, 'status' => $status]);
+            $result = Blog::where('id', '=', $id)->update(['title' => $title,'post' => $post, 'status' => $status]);
             if ($result == true) {
                 return 1;
             } else {

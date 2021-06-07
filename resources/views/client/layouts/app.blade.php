@@ -50,11 +50,11 @@
             color: red;
         }
     </style>
-   
+
 
     <!-- Document Title
  ============================================= -->
-    <title>{{env('APP_NAME')}} || @yield('title')</title>
+    <title>@yield('title')</title>
 
 </head>
 
