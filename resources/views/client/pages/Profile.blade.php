@@ -4,8 +4,14 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <img src="{{ auth()->user()->image ?? asset('/default-image.png') }}" alt="{{ auth()->user()->name }}"
-                    width="150px" height="150px" style="border-radius:50%; margin:20px  auto !important; display:block;">
+
+                <div class="display-block text-center">
+                    <img src="{{ auth()->user()->image ?? asset('/default-image.png') }}" alt="{{ auth()->user()->name }}"
+                    width="150px" height="150px" style="border-radius:50%; margin:20px  auto !important;">
+                    <a class="btn btn-primary reset-password m-2" title="Reset Password?"
+                    href="{{ route('client.passwordReset', auth()->user()->id) }}"><i class="icon-line-edit "></i></a>
+                </div>
+
                 <table class="table table-borderless table-hover" style="padding:10px;">
                     <tr>
                         <td>name:</td>
@@ -40,8 +46,9 @@
                         <td colspan="2" class="text-center">
                             <a class="btn btn-primary btn-lg btn-block"
                                 href="{{ route('client.profileEdit', auth()->user()->id) }}"><span>Profile Edit</span></a>
-
                         </td>
+
+
                     </tr>
                 </table>
             </div>

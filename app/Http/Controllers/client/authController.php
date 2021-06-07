@@ -277,8 +277,6 @@ class authController extends Controller
 
 
 
-
-
         $user = User::findOrFail($id);
         $user->name = $name;
         $user->phone_number = $phone_number;
@@ -302,4 +300,42 @@ class authController extends Controller
         session()->flash('success', 'Profile Updated Successfully');
         return redirect()->route('client.profile');
     }
+    public function passwordResetView($id)
+    {
+        $data = [];
+        $data['user'] = User::where('id', $id)->first();
+        return view('client.pages.PasswordReset',  $data);
+    }
+
+    public function resetPassword(Request $request, $id)
+    {
+
+        $validator = Validator::make(request()->all(), [
+            'email' => 'required | email',
+            'oldPassword' => 'min:6|required',
+            'password' => 'min:6|required_with:password_confirmation|same:password_confirmation',
+            'password_confirmation' => 'min:6|required'
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        $user=User::findOrFail($id);
+
+        if ($user->email === $request->email && auth()->user()->email ===  $request->email ) {
+            if (Hash::check( $request->Input('oldPassword'), $user->password)) {
+                $user->password = bcrypt($request->Input('password'));
+                $user->save();
+                session()->flash('success', 'Password Updated Successfully');
+                return redirect()->route('client.profile');
+            }else{
+                return redirect()->back()->with('error', 'Old Password is Wrong');
+            }
+        } else {
+            return redirect()->back()->with('error', 'Wrong Credential');
+        }
+    }
 }
+
+

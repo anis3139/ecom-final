@@ -27,27 +27,28 @@
                     </div>
                     <div class="card-body">
                         <form action="{{ route('client.blog.store') }}" method="POST" enctype="multipart/form-data">
-                        @csrf
-                        <div class="row">
-                            <div class="form-group col-md-6">
-                                <input required type="file" name="image" id="blogImage" class="form-control">
-                                <div class="blogImg">
-                                    <img src="{{ asset('default-image.png') }}" alt="{{ auth()->user()->name }}"
-                                        id="blogImagePreview">
+                            @csrf
+                            <div class="row">
+                                <div class="form-group col-md-6">
+                                    <input required type="file" name="image" id="blogImage" class="form-control">
+                                    <div class="blogImg">
+                                        <img src="{{ asset('default-image.png') }}" alt="{{ auth()->user()->name }}"
+                                            id="blogImagePreview">
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <input required type="text" name="title" id="title" class="form-control" placeholder="Title">
+                                    <textarea required class="form-control mt-2" name="post" id="post" cols="30"
+                                        rows="10" placeholder="Write Your Massage">{{ old('post') }}</textarea>
                                 </div>
                             </div>
-                            <div class="form-group col-md-6 p-1">
-                                <textarea required class="form-control" name="post" id="post" cols="30"
-                                    rows="10">{{ old('post') }}</textarea>
-                            </div>
-                        </div>
 
 
-                        <input type="hidden" name="name" value="{{ auth()->user()->name }}">
-                        <button
-                            class="button button-xlarge button-black button-rounded text-right text-light button-3d float-right mt-3"
-                            type="submit">Share Post</button>
-                    </form>
+                            <input type="hidden" name="name" value="{{ auth()->user()->name }}">
+                            <button
+                                class="button button-xlarge button-black button-rounded text-right text-light button-3d float-right mt-3"
+                                type="submit">Share Post</button>
+                        </form>
                     </div>
                 @endauth
                 @guest
@@ -68,23 +69,28 @@
                     @if ($posts)
                         @foreach ($posts as $post)
                             <div class="entry col-md-10 offset-md-1 row">
-                                <div class="col-md-6">
-                                    <img src="{{ $post->image ?? asset('default-image.png') }}" alt="{{ $post->name }}">
-                                </div>
-                                <div class="col-md-6">
-                                    <div>
-                                        <p>
-                                            {!! nl2br(e($post->post)) !!}
-                                        </p>
-
+                                <div class="grid-inner row no-gutters">
+                                    <div class="entry-image col-md-4">
+                                        <a href="{{ $post->image ?? asset('default-image.png') }}"
+                                            data-lightbox="image"><img src="{{ $post->image ?? asset('default-image.png') }}"
+                                                alt=" {{ $post->name }}"></a>
                                     </div>
-                                    <div class="entry-meta">
-                                        <ul>
-                                            <li><i class="icon-calendar3"></i>{{ $post->created_at->diffForHumans() }}
-                                            </li>
-                                            <li><i class="icon-user"></i> {{ $post->name }}</li>
-
-                                        </ul>
+                                    <div class="col-md-8 pl-md-4">
+                                        <div class="entry-title title-sm">
+                                            <h2><a href="blog-single.html">This is a Standard post with a Preview Image</a>
+                                            </h2>
+                                        </div>
+                                        <div class="entry-meta">
+                                            <ul>
+                                                <li><i class="icon-calendar3"></i>{{ $post->created_at->diffForHumans() }}
+                                                </li>
+                                                <li><a href="#"><i class="icon-user"></i> {{ $post->name }}</a></li>
+                                            </ul>
+                                        </div>
+                                        <div class="entry-content">
+                                            <p> {!! nl2br(e($post->post)) !!}</p>
+                                            <a href="blog-single.html" class="more-link">Read More</a>
+                                        </div>
                                     </div>
                                 </div>
 

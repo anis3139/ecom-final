@@ -335,6 +335,8 @@ Route::post('/getproductreating', [\App\Http\Controllers\client\ReatingReviewCon
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/logout', [App\Http\Controllers\client\authController::class, 'logout'])->name('client.logout');
     Route::get('/profile', [App\Http\Controllers\client\authController::class, 'profile'])->name('client.profile');
+    Route::get('/password-reset/{id}', [App\Http\Controllers\client\authController::class, 'passwordResetView'])->name('client.passwordReset');
+    Route::post('/passwordUpdate/{id}', [App\Http\Controllers\client\authController::class, 'resetPassword'])->name('client.passwordUpdate');
     Route::get('/profileEdit/{id}', [App\Http\Controllers\client\authController::class, 'profileEdit'])->name('client.profileEdit');
     Route::post('/upadeteProfile/{id}', [App\Http\Controllers\client\authController::class, 'upadeteProfile'])->name('client.upadeteProfile');
     Route::post('/processOrder', [App\Http\Controllers\client\CartController::class, 'order'])->name('client.processOrder');
