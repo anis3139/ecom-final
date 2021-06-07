@@ -68,7 +68,7 @@
                 <div id="posts" class="row grid-container gutter-40">
                     @if ($posts)
                         @foreach ($posts as $post)
-                            <div class="entry col-md-10 offset-md-1 row">
+                            <div class="entry col-md-10 offset-md-1 row m-1" style="position: absolute;left: 5%;top: 0px;">
                                 <div class="grid-inner row no-gutters">
                                     <div class="entry-image col-md-4">
                                         <a href="{{ $post->image ?? asset('default-image.png') }}"
