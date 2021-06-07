@@ -251,7 +251,10 @@
                     if (response.status = 200) {
                         if (response.data == 1) {
                             $('#addSliderModal').modal('hide');
-                            toastr.success('Add New Success .');
+                            toastr.success('Add New Success .', 'Success',{
+            closeButton: true,
+            progressBar: true,
+        });
                             $('#SliderName').val("");
                             $('#SliderDes').val("");
                             $('#Sliderimg').val("");
@@ -260,16 +263,25 @@
                             getSliderdata();
                         } else {
                             $('#addSliderModal').modal('hide');
-                            toastr.error('Add New Failed');
+                            toastr.error('Add New Failed', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
                             getSliderdata();
                         }
                     } else {
                         $('#addSliderModal').modal('hide');
-                        toastr.error('Something Went Wrong');
+                        toastr.error('Something Went Wrong', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
                     }
                 }).catch(function(error) {
                     $('#addSliderModal').modal('hide');
-                    toastr.error('Something Went Wrong');
+                    toastr.error('Something Went Wrong', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
                 });
 
         }
@@ -314,7 +326,7 @@
         })
         //update Slider data using modal
         function SliderUpdate(idUpdate, nameUpdate, desUpdate, imgUpdate) {
-           
+
                 $('#SliderupdateConfirmBtn').html(
                     "<div class='spinner-border spinner-border-sm text-primary' role='status'></div>"); //animation
                 updateData = [{
@@ -335,20 +347,32 @@
                     if (response.status = 200) {
                         if (response.data == 1) {
                             $('#updateSliderModal').modal('hide');
-                            toastr.success('Update Success.');
+                            toastr.success('Update Success.', 'Success',{
+            closeButton: true,
+            progressBar: true,
+        });
                             getSliderdata();
                         } else {
                             $('#updateSliderModal').modal('hide');
-                            toastr.error('Update Failed');
+                            toastr.error('Update Failed', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        })
                             getSliderdata();
                         }
                     } else {
                         $('#updateSliderModal').modal('hide');
-                        toastr.error('Something Went Wrong');
+                        toastr.error('Something Went Wrong', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
                     }
                 }).catch(function(error) {
                     $('#updateSliderModal').modal('hide');
-                    toastr.error('Something Went Wrong');
+                    toastr.error('Something Went Wrong', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
                 });
 
         }
@@ -370,20 +394,32 @@
                     if (response.status == 200) {
                         if (response.data == 1) {
                             $('#deleteModalSlider').modal('hide');
-                            toastr.error('Delete Success.');
+                            toastr.warning('Delete Success.', 'Success',{
+            closeButton: true,
+            progressBar: true,
+        });
                             getSliderdata();
                         } else {
                             $('#deleteModalSlider').modal('hide');
-                            toastr.error('Delete Failed');
+                            toastr.error('Delete Failed', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
                             getSliderdata();
                         }
                     } else {
                         $('#deleteModalSlider').modal('hide');
-                        toastr.error('Something Went Wrong');
+                        toastr.error('Something Went Wrong', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
                     }
                 }).catch(function(error) {
                     $('#deleteModalSlider').modal('hide');
-                    toastr.error('Something Went Wrong');
+                    toastr.error('Something Went Wrong', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
                 });
         }
     </script>

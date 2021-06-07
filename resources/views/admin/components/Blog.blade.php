@@ -243,27 +243,37 @@
                     $('#confirmDeleteBlog').html("Yes");
 
                     if (response.status == 200) {
-
-
                         if (response.data == 1) {
                             $('#deleteModalBlog').modal('hide');
-                            toastr.error('Delete Success.');
+                            toastr.warning('Delete Success.', 'Success',{
+            closeButton: true,
+            progressBar: true,
+        });
                             getBlogData();
                         } else {
                             $('#deleteModalBlog').modal('hide');
-                            toastr.error('Delete Failed');
+                            toastr.error('Delete Failed', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
                             getBlogData();
                         }
 
                     } else {
                         $('#deleteModalBlog').modal('hide');
-                        toastr.error('Something Went Wrong');
+                        toastr.error('Something Went Wrong', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
                     }
 
                 }).catch(function(error) {
 
                     $('#deleteModalBlog').modal('hide');
-                    toastr.error('Something Went Wrong');
+                    toastr.error('Something Went Wrong', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
 
                 });
 
@@ -370,31 +380,42 @@
                         'Content-Type': 'multipart/form-data'
                     }
                 }).then(function(response) {
-                    console.log(response.data);
                     $('#BlogupdateConfirmBtn').html("Update");
 
                     if (response.status = 200) {
                         if (response.data == 1) {
                             $('#updateBlogModal').modal('hide');
-                            toastr.success('Update Success.');
+                            toastr.success('Update Success.', 'Success',{
+            closeButton: true,
+            progressBar: true,
+        });
                             getBlogData();
 
                         } else {
                             $('#updateBlogModal').modal('hide');
-                            toastr.error('Update Failed');
+                            toastr.error('Update Failed', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        })
                             getBlogData();
 
                         }
                     } else {
                         $('#updateBlogModal').modal('hide');
-                        toastr.error('Something Went Wrong');
+                        toastr.error('Something Went Wrong', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
                     }
 
 
                 }).catch(function(error) {
 
                     $('#updateBlogModal').modal('hide');
-                    toastr.error('Something Went Wrong');
+                    toastr.error('Something Went Wrong', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
 
                 });
             }

@@ -170,23 +170,35 @@ axios.post("{{ route('admin.contactDelete') }}", {
 
             if (response.data == 1) {
                 $('#deleteModalMessage').modal('hide');
-                toastr.error('Delete Success.');
+                toastr.warning('Delete Success.', 'Success',{
+            closeButton: true,
+            progressBar: true,
+        });
                 getMessagesdata();
             } else {
                 $('#deleteModalMessage').modal('hide');
-                toastr.error('Delete Failed');
+                toastr.error('Delete Failed', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
                 getMessagesdata();
             }
 
         } else {
             $('#deleteModalMessage').modal('hide');
-            toastr.error('Something Went Wrong');
+            toastr.error('Something Went Wrong', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
         }
 
     }).catch(function(error) {
 
         $('#deleteModalMessage').modal('hide');
-        toastr.error('Something Went Wrong');
+        toastr.error('Something Went Wrong', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
 
     });
 

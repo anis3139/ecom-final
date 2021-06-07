@@ -257,22 +257,34 @@ getPagesdata();
                     if (response.status = 200) {
                         if (response.data == 1) {
                             $('#addPagesModal').modal('hide');
-                            toastr.success('Add New Success .');
+                            toastr.success('Add New Success .', 'Success',{
+            closeButton: true,
+            progressBar: true,
+        });
                             $('#PagesName').val("");
                             tinymce.get("PagesDes").setContent("");
                             getPagesdata();
                         } else {
                             $('#addPagesModal').modal('hide');
-                            toastr.error('Add New Failed');
+                            toastr.error('Add New Failed', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
                             getPagesdata();
                         }
                     } else {
                         $('#addPagesModal').modal('hide');
-                        toastr.error('Something Went Wrong');
+                        toastr.error('Something Went Wrong', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
                     }
                 }).catch(function(error) {
                     $('#addPagesModal').modal('hide');
-                    toastr.error('Something Went Wrong');
+                    toastr.error('Something Went Wrong', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
                 });
             }
         }
@@ -333,20 +345,32 @@ getPagesdata();
                     if (response.status = 200) {
                         if (response.data == 1) {
                             $('#updatePagesModal').modal('hide');
-                            toastr.success('Update Success.');
+                            toastr.success('Update Success.', 'Success',{
+            closeButton: true,
+            progressBar: true,
+        });
                             getPagesdata();
                         } else {
                             $('#updatePagesModal').modal('hide');
-                            toastr.error('Update Failed');
+                            toastr.error('Update Failed', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        })
                             getPagesdata();
                         }
                     } else {
                         $('#updatePagesModal').modal('hide');
-                        toastr.error('Something Went Wrong');
+                        toastr.error('Something Went Wrong', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
                     }
                 }).catch(function(error) {
                     $('#updatePagesModal').modal('hide');
-                    toastr.error('Something Went Wrong');
+                    toastr.error('Something Went Wrong', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
                 });
             }
         }
@@ -368,20 +392,32 @@ getPagesdata();
                     if (response.status == 200) {
                         if (response.data == 1) {
                             $('#deleteModalPages').modal('hide');
-                            toastr.error('Delete Success.');
+                            toastr.warning('Delete Success.', 'Success',{
+            closeButton: true,
+            progressBar: true,
+        });
                             getPagesdata();
                         } else {
                             $('#deleteModalPages').modal('hide');
-                            toastr.error('Delete Failed');
+                            toastr.error('Delete Failed', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
                             getPagesdata();
                         }
                     } else {
                         $('#deleteModalPages').modal('hide');
-                        toastr.error('Something Went Wrong');
+                        toastr.error('Something Went Wrong', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
                     }
                 }).catch(function(error) {
                     $('#deleteModalPages').modal('hide');
-                    toastr.error('Something Went Wrong');
+                    toastr.error('Something Went Wrong', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
                 });
         }
 </script>

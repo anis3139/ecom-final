@@ -161,7 +161,7 @@
 
 
 @section('script')
-    
+
 
     <script>
         // bkash_number Add
@@ -187,17 +187,29 @@
                         $('#submitBkashNumber').html("Update");
                         if (response.status = 200) {
                             if (response.data == 1) {
-                                toastr.success('Updated Success .');
+                                toastr.success('Updated Success .', 'Success',{
+            closeButton: true,
+            progressBar: true,
+        });
 
 
                             } else {
-                                toastr.error('Updated Failed');
+                                toastr.error('Updated Failed', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
                             }
                         } else {
-                            toastr.error('Something Went Wrong');
+                            toastr.error('Something Went Wrong', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
                         }
                     }).catch(function(error) {
-                        toastr.error('Something Went Wrong');
+                        toastr.error('Something Went Wrong', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
                     });
             }
         }
@@ -231,17 +243,29 @@
                         $('#submitRocketNumber').html("Update");
                         if (response.status = 200) {
                             if (response.data == 1) {
-                                toastr.success('Updated Success .');
+                                toastr.success('Updated Success .', 'Success',{
+            closeButton: true,
+            progressBar: true,
+        });
 
 
                             } else {
-                                toastr.error('Updated Failed');
+                                toastr.error('Updated Failed', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
                             }
                         } else {
-                            toastr.error('Something Went Wrong');
+                            toastr.error('Something Went Wrong', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
                         }
                     }).catch(function(error) {
-                        toastr.error('Something Went Wrong');
+                        toastr.error('Something Went Wrong', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
                     });
             }
         }
@@ -273,17 +297,29 @@
                         $('#submitNagadNumber').html("Update");
                         if (response.status = 200) {
                             if (response.data == 1) {
-                                toastr.success('Updated Success .');
+                                toastr.success('Updated Success .', 'Success',{
+            closeButton: true,
+            progressBar: true,
+        });
 
 
                             } else {
-                                toastr.error('Updated Failed');
+                                toastr.error('Updated Failed', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
                             }
                         } else {
-                            toastr.error('Something Went Wrong');
+                            toastr.error('Something Went Wrong', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
                         }
                     }).catch(function(error) {
-                        toastr.error('Something Went Wrong');
+                        toastr.error('Something Went Wrong', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
                     });
             }
         }
@@ -314,17 +350,29 @@
                         $('#submitDeliveryInCity').html("Update");
                         if (response.status = 200) {
                             if (response.data == 1) {
-                                toastr.success('Updated Success .');
+                                toastr.success('Updated Success .', 'Success',{
+            closeButton: true,
+            progressBar: true,
+        });
 
 
                             } else {
-                                toastr.error('Updated Failed');
+                                toastr.error('Updated Failed', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
                             }
                         } else {
-                            toastr.error('Something Went Wrong');
+                            toastr.error('Something Went Wrong', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
                         }
                     }).catch(function(error) {
-                        toastr.error('Something Went Wrong');
+                        toastr.error('Something Went Wrong', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
                     });
             }
         }
@@ -356,17 +404,29 @@
                         $('#submitDeliveryOutCity').html("Update");
                         if (response.status = 200) {
                             if (response.data == 1) {
-                                toastr.success('Updated Success .');
+                                toastr.success('Updated Success .', 'Success',{
+            closeButton: true,
+            progressBar: true,
+        });
 
 
                             } else {
-                                toastr.error('Updated Failed');
+                                toastr.error('Updated Failed', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
                             }
                         } else {
-                            toastr.error('Something Went Wrong');
+                            toastr.error('Something Went Wrong', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
                         }
                     }).catch(function(error) {
-                        toastr.error('Something Went Wrong');
+                        toastr.error('Something Went Wrong', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
                     });
             }
         }
@@ -546,23 +606,35 @@
                         if (response.status = 200) {
                             if (response.data == 1) {
                                 $('#addCuponModal').modal('hide');
-                                toastr.success('Add New Success .');
+                                toastr.success('Add New Success .', 'Success',{
+            closeButton: true,
+            progressBar: true,
+        });
                                 getCuponData();
                             } else {
                                 $('#addCuponModal').modal('hide');
-                                toastr.error('Add New Failed');
+                                toastr.error('Add New Failed', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
                                 getCuponData();
                             }
                         } else {
                             $('#addCuponModal').modal('hide');
-                            toastr.error('Something Went Wrong');
+                            toastr.error('Something Went Wrong', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
                         }
 
 
                     }).catch(function(error) {
 
                         $('#addCuponModal').modal('hide');
-                        toastr.error('Something Went Wrong');
+                        toastr.error('Something Went Wrong', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
 
                     });
 
@@ -601,23 +673,35 @@
 
                         if (response.data == 1) {
                             $('#deleteModalCupon').modal('hide');
-                            toastr.error('Delete Success.');
+                            toastr.warning('Delete Success.', 'Success',{
+            closeButton: true,
+            progressBar: true,
+        });
                             getCuponData();
                         } else {
                             $('#deleteModalCupon').modal('hide');
-                            toastr.error('Delete Failed');
+                            toastr.error('Delete Failed', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
                             getCuponData();
                         }
 
                     } else {
                         $('#deleteModalCupon').modal('hide');
-                        toastr.error('Something Went Wrong');
+                        toastr.error('Something Went Wrong', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
                     }
 
                 }).catch(function(error) {
 
                     $('#deleteModalCupon').modal('hide');
-                    toastr.error('Something Went Wrong');
+                    toastr.error('Something Went Wrong', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
 
                 });
 
@@ -742,25 +826,37 @@
                     if (response.status = 200) {
                         if (response.data == 1) {
                             $('#updateCuponModal').modal('hide');
-                            toastr.success('Update Success.');
+                            toastr.success('Update Success.', 'Success',{
+            closeButton: true,
+            progressBar: true,
+        });
                             getCuponData();
 
                         } else {
                             $('#updateCuponModal').modal('hide');
-                            toastr.error('Update Failed');
+                            toastr.error('Update Failed', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        })
                             getCuponData();
 
                         }
                     } else {
                         $('#updateCuponModal').modal('hide');
-                        toastr.error('Something Went Wrong');
+                        toastr.error('Something Went Wrong', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
                     }
 
 
                 }).catch(function(error) {
 
                     $('#updateCuponModal').modal('hide');
-                    toastr.error('Something Went Wrong');
+                    toastr.error('Something Went Wrong', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
 
                 });
             }

@@ -226,14 +226,23 @@
                 console.log(response.data);
                 if (response.status == 200 && response.data == 1) {
                     $('.bd-example-modal-lg').modal('hide');
-                    toastr.success('Product Add Successfully');
+                         toastr.success('Product Add Successfully', 'Success',{
+            closeButton: true,
+            progressBar: true,
+        });
                     getcartData()
                 } else {
-                    toastr.error('Product not Added ! Try Again');
+                    toastr.error('Product not Added ! Try Again', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
                 }
 
             }).catch(function(error) {
-                toastr.error('Product not Added  ! Something Error');
+                toastr.error('Product not Added  ! Something Error', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
             })
 
 
@@ -297,11 +306,17 @@
                             DeleteDataCart(id);
                         })
                     } else {
-                        toastr.error('Something Went Wrong');
+                        toastr.error('Something Went Wrong', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
                     }
                 }).catch(function(error) {
 
-                    toastr.error('Something Went Wrong...');
+                    toastr.error('Something Went Wrong...', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
                 });
         }
 
@@ -334,14 +349,23 @@
                 .then(function(response) {
 
                     if (response.status == 200) {
-                        toastr.success('Cart Removed Success.');
+                        toastr.success('Cart Removed Success.', 'Success',{
+            closeButton: true,
+            progressBar: true,
+        });
                         getcartData();
                     } else {
-                        toastr.error('Something Went Wrong');
+                        toastr.error('Something Went Wrong', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
                     }
                 }).catch(function(error) {
 
-                    toastr.error('Something Went Wrong......');
+                    toastr.error('Something Went Wrong......', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
                 });
         }
 

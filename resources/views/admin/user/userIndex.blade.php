@@ -61,7 +61,7 @@
                         <input id="UserName" type="text" id="" class="form-control mb-3" placeholder="User Name">
                         <input id="UserEmail" type="text" id="" class="form-control mb-3" placeholder="User Eamil">
                         <input id="phone_number" type="text" id="" class="form-control mb-3" placeholder="User Mobile">
-                        
+
                         <input id="UserPassword" type="text" id="" class="form-control mb-3" placeholder="User Password">
 
                     </div>
@@ -117,7 +117,7 @@
                             <input id="UserNameIdUpdate" type="text" id="" class="form-control mb-3" placeholder="User Name">
                             <input id="UserEmailIdUpdate" type="text" id="" class="form-control mb-3" placeholder="User Email">
                             <input id="phone_number_edit" type="text" id="" class="form-control mb-3" placeholder="User Mobile">
-                            
+
 
                         </div>
 
@@ -164,7 +164,7 @@
 
                     $.each(dataJSON, function(i, item) {
 
-                       
+
                         $('<tr>').html(
                             "<td>" + count++ + " </td>" +
 
@@ -172,7 +172,7 @@
 
                             "<td>" + dataJSON[i].email + " </td>" +
                             "<td>" + dataJSON[i].phone_number + " </td>" +
-                            
+
 
                             "<td><a class='UserEditIcon' data-id=" + dataJSON[i].id +
                             "><i class='fas fa-edit'></i></a> </td>" +
@@ -248,7 +248,7 @@
         var name = $('#UserName').val();
         var email = $('#UserEmail').val();
         var phone_number = $('#phone_number').val();
-    
+
         var password = $('#UserPassword').val();
 
 
@@ -286,7 +286,7 @@
                 name: name,
                 email: email,
                 phone_number: phone_number,
-                
+
                 password: password
             }).then(function(response) {
 
@@ -295,30 +295,42 @@
                 if (response.status = 200) {
                     if (response.data == 1) {
                         $('#addUserModal').modal('hide');
-                        toastr.success('Add New Success .');
+                        toastr.success('Add New Success .', 'Success',{
+            closeButton: true,
+            progressBar: true,
+        });
                         $('#UserName').val("");
                          $('#UserEmail').val("");
                          $('#phone_number').val("");
                          $('#UserPassword').val("");
-                        
+
 
                         getUserdata();
 
                     } else {
                         $('#addUserModal').modal('hide');
-                        toastr.error('Add New Failed');
+                        toastr.error('Add New Failed', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
                         getUserdata();
                     }
                 } else {
                     $('#addUserModal').modal('hide');
-                    toastr.error('Something Went Wrong');
+                    toastr.error('Something Went Wrong', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
                 }
 
 
             }).catch(function(error) {
 
                 $('#addUserModal').modal('hide');
-                toastr.error('Something Went Wrong');
+                toastr.error('Something Went Wrong', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
 
             });
 
@@ -355,23 +367,35 @@
 
                     if (response.data == 1) {
                         $('#deleteModalUser').modal('hide');
-                        toastr.error('Delete Success.');
+                        toastr.warning('Delete Success.', 'Success',{
+            closeButton: true,
+            progressBar: true,
+        });
                         getUserdata();
                     } else {
                         $('#deleteModalUser').modal('hide');
-                        toastr.error('Delete Failed');
+                        toastr.error('Delete Failed', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
                         getUserdata();
                     }
 
                 } else {
                     $('#deleteModalUser').modal('hide');
-                    toastr.error('Something Went Wrong');
+                    toastr.error('Something Went Wrong', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
                 }
 
             }).catch(function(error) {
 
                 $('#deleteModalUser').modal('hide');
-                toastr.error('Something Went Wrong');
+                toastr.error('Something Went Wrong', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
 
             });
 
@@ -461,7 +485,7 @@
                 name: nameUpdate,
                 email: emailUpdate,
                 phone_number_edit: phone_number_edit
-              
+
             }).then(function(response) {
                     console.log(response.data);
                 $('#UserupdateConfirmBtn').html("Update");
@@ -469,25 +493,37 @@
                 if (response.status = 200) {
                     if (response.data == 1) {
                         $('#updateUserModal').modal('hide');
-                        toastr.success('Update Success.');
+                        toastr.success('Update Success.', 'Success',{
+            closeButton: true,
+            progressBar: true,
+        });
                         getUserdata();
 
                     } else {
                         $('#updateUserModal').modal('hide');
-                        toastr.error('Update Failed');
+                        toastr.error('Update Failed', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        })
                         getUserdata();
 
                     }
                 } else {
                     $('#updateUserModal').modal('hide');
-                    toastr.error('Something Went Wrong');
+                    toastr.error('Something Went Wrong', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
                 }
 
 
             }).catch(function(error) {
 
                 $('#updateUserModal').modal('hide');
-                toastr.error('Something Went Wrong');
+                toastr.error('Something Went Wrong', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
 
             });
         }

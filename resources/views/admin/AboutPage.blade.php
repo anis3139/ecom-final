@@ -39,17 +39,29 @@
                         $('#submitTitle').html("Update");
                         if (response.status = 200) {
                             if (response.data == 1) {
-                                toastr.success('Updated Success .');
+                                toastr.success('Updated Success .', 'Success',{
+            closeButton: true,
+            progressBar: true,
+        });
 
 
                             } else {
-                                toastr.error('Updated Failed');
+                                toastr.error('Updated Failed', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
                             }
                         } else {
-                            toastr.error('Something Went Wrong');
+                            toastr.error('Something Went Wrong', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
                         }
                     }).catch(function(error) {
-                        toastr.error('Something Went Wrong');
+                        toastr.error('Something Went Wrong', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
                     });
             }
         }
@@ -80,17 +92,29 @@
                         $('#submitDescription').html("Update");
                         if (response.status = 200) {
                             if (response.data == 1) {
-                                toastr.success('Updated Success .');
+                                toastr.success('Updated Success .', 'Success',{
+            closeButton: true,
+            progressBar: true,
+        });
 
 
                             } else {
-                                toastr.error('Updated Failed');
+                                toastr.error('Updated Failed', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
                             }
                         } else {
-                            toastr.error('Something Went Wrong');
+                            toastr.error('Something Went Wrong', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
                         }
                     }).catch(function(error) {
-                        toastr.error('Something Went Wrong');
+                        toastr.error('Something Went Wrong', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
                     });
             }
         }
@@ -133,23 +157,35 @@
                 if (response.status = 200) {
                     if (response.data == 1) {
 
-                        toastr.success('Updated Success .');
+                        toastr.success('Updated Success .', 'Success',{
+            closeButton: true,
+            progressBar: true,
+        });
 
                     } else {
 
-                        toastr.error('Updated Failed');
+                        toastr.error('Updated Failed', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
 
                     }
                 } else {
 
-                    toastr.error('Something Went Wrong');
+                    toastr.error('Something Went Wrong', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
                 }
 
 
             }).catch(function(error) {
 
 
-                toastr.error('Something Went Wrong');
+                toastr.error('Something Went Wrong', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
 
             });
 
@@ -194,23 +230,35 @@
                 if (response.status = 200) {
                     if (response.data == 1) {
 
-                        toastr.success('Updated Success .');
+                        toastr.success('Updated Success .', 'Success',{
+            closeButton: true,
+            progressBar: true,
+        });
 
                     } else {
 
-                        toastr.error('Updated Failed');
+                        toastr.error('Updated Failed', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
 
                     }
                 } else {
 
-                    toastr.error('Something Went Wrong');
+                    toastr.error('Something Went Wrong', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
                 }
 
 
             }).catch(function(error) {
 
 
-                toastr.error('Something Went Wrong');
+                toastr.error('Something Went Wrong', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
 
             });
 
@@ -255,23 +303,35 @@
                 if (response.status = 300) {
                     if (response.data == 1) {
 
-                        toastr.success('Updated Success .');
+                        toastr.success('Updated Success .', 'Success',{
+            closeButton: true,
+            progressBar: true,
+        });
 
                     } else {
 
-                        toastr.error('Updated Failed');
+                        toastr.error('Updated Failed', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
 
                     }
                 } else {
 
-                    toastr.error('Something Went Wrong');
+                    toastr.error('Something Went Wrong', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
                 }
 
 
             }).catch(function(error) {
 
 
-                toastr.error('Something Went Wrong');
+                toastr.error('Something Went Wrong', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
 
             });
 
@@ -402,23 +462,35 @@
                         if (response.status = 200) {
                             if (response.data == 1) {
                                 $('#addFeaturedSpecialsModal').modal('hide');
-                                toastr.success('Add New Success .');
+                                toastr.success('Add New Success .', 'Success',{
+            closeButton: true,
+            progressBar: true,
+        });
                                 getHomeFeaturedSpecialsData();
                             } else {
                                 $('#addFeaturedSpecialsModal').modal('hide');
-                                toastr.error('Add New Failed');
+                                toastr.error('Add New Failed', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
                                 getHomeFeaturedSpecialsData();
                             }
                         } else {
                             $('#addFeaturedSpecialsModal').modal('hide');
-                            toastr.error('Something Went Wrong');
+                            toastr.error('Something Went Wrong', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
                         }
 
 
                     }).catch(function(error) {
 
                         $('#addFeaturedSpecialsModal').modal('hide');
-                        toastr.error('Something Went Wrong');
+                        toastr.error('Something Went Wrong', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
 
                     });
 
@@ -457,23 +529,35 @@
 
                         if (response.data == 1) {
                             $('#deleteModalFeaturedSpecials').modal('hide');
-                            toastr.error('Delete Success.');
+                            toastr.warning('Delete Success.', 'Success',{
+            closeButton: true,
+            progressBar: true,
+        });
                             getHomeFeaturedSpecialsData();
                         } else {
                             $('#deleteModalFeaturedSpecials').modal('hide');
-                            toastr.error('Delete Failed');
+                            toastr.error('Delete Failed', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
                             getHomeFeaturedSpecialsData();
                         }
 
                     } else {
                         $('#deleteModalFeaturedSpecials').modal('hide');
-                        toastr.error('Something Went Wrong');
+                        toastr.error('Something Went Wrong', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
                     }
 
                 }).catch(function(error) {
 
                     $('#deleteModalFeaturedSpecials').modal('hide');
-                    toastr.error('Something Went Wrong');
+                    toastr.error('Something Went Wrong', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
 
                 });
 
@@ -580,25 +664,37 @@
                         if (response.status = 200) {
                             if (response.data == 1) {
                                 $('#updateFeaturedSpecialsModal').modal('hide');
-                                toastr.success('Update Success.');
+                                toastr.success('Update Success.', 'Success',{
+            closeButton: true,
+            progressBar: true,
+        });
                                 getHomeFeaturedSpecialsData();
 
                             } else {
                                 $('#updateFeaturedSpecialsModal').modal('hide');
-                                toastr.error('Update Failed');
+                                toastr.error('Update Failed', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        })
                                 getHomeFeaturedSpecialsData();
 
                             }
                         } else {
                             $('#updateFeaturedSpecialsModal').modal('hide');
-                            toastr.error('Something Went Wrong');
+                            toastr.error('Something Went Wrong', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
                         }
 
 
                     }).catch(function(error) {
 
                         $('#updateFeaturedSpecialsModal').modal('hide');
-                        toastr.error('Something Went Wrong');
+                        toastr.error('Something Went Wrong', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
 
                     });
             }
@@ -652,23 +748,35 @@ axios.post("{{route('admin.addEXPimage')}}", formData, {
     if (response.status = 300) {
         if (response.data == 1) {
 
-            toastr.success('Updated Success .');
+            toastr.success('Updated Success .', 'Success',{
+            closeButton: true,
+            progressBar: true,
+        });
 
         } else {
 
-            toastr.error('Updated Failed');
+            toastr.error('Updated Failed', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
 
         }
     } else {
 
-        toastr.error('Something Went Wrong');
+        toastr.error('Something Went Wrong', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
     }
 
 
 }).catch(function(error) {
 
 
-    toastr.error('Something Went Wrong');
+    toastr.error('Something Went Wrong', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
 
 });
 
@@ -799,23 +907,35 @@ axios.post("{{route('admin.addEXPimage')}}", formData, {
                     if (response.status = 200) {
                         if (response.data == 1) {
                             $('#addExclusiveFeatureModal').modal('hide');
-                            toastr.success('Add New Success .');
+                            toastr.success('Add New Success .', 'Success',{
+            closeButton: true,
+            progressBar: true,
+        });
                             getHomeExclusiveSpecialsData();
                         } else {
                             $('#addExclusiveFeatureModal').modal('hide');
-                            toastr.error('Add New Failed');
+                            toastr.error('Add New Failed', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
                             getHomeExclusiveSpecialsData();
                         }
                     } else {
                         $('#addExclusiveFeatureModal').modal('hide');
-                        toastr.error('Something Went Wrong');
+                        toastr.error('Something Went Wrong', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
                     }
 
 
                 }).catch(function(error) {
 
                     $('#addExclusiveFeatureModal').modal('hide');
-                    toastr.error('Something Went Wrong');
+                    toastr.error('Something Went Wrong', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
 
                 });
 
@@ -853,23 +973,35 @@ axios.post("{{route('admin.addEXPimage')}}", formData, {
 
                         if (response.data == 1) {
                             $('#deleteModalExclusiveFeature').modal('hide');
-                            toastr.error('Delete Success.');
+                            toastr.warning('Delete Success.', 'Success',{
+            closeButton: true,
+            progressBar: true,
+        });
                             getHomeExclusiveSpecialsData();
                         } else {
                             $('#deleteModalExclusiveFeature').modal('hide');
-                            toastr.error('Delete Failed');
+                            toastr.error('Delete Failed', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
                             getHomeExclusiveSpecialsData();
                         }
 
                     } else {
                         $('#deleteModalExclusiveFeature').modal('hide');
-                        toastr.error('Something Went Wrong');
+                        toastr.error('Something Went Wrong', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
                     }
 
                 }).catch(function(error) {
 
                     $('#deleteModalExclusiveFeature').modal('hide');
-                    toastr.error('Something Went Wrong');
+                    toastr.error('Something Went Wrong', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
 
                 });
 
@@ -976,25 +1108,37 @@ if (exp_title.length == 0) {
             if (response.status = 200) {
                 if (response.data == 1) {
                     $('#updateExclusiveFeatureModal').modal('hide');
-                    toastr.success('Update Success.');
+                    toastr.success('Update Success.', 'Success',{
+            closeButton: true,
+            progressBar: true,
+        });
                     getHomeExclusiveSpecialsData();
 
                 } else {
                     $('#updateExclusiveFeatureModal').modal('hide');
-                    toastr.error('Update Failed');
+                    toastr.error('Update Failed', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        })
                     getHomeExclusiveSpecialsData();
 
                 }
             } else {
                 $('#updateExclusiveFeatureModal').modal('hide');
-                toastr.error('Something Went Wrong');
+                toastr.error('Something Went Wrong', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
             }
 
 
         }).catch(function(error) {
 
             $('#updateExclusiveFeatureModal').modal('hide');
-            toastr.error('Something Went Wrong');
+            toastr.error('Something Went Wrong', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
 
         });
 }
@@ -1166,23 +1310,35 @@ if (exp_title.length == 0) {
                     if (response.status = 200) {
                         if (response.data == 1) {
                             $('#addTestimonioalModal').modal('hide');
-                            toastr.success('Add New Success .');
+                            toastr.success('Add New Success .', 'Success',{
+            closeButton: true,
+            progressBar: true,
+        });
                               getHomeTestimonialData();
                         } else {
                             $('#addTestimonioalModal').modal('hide');
-                            toastr.error('Add New Failed');
+                            toastr.error('Add New Failed', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
                               getHomeTestimonialData();
                         }
                     } else {
                         $('#addTestimonioalModal').modal('hide');
-                        toastr.error('Something Went Wrong');
+                        toastr.error('Something Went Wrong', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
                     }
 
 
                 }).catch(function(error) {
 
                     $('#addTestimonioalModal').modal('hide');
-                    toastr.error('Something Went Wrong');
+                    toastr.error('Something Went Wrong', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
 
                 });
 
@@ -1218,23 +1374,35 @@ if (exp_title.length == 0) {
 
                         if (response.data == 1) {
                             $('#deleteModalTestimonial').modal('hide');
-                            toastr.error('Delete Success.');
+                            toastr.warning('Delete Success.', 'Success',{
+            closeButton: true,
+            progressBar: true,
+        });
                             getHomeTestimonialData();
                         } else {
                             $('#deleteModalTestimonial').modal('hide');
-                            toastr.error('Delete Failed');
+                            toastr.error('Delete Failed', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
                             getHomeTestimonialData();
                         }
 
                     } else {
                         $('#deleteModalTestimonial').modal('hide');
-                        toastr.error('Something Went Wrong');
+                        toastr.error('Something Went Wrong', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
                     }
 
                 }).catch(function(error) {
 
                     $('#deleteModalTestimonial').modal('hide');
-                    toastr.error('Something Went Wrong');
+                    toastr.error('Something Went Wrong', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
 
                 });
 
@@ -1363,25 +1531,37 @@ if (nameUpdate.length == 0) {
 
             if (response.data == 1) {
                 $('#updateTestimonialModal').modal('hide');
-                toastr.success('Update Success.');
+                toastr.success('Update Success.', 'Success',{
+            closeButton: true,
+            progressBar: true,
+        });
                 getHomeTestimonialData();
 
             } else {
                 $('#updateTestimonialModal').modal('hide');
-                toastr.error('Update Failed');
+                toastr.error('Update Failed', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        })
                 getHomeTestimonialData();
 
             }
         } else {
             $('#updateTestimonialModal').modal('hide');
-            toastr.error('Something Went Wrong');
+            toastr.error('Something Went Wrong', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
         }
 
 
     }).catch(function(error) {
 
         $('#updateTestimonialModal').modal('hide');
-        toastr.error('Something Went Wrong');
+        toastr.error('Something Went Wrong', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
 
     });
 }

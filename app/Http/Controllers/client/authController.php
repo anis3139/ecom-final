@@ -27,7 +27,6 @@ class authController extends Controller
     {
         $this->middleware('auth', ['only' => 'logOut']);
         $this->redirectTo = url()->previous();
-        Session::put('backUrl', url()->previous());
     }
 
 
@@ -101,8 +100,7 @@ class authController extends Controller
             } else {
                 $request->session()->regenerate();
                 session()->flash('success', 'Login Success');
-
-                return $this->redirectTo == "https://giftaecologist.com/login" ? redirect()->route('client.checkout') : redirect()->intended($this->redirectTo);
+                return $this->redirectTo == route('client.login') ? redirect()->route('client.checkout') : redirect()->intended($this->redirectTo);
             }
         }
         session()->flash('error', 'The provided credentials do not match our records.');

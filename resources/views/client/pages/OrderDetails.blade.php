@@ -173,8 +173,8 @@
                             </td>
                         </tr>
                         @if ( $orders->total_cupon_discount>0)
-                            
-                        
+
+
                         <tr class="cart_item">
                             <td class="cart-product-subtotal">
                                 <span class="amount">Cupon Discount:</span>
@@ -202,12 +202,12 @@
                                 <span class="amount btn btn-large btn-danger  px-3">{{ucfirst(trans($orders->payment_status))}}</span>
                             </td>
                             @else
- 
+
                             <td class="cart-product-subtotal">
                                 <span class="amount btn-large btn btn-success  px-3">{{ucfirst(trans($orders->payment_status))}}</span>
                             </td>
                             @endif
-                          
+
                         </tr>
 
                         <tr class="cart_item">
@@ -322,100 +322,117 @@
 @section('script')
 
     <script>
-        getcartData()
-
-        function getcartData() {
-
-            axios.get("{{ route('client.cartData') }}")
-                .then(function(response) {
-
-                    if (response.status = 200) {
-                        var dataJSON = response.data;
-                        var cartData = dataJSON.cart;
-
-                        var a = Object.keys(cartData).length;
 
 
-                        $("#cart_quantity").html(a);
-                        $("#total_cart_price").html(' &#2547; ' + dataJSON.total);
-
-                        var imageViewHtml = "";
-                        $.each(cartData, function(i, item) {
-
-                            imageViewHtml += '<li>';
-                            imageViewHtml += '<a class="aa-cartbox-img" href="#"><img src=" ' + cartData[i]
-                                .image +
-                                ' " alt="img"></a>';
-                            imageViewHtml += '<div class="aa-cartbox-info"> <h4><a href="#">' + cartData[i]
-                                .title +
-                                '</a> </h4> <p>' + cartData[i].quantity + ' x &#2547; ' + cartData[i]
-                                .unit_price +
-                                '</p>  </div>';
-                            imageViewHtml +=
-                                '<div class="aa-remove-product"><button class="cartDeleteIcon" data-id=' +
-                                i +
-                                '  style=" display:inline-block" type="submit" class="fa fa-times"><i class="fa fa-remove"></i></button> </div>';
-                            imageViewHtml += '</li>';
-                        });
 
 
-                        $('#headerCart').html(imageViewHtml);
+      getcartData()
 
-                        console.log(a);
+function getcartData() {
 
-                        if (a == 0) {
-                            $("#HeaderPreview").css("display", "none");
-                        } else {
-                            $("#HeaderPreview").css("display", "block");
-                        }
+    axios.get("{{ route('client.cartData') }}")
+        .then(function(response) {
+
+            if (response.status = 200) {
+                var dataJSON = response.data;
+                var cartData = dataJSON.cart;
+
+                var a = Object.keys(cartData).length;
 
 
-                        //Carts click on delete icon
-                        $(".cartDeleteIcon").click(function() {
-                            var id = $(this).data('id');
-                            $('#CartsDeleteId').html(id);
-                            DeleteDataCart(id);
-                        })
-                    } else {
-                        toastr.error('Something Went Wrong');
-                    }
-                }).catch(function(error) {
+                $("#cart_quantity").html(a);
+                var tp = parseFloat(dataJSON.total).toFixed(2);
+                $("#total_cart_price").html(' &#2547; ' + tp);
 
-                    toastr.error('Something Went Wrong...');
+                var imageViewHtml = "";
+                $.each(cartData, function(i, item) {
+                    imageViewHtml += `<div class="top-cart-item">
+                                                                                 <div class="top-cart-item-image">
+                                                                                     <a href="#"><img src="${cartData[i].image}"
+                                                                                             alt="Blue Round-Neck Tshirt" /></a>
+                                                                                 </div>
+                                                                                 <div class="top-cart-item-desc">
+                                                                                     <div class="top-cart-item-desc-title">
+                                                                                         <a href="#">${cartData[i].title}</a>
+                                                                                         <span class="top-cart-item-price d-block"> ${cartData[i].quantity} x &#2547; ${cartData[i].unit_price}</span>
+                                                                                     </div>
+                                                                                     <div class="top-cart-item-quantity"><button class="cartDeleteIcon" data-id="${i}" type="submit"><i class="icon-remove"> </i></button></div>
+                                                                                 </div>
+                                                                        </div>`
                 });
-        }
 
 
+                $('.top-cart-items').html(imageViewHtml);
+
+                console.log(a);
+
+                if (a == 0) {
+                    $("#HeaderPreview").css("display", "none");
+                } else {
+                    $("#HeaderPreview").css("display", "block");
+                }
 
 
-
-        $('#confirmDeleteCart').click(function() {
-            ;
-            var id = $(this).data('id');
-            DeleteDataCart(id);
-        })
-
-
-        //delete Cart function
-        function DeleteDataCart(id) {
-
-            axios.post("{{ route('client.cartRemove') }}", {
-                    product_id: id
+                //Carts click on delete icon
+                $(".cartDeleteIcon").click(function() {
+                    var id = $(this).data('id');
+                    $('#CartsDeleteId').html(id);
+                    DeleteDataCart(id);
                 })
-                .then(function(response) {
-
-                    if (response.status == 200) {
-                        toastr.success('Cart Removed Success.');
-                        getcartData();
-                    } else {
-                        toastr.error('Something Went Wrong');
-                    }
-                }).catch(function(error) {
-
-                    toastr.error('Something Went Wrong......');
+            } else {
+                toastr.error('Something Went Wrong', 'Error', {
+                    closeButton: true,
+                    progressBar: true,
                 });
-        }
+            }
+        }).catch(function(error) {
 
+            toastr.error('Something Went Wrong...', 'Error', {
+                closeButton: true,
+                progressBar: true,
+            });
+        });
+}
+
+
+
+$('#confirmDeleteCart').click(function() {
+
+
+alert("hello")
+var id = $(this).data('id');
+DeleteDataCart(id);
+})
+
+
+//delete Cart function
+function DeleteDataCart(id) {
+
+axios.post("{{ route('client.cartRemove') }}", {
+product_id: id
+})
+.then(function(response) {
+
+if (response.status == 200) {
+    toastr.success('Cart Removed Success.', 'Success',{
+closeButton: true,
+progressBar: true,
+});
+    getcartData();
+} else {
+    toastr.error('Something Went Wrong', 'Error',{
+closeButton: true,
+progressBar: true,
+});
+}
+}).catch(function(error) {
+
+toastr.error('Something Went Wrong......', 'Error',{
+closeButton: true,
+progressBar: true,
+});
+});
+}
     </script>
 
 @endsection

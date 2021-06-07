@@ -324,17 +324,29 @@
                         $('#submitAddress').html("Update");
                         if (response.status = 200) {
                             if (response.data == 1) {
-                                toastr.success('Updated Success .');
+                                toastr.success('Updated Success .', 'Success',{
+            closeButton: true,
+            progressBar: true,
+        });
 
 
                             } else {
-                                toastr.error('Updated Failed');
+                                toastr.error('Updated Failed', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
                             }
                         } else {
-                            toastr.error('Something Went Wrong');
+                            toastr.error('Something Went Wrong', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
                         }
                     }).catch(function(error) {
-                        toastr.error('Something Went Wrong');
+                        toastr.error('Something Went Wrong', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
                     });
             }
         }
@@ -362,17 +374,29 @@
                         $('#submitPhone').html("Update");
                         if (response.status = 200) {
                             if (response.data == 1) {
-                                toastr.success('Updated Success .');
+                                toastr.success('Updated Success .', 'Success',{
+            closeButton: true,
+            progressBar: true,
+        });
 
 
                             } else {
-                                toastr.error('Updated Failed');
+                                toastr.error('Updated Failed', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
                             }
                         } else {
-                            toastr.error('Something Went Wrong');
+                            toastr.error('Something Went Wrong', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
                         }
                     }).catch(function(error) {
-                        toastr.error('Something Went Wrong');
+                        toastr.error('Something Went Wrong', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
                     });
             }
         }
@@ -400,17 +424,29 @@
                         $('#submitTitle').html("Update");
                         if (response.status = 200) {
                             if (response.data == 1) {
-                                toastr.success('Updated Success .');
+                                toastr.success('Updated Success .', 'Success',{
+            closeButton: true,
+            progressBar: true,
+        });
 
 
                             } else {
-                                toastr.error('Updated Failed');
+                                toastr.error('Updated Failed', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
                             }
                         } else {
-                            toastr.error('Something Went Wrong');
+                            toastr.error('Something Went Wrong', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
                         }
                     }).catch(function(error) {
-                        toastr.error('Something Went Wrong');
+                        toastr.error('Something Went Wrong', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
                     });
             }
         }
@@ -439,17 +475,29 @@
                         $('#submitTitle').html("Update");
                         if (response.status = 200) {
                             if (response.data == 1) {
-                                toastr.success('Updated Success .');
+                                toastr.success('Updated Success .', 'Success',{
+            closeButton: true,
+            progressBar: true,
+        });
 
 
                             } else {
-                                toastr.error('Updated Failed');
+                                toastr.error('Updated Failed', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
                             }
                         } else {
-                            toastr.error('Something Went Wrong');
+                            toastr.error('Something Went Wrong', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
                         }
                     }).catch(function(error) {
-                        toastr.error('Something Went Wrong');
+                        toastr.error('Something Went Wrong', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
                     });
             }
         }
@@ -483,17 +531,29 @@
                         $('#submitSubTitle').html("Update");
                         if (response.status = 200) {
                             if (response.data == 1) {
-                                toastr.success('Updated Success .');
+                                toastr.success('Updated Success .', 'Success',{
+            closeButton: true,
+            progressBar: true,
+        });
 
 
                             } else {
-                                toastr.error('Updated Failed');
+                                toastr.error('Updated Failed', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
                             }
                         } else {
-                            toastr.error('Something Went Wrong');
+                            toastr.error('Something Went Wrong', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
                         }
                     }).catch(function(error) {
-                        toastr.error('Something Went Wrong');
+                        toastr.error('Something Went Wrong', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
                     });
             }
         }
@@ -521,17 +581,29 @@
                         $('#submitGmap').html("Update");
                         if (response.status = 200) {
                             if (response.data == 1) {
-                                toastr.success('Updated Success .');
+                                toastr.success('Updated Success .', 'Success',{
+            closeButton: true,
+            progressBar: true,
+        });
 
 
                             } else {
-                                toastr.error('Updated Failed');
+                                toastr.error('Updated Failed', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
                             }
                         } else {
-                            toastr.error('Something Went Wrong');
+                            toastr.error('Something Went Wrong', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
                         }
                     }).catch(function(error) {
-                        toastr.error('Something Went Wrong');
+                        toastr.error('Something Went Wrong', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
                     });
             }
         }
@@ -575,23 +647,35 @@
                 if (response.status = 200) {
                     if (response.data == 1) {
 
-                        toastr.success('Updated Success .');
+                        toastr.success('Updated Success .', 'Success',{
+            closeButton: true,
+            progressBar: true,
+        });
 
                     } else {
 
-                        toastr.error('Updated Failed');
+                        toastr.error('Updated Failed', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
 
                     }
                 } else {
 
-                    toastr.error('Something Went Wrong');
+                    toastr.error('Something Went Wrong', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
                 }
 
 
             }).catch(function(error) {
 
 
-                toastr.error('Something Went Wrong');
+                toastr.error('Something Went Wrong', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
 
             });
 
@@ -638,23 +722,35 @@
 
                     if (response.data == 1) {
 
-                        toastr.success('Updated Success .');
+                        toastr.success('Updated Success .', 'Success',{
+            closeButton: true,
+            progressBar: true,
+        });
 
                     } else {
 
-                        toastr.error('Updated Failed');
+                        toastr.error('Updated Failed', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
 
                     }
                 } else {
 
-                    toastr.error('Something Went Wrong');
+                    toastr.error('Something Went Wrong', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
                 }
 
 
             }).catch(function(error) {
 
 
-                toastr.error('Something Went Wrong');
+                toastr.error('Something Went Wrong', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
 
             });
 
@@ -703,23 +799,35 @@
                 if (response.status = 200) {
                     if (response.data == 1) {
 
-                        toastr.success('Updated Success .');
+                        toastr.success('Updated Success .', 'Success',{
+            closeButton: true,
+            progressBar: true,
+        });
 
                     } else {
 
-                        toastr.error('Updated Failed');
+                        toastr.error('Updated Failed', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
 
                     }
                 } else {
 
-                    toastr.error('Something Went Wrong');
+                    toastr.error('Something Went Wrong', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
                 }
 
 
             }).catch(function(error) {
 
 
-                toastr.error('Something Went Wrong');
+                toastr.error('Something Went Wrong', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
 
             });
 
@@ -766,23 +874,35 @@
                 if (response.status = 200) {
                     if (response.data == 1) {
 
-                        toastr.success('Updated Success .');
+                        toastr.success('Updated Success .', 'Success',{
+            closeButton: true,
+            progressBar: true,
+        });
 
                     } else {
 
-                        toastr.error('Updated Failed');
+                        toastr.error('Updated Failed', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
 
                     }
                 } else {
 
-                    toastr.error('Something Went Wrong');
+                    toastr.error('Something Went Wrong', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
                 }
 
 
             }).catch(function(error) {
 
 
-                toastr.error('Something Went Wrong');
+                toastr.error('Something Went Wrong', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
 
             });
 
@@ -829,23 +949,35 @@
                 if (response.status = 200) {
                     if (response.data == 1) {
 
-                        toastr.success('Updated Success .');
+                        toastr.success('Updated Success .', 'Success',{
+            closeButton: true,
+            progressBar: true,
+        });
 
                     } else {
 
-                        toastr.error('Updated Failed');
+                        toastr.error('Updated Failed', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
 
                     }
                 } else {
 
-                    toastr.error('Something Went Wrong');
+                    toastr.error('Something Went Wrong', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
                 }
 
 
             }).catch(function(error) {
 
 
-                toastr.error('Something Went Wrong');
+                toastr.error('Something Went Wrong', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
 
             });
 

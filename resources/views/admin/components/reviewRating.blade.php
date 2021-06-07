@@ -5,7 +5,7 @@
 <div id="mainDivReview" class="container-fluid d-none">
     <div class="row">
         <div class="col-md-12 p-2">
-           
+
             <table id="ReviewDataTable" class="table table-striped table-bordered" cellspacing="0" width="100%">
                 <thead>
                     <tr>
@@ -155,23 +155,35 @@
 
                     if (response.data == 1) {
                         $('#deleteModalReview').modal('hide');
-                        toastr.error('Delete Success.');
+                        toastr.error('Delete Success.', 'Success',{
+            closeButton: true,
+            progressBar: true,
+        });
                         getReviewdata();
                     } else {
                         $('#deleteModalReview').modal('hide');
-                        toastr.error('Delete Failed');
+                        toastr.error('Delete Failed', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
                         getReviewdata();
                     }
 
                 } else {
                     $('#deleteModalReview').modal('hide');
-                    toastr.error('Something Went Wrong');
+                    toastr.error('Something Went Wrong', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
                 }
 
             }).catch(function(error) {
 
                 $('#deleteModalReview').modal('hide');
-                toastr.error('Something Went Wrong');
+                toastr.error('Something Went Wrong', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
 
             });
 

@@ -168,17 +168,29 @@ if (facebook.length == 0) {
             $('#submitFB').html("Update");
             if (response.status = 200) {
                 if (response.data == 1) {
-                    toastr.success('Updated Success .');
+                    toastr.success('Updated Success .', 'Success',{
+            closeButton: true,
+            progressBar: true,
+        });
 
 
                 } else {
-                    toastr.error('Updated Failed');
+                    toastr.error('Updated Failed', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
                 }
             } else {
-                toastr.error('Something Went Wrong');
+                toastr.error('Something Went Wrong', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
             }
         }).catch(function (error) {
-            toastr.error('Something Went Wrong');
+            toastr.error('Something Went Wrong', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
         });
     }
 }
@@ -214,17 +226,29 @@ if (twitter.length == 0) {
             $('#submitTwitter').html("Update");
             if (response.status = 200) {
                 if (response.data == 1) {
-                    toastr.success('Updated Success .');
+                    toastr.success('Updated Success .', 'Success',{
+            closeButton: true,
+            progressBar: true,
+        });
 
 
                 } else {
-                    toastr.error('Updated Failed');
+                    toastr.error('Updated Failed', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
                 }
             } else {
-                toastr.error('Something Went Wrong');
+                toastr.error('Something Went Wrong', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
             }
         }).catch(function (error) {
-            toastr.error('Something Went Wrong');
+            toastr.error('Something Went Wrong', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
         });
     }
 }
@@ -258,17 +282,29 @@ if (youtube.length == 0) {
             $('#submitYoutube').html("Update");
             if (response.status = 200) {
                 if (response.data == 1) {
-                    toastr.success('Updated Success .');
+                    toastr.success('Updated Success .', 'Success',{
+            closeButton: true,
+            progressBar: true,
+        });
 
 
                 } else {
-                    toastr.error('Updated Failed');
+                    toastr.error('Updated Failed', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
                 }
             } else {
-                toastr.error('Something Went Wrong');
+                toastr.error('Something Went Wrong', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
             }
         }).catch(function (error) {
-            toastr.error('Something Went Wrong');
+            toastr.error('Something Went Wrong', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
         });
     }
 }
@@ -298,17 +334,29 @@ if (instragram.length == 0) {
             $('#submitInstagram').html("Update");
             if (response.status = 200) {
                 if (response.data == 1) {
-                    toastr.success('Updated Success .');
+                    toastr.success('Updated Success .', 'Success',{
+            closeButton: true,
+            progressBar: true,
+        });
 
 
                 } else {
-                    toastr.error('Updated Failed');
+                    toastr.error('Updated Failed', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
                 }
             } else {
-                toastr.error('Something Went Wrong');
+                toastr.error('Something Went Wrong', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
             }
         }).catch(function (error) {
-            toastr.error('Something Went Wrong');
+            toastr.error('Something Went Wrong', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
         });
     }
 }
@@ -339,17 +387,29 @@ if (linkin.length == 0) {
             $('#submitLinkin').html("Update");
             if (response.status = 200) {
                 if (response.data == 1) {
-                    toastr.success('Updated Success .');
+                    toastr.success('Updated Success .', 'Success',{
+            closeButton: true,
+            progressBar: true,
+        });
 
 
                 } else {
-                    toastr.error('Updated Failed');
+                    toastr.error('Updated Failed', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
                 }
             } else {
-                toastr.error('Something Went Wrong');
+                toastr.error('Something Went Wrong', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
             }
         }).catch(function (error) {
-            toastr.error('Something Went Wrong');
+            toastr.error('Something Went Wrong', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
         });
     }
 }
@@ -379,17 +439,29 @@ if (google.length == 0) {
             $('#submitGoogle').html("Update");
             if (response.status = 200) {
                 if (response.data == 1) {
-                    toastr.success('Updated Success .');
+                    toastr.success('Updated Success .', 'Success',{
+            closeButton: true,
+            progressBar: true,
+        });
 
 
                 } else {
-                    toastr.error('Updated Failed');
+                    toastr.error('Updated Failed', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
                 }
             } else {
-                toastr.error('Something Went Wrong');
+                toastr.error('Something Went Wrong', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
             }
         }).catch(function (error) {
-            toastr.error('Something Went Wrong');
+            toastr.error('Something Went Wrong', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
         });
     }
 }

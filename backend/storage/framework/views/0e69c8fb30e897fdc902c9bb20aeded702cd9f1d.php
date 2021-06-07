@@ -300,7 +300,10 @@
                     if (response.status = 200) {
                         if (response.data == 1) {
                             $('#addBrandsModal').modal('hide');
-                            toastr.success('Add New Success .');
+                            toastr.success('Add New Success .', 'Success',{
+            closeButton: true,
+            progressBar: true,
+        });
                             $('#BrandName').val("");
                             $('#Categories').val("");
                             $('#imageBrand').val("");
@@ -309,16 +312,25 @@
                             getBranddata();
                         } else {
                             $('#addBrandsModal').modal('hide');
-                            toastr.error('Add New Failed');
+                            toastr.error('Add New Failed', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
                             getBranddata();
                         }
                     } else {
                         $('#addBrandsModal').modal('hide');
-                        toastr.error('Something Went Wrong');
+                        toastr.error('Something Went Wrong', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
                     }
                 }).catch(function(error) {
                     $('#addBrandsModal').modal('hide');
-                    toastr.error('Something Went Wrong');
+                    toastr.error('Something Went Wrong', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
                 });
             }
         }
@@ -361,20 +373,32 @@
                     if (response.status == 200) {
                         if (response.data == 1) {
                             $('#deleteModalBrands').modal('hide');
-                            toastr.error('Delete Success.');
+                            toastr.warning('Delete Success.', 'Success',{
+            closeButton: true,
+            progressBar: true,
+        });
                             getBranddata();
                         } else {
                             $('#deleteModalBrands').modal('hide');
-                            toastr.error('Delete Failed');
+                            toastr.error('Delete Failed', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
                             getBranddata();
                         }
                     } else {
                         $('#deleteModalBrands').modal('hide');
-                        toastr.error('Something Went Wrong');
+                        toastr.error('Something Went Wrong', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
                     }
                 }).catch(function(error) {
                     $('#deleteModalBrands').modal('hide');
-                    toastr.error('Something Went Wrong');
+                    toastr.error('Something Went Wrong', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
                 });
         }
 
@@ -433,7 +457,7 @@
                         $('#BrandNameEdit').val(jsonData[0].name);
 
                         $('#CategoriesEdit option[value='+ jsonData[0].producrts_category_models_id +']').attr('selected','selected');
-                      
+
                         var ImgSource = (jsonData[0].image);
                         $('#editBrandImagePreview').attr('src', ImgSource)
                     } else {
@@ -492,20 +516,32 @@
                     if (response.status = 200) {
                         if (response.data == 1) {
                             $('#editBrandsModal').modal('hide');
-                            toastr.success('Update Success.');
+                            toastr.success('Update Success.', 'Success',{
+            closeButton: true,
+            progressBar: true,
+        });
                             getBranddata();
                         } else {
                             $('#editBrandsModal').modal('hide');
-                            toastr.error('Update Failed');
+                            toastr.error('Update Failed', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        })
                             getBranddata();
                         }
                     } else {
                         $('#editBrandsModal').modal('hide');
-                        toastr.error('Something Went Wrong');
+                        toastr.error('Something Went Wrong', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
                     }
                 }).catch(function(error) {
                     $('#editBrandsModal').modal('hide');
-                    toastr.error('Something Went Wrong');
+                    toastr.error('Something Went Wrong', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
                 });
             }
         }

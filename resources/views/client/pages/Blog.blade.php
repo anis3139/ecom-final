@@ -120,5 +120,119 @@
             }
         })
 
+
+
+
+
+
+
+        getcartData()
+
+        function getcartData() {
+
+            axios.get("{{ route('client.cartData') }}")
+                .then(function(response) {
+
+                    if (response.status = 200) {
+                        var dataJSON = response.data;
+                        var cartData = dataJSON.cart;
+
+                        var a = Object.keys(cartData).length;
+
+
+                        $("#cart_quantity").html(a);
+                        var tp = parseFloat(dataJSON.total).toFixed(2);
+                        $("#total_cart_price").html(' &#2547; ' + tp);
+
+                        var imageViewHtml = "";
+                        $.each(cartData, function(i, item) {
+                            imageViewHtml += `<div class="top-cart-item">
+                                                                                         <div class="top-cart-item-image">
+                                                                                             <a href="#"><img src="${cartData[i].image}"
+                                                                                                     alt="Blue Round-Neck Tshirt" /></a>
+                                                                                         </div>
+                                                                                         <div class="top-cart-item-desc">
+                                                                                             <div class="top-cart-item-desc-title">
+                                                                                                 <a href="#">${cartData[i].title}</a>
+                                                                                                 <span class="top-cart-item-price d-block"> ${cartData[i].quantity} x &#2547; ${cartData[i].unit_price}</span>
+                                                                                             </div>
+                                                                                             <div class="top-cart-item-quantity"><button class="cartDeleteIcon" data-id="${i}" type="submit"><i class="icon-remove"> </i></button></div>
+                                                                                         </div>
+                                                                                </div>`
+                        });
+
+
+                        $('.top-cart-items').html(imageViewHtml);
+
+                        console.log(a);
+
+                        if (a == 0) {
+                            $("#HeaderPreview").css("display", "none");
+                        } else {
+                            $("#HeaderPreview").css("display", "block");
+                        }
+
+
+                        //Carts click on delete icon
+                        $(".cartDeleteIcon").click(function() {
+                            var id = $(this).data('id');
+                            $('#CartsDeleteId').html(id);
+                            DeleteDataCart(id);
+                        })
+                    } else {
+                        toastr.error('Something Went Wrong', 'Error', {
+                            closeButton: true,
+                            progressBar: true,
+                        });
+                    }
+                }).catch(function(error) {
+
+                    toastr.error('Something Went Wrong...', 'Error', {
+                        closeButton: true,
+                        progressBar: true,
+                    });
+                });
+        }
+
+
+
+        $('#confirmDeleteCart').click(function() {
+
+
+alert("hello")
+var id = $(this).data('id');
+DeleteDataCart(id);
+})
+
+
+//delete Cart function
+function DeleteDataCart(id) {
+
+axios.post("{{ route('client.cartRemove') }}", {
+        product_id: id
+    })
+    .then(function(response) {
+
+        if (response.status == 200) {
+            toastr.success('Cart Removed Success.', 'Success',{
+closeButton: true,
+progressBar: true,
+});
+            getcartData();
+        } else {
+            toastr.error('Something Went Wrong', 'Error',{
+closeButton: true,
+progressBar: true,
+});
+        }
+    }).catch(function(error) {
+
+        toastr.error('Something Went Wrong......', 'Error',{
+closeButton: true,
+progressBar: true,
+});
+    });
+}
+
     </script>
 @endsection

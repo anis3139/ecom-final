@@ -157,15 +157,19 @@
                 massage: massage,
             })
                 .then(function (response) {
-                    console.log(response.data);
+
                     $('#name').val('');
                     $('#email').val('');
                     $('#subject').val('');
                     $('#PhonNumber').val('');
                     $('#massage').val('');
                     if(response.status==200){
-                        console.log(response.data);
+
                         if(response.data==1){
+                            toastr.success('Message send Successfully','Success',{
+                                                       closeButton: true,
+                                                       progressBar: true,
+                                                   })
                             $('#contactSubmitBtn').html('Sending Successful....')
                             setTimeout(function () {
                                 $('#contactSubmitBtn').html('Send');
@@ -262,11 +266,17 @@ function getcartData() {
                     DeleteDataCart(id);
                 })
             } else {
-                toastr.error('Something Went Wrong');
+                toastr.error('Something Went Wrong', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
             }
         }).catch(function(error) {
 
-            toastr.error('Something Went Wrong...');
+            toastr.error('Something Went Wrong...', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
         });
 }
 
@@ -299,14 +309,23 @@ function DeleteDataCart(id) {
         .then(function(response) {
 
             if (response.status == 200) {
-                toastr.success('Cart Removed Success.');
+                toastr.success('Cart Removed Success.', 'Success',{
+            closeButton: true,
+            progressBar: true,
+        });
                 getcartData();
             } else {
-                toastr.error('Something Went Wrong');
+                toastr.error('Something Went Wrong', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
             }
         }).catch(function(error) {
 
-            toastr.error('Something Went Wrong......');
+            toastr.error('Something Went Wrong......', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
         });
 }
 

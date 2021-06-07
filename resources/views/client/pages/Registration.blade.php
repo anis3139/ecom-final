@@ -36,10 +36,10 @@
                             <h3>Registration</h3>
                         </div>
                         <a href="{{route('client.SSOLogin', 'facebook')}}" class="button button-large btn-block si-colored si-facebook nott font-weight-normal ls0 center m-0"><i class="icon-facebook-sign"></i> Sign up  with Facebook</a>
-    
+
                         <a href="{{route('client.SSOLogin', 'google')}}" class=" mt-2 button button-large btn-block si-colored si-google nott font-weight-normal ls0 center m-0"><i class="icon-google"></i> Sign up with Google</a>
-                        
-                    
+
+
                         <a href="{{route('client.SSOLogin', 'github')}}" class=" mt-2 button button-large btn-block si-colored si-github nott font-weight-normal ls0 center m-0"><i class="icon-github"></i> Sign up with Github</a>
 
                     </div>
@@ -47,7 +47,7 @@
                 <div class="aa-myaccount-register">
                   <form id="login-form" name="login-form" class="row" action="{{ route('client.addUser') }}" method="post">
                     @csrf
-                   
+
 
                     <div class="col-12 form-group">
                         <label for="login-form-username">Full Name:</label>
@@ -157,11 +157,17 @@ function getcartData() {
                     DeleteDataCart(id);
                 })
             } else {
-                toastr.error('Something Went Wrong');
+                toastr.error('Something Went Wrong', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
             }
         }).catch(function(error) {
 
-            toastr.error('Something Went Wrong...');
+            toastr.error('Something Went Wrong...', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
         });
 }
 
@@ -185,14 +191,23 @@ function DeleteDataCart(id) {
         .then(function(response) {
 
             if (response.status == 200) {
-                toastr.success('Cart Removed Success.');
+                toastr.success('Cart Removed Success.', 'Success',{
+            closeButton: true,
+            progressBar: true,
+        });
                 getcartData();
             } else {
-                toastr.error('Something Went Wrong');
+                toastr.error('Something Went Wrong', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
             }
         }).catch(function(error) {
 
-            toastr.error('Something Went Wrong......');
+            toastr.error('Something Went Wrong......', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
         });
 }
 

@@ -289,12 +289,12 @@ $OrderSettings = App\Models\OrderSettings::first();
                                                             {{ number_format($total_cupon_discount, 2) }}</span>
                                                     </td>
                                                 </tr>
-            
+
                                                 <tr class="cart_item">
                                                     <td class="border-top-0 cart-product-name">
                                                         <strong>Total Discount</strong>
                                                     </td>
-    
+
                                                     <td class="border-top-0 cart-product-name">
                                                         <span class="amount">&#2547;
                                                             {{ number_format($total_discount + $total_cupon_discount, 2) }}</span>
@@ -304,12 +304,12 @@ $OrderSettings = App\Models\OrderSettings::first();
                                                     <td class="border-top-0 cart-product-name">
                                                         <strong>Cart Total (After Discount)</strong>
                                                     </td>
-    
+
                                                     <td class="border-top-0 cart-product-name">
                                                         <span class="amount">&#2547; {{ number_format($total-$total_cupon_discount, 2) }}</span>
                                                     </td>
                                                 </tr>
-                                            @else                       
+                                            @else
                                             <tr class="cart_item">
                                                 <td class="border-top-0 cart-product-name">
                                                     <strong>Total Discount</strong>
@@ -331,8 +331,8 @@ $OrderSettings = App\Models\OrderSettings::first();
                                             </tr>
                                             @endif
 
-                     
-                                   
+
+
                                             <tr class="cart_item">
                                                 <td class="border-top-0 cart-product-name">
                                                     <strong>Tax</strong>
@@ -545,11 +545,17 @@ $OrderSettings = App\Models\OrderSettings::first();
                             DeleteDataCart(id);
                         })
                     } else {
-                        toastr.error('Something Went Wrong');
+                        toastr.error('Something Went Wrong', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
                     }
                 }).catch(function(error) {
 
-                    toastr.error('Something Went Wrong...');
+                    toastr.error('Something Went Wrong...', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
                 });
         }
 
@@ -582,14 +588,23 @@ $OrderSettings = App\Models\OrderSettings::first();
                 .then(function(response) {
 
                     if (response.status == 200) {
-                        toastr.success('Cart Removed Success.');
+                        toastr.success('Cart Removed Success.', 'Success',{
+            closeButton: true,
+            progressBar: true,
+        });
                         getcartData();
                     } else {
-                        toastr.error('Something Went Wrong');
+                        toastr.error('Something Went Wrong', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
                     }
                 }).catch(function(error) {
 
-                    toastr.error('Something Went Wrong......');
+                    toastr.error('Something Went Wrong......', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
                 });
         }
 

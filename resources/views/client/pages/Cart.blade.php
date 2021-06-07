@@ -213,18 +213,18 @@
                         var imageViewHtml = "";
                         $.each(cartData, function(i, item) {
                             imageViewHtml += `<div class="top-cart-item">
-                                                                                 <div class="top-cart-item-image">
-                                                                                     <a href="#"><img src="${cartData[i].image}"
-                                                                                             alt="Blue Round-Neck Tshirt" /></a>
-                                                                                 </div>
-                                                                                 <div class="top-cart-item-desc">
-                                                                                     <div class="top-cart-item-desc-title">
-                                                                                         <a href="#">${cartData[i].title}</a>
-                                                                                         <span class="top-cart-item-price d-block"> ${cartData[i].quantity} x &#2547; ${cartData[i].unit_price}</span>
-                                                                                     </div>
-                                                                                     <div class="top-cart-item-quantity"><button class="cartDeleteIcon" data-id="${i}" type="submit"><i class="icon-remove"> </i></button></div>
-                                                                                 </div>
-                                                                        </div>`
+                                                                                         <div class="top-cart-item-image">
+                                                                                             <a href="#"><img src="${cartData[i].image}"
+                                                                                                     alt="Blue Round-Neck Tshirt" /></a>
+                                                                                         </div>
+                                                                                         <div class="top-cart-item-desc">
+                                                                                             <div class="top-cart-item-desc-title">
+                                                                                                 <a href="#">${cartData[i].title}</a>
+                                                                                                 <span class="top-cart-item-price d-block"> ${cartData[i].quantity} x &#2547; ${cartData[i].unit_price}</span>
+                                                                                             </div>
+                                                                                             <div class="top-cart-item-quantity"><button class="cartDeleteIcon" data-id="${i}" type="submit"><i class="icon-remove"> </i></button></div>
+                                                                                         </div>
+                                                                                </div>`
                         });
 
 
@@ -246,11 +246,17 @@
                             DeleteDataCart(id);
                         })
                     } else {
-                        toastr.error('Something Went Wrong');
+                        toastr.error('Something Went Wrong', 'Error', {
+                            closeButton: true,
+                            progressBar: true,
+                        });
                     }
                 }).catch(function(error) {
 
-                    toastr.error('Something Went Wrong...');
+                    toastr.error('Something Went Wrong...', 'Error', {
+                        closeButton: true,
+                        progressBar: true,
+                    });
                 });
         }
 
@@ -283,14 +289,23 @@
                 .then(function(response) {
 
                     if (response.status == 200) {
-                        toastr.success('Cart Removed Success.');
+                        toastr.success('Cart Removed Success.', 'Success',{
+            closeButton: true,
+            progressBar: true,
+        });
                         getcartData();
                     } else {
-                        toastr.error('Something Went Wrong');
+                        toastr.error('Something Went Wrong', 'Error', {
+                            closeButton: true,
+                            progressBar: true,
+                        });
                     }
                 }).catch(function(error) {
 
-                    toastr.error('Something Went Wrong......');
+                    toastr.error('Something Went Wrong......', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
                 });
         }
 

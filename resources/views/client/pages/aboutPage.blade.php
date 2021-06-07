@@ -8,7 +8,7 @@
 @endsection
 @section('content')
     @php
-    
+
     $HomeAboutSectionData = json_decode(
         App\Models\HomeAboutSecTionModel::orderBy('id', 'desc')
             ->get()
@@ -19,7 +19,7 @@
 
 
     <!-- Page Title
-              ============================================= -->
+                  ============================================= -->
     <section id="page-title" class="page-title-parallax include-header"
         style="padding-top: 150px; background-image: url('@if ($HomeAboutSectionData) {{ $HomeAboutSectionData->image2 }} @endif'); background-size: cover; background-position:
         center center;" data-bottom-top="background-position:0px 400px;" data-top-bottom="background-position:0px -500px;">
@@ -29,7 +29,7 @@
     </section><!-- #page-title end -->
 
     <!-- Content
-              ============================================= -->
+                  ============================================= -->
     <section id="content">
         <div class="content-wrap">
 
@@ -60,12 +60,93 @@
 
 
     <script>
+        $('#contactSubmitBtn').click(function(event) {
+        event.preventDefault();
+        let name = $('#name').val();
+        let email = $('#email').val();
+        let subject = $('#subject').val();
+        let PhonNumber = $('#PhonNumber').val();
+        let massage = $('#massage').val();
+        sendContact(name, email, subject, PhonNumber, massage);
+    });
+    function sendContact(name, email, subject, PhonNumber, massage) {
+        if(name.length==0){
+          $('#name').attr("placeholder", "Your name is empty!").focus();
+        }
+        else if(email.length==0){
+
+          $('#email').attr("placeholder", "Your email is empty!").focus();
+        }
+        else if(subject.length==0){
+          $('#subject').attr("placeholder", "Your subject is empty!").focus();
+        }
+        else if(PhonNumber.length==0){
+          $('#PhonNumber').attr("placeholder", "Your PhonNumber is empty!").focus();
+        }
+        else if(PhonNumber.length<10){
+          alert("Please Input Valid Mobile Number")
+        }
+        else if(massage.length==0){
+          $('#massage').attr("placeholder", "Your massage is empty!").focus();
+        }
+        else {
+            $('#contactSubmitBtn').html('Sending....')
+            axios.post("{{route('client.contactSend')}}",{
+                name: name,
+                email: email,
+                subject: subject,
+                PhonNumber: PhonNumber,
+                massage: massage,
+            })
+                .then(function (response) {
+
+                    $('#name').val('');
+                    $('#email').val('');
+                    $('#subject').val('');
+                    $('#PhonNumber').val('');
+                    $('#massage').val('');
+                    if(response.status==200){
+
+                        if(response.data==1){
+                            toastr.success('Message send Successfully','Success',{
+                                                       closeButton: true,
+                                                       progressBar: true,
+                                                   })
+                            $('#contactSubmitBtn').html('Sending Successful....')
+                            setTimeout(function () {
+                                $('#contactSubmitBtn').html('Send');
+                            },3000)
+                        }
+                        else{
+                            $('#contactSubmitBtn').html('Sending Failed.... ')
+                            setTimeout(function () {
+                                $('#contactSubmitBtn').html('Send');
+                            },3000)
+                        }
+                    }
+                    else {
+                        $('#contactSubmitBtn').html('Sending Failed. Try Again......')
+                        setTimeout(function () {
+                            $('#contactSubmitBtn').html('Send');
+                        },3000)
+                    }
+                }).catch(function (error) {
+                $('#contactSubmitBtn').html('Sending Failed. Try Again......')
+                setTimeout(function () {
+                    $('#contactSubmitBtn').html('Send');
+                },3000)
+            })
+        }
+    }
 
 
 
 
 
-getcartData()
+
+
+
+        getcartData()
 
         function getcartData() {
 
@@ -86,18 +167,18 @@ getcartData()
                         var imageViewHtml = "";
                         $.each(cartData, function(i, item) {
                             imageViewHtml += `<div class="top-cart-item">
-                                                 <div class="top-cart-item-image">
-                                                     <a href="#"><img src="${cartData[i].image}"
-                                                             alt="Blue Round-Neck Tshirt" /></a>
-                                                 </div>
-                                                 <div class="top-cart-item-desc">
-                                                     <div class="top-cart-item-desc-title">
-                                                         <a href="#">${cartData[i].title}</a>
-                                                         <span class="top-cart-item-price d-block"> ${cartData[i].quantity} x &#2547; ${cartData[i].unit_price}</span>
+                                                     <div class="top-cart-item-image">
+                                                         <a href="#"><img src="${cartData[i].image}"
+                                                                 alt="Blue Round-Neck Tshirt" /></a>
                                                      </div>
-                                                     <div class="top-cart-item-quantity"><button class="cartDeleteIcon" data-id="${i}" type="submit"><i class="icon-remove"> </i></button></div>
-                                                 </div>
-                                        </div>`
+                                                     <div class="top-cart-item-desc">
+                                                         <div class="top-cart-item-desc-title">
+                                                             <a href="#">${cartData[i].title}</a>
+                                                             <span class="top-cart-item-price d-block"> ${cartData[i].quantity} x &#2547; ${cartData[i].unit_price}</span>
+                                                         </div>
+                                                         <div class="top-cart-item-quantity"><button class="cartDeleteIcon" data-id="${i}" type="submit"><i class="icon-remove"> </i></button></div>
+                                                     </div>
+                                            </div>`
                         });
 
 
@@ -119,11 +200,17 @@ getcartData()
                             DeleteDataCart(id);
                         })
                     } else {
-                        toastr.error('Something Went Wrong');
+                        toastr.error('Something Went Wrong', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
                     }
                 }).catch(function(error) {
 
-                    toastr.error('Something Went Wrong...');
+                    toastr.error('Something Went Wrong...', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
                 });
         }
 
@@ -156,14 +243,23 @@ getcartData()
                 .then(function(response) {
 
                     if (response.status == 200) {
-                        toastr.success('Cart Removed Success.');
+                        toastr.success('Cart Removed Success.', 'Success',{
+            closeButton: true,
+            progressBar: true,
+        });
                         getcartData();
                     } else {
-                        toastr.error('Something Went Wrong');
+                        toastr.error('Something Went Wrong', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
                     }
                 }).catch(function(error) {
 
-                    toastr.error('Something Went Wrong......');
+                    toastr.error('Something Went Wrong......', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
                 });
         }
 
@@ -205,13 +301,6 @@ getcartData()
                 }
             });
         }
-
-
-
-
-
-
-
 
     </script>
 @endsection

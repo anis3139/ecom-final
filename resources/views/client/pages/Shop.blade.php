@@ -65,7 +65,7 @@
                                                 @else
                                                     <a href="javascript:void(0);" onclick="document.getElementById('favorite-form-{{ $allProduct->id }}').submit();"
                                                        class="{{ !Auth::user()->favorite_product->where('pivot.product_id',$allProduct->id)->count()  == 0 ? 'favorite_posts' : ''}}"><i class="icon-heart3"></i><span class="text-dark">(<span class="favorite_posts">{{ $allProduct->favorite_to_users->count() }}</span>)</span></a>
-                       
+
                                                     <form id="favorite-form-{{ $allProduct->id }}" method="POST" action="{{ route('client.favorite',$allProduct->id) }}" style="display: none;">
                                                         @csrf
                                                     </form>
@@ -295,7 +295,6 @@
                     id: id
                 })
                 .then(function(response) {
-                    console.log(response.data);
                     if (response.status == 200) {
                         var jsonData = response.data;
 
@@ -427,14 +426,23 @@
                 console.log(response.data);
                 if (response.status == 200 && response.data == 1) {
                     $('.bd-example-modal-lg').modal('hide');
-                    toastr.success('Product Add Successfully');
+                         toastr.success('Product Add Successfully', 'Success',{
+            closeButton: true,
+            progressBar: true,
+        });
                     getcartData()
                 } else {
-                    toastr.error('Product not Added ! Try Again');
+                    toastr.error('Product not Added ! Try Again', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
                 }
 
             }).catch(function(error) {
-                toastr.error('Product not Added  ! Something Error');
+                toastr.error('Product not Added  ! Something Error', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
             })
 
 
@@ -464,20 +472,19 @@
 
                         var imageViewHtml = "";
                         $.each(cartData, function(i, item) {
-                            imageViewHtml +=
-                                `<div class="top-cart-item">
-                                                                                                                                                     <div class="top-cart-item-image">
-                                                                                                                                                         <a href="#"><img src="${cartData[i].image}"
-                                                                                                                                                                 alt="Blue Round-Neck Tshirt" /></a>
-                                                                                                                                                     </div>
-                                                                                                                                                     <div class="top-cart-item-desc">
-                                                                                                                                                         <div class="top-cart-item-desc-title">
-                                                                                                                                                             <a href="#">${cartData[i].title}</a>
-                                                                                                                                                             <span class="top-cart-item-price d-block"> ${cartData[i].quantity} x &#2547; ${cartData[i].unit_price}</span>
-                                                                                                                                                         </div>
-                                                                                                                                                         <div class="top-cart-item-quantity"><button class="cartDeleteIcon" data-id="${i}" type="submit"><i class="icon-remove"> </i></button></div>
-                                                                                                                                                     </div>
-                                                                                                                                            </div>`
+                            imageViewHtml += `<div class="top-cart-item">
+                                                                                         <div class="top-cart-item-image">
+                                                                                             <a href="#"><img src="${cartData[i].image}"
+                                                                                                     alt="Blue Round-Neck Tshirt" /></a>
+                                                                                         </div>
+                                                                                         <div class="top-cart-item-desc">
+                                                                                             <div class="top-cart-item-desc-title">
+                                                                                                 <a href="#">${cartData[i].title}</a>
+                                                                                                 <span class="top-cart-item-price d-block"> ${cartData[i].quantity} x &#2547; ${cartData[i].unit_price}</span>
+                                                                                             </div>
+                                                                                             <div class="top-cart-item-quantity"><button class="cartDeleteIcon" data-id="${i}" type="submit"><i class="icon-remove"> </i></button></div>
+                                                                                         </div>
+                                                                                </div>`
                         });
 
 
@@ -499,20 +506,19 @@
                             DeleteDataCart(id);
                         })
                     } else {
-                        toastr.error('Something Went Wrong');
+                        toastr.error('Something Went Wrong', 'Error', {
+                            closeButton: true,
+                            progressBar: true,
+                        });
                     }
                 }).catch(function(error) {
 
-                    toastr.error('Something Went Wrong...');
+                    toastr.error('Something Went Wrong...', 'Error', {
+                        closeButton: true,
+                        progressBar: true,
+                    });
                 });
         }
-
-
-
-
-
-
-
 
 
 
@@ -536,14 +542,23 @@
                 .then(function(response) {
 
                     if (response.status == 200) {
-                        toastr.success('Cart Removed Success.');
+                        toastr.success('Cart Removed Success.', 'Success',{
+            closeButton: true,
+            progressBar: true,
+        });
                         getcartData();
                     } else {
-                        toastr.error('Something Went Wrong');
+                        toastr.error('Something Went Wrong', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
                     }
                 }).catch(function(error) {
 
-                    toastr.error('Something Went Wrong......');
+                    toastr.error('Something Went Wrong......', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
                 });
         }
 

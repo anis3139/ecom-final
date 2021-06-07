@@ -27,7 +27,7 @@
                                     <label for="facebook" class="sr-only">logo</label>
                                     <input id="addLogo" required type="file" class="form-control ">
                                     <hr>
-                                  
+
                                             <img id="addimagepreview"
                                             style="height: 100px !important; width: 200px !important;"
                                             class="imgPreview mx-auto"
@@ -50,7 +50,7 @@
                                     <label for="Banner" class="sr-only">Image</label>
                                     <input id="Banner" required type="file" class="form-control ">
                                     <hr>
-                                  
+
                                             <img id="BannerImg"
                                             style="height: 100px !important; width: 200px !important;"
                                             class="imgPreview mx-auto"
@@ -73,7 +73,7 @@
                                     <label for="promoImageOne" class="sr-only">Image</label>
                                     <input id="promoImageOne" required type="file" class="form-control ">
                                     <hr>
-                                  
+
                                             <img id="promoImageOneImg"
                                             style="height: 100px !important; width: 200px !important;"
                                             class="imgPreview mx-auto"
@@ -85,7 +85,7 @@
                                 <button id="submitpromoImageOne" type="submit" class="btn btn-primary mb-2">Update</button>
                             </td>
                         </tr>
-                       
+
                         <tr>
                             <td>
                                 <div class="form-group mb-2">
@@ -97,7 +97,7 @@
                                     <label for="promoImageTwo" class="sr-only">Image</label>
                                     <input id="promoImageTwo" required type="file" class="form-control ">
                                     <hr>
-                                  
+
                                             <img id="promoImageTwoImg"
                                             style="height: 100px !important; width: 200px !important;"
                                             class="imgPreview mx-auto"
@@ -120,7 +120,7 @@
                                     <label for="promoImageThree" class="sr-only">Image</label>
                                     <input id="promoImageThree" required type="file" class="form-control ">
                                     <hr>
-                                  
+
                                             <img id="promoImageThreeImg"
                                             style="height: 100px !important; width: 200px !important;"
                                             class="imgPreview mx-auto"
@@ -276,17 +276,29 @@
                         $('#submitAddress').html("Update");
                         if (response.status = 200) {
                             if (response.data == 1) {
-                                toastr.success('Updated Success .');
+                                toastr.success('Updated Success .', 'Success',{
+            closeButton: true,
+            progressBar: true,
+        });
 
 
                             } else {
-                                toastr.error('Updated Failed');
+                                toastr.error('Updated Failed', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
                             }
                         } else {
-                            toastr.error('Something Went Wrong');
+                            toastr.error('Something Went Wrong', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
                         }
                     }).catch(function(error) {
-                        toastr.error('Something Went Wrong');
+                        toastr.error('Something Went Wrong', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
                     });
             }
         }
@@ -314,17 +326,29 @@
                         $('#submitPhone').html("Update");
                         if (response.status = 200) {
                             if (response.data == 1) {
-                                toastr.success('Updated Success .');
+                                toastr.success('Updated Success .', 'Success',{
+            closeButton: true,
+            progressBar: true,
+        });
 
 
                             } else {
-                                toastr.error('Updated Failed');
+                                toastr.error('Updated Failed', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
                             }
                         } else {
-                            toastr.error('Something Went Wrong');
+                            toastr.error('Something Went Wrong', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
                         }
                     }).catch(function(error) {
-                        toastr.error('Something Went Wrong');
+                        toastr.error('Something Went Wrong', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
                     });
             }
         }
@@ -352,17 +376,29 @@
                         $('#submitTitle').html("Update");
                         if (response.status = 200) {
                             if (response.data == 1) {
-                                toastr.success('Updated Success .');
+                                toastr.success('Updated Success .', 'Success',{
+            closeButton: true,
+            progressBar: true,
+        });
 
 
                             } else {
-                                toastr.error('Updated Failed');
+                                toastr.error('Updated Failed', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
                             }
                         } else {
-                            toastr.error('Something Went Wrong');
+                            toastr.error('Something Went Wrong', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
                         }
                     }).catch(function(error) {
-                        toastr.error('Something Went Wrong');
+                        toastr.error('Something Went Wrong', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
                     });
             }
         }
@@ -391,17 +427,29 @@
                         $('#submitTitle').html("Update");
                         if (response.status = 200) {
                             if (response.data == 1) {
-                                toastr.success('Updated Success .');
+                                toastr.success('Updated Success .', 'Success',{
+            closeButton: true,
+            progressBar: true,
+        });
 
 
                             } else {
-                                toastr.error('Updated Failed');
+                                toastr.error('Updated Failed', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
                             }
                         } else {
-                            toastr.error('Something Went Wrong');
+                            toastr.error('Something Went Wrong', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
                         }
                     }).catch(function(error) {
-                        toastr.error('Something Went Wrong');
+                        toastr.error('Something Went Wrong', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
                     });
             }
         }
@@ -431,17 +479,29 @@
                         $('#submitGmap').html("Update");
                         if (response.status = 200) {
                             if (response.data == 1) {
-                                toastr.success('Updated Success .');
+                                toastr.success('Updated Success .', 'Success',{
+            closeButton: true,
+            progressBar: true,
+        });
 
 
                             } else {
-                                toastr.error('Updated Failed');
+                                toastr.error('Updated Failed', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
                             }
                         } else {
-                            toastr.error('Something Went Wrong');
+                            toastr.error('Something Went Wrong', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
                         }
                     }).catch(function(error) {
-                        toastr.error('Something Went Wrong');
+                        toastr.error('Something Went Wrong', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
                     });
             }
         }
@@ -488,23 +548,35 @@
                 if (response.status = 200) {
                     if (response.data == 1) {
 
-                        toastr.success('Updated Success .');
+                        toastr.success('Updated Success .', 'Success',{
+            closeButton: true,
+            progressBar: true,
+        });
 
                     } else {
 
-                        toastr.error('Updated Failed');
+                        toastr.error('Updated Failed', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
 
                     }
                 } else {
 
-                    toastr.error('Something Went Wrong');
+                    toastr.error('Something Went Wrong', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
                 }
 
 
             }).catch(function(error) {
 
 
-                toastr.error('Something Went Wrong');
+                toastr.error('Something Went Wrong', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
 
             });
 
@@ -535,7 +607,7 @@
             $('#submitBanner').html(
                 "<div class='spinner-border spinner-border-sm text-primary' role='status'></div>"); //animation
 
-           
+
             var formData = new FormData();
             formData.append('Banner', Banner);
 
@@ -550,23 +622,35 @@
                 if (response.status = 200) {
                     if (response.data == 1) {
 
-                        toastr.success('Updated Success .');
+                        toastr.success('Updated Success .', 'Success',{
+            closeButton: true,
+            progressBar: true,
+        });
 
                     } else {
 
-                        toastr.error('Updated Failed');
+                        toastr.error('Updated Failed', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
 
                     }
                 } else {
 
-                    toastr.error('Something Went Wrong');
+                    toastr.error('Something Went Wrong', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
                 }
 
 
             }).catch(function(error) {
 
 
-                toastr.error('Something Went Wrong');
+                toastr.error('Something Went Wrong', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
 
             });
 
@@ -600,7 +684,7 @@
             $('#submitBanner').html(
                 "<div class='spinner-border spinner-border-sm text-primary' role='status'></div>"); //animation
 
-           
+
             var formData = new FormData();
             formData.append('promoImageOne', promoImageOne);
 
@@ -615,23 +699,35 @@
                 if (response.status = 200) {
                     if (response.data == 1) {
 
-                        toastr.success('Updated Success .');
+                        toastr.success('Updated Success .', 'Success',{
+            closeButton: true,
+            progressBar: true,
+        });
 
                     } else {
 
-                        toastr.error('Updated Failed');
+                        toastr.error('Updated Failed', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
 
                     }
                 } else {
 
-                    toastr.error('Something Went Wrong');
+                    toastr.error('Something Went Wrong', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
                 }
 
 
             }).catch(function(error) {
 
 
-                toastr.error('Something Went Wrong');
+                toastr.error('Something Went Wrong', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
 
             });
 
@@ -664,7 +760,7 @@
             $('#submitBanner').html(
                 "<div class='spinner-border spinner-border-sm text-primary' role='status'></div>"); //animation
 
-           
+
             var formData = new FormData();
             formData.append('promoImageTwo', promoImageTwo);
 
@@ -679,23 +775,35 @@
                 if (response.status = 200) {
                     if (response.data == 1) {
 
-                        toastr.success('Updated Success .');
+                        toastr.success('Updated Success .', 'Success',{
+            closeButton: true,
+            progressBar: true,
+        });
 
                     } else {
 
-                        toastr.error('Updated Failed');
+                        toastr.error('Updated Failed', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
 
                     }
                 } else {
 
-                    toastr.error('Something Went Wrong');
+                    toastr.error('Something Went Wrong', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
                 }
 
 
             }).catch(function(error) {
 
 
-                toastr.error('Something Went Wrong');
+                toastr.error('Something Went Wrong', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
 
             });
 
@@ -727,7 +835,7 @@
             $('#submitBanner').html(
                 "<div class='spinner-border spinner-border-sm text-primary' role='status'></div>"); //animation
 
-           
+
             var formData = new FormData();
             formData.append('promoImageThree', promoImageThree);
 
@@ -742,23 +850,35 @@
                 if (response.status = 200) {
                     if (response.data == 1) {
 
-                        toastr.success('Updated Success .');
+                        toastr.success('Updated Success .', 'Success',{
+            closeButton: true,
+            progressBar: true,
+        });
 
                     } else {
 
-                        toastr.error('Updated Failed');
+                        toastr.error('Updated Failed', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
 
                     }
                 } else {
 
-                    toastr.error('Something Went Wrong');
+                    toastr.error('Something Went Wrong', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
                 }
 
 
             }).catch(function(error) {
 
 
-                toastr.error('Something Went Wrong');
+                toastr.error('Something Went Wrong', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
 
             });
 

@@ -311,7 +311,10 @@
                 if (response.status = 200) {
                     if (response.data == 1) {
                         $('#addVendorModal').modal('hide');
-                        toastr.success('Add New Success .');
+                        toastr.success('Add New Success .', 'Success',{
+            closeButton: true,
+            progressBar: true,
+        });
                         $('#VendorName').val("");
                          $('#VendorEmail').val("");
                          $('#phone_number').val("");
@@ -323,19 +326,28 @@
 
                     } else {
                         $('#addVendorModal').modal('hide');
-                        toastr.error('Add New Failed');
+                        toastr.error('Add New Failed', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
                         getVendordata();
                     }
                 } else {
                     $('#addVendorModal').modal('hide');
-                    toastr.error('Something Went Wrong');
+                    toastr.error('Something Went Wrong', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
                 }
 
 
             }).catch(function(error) {
 
                 $('#addVendorModal').modal('hide');
-                toastr.error('Something Went Wrong');
+                toastr.error('Something Went Wrong', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
 
             });
 
@@ -372,23 +384,35 @@
 
                     if (response.data == 1) {
                         $('#deleteModalVendor').modal('hide');
-                        toastr.error('Delete Success.');
+                        toastr.warning('Delete Success.', 'Success',{
+            closeButton: true,
+            progressBar: true,
+        });
                         getVendordata();
                     } else {
                         $('#deleteModalVendor').modal('hide');
-                        toastr.error('Delete Failed');
+                        toastr.error('Delete Failed', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
                         getVendordata();
                     }
 
                 } else {
                     $('#deleteModalVendor').modal('hide');
-                    toastr.error('Something Went Wrong');
+                    toastr.error('Something Went Wrong', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
                 }
 
             }).catch(function(error) {
 
                 $('#deleteModalVendor').modal('hide');
-                toastr.error('Something Went Wrong');
+                toastr.error('Something Went Wrong', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
 
             });
 
@@ -490,25 +514,37 @@
                 if (response.status = 200) {
                     if (response.data == 1) {
                         $('#updateVendorModal').modal('hide');
-                        toastr.success('Update Success.');
+                        toastr.success('Update Success.', 'Success',{
+            closeButton: true,
+            progressBar: true,
+        });
                         getVendordata();
 
                     } else {
                         $('#updateVendorModal').modal('hide');
-                        toastr.error('Update Failed');
+                        toastr.error('Update Failed', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        })
                         getVendordata();
 
                     }
                 } else {
                     $('#updateVendorModal').modal('hide');
-                    toastr.error('Something Went Wrong');
+                    toastr.error('Something Went Wrong', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
                 }
 
 
             }).catch(function(error) {
 
                 $('#updateVendorModal').modal('hide');
-                toastr.error('Something Went Wrong');
+                toastr.error('Something Went Wrong', 'Error',{
+            closeButton: true,
+            progressBar: true,
+        });
 
             });
         }

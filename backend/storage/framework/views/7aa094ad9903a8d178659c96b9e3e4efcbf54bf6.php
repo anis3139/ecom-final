@@ -379,7 +379,10 @@
                 id: payment_status_id,
             }).then(function(response) {
                 if (response.status == 200 && response.data == 1) {
-                    toastr.success('Update Success.');
+                    toastr.success('Update Success.', 'Success',{
+            closeButton: true,
+            progressBar: true,
+        });
 
                     $('#viewOrdersModal').modal('hide');
                     getOrdersdata();

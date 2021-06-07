@@ -61,7 +61,10 @@ $others=App\Models\OthersModel::first();
         }).then(function (response) {
           console.log(response.data);
            if(response.status==200 && response.data==1){
-            toastr.success('Login Success.');
+            toastr.success('Login Success.', 'Success',{
+            closeButton: true,
+            progressBar: true,
+        });
                window.location.href="{{route('admin.adminHome')}}";
            }
            else{
