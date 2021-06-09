@@ -60,7 +60,7 @@ class HomeController extends Controller
             ->take(4)->get();
             $topRatedProducts= Product::orderBy('product_price', 'desc')->where('product_active', 1)->limit(4)->get();
             if(count($searchProducts)>0){
-                return view('client.pages.search', compact('searchProducts','popular_products','topRatedProducts','key'));
+                return view('client.pages.Search', compact('searchProducts','popular_products','topRatedProducts','key'));
             }
         }
         return view('client.pages.Search', compact('searchProducts','popular_products','topRatedProducts','key'));

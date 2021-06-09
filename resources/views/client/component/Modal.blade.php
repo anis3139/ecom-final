@@ -17,9 +17,9 @@
                                 <div class="fslider" data-pagi="false">
                                     <div class="flexslider">
                                         <div class="slider-wrap">
-                                            <div class="slide22"><a href="#"
-                                                    title="Pink Printed Dress - Front View"><img src=""
-                                                        id="modalSingleImage" alt="Pink Printed Dress"></a></div>
+                                            <div class="slide22"><a href="#" id="product_img_link"
+                                                    title="{{ env('APP_NAME') }}"><img src=""
+                                                        id="modalSingleImage" alt="{{ env('APP_NAME') }}"></a></div>
 
                                         </div>
                                     </div>

@@ -991,7 +991,9 @@ if (count($arr) > 0) {
                             inStock = "SALE!"
                         }
 
-                        $('#pdTitle').html(jsonData[0].product_title);
+                        let title=jsonData[0].product_title
+
+                        $('#pdTitle').html(title);
                         $('#pdPrice').html("&#2547;   " + jsonData[0].product_selling_price);
                         $('#pdMainPrice').html("&#2547;   " + jsonData[0].product_price);
                         $('#inStock').html(inStock);
@@ -999,7 +1001,10 @@ if (count($arr) > 0) {
                         $('#pDescription').html(jsonData[0].product_discription);
                         $('#product_ids').val(id);
                         $('#modalSingleView').attr("href", url);
+                        $('#product_img_link').attr("title", title);
+                        $('#product_img_link').attr("href", url);
                         $('#modalSingleImage').attr("src", imgSingle);
+                        $('#modalSingleImage').attr("alt", title);
 
 
 

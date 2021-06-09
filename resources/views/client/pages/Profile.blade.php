@@ -6,10 +6,14 @@
             <div class="col-md-12">
 
                 <div class="display-block text-center">
-                    <img src="{{ auth()->user()->image ?? asset('/default-image.png') }}" alt="{{ auth()->user()->name }}"
-                    width="150px" height="150px" style="border-radius:50%; margin:20px  auto !important;">
+
+                        <a class="btn btn-primary reset-password m-2" title="Profile Update?"
+                        href="{{ route('client.profileEdit', auth()->user()->id) }}"><i class="icon-line-edit "></i>Profile Update</a>
+                    <img src="{{ auth()->user()->image ?? asset('/default-image.png') }}"
+                        alt="{{ auth()->user()->name }}" width="150px" height="150px"
+                        style="border-radius:50%; margin:20px  auto !important;">
                     <a class="btn btn-primary reset-password m-2" title="Reset Password?"
-                    href="{{ route('client.passwordReset', auth()->user()->id) }}"><i class="icon-line-edit "></i></a>
+                        href="{{ route('client.passwordReset', auth()->user()->id) }}"><i class="icon-line-edit "></i>Pasword Update</a>
                 </div>
 
                 <table class="table table-borderless table-hover" style="padding:10px;">
@@ -41,15 +45,7 @@
                         <td>Zip code:</td>
                         <td>{{ auth()->user()->postal_code }}</td>
                     </tr>
-                    <tr>
 
-                        <td colspan="2" class="text-center">
-                            <a class="btn btn-primary btn-lg btn-block"
-                                href="{{ route('client.profileEdit', auth()->user()->id) }}"><span>Profile Edit</span></a>
-                        </td>
-
-
-                    </tr>
                 </table>
             </div>
             <div class="col-md-12 text-center">
@@ -114,18 +110,18 @@
                         var imageViewHtml = "";
                         $.each(cartData, function(i, item) {
                             imageViewHtml += `<div class="top-cart-item">
-                                                                 <div class="top-cart-item-image">
-                                                                     <a href="#"><img src="${cartData[i].image}"
-                                                                             alt="Blue Round-Neck Tshirt" /></a>
-                                                                 </div>
-                                                                 <div class="top-cart-item-desc">
-                                                                     <div class="top-cart-item-desc-title">
-                                                                         <a href="#">${cartData[i].title}</a>
-                                                                         <span class="top-cart-item-price d-block"> ${cartData[i].quantity} x &#2547; ${cartData[i].unit_price}</span>
-                                                                     </div>
-                                                                     <div class="top-cart-item-quantity"><button class="cartDeleteIcon" data-id="${i}" type="submit"><i class="icon-remove"> </i></button></div>
-                                                                 </div>
-                                                        </div>`
+                                                                             <div class="top-cart-item-image">
+                                                                                 <a href="#"><img src="${cartData[i].image}"
+                                                                                         alt="Blue Round-Neck Tshirt" /></a>
+                                                                             </div>
+                                                                             <div class="top-cart-item-desc">
+                                                                                 <div class="top-cart-item-desc-title">
+                                                                                     <a href="#">${cartData[i].title}</a>
+                                                                                     <span class="top-cart-item-price d-block"> ${cartData[i].quantity} x &#2547; ${cartData[i].unit_price}</span>
+                                                                                 </div>
+                                                                                 <div class="top-cart-item-quantity"><button class="cartDeleteIcon" data-id="${i}" type="submit"><i class="icon-remove"> </i></button></div>
+                                                                             </div>
+                                                                    </div>`
                         });
 
 
@@ -147,17 +143,17 @@
                             DeleteDataCart(id);
                         })
                     } else {
-                        toastr.error('Something Went Wrong', 'Error',{
-            closeButton: true,
-            progressBar: true,
-        });
+                        toastr.error('Something Went Wrong', 'Error', {
+                            closeButton: true,
+                            progressBar: true,
+                        });
                     }
                 }).catch(function(error) {
 
-                    toastr.error('Something Went Wrong...', 'Error',{
-            closeButton: true,
-            progressBar: true,
-        });
+                    toastr.error('Something Went Wrong...', 'Error', {
+                        closeButton: true,
+                        progressBar: true,
+                    });
                 });
         }
 
@@ -190,23 +186,23 @@
                 .then(function(response) {
 
                     if (response.status == 200) {
-                        toastr.success('Cart Removed Success.', 'Success',{
-            closeButton: true,
-            progressBar: true,
-        });
+                        toastr.success('Cart Removed Success.', 'Success', {
+                            closeButton: true,
+                            progressBar: true,
+                        });
                         getcartData();
                     } else {
-                        toastr.error('Something Went Wrong', 'Error',{
-            closeButton: true,
-            progressBar: true,
-        });
+                        toastr.error('Something Went Wrong', 'Error', {
+                            closeButton: true,
+                            progressBar: true,
+                        });
                     }
                 }).catch(function(error) {
 
-                    toastr.error('Something Went Wrong......', 'Error',{
-            closeButton: true,
-            progressBar: true,
-        });
+                    toastr.error('Something Went Wrong......', 'Error', {
+                        closeButton: true,
+                        progressBar: true,
+                    });
                 });
         }
 

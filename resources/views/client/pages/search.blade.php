@@ -41,11 +41,11 @@
 
                     <div class="row gutter-40 col-mb-80">
                         <!-- Post Content
-                                                                                                                                                                                  ============================================= -->
+                                                                                                                                                                                      ============================================= -->
                         <div class="postcontent col-lg-9 order-lg-last">
 
                             <!-- Shop
-                                                                                                                                                                                   ============================================= -->
+                                                                                                                                                                                       ============================================= -->
                             <div id="shop" class="shop row grid-container gutter-20" data-layout="fitRows">
 
 
@@ -76,18 +76,26 @@
                                                     <div class="bg-overlay-content align-items-end justify-content-between"
                                                         data-hover-animate="fadeIn" data-hover-speed="400">
                                                         @guest
-                                                        <a href="javascript:void(0);" onclick="toastr.info('To add Favorite List. You need to login first.','Info',{
-                                                           closeButton: true,
-                                                           progressBar: true,
-                                                       })" class="btn btn-dark mr-2"><i class="icon-heart3"></i> <span> ({{ $searchProduct->favorite_to_users->count() }})</span></a>
-                                                    @else
-                                                        <a href="javascript:void(0);" onclick="document.getElementById('favorite-form-{{ $searchProduct->id }}').submit();"
-                                                           class="{{ !Auth::user()->favorite_product->where('pivot.product_id',$searchProduct->id)->count()  == 0 ? 'favorite_posts' : ''}}"><i class="icon-heart3"></i><span class="text-dark">(<span class="favorite_posts">{{ $searchProduct->favorite_to_users->count() }}</span>)</span></a>
+                                                            <a href="javascript:void(0);" onclick="toastr.info('To add Favorite List. You need to login first.','Info',{
+                                                                   closeButton: true,
+                                                                   progressBar: true,
+                                                               })" class="btn btn-dark mr-2"><i class="icon-heart3"></i> <span>
+                                                                    ({{ $searchProduct->favorite_to_users->count() }})</span></a>
+                                                        @else
+                                                            <a href="javascript:void(0);"
+                                                                onclick="document.getElementById('favorite-form-{{ $searchProduct->id }}').submit();"
+                                                                class="{{ !Auth::user()->favorite_product->where('pivot.product_id', $searchProduct->id)->count() == 0
+    ? 'favorite_posts'
+    : '' }}"><i
+                                                                    class="icon-heart3"></i><span class="text-dark">(<span
+                                                                        class="favorite_posts">{{ $searchProduct->favorite_to_users->count() }}</span>)</span></a>
 
-                                                        <form id="favorite-form-{{ $searchProduct->id }}" method="POST" action="{{ route('client.favorite',$searchProduct->id) }}" style="display: none;">
-                                                            @csrf
-                                                        </form>
-                                                    @endguest
+                                                            <form id="favorite-form-{{ $searchProduct->id }}" method="POST"
+                                                                action="{{ route('client.favorite', $searchProduct->id) }}"
+                                                                style="display: none;">
+                                                                @csrf
+                                                            </form>
+                                                        @endguest
                                                         <a href="" class="btn btn-dark" data-toggle="modal"
                                                             data-target=".bd-example-modal-lg"
                                                             onclick="productDetailsModal({{ $searchProduct->id }})"><i
@@ -134,7 +142,7 @@
                                                         @for ($i = 0; $i < $emptyValue; $i++)
                                                             <i class="icon-star-empty"></i>
                                                         @endfor
-                                                        @else
+                                                    @else
                                                         <i class="icon-star-empty"></i>
                                                         <i class="icon-star-empty"></i>
                                                         <i class="icon-star-empty"></i>
@@ -164,7 +172,7 @@
                         <!-- .postcontent end -->
 
                         <!-- Sidebar
-                                                                                                                                                                                  ============================================= -->
+                                                                                                                                                                                      ============================================= -->
                         <div class="sidebar col-lg-3">
                             <div class="sidebar-widgets-wrap">
 
@@ -283,8 +291,9 @@
                         } else {
                             inStock = "SALE!"
                         }
+                        let title = jsonData[0].product_title
 
-                        $('#pdTitle').html(jsonData[0].product_title);
+                        $('#pdTitle').html(title);
                         $('#pdPrice').html("&#2547;   " + jsonData[0].product_selling_price);
                         $('#pdMainPrice').html("&#2547;   " + jsonData[0].product_price);
                         $('#inStock').html(inStock);
@@ -292,7 +301,10 @@
                         $('#pDescription').html(jsonData[0].product_discription);
                         $('#product_ids').val(id);
                         $('#modalSingleView').attr("href", url);
+                        $('#product_img_link').attr("title", title);
+                        $('#product_img_link').attr("href", url);
                         $('#modalSingleImage').attr("src", imgSingle);
+                        $('#modalSingleImage').attr("alt", title);
 
 
 
@@ -400,23 +412,23 @@
                 console.log(response.data);
                 if (response.status == 200 && response.data == 1) {
                     $('.bd-example-modal-lg').modal('hide');
-                         toastr.success('Product Add Successfully', 'Success',{
-            closeButton: true,
-            progressBar: true,
-        });
+                    toastr.success('Product Add Successfully', 'Success', {
+                        closeButton: true,
+                        progressBar: true,
+                    });
                     getcartData()
                 } else {
-                    toastr.error('Product not Added ! Try Again', 'Error',{
-            closeButton: true,
-            progressBar: true,
-        });
+                    toastr.error('Product not Added ! Try Again', 'Error', {
+                        closeButton: true,
+                        progressBar: true,
+                    });
                 }
 
             }).catch(function(error) {
-                toastr.error('Product not Added  ! Something Error', 'Error',{
-            closeButton: true,
-            progressBar: true,
-        });
+                toastr.error('Product not Added  ! Something Error', 'Error', {
+                    closeButton: true,
+                    progressBar: true,
+                });
             })
 
 
@@ -448,18 +460,18 @@
                         $.each(cartData, function(i, item) {
                             imageViewHtml +=
                                 `<div class="top-cart-item">
-                                                                                                                                                                                                             <div class="top-cart-item-image">
-                                                                                                                                                                                                                 <a href="#"><img src="${cartData[i].image}"
-                                                                                                                                                                                                                         alt="Blue Round-Neck Tshirt" /></a>
-                                                                                                                                                                                                             </div>
-                                                                                                                                                                                                             <div class="top-cart-item-desc">
-                                                                                                                                                                                                                 <div class="top-cart-item-desc-title">
-                                                                                                                                                                                                                     <a href="#">${cartData[i].title}</a>
-                                                                                                                                                                                                                     <span class="top-cart-item-price d-block"> ${cartData[i].quantity} x &#2547; ${cartData[i].unit_price}</span>
+                                                                                                                                                                                                                 <div class="top-cart-item-image">
+                                                                                                                                                                                                                     <a href="#"><img src="${cartData[i].image}"
+                                                                                                                                                                                                                             alt="Blue Round-Neck Tshirt" /></a>
                                                                                                                                                                                                                  </div>
-                                                                                                                                                                                                                 <div class="top-cart-item-quantity"><button class="cartDeleteIcon" data-id="${i}" type="submit"><i class="icon-remove"> </i></button></div>
-                                                                                                                                                                                                             </div>
-                                                                                                                                                                                                    </div>`
+                                                                                                                                                                                                                 <div class="top-cart-item-desc">
+                                                                                                                                                                                                                     <div class="top-cart-item-desc-title">
+                                                                                                                                                                                                                         <a href="#">${cartData[i].title}</a>
+                                                                                                                                                                                                                         <span class="top-cart-item-price d-block"> ${cartData[i].quantity} x &#2547; ${cartData[i].unit_price}</span>
+                                                                                                                                                                                                                     </div>
+                                                                                                                                                                                                                     <div class="top-cart-item-quantity"><button class="cartDeleteIcon" data-id="${i}" type="submit"><i class="icon-remove"> </i></button></div>
+                                                                                                                                                                                                                 </div>
+                                                                                                                                                                                                        </div>`
                         });
 
 
@@ -481,17 +493,17 @@
                             DeleteDataCart(id);
                         })
                     } else {
-                        toastr.error('Something Went Wrong', 'Error',{
-            closeButton: true,
-            progressBar: true,
-        });
+                        toastr.error('Something Went Wrong', 'Error', {
+                            closeButton: true,
+                            progressBar: true,
+                        });
                     }
                 }).catch(function(error) {
 
-                    toastr.error('Something Went Wrong...', 'Error',{
-            closeButton: true,
-            progressBar: true,
-        });
+                    toastr.error('Something Went Wrong...', 'Error', {
+                        closeButton: true,
+                        progressBar: true,
+                    });
                 });
         }
 
@@ -524,23 +536,23 @@
                 .then(function(response) {
 
                     if (response.status == 200) {
-                        toastr.success('Cart Removed Success.', 'Success',{
-            closeButton: true,
-            progressBar: true,
-        });
+                        toastr.success('Cart Removed Success.', 'Success', {
+                            closeButton: true,
+                            progressBar: true,
+                        });
                         getcartData();
                     } else {
-                        toastr.error('Something Went Wrong', 'Error',{
-            closeButton: true,
-            progressBar: true,
-        });
+                        toastr.error('Something Went Wrong', 'Error', {
+                            closeButton: true,
+                            progressBar: true,
+                        });
                     }
                 }).catch(function(error) {
 
-                    toastr.error('Something Went Wrong......', 'Error',{
-            closeButton: true,
-            progressBar: true,
-        });
+                    toastr.error('Something Went Wrong......', 'Error', {
+                        closeButton: true,
+                        progressBar: true,
+                    });
                 });
         }
 

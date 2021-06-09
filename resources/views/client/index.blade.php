@@ -5,13 +5,13 @@
     <div id="wrapper" class="clearfix">
 
         <!-- Slider
-                                                                                                                                                          ============================================= -->
+                                                                                                                                                                          ============================================= -->
         @include('client.component.Slider')
 
         <!-- #Slider End -->
 
         <!-- Content
-                                                                                                                                                          ============================================= -->
+                                                                                                                                                                          ============================================= -->
         <section id="content">
             <div class="content-wrap">
                 <div class="container clearfix">
@@ -29,11 +29,11 @@
                 <div class="clear"></div>
 
                 <!-- New Arrivals Men
-                                                                                                                                                            ============================================= -->
+                                                                                                                                                                            ============================================= -->
                 @include('client.partials.NewArrivalProduct')
 
                 <!-- Sign Up
-                                                                                                                                                            ============================================= -->
+                                                                                                                                                                            ============================================= -->
 
                 @include('client.partials.Signup')
 
@@ -62,7 +62,7 @@
         </section><!-- #content end -->
 
         <!-- Footer
-                                                                                                                                                          ============================================= -->
+                                                                                                                                                                          ============================================= -->
 
 
         <!-- #footer end -->
@@ -91,10 +91,10 @@
                     if (response.status == 200) {
                         var jsonData = response.data;
 
-                          let domain=window.location.origin
+                        let domain = window.location.origin
                         var url = `${domain}/product/${jsonData[0].product_slug}`;
 
-                        let imgSingle=jsonData[0].img[0].image_path
+                        let imgSingle = jsonData[0].img[0].image_path
 
 
                         var inStock = '';
@@ -104,7 +104,9 @@
                             inStock = "SALE!"
                         }
 
-                        $('#pdTitle').html(jsonData[0].product_title);
+                        let title = jsonData[0].product_title
+
+                        $('#pdTitle').html(title);
                         $('#pdPrice').html("&#2547;   " + jsonData[0].product_selling_price);
                         $('#pdMainPrice').html("&#2547;   " + jsonData[0].product_price);
                         $('#inStock').html(inStock);
@@ -112,7 +114,11 @@
                         $('#pDescription').html(jsonData[0].product_discription);
                         $('#product_ids').val(id);
                         $('#modalSingleView').attr("href", url);
+                        $('#product_img_link').attr("title", title);
+                        $('#product_img_link').attr("href", url);
                         $('#modalSingleImage').attr("src", imgSingle);
+                        $('#modalSingleImage').attr("alt", title);
+
 
 
 
@@ -226,23 +232,23 @@
                 console.log(response.data);
                 if (response.status == 200 && response.data == 1) {
                     $('.bd-example-modal-lg').modal('hide');
-                         toastr.success('Product Add Successfully', 'Success',{
-            closeButton: true,
-            progressBar: true,
-        });
+                    toastr.success('Product Add Successfully', 'Success', {
+                        closeButton: true,
+                        progressBar: true,
+                    });
                     getcartData()
                 } else {
-                    toastr.error('Product not Added ! Try Again', 'Error',{
-            closeButton: true,
-            progressBar: true,
-        });
+                    toastr.error('Product not Added ! Try Again', 'Error', {
+                        closeButton: true,
+                        progressBar: true,
+                    });
                 }
 
             }).catch(function(error) {
-                toastr.error('Product not Added  ! Something Error', 'Error',{
-            closeButton: true,
-            progressBar: true,
-        });
+                toastr.error('Product not Added  ! Something Error', 'Error', {
+                    closeButton: true,
+                    progressBar: true,
+                });
             })
 
 
@@ -273,18 +279,18 @@
                         var imageViewHtml = "";
                         $.each(cartData, function(i, item) {
                             imageViewHtml += `<div class="top-cart-item">
-                                                     <div class="top-cart-item-image">
-                                                         <a href="#"><img src="${cartData[i].image}"
-                                                                 alt="Blue Round-Neck Tshirt" /></a>
-                                                     </div>
-                                                     <div class="top-cart-item-desc">
-                                                         <div class="top-cart-item-desc-title">
-                                                             <a href="#">${cartData[i].title}</a>
-                                                             <span class="top-cart-item-price d-block"> ${cartData[i].quantity} x &#2547; ${cartData[i].unit_price}</span>
-                                                         </div>
-                                                         <div class="top-cart-item-quantity"><button class="cartDeleteIcon" data-id="${i}" type="submit"><i class="icon-remove"> </i></button></div>
-                                                     </div>
-                                            </div>`
+                                                                     <div class="top-cart-item-image">
+                                                                         <a href="#"><img src="${cartData[i].image}"
+                                                                                 alt="Blue Round-Neck Tshirt" /></a>
+                                                                     </div>
+                                                                     <div class="top-cart-item-desc">
+                                                                         <div class="top-cart-item-desc-title">
+                                                                             <a href="#">${cartData[i].title}</a>
+                                                                             <span class="top-cart-item-price d-block"> ${cartData[i].quantity} x &#2547; ${cartData[i].unit_price}</span>
+                                                                         </div>
+                                                                         <div class="top-cart-item-quantity"><button class="cartDeleteIcon" data-id="${i}" type="submit"><i class="icon-remove"> </i></button></div>
+                                                                     </div>
+                                                            </div>`
                         });
 
 
@@ -306,17 +312,17 @@
                             DeleteDataCart(id);
                         })
                     } else {
-                        toastr.error('Something Went Wrong', 'Error',{
-            closeButton: true,
-            progressBar: true,
-        });
+                        toastr.error('Something Went Wrong', 'Error', {
+                            closeButton: true,
+                            progressBar: true,
+                        });
                     }
                 }).catch(function(error) {
 
-                    toastr.error('Something Went Wrong...', 'Error',{
-            closeButton: true,
-            progressBar: true,
-        });
+                    toastr.error('Something Went Wrong...', 'Error', {
+                        closeButton: true,
+                        progressBar: true,
+                    });
                 });
         }
 
@@ -349,23 +355,23 @@
                 .then(function(response) {
 
                     if (response.status == 200) {
-                        toastr.success('Cart Removed Success.', 'Success',{
-            closeButton: true,
-            progressBar: true,
-        });
+                        toastr.success('Cart Removed Success.', 'Success', {
+                            closeButton: true,
+                            progressBar: true,
+                        });
                         getcartData();
                     } else {
-                        toastr.error('Something Went Wrong', 'Error',{
-            closeButton: true,
-            progressBar: true,
-        });
+                        toastr.error('Something Went Wrong', 'Error', {
+                            closeButton: true,
+                            progressBar: true,
+                        });
                     }
                 }).catch(function(error) {
 
-                    toastr.error('Something Went Wrong......', 'Error',{
-            closeButton: true,
-            progressBar: true,
-        });
+                    toastr.error('Something Went Wrong......', 'Error', {
+                        closeButton: true,
+                        progressBar: true,
+                    });
                 });
         }
 

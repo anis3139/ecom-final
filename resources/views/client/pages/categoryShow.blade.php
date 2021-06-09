@@ -1,18 +1,19 @@
 @extends('client.layouts.app')
 @section('title')
-{{ $category->name }}
+    {{ $category->name }}
 @endsection
 @section('content')
     <!-- Page Title
-                                                          ============================================= -->
+                                                                  ============================================= -->
     <section id="page-title">
 
         <div class="container clearfix">
-            <h1> All Product under  <a href="{{ route('client.category', $category->slug) }}" class="text-primary"> {{ $category->name }}</a> Category</h1>
+            <h1> All Product under <a href="{{ route('client.category', $category->slug) }}" class="text-primary">
+                    {{ $category->name }}</a> Category</h1>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{ route('client.home') }}">Home</a></li>
                 <li class="breadcrumb-item active" aria-current="page">
-                   {{ $category->name }}
+                    {{ $category->name }}
                 </li>
             </ol>
         </div>
@@ -20,18 +21,18 @@
     </section><!-- #page-title end -->
 
     <!-- Content
-                                                          ============================================= -->
+                                                                  ============================================= -->
     <section id="content">
         <div class="content-wrap">
             <div class="container clearfix">
 
                 <div class="row gutter-40 col-mb-80">
                     <!-- Post Content
-                                                              ============================================= -->
+                                                                      ============================================= -->
                     <div class="postcontent col-lg-9 order-lg-last">
 
                         <!-- Shop
-                                                               ============================================= -->
+                                                                       ============================================= -->
                         <div id="shop" class="shop row grid-container gutter-20" data-layout="fitRows">
 
 
@@ -61,18 +62,27 @@
                                                 <div class="bg-overlay-content align-items-end justify-content-between"
                                                     data-hover-animate="fadeIn" data-hover-speed="400">
                                                     @guest
-                                                    <a href="javascript:void(0);" onclick="toastr.info('To add Favorite List. You need to login first.','Info',{
-                                                       closeButton: true,
-                                                       progressBar: true,
-                                                   })" class="btn btn-dark mr-2"><i class="icon-heart3"></i> <span> ({{ $allProduct->favorite_to_users->count() }})</span></a>
-                                                @else
-                                                    <a href="javascript:void(0);" onclick="document.getElementById('favorite-form-{{ $allProduct->id }}').submit();"
-                                                       class="{{ !Auth::user()->favorite_product->where('pivot.product_id',$allProduct->id)->count()  == 0 ? 'favorite_posts' : ''}}"><i class="icon-heart3"></i><span class="text-dark">(<span class="favorite_posts">{{ $allProduct->favorite_to_users->count() }}</span>)</span></a>
+                                                        <a href="javascript:void(0);" onclick="toastr.info('To add Favorite List. You need to login first.','Info',{
+                                                                       closeButton: true,
+                                                                       progressBar: true,
+                                                                   })" class="btn btn-dark mr-2"><i class="icon-heart3"></i>
+                                                            <span>
+                                                                ({{ $allProduct->favorite_to_users->count() }})</span></a>
+                                                    @else
+                                                        <a href="javascript:void(0);"
+                                                            onclick="document.getElementById('favorite-form-{{ $allProduct->id }}').submit();"
+                                                            class="{{ !Auth::user()->favorite_product->where('pivot.product_id', $allProduct->id)->count() == 0
+    ? 'favorite_posts'
+    : '' }}"><i
+                                                                class="icon-heart3"></i><span class="text-dark">(<span
+                                                                    class="favorite_posts">{{ $allProduct->favorite_to_users->count() }}</span>)</span></a>
 
-                                                    <form id="favorite-form-{{ $allProduct->id }}" method="POST" action="{{ route('client.favorite',$allProduct->id) }}" style="display: none;">
-                                                        @csrf
-                                                    </form>
-                                                @endguest
+                                                        <form id="favorite-form-{{ $allProduct->id }}" method="POST"
+                                                            action="{{ route('client.favorite', $allProduct->id) }}"
+                                                            style="display: none;">
+                                                            @csrf
+                                                        </form>
+                                                    @endguest
                                                     <a href="" class="btn btn-dark" data-toggle="modal"
                                                         data-target=".bd-example-modal-lg"
                                                         onclick="productDetailsModal({{ $allProduct->id }})"><i
@@ -96,36 +106,36 @@
                                             </div>
                                             <div class="product-rating">
                                                 @php
-                                                $arr = $allProduct->rating;
-                                                $sum = 0;
-                                                foreach ($arr as $item) {
-                                                    $sum += $item['star_reating'];
-                                                }
+                                                    $arr = $allProduct->rating;
+                                                    $sum = 0;
+                                                    foreach ($arr as $item) {
+                                                        $sum += $item['star_reating'];
+                                                    }
 
-                                                if (count($arr) > 0) {
-                                                    $average = $sum / count($arr);
-                                                    $ratingValue = round(intval($average));
-                                                } else {
-                                                    $ratingValue = 0;
-                                                }
-                                            @endphp
-                                            @if ($ratingValue > 0)
-                                                @for ($i = 0; $i < $ratingValue; $i++)
-                                                    <i class="icon-star3"></i>
-                                                @endfor
-                                                @php
-                                                    $emptyValue = 5 - $ratingValue;
+                                                    if (count($arr) > 0) {
+                                                        $average = $sum / count($arr);
+                                                        $ratingValue = round(intval($average));
+                                                    } else {
+                                                        $ratingValue = 0;
+                                                    }
                                                 @endphp
-                                                @for ($i = 0; $i < $emptyValue; $i++)
-                                                    <i class="icon-star-empty"></i>
-                                                @endfor
+                                                @if ($ratingValue > 0)
+                                                    @for ($i = 0; $i < $ratingValue; $i++)
+                                                        <i class="icon-star3"></i>
+                                                    @endfor
+                                                    @php
+                                                        $emptyValue = 5 - $ratingValue;
+                                                    @endphp
+                                                    @for ($i = 0; $i < $emptyValue; $i++)
+                                                        <i class="icon-star-empty"></i>
+                                                    @endfor
                                                 @else
-                                                <i class="icon-star-empty"></i>
-                                                <i class="icon-star-empty"></i>
-                                                <i class="icon-star-empty"></i>
-                                                <i class="icon-star-empty"></i>
-                                                <i class="icon-star-empty"></i>
-                                            @endif
+                                                    <i class="icon-star-empty"></i>
+                                                    <i class="icon-star-empty"></i>
+                                                    <i class="icon-star-empty"></i>
+                                                    <i class="icon-star-empty"></i>
+                                                    <i class="icon-star-empty"></i>
+                                                @endif
                                             </div>
                                         </div>
                                     </div>
@@ -142,7 +152,7 @@
                     </div><!-- .postcontent end -->
 
                     <!-- Sidebar
-                                                              ============================================= -->
+                                                                      ============================================= -->
                     <div class="sidebar col-lg-3">
                         <div class="sidebar-widgets-wrap">
 
@@ -187,7 +197,9 @@
                                                 </div>
                                                 <div class="col pl-3">
                                                     <div class="entry-title">
-                                                        <h4><a href="{{ route('client.showProductDetails', ['slug' => $recentProduct->product_slug]) }}">{{ $recentProduct->product_title }}</a></h4>
+                                                        <h4><a
+                                                                href="{{ route('client.showProductDetails', ['slug' => $recentProduct->product_slug]) }}">{{ $recentProduct->product_title }}</a>
+                                                        </h4>
                                                     </div>
                                                     <div class="entry-meta no-separator">
                                                         <ul>
@@ -298,10 +310,10 @@
                     if (response.status == 200) {
                         var jsonData = response.data;
 
-                          let domain=window.location.origin
+                        let domain = window.location.origin
                         var url = `${domain}/product/${jsonData[0].product_slug}`;
 
-                        let imgSingle=jsonData[0].img[0].image_path
+                        let imgSingle = jsonData[0].img[0].image_path
 
                         var inStock = '';
                         if (jsonData[0].product_in_stock == 0) {
@@ -310,7 +322,9 @@
                             inStock = "SALE!"
                         }
 
-                        $('#pdTitle').html(jsonData[0].product_title);
+                        let title = jsonData[0].product_title
+
+                        $('#pdTitle').html(title);
                         $('#pdPrice').html("&#2547;   " + jsonData[0].product_selling_price);
                         $('#pdMainPrice').html("&#2547;   " + jsonData[0].product_price);
                         $('#inStock').html(inStock);
@@ -318,7 +332,10 @@
                         $('#pDescription').html(jsonData[0].product_discription);
                         $('#product_ids').val(id);
                         $('#modalSingleView').attr("href", url);
+                        $('#product_img_link').attr("title", title);
+                        $('#product_img_link').attr("href", url);
                         $('#modalSingleImage').attr("src", imgSingle);
+                        $('#modalSingleImage').attr("alt", title);
 
 
 
@@ -426,23 +443,23 @@
                 console.log(response.data);
                 if (response.status == 200 && response.data == 1) {
                     $('.bd-example-modal-lg').modal('hide');
-                         toastr.success('Product Add Successfully', 'Success',{
-            closeButton: true,
-            progressBar: true,
-        });
+                    toastr.success('Product Add Successfully', 'Success', {
+                        closeButton: true,
+                        progressBar: true,
+                    });
                     getcartData()
                 } else {
-                    toastr.error('Product not Added ! Try Again', 'Error',{
-            closeButton: true,
-            progressBar: true,
-        });
+                    toastr.error('Product not Added ! Try Again', 'Error', {
+                        closeButton: true,
+                        progressBar: true,
+                    });
                 }
 
             }).catch(function(error) {
-                toastr.error('Product not Added  ! Something Error', 'Error',{
-            closeButton: true,
-            progressBar: true,
-        });
+                toastr.error('Product not Added  ! Something Error', 'Error', {
+                    closeButton: true,
+                    progressBar: true,
+                });
             })
 
 
@@ -473,18 +490,18 @@
                         var imageViewHtml = "";
                         $.each(cartData, function(i, item) {
                             imageViewHtml += `<div class="top-cart-item">
-                                                                                         <div class="top-cart-item-image">
-                                                                                             <a href="#"><img src="${cartData[i].image}"
-                                                                                                     alt="Blue Round-Neck Tshirt" /></a>
-                                                                                         </div>
-                                                                                         <div class="top-cart-item-desc">
-                                                                                             <div class="top-cart-item-desc-title">
-                                                                                                 <a href="#">${cartData[i].title}</a>
-                                                                                                 <span class="top-cart-item-price d-block"> ${cartData[i].quantity} x &#2547; ${cartData[i].unit_price}</span>
-                                                                                             </div>
-                                                                                             <div class="top-cart-item-quantity"><button class="cartDeleteIcon" data-id="${i}" type="submit"><i class="icon-remove"> </i></button></div>
-                                                                                         </div>
-                                                                                </div>`
+                                                                                                 <div class="top-cart-item-image">
+                                                                                                     <a href="#"><img src="${cartData[i].image}"
+                                                                                                             alt="Blue Round-Neck Tshirt" /></a>
+                                                                                                 </div>
+                                                                                                 <div class="top-cart-item-desc">
+                                                                                                     <div class="top-cart-item-desc-title">
+                                                                                                         <a href="#">${cartData[i].title}</a>
+                                                                                                         <span class="top-cart-item-price d-block"> ${cartData[i].quantity} x &#2547; ${cartData[i].unit_price}</span>
+                                                                                                     </div>
+                                                                                                     <div class="top-cart-item-quantity"><button class="cartDeleteIcon" data-id="${i}" type="submit"><i class="icon-remove"> </i></button></div>
+                                                                                                 </div>
+                                                                                        </div>`
                         });
 
 
@@ -506,17 +523,17 @@
                             DeleteDataCart(id);
                         })
                     } else {
-                        toastr.error('Something Went Wrong', 'Error',{
-            closeButton: true,
-            progressBar: true,
-        });
+                        toastr.error('Something Went Wrong', 'Error', {
+                            closeButton: true,
+                            progressBar: true,
+                        });
                     }
                 }).catch(function(error) {
 
-                    toastr.error('Something Went Wrong...', 'Error',{
-            closeButton: true,
-            progressBar: true,
-        });
+                    toastr.error('Something Went Wrong...', 'Error', {
+                        closeButton: true,
+                        progressBar: true,
+                    });
                 });
         }
 
@@ -549,23 +566,23 @@
                 .then(function(response) {
 
                     if (response.status == 200) {
-                        toastr.success('Cart Removed Success.', 'Success',{
-            closeButton: true,
-            progressBar: true,
-        });
+                        toastr.success('Cart Removed Success.', 'Success', {
+                            closeButton: true,
+                            progressBar: true,
+                        });
                         getcartData();
                     } else {
-                        toastr.error('Something Went Wrong', 'Error',{
-            closeButton: true,
-            progressBar: true,
-        });
+                        toastr.error('Something Went Wrong', 'Error', {
+                            closeButton: true,
+                            progressBar: true,
+                        });
                     }
                 }).catch(function(error) {
 
-                    toastr.error('Something Went Wrong......', 'Error',{
-            closeButton: true,
-            progressBar: true,
-        });
+                    toastr.error('Something Went Wrong......', 'Error', {
+                        closeButton: true,
+                        progressBar: true,
+                    });
                 });
         }
 
