@@ -18,8 +18,8 @@
                                     <div class="flexslider">
                                         <div class="slider-wrap">
                                             <div class="slide22"><a href="#" id="product_img_link"
-                                                    title="{{ env('APP_NAME') }}"><img src=""
-                                                        id="modalSingleImage" alt="{{ env('APP_NAME') }}"></a></div>
+                                                    title="{{ env('APP_NAME') }}"><img src="" id="modalSingleImage"
+                                                        alt="{{ env('APP_NAME') }}"></a></div>
 
                                         </div>
                                     </div>
@@ -76,7 +76,8 @@
                             </div>
                             <div class="card product-meta mb-0">
                                 <div class="card-body">
-                                    <span class="posted_in"><a href="" id="modalSingleView" class="add-to-cart button m-0">View
+                                    <span class="posted_in"><a href="" id="modalSingleView"
+                                            class="add-to-cart button m-0">View
                                             Details</a></span>
                                 </div>
                             </div>
@@ -89,3 +90,103 @@
         </div>
     </div>
 </div>
+<script>
+    function productDetailsModal(id) {
+
+        let url = "{{ route('client.getsingleProductdata') }}";
+        axios.post(url, {
+                id: id
+            })
+            .then(function(response) {
+                console.log(response.data);
+                if (response.status == 200) {
+                    var jsonData = response.data;
+
+                    let domain = window.location.origin
+                    var url = `${domain}/product/${jsonData[0].product_slug}`;
+
+                    let imgSingle = jsonData[0].img[0].image_path
+
+
+                    var inStock = '';
+                    if (jsonData[0].product_in_stock == 0) {
+                        inStock = "STOCK OUT!"
+                    } else {
+                        inStock = "SALE!"
+                    }
+
+                    let title = jsonData[0].product_title
+
+                    $('#pdTitle').html(title);
+                    $('#pdPrice').html("&#2547;   " + jsonData[0].product_selling_price);
+                    $('#pdMainPrice').html("&#2547;   " + jsonData[0].product_price);
+                    $('#inStock').html(inStock);
+                    $('#pdCategory').html(jsonData[0].cat.name);
+                    $('#pDescription').html(jsonData[0].product_discription);
+                    $('#product_ids').val(id);
+                    $('#modalSingleView').attr("href", url);
+                    $('#product_img_link').attr("title", title);
+                    $('#product_img_link').attr("href", url);
+                    $('#modalSingleImage').attr("src", imgSingle);
+                    $('#modalSingleImage').attr("alt", title);
+
+
+                    var maserment = "";
+                    for (let index = 0; index < jsonData[0].maserment.length; index++) {
+                        const element = jsonData[0].maserment[index];
+                        checked = ""
+                        if (index == 0) {
+                            checked = "checked"
+                        } else {
+                            checked = ""
+                        }
+
+                        maserment += '<div>';
+                        maserment += '<input type="radio" id="' + element.meserment_value + '" name="maserment" ' +
+                            checked + ' value="' + element.meserment_value + '">';
+                        maserment += '<label for="' + element.meserment_value +
+                            '"><span style="background-color:#000;"></span></label>';
+                        maserment += '<span>' + element.meserment_value + '</span>&nbsp;';
+                        maserment += '</div>';
+
+                    }
+
+                    $('.meserment-choose').html(maserment);
+
+
+
+
+                    var color = "";
+                    for (let index = 0; index < jsonData[0].color.length; index++) {
+                        const elementColor = jsonData[0].color[index];
+
+                        colorChecked = ""
+                        if (index == 0) {
+                            colorChecked = "checked"
+                        } else {
+                            colorChecked = ""
+                        }
+                        color += '<div>';
+                        color += '<input type="radio" id="' + elementColor.product_color_code + '" name="color" ' +
+                            colorChecked + ' value="' + elementColor.product_color_code + '">';
+                        color += '<label for="' + elementColor.product_color_code +
+                            '"><span style="background-color:' + elementColor.product_color_code +
+                            ';"></span></label>';
+                        color += '</div>';
+
+                    }
+
+                    $('.color-choose').html(color);
+
+
+
+
+                } else {
+
+                }
+            }).catch(function(error) {
+
+            });
+    }
+
+</script>
