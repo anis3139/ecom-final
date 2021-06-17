@@ -1,0 +1,1 @@
+<?php /**PATH C:\xampp\htdocs\ecom-final\resources\views/client/aboutPartial/css.blade.php ENDPATH**/ ?>
