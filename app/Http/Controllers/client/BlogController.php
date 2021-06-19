@@ -12,7 +12,7 @@ class BlogController extends Controller
     public function index()
     {
         $data = [];
-        $data['posts'] = Blog::orderBy('created_at', 'desc')->where('status', 1)->paginate(2);
+        $data['posts'] = Blog::orderBy('created_at', 'desc')->where('status', 1)->paginate(10);
         return view('client.pages.Blog', $data);
     }
     public function store(Request $request)

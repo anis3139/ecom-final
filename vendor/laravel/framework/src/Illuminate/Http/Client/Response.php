@@ -125,11 +125,11 @@ class Response implements ArrayAccess
     /**
      * Get the effective URI of the response.
      *
-     * @return \Psr\Http\Message\UriInterface|null
+     * @return \Psr\Http\Message\UriInterface
      */
     public function effectiveUri()
     {
-        return optional($this->transferStats)->getEffectiveUri();
+        return $this->transferStats->getEffectiveUri();
     }
 
     /**
@@ -224,19 +224,7 @@ class Response implements ArrayAccess
      */
     public function handlerStats()
     {
-        return optional($this->transferStats)->getHandlerStats() ?? [];
-    }
-
-    /**
-     * Close the stream and any underlying resources.
-     *
-     * @return $this
-     */
-    public function close()
-    {
-        $this->response->getBody()->close();
-
-        return $this;
+        return $this->transferStats->getHandlerStats();
     }
 
     /**

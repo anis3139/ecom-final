@@ -60,6 +60,7 @@ class FavouriteController extends Controller
      */
     public function show()
     {
+     
         $data = [];
         $user = Auth::user();
         $data['favourites'] = $user->favorite_product()->with('img')->orderBy('id', 'desc')->paginate(15);

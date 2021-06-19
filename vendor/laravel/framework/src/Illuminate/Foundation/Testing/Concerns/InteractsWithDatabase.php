@@ -134,9 +134,7 @@ trait InteractsWithDatabase
             $value = json_encode($value);
         }
 
-        $value = DB::connection()->getPdo()->quote($value);
-
-        return DB::raw("CAST($value AS JSON)");
+        return DB::raw("CAST('$value' AS JSON)");
     }
 
     /**

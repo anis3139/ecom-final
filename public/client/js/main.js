@@ -139,23 +139,14 @@ $('#cartForm').on('submit', function(event) {
         console.log(response.data);
         if (response.status == 200 && response.data == 1) {
             $('.bd-example-modal-lg').modal('hide');
-                 toastr.success('Product Add Successfully', 'Success',{
-            closeButton: true,
-            progressBar: true,
-        });
+            toastr.success('Product Add Successfully');
             getcartData()
         } else {
-            toastr.error('Product not Added ! Try Again', 'Error',{
-            closeButton: true,
-            progressBar: true,
-        });
+            toastr.error('Product not Added ! Try Again');
         }
 
     }).catch(function(error) {
-        toastr.error('Product not Added  ! Something Error', 'Error',{
-            closeButton: true,
-            progressBar: true,
-        });
+        toastr.error('Product not Added  ! Something Error');
     })
 
 
@@ -219,10 +210,7 @@ function getcartData() {
                     DeleteDataCart(id);
                 })
             } else {
-                toastr.error('Something Went Wrong', 'Error',{
-            closeButton: true,
-            progressBar: true,
-        });
+                toastr.error('Something Went Wrong');
             }
         }).catch(function(error) {
 
@@ -262,10 +250,7 @@ function DeleteDataCart(id) {
                 toastr.success('Cart Removed Success.');
                 getcartData();
             } else {
-                toastr.error('Something Went Wrong', 'Error',{
-            closeButton: true,
-            progressBar: true,
-        });
+                toastr.error('Something Went Wrong');
             }
         }).catch(function(error) {
 
