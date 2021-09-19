@@ -2,7 +2,7 @@
 
 namespace App\Notifications;
 
-use App\Models\Orders;
+use App\Models\Order;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
@@ -19,7 +19,7 @@ class orderConfirmNotification extends Notification
      *
      * @return void
      */
-    public function __construct(Orders $order)
+    public function __construct(Order $order)
     {
         $this->order=$order;
     }

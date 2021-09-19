@@ -18,24 +18,25 @@ class Product extends Model
     public $keyType = 'int';
     public  $timestamps = false;
 
+    protected $guarded = ['id'];
 
     public function category() {
-        return $this->belongsTo(ProductsCategoryModel::class,'product_category_id');
+        return $this->belongsTo(Category::class,'category_id');
     }
 
     public function getCategory() {
-        return $this->belongsTo(ProductsCategoryModel::class, 'product_category_id', 'id');
+        return $this->belongsTo(Category::class, 'category_id', 'id');
     }
 
 
     public function brand() {
-        return $this->belongsTo(ProductsBrandModel::class,'product_brand_id');
+        return $this->belongsTo(Brand::class,'brand_id');
     }
     public function getBrand() {
-        return $this->belongsTo(ProductsBrandModel::class,'product_brand_id', 'id');
+        return $this->belongsTo(Brand::class,'brand_id', 'id');
     }
     public function orderproduct() {
-        return $this->belongsTo(OrderProducts::class,'product_id', 'id');
+        return $this->belongsTo(OrderProduct::class,'product_id', 'id');
     }
 
     public function masermant() {
@@ -43,27 +44,25 @@ class Product extends Model
     }
 
     public function vendor() {
-        return $this->belongsTo(Vendor::class,'product_owner_id', 'id');
+        return $this->belongsTo(Vendor::class,'vendor_id', 'id');
     }
 
     public function image() {
-        return $this->hasMany(product_has_images::class,'has_images_product_id', 'id');
+        return $this->hasMany(ProductImage::class,'product_id', 'id');
     }
 
     public function maserment() {
         return $this->hasMany(meserments::class,'product_id', 'id');
     }
-    public function color() {
-        return $this->hasMany(product_color::class,'product_color_product_id', 'id');
-    }
+   
 
 
     public function cat() {
-        return $this->belongsTo(ProductsCategoryModel::class,'product_category_id', 'id');
+        return $this->belongsTo(Category::class,'category_id', 'id');
     }
 
     public function img() {
-        return $this->hasMany(product_has_images::class,'has_images_product_id', 'id');
+        return $this->hasMany(ProductImage::class,'product_id', 'id');
     }
 
     public function rating() {

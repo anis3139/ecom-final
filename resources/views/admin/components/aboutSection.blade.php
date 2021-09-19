@@ -1,6 +1,6 @@
 <div class="container ">
-    <div class="row">
-        <div class="col-md-10 offset-md-1 mt-5 border border-dark">
+    <div class="row border border-dark">
+        <div class="col-md-10 offset-md-1 mt-5 ">
             <h1 class="text-center my-5">About Section</h1>
 
             <table class="table table-striped table-bordered mt-2" cellspacing="0" width="100%">
@@ -23,7 +23,7 @@
                             <div class="form-group mx-sm-3 mb-2">
                                 <label for="addTitle" class="sr-only">Title</label>
 
-                                <textarea type="text" required name="" id="addTitle" class="form-control" cols="30"
+                                <textarea type="text" required name="" id="addTitle" class="form-control ckeditor" cols="30"
                                     rows="5"><?php if ($results) {
                                             echo $results->title;
                                         } ?></textarea>
@@ -43,7 +43,7 @@
                         <td>
                             <div class="form-group mx-sm-3 mb-2">
                                 <label for="addDescription" class="sr-only">Title</label>
-                                <textarea required name="" id="addDescription" class="form-control" cols="30" rows="10"><?php if ($results) {
+                                <textarea required name="" id="addDescription" class="form-control ckeditor" cols="30" rows="10"><?php if ($results) {
                                         echo $results->description;
                                     } ?></textarea>
 

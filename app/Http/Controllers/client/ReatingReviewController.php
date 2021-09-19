@@ -17,7 +17,7 @@ class ReatingReviewController extends Controller
         $rete = new ReatingReview();
         $rete->product_id = $product->id;
         $rete->user_id = Auth::user()->id;
-        $rete->seller_id = $product->product_owner_id;
+        $rete->seller_id = $product->vendor_id;
         $rete->star_reating = $request->rating;
         $rete->product_review = $request->review;
         $rete->is_approved = false;

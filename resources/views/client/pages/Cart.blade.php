@@ -9,7 +9,7 @@
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{ route('client.home') }}">Home</a></li>
                 <li class="breadcrumb-item"><a href="{{ route('client.shop') }}">Shop</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Cart</li>
+                <li class="breadcrumb-item active" aria-current="page">My Cart</li>
             </ol>
         </div>
 
@@ -37,7 +37,7 @@
                                 <th class="cart-product-price">Unit Price</th>
                                 <th class="cart-product-quantity">Quantity</th>
                                 <th class="cart-product-color">Color</th>
-                                <th class="cart-product-mesement text-center">Meserment</th>
+                                <th class="cart-product-mesement text-center">Measurement</th>
                                 <th class="cart-product-subtotal">Total</th>
                             </tr>
                         </thead>
@@ -89,8 +89,8 @@
 
                                     <td class="cart-product-color text-center hidden-xs">
                                         @if ($cartItem['color'])
-                                            <div class="text-center"
-                                                style=" width:20px; margin:auto; height:20px; border:1px solid #000; border-radius:50%; background-color: {{ $cartItem['color'] }};">
+                                            <div class="text-center" >
+                                                <p>{{ Str::ucfirst($cartItem['color'])  }}</p>
                                             </div>
                                         @else
                                             {{ 'N/A' }}
@@ -127,11 +127,11 @@
                             <div class="col-12 form-group p-3">
                                 <form action="{{ route('client.cupon') }}" method="post">
                                     @csrf
-                                    <label for="cupon">Have Cupon?</label>
+                                    <label for="cupon">Have Coupon?</label>
                                     <input required class="form-control" type="text" id="cupon" name="cupon">
                                     <button type="submit"
                                         class="button button-large button-black button-rounded text-right text-light button-3d mt-3">Apply
-                                        Cupon</button>
+                                        Coupon</button>
                                 </form>
                             </div>
                         </div>
@@ -191,123 +191,5 @@
     @endif
 @endsection
 @section('script')
-    <script>
-        getcartData()
-
-        function getcartData() {
-
-            axios.get("{{ route('client.cartData') }}")
-                .then(function(response) {
-
-                    if (response.status = 200) {
-                        var dataJSON = response.data;
-                        var cartData = dataJSON.cart;
-
-                        var a = Object.keys(cartData).length;
-
-
-                        $("#cart_quantity").html(a);
-                        var tp = parseFloat(dataJSON.total).toFixed(2);
-                        $("#total_cart_price").html(' &#2547; ' + tp);
-
-                        var imageViewHtml = "";
-                        $.each(cartData, function(i, item) {
-                            imageViewHtml += `<div class="top-cart-item">
-                                                                                         <div class="top-cart-item-image">
-                                                                                             <a href="#"><img src="${cartData[i].image}"
-                                                                                                     alt="Blue Round-Neck Tshirt" /></a>
-                                                                                         </div>
-                                                                                         <div class="top-cart-item-desc">
-                                                                                             <div class="top-cart-item-desc-title">
-                                                                                                 <a href="#">${cartData[i].title}</a>
-                                                                                                 <span class="top-cart-item-price d-block"> ${cartData[i].quantity} x &#2547; ${cartData[i].unit_price}</span>
-                                                                                             </div>
-                                                                                             <div class="top-cart-item-quantity"><button class="cartDeleteIcon" data-id="${i}" type="submit"><i class="icon-remove"> </i></button></div>
-                                                                                         </div>
-                                                                                </div>`
-                        });
-
-
-                        $('.top-cart-items').html(imageViewHtml);
-
-                        console.log(a);
-
-                        if (a == 0) {
-                            $("#HeaderPreview").css("display", "none");
-                        } else {
-                            $("#HeaderPreview").css("display", "block");
-                        }
-
-
-                        //Carts click on delete icon
-                        $(".cartDeleteIcon").click(function() {
-                            var id = $(this).data('id');
-                            $('#CartsDeleteId').html(id);
-                            DeleteDataCart(id);
-                        })
-                    } else {
-                        toastr.error('Something Went Wrong', 'Error', {
-                            closeButton: true,
-                            progressBar: true,
-                        });
-                    }
-                }).catch(function(error) {
-
-                    toastr.error('Something Went Wrong...', 'Error', {
-                        closeButton: true,
-                        progressBar: true,
-                    });
-                });
-        }
-
-
-
-
-
-
-
-
-
-
-
-
-        $('#confirmDeleteCart').click(function() {
-
-
-            alert("hello")
-            var id = $(this).data('id');
-            DeleteDataCart(id);
-        })
-
-
-        //delete Cart function
-        function DeleteDataCart(id) {
-
-            axios.post("{{ route('client.cartRemove') }}", {
-                    product_id: id
-                })
-                .then(function(response) {
-
-                    if (response.status == 200) {
-                        toastr.success('Cart Removed Success.', 'Success',{
-            closeButton: true,
-            progressBar: true,
-        });
-                        getcartData();
-                    } else {
-                        toastr.error('Something Went Wrong', 'Error', {
-                            closeButton: true,
-                            progressBar: true,
-                        });
-                    }
-                }).catch(function(error) {
-
-                    toastr.error('Something Went Wrong......', 'Error',{
-            closeButton: true,
-            progressBar: true,
-        });
-                });
-        }
-
-    </script>
+@include('client.component.Scripts')
 @endsection

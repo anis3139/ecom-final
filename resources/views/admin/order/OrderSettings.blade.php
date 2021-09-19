@@ -1,4 +1,7 @@
 @extends('admin.Layouts.app')
+@php
+$usr = Auth::guard('admin')->user();
+@endphp
 @section('bkash_number', 'Order Settings')
 @section('content')
 
@@ -183,7 +186,6 @@
                         bkash_number: bkash_number
                     })
                     .then(function(response) {
-                        console.log(response.data);
                         $('#submitBkashNumber').html("Update");
                         if (response.status = 200) {
                             if (response.data == 1) {
@@ -239,7 +241,7 @@
                         rocket_number: rocket_number
                     })
                     .then(function(response) {
-                        console.log(response.data);
+                     
                         $('#submitRocketNumber').html("Update");
                         if (response.status = 200) {
                             if (response.data == 1) {
@@ -293,7 +295,7 @@
                         nagad_number: nagad_number
                     })
                     .then(function(response) {
-                        console.log(response.data);
+                      
                         $('#submitNagadNumber').html("Update");
                         if (response.status = 200) {
                             if (response.data == 1) {
@@ -346,7 +348,7 @@
                         delivary_in_city: delivary_in_city
                     })
                     .then(function(response) {
-                        console.log(response.data);
+                      
                         $('#submitDeliveryInCity').html("Update");
                         if (response.status = 200) {
                             if (response.data == 1) {
@@ -399,7 +401,7 @@
                         delivary_out_city: delivary_out_city
                     })
                     .then(function(response) {
-                        console.log(response.data);
+                      
 
                         $('#submitDeliveryOutCity').html("Update");
                         if (response.status = 200) {
@@ -451,7 +453,7 @@
 
             axios.get("{{ route('admin.getCuponData') }}")
                 .then(function(response) {
-                    console.log(response.data);
+                  
 
                     if (response.status = 200) {
                         $('#mainDivCupon').removeClass('d-none');
@@ -477,7 +479,7 @@
                             } else {
                                 type = "Fixed"
                             }
-                            let expiry_date=moment(dataJSON[i].exp_date).format('Do-MMM-YYYY')
+                            let expiry_date=moment(dataJSON[i].exp_date).format('D-MMM-YYYY')
 
                             $('<tr>').html(
                                 "<td>" + count++ + " </td>" +
@@ -497,6 +499,17 @@
                             ).appendTo('#Cupon_table');
                         });
 
+                        @if (!$usr->can('order-settings.delete') )
+                         $('.DeleteIcon').empty();
+                        $('.CuponDeleteIcon').hide();
+                        @endif
+                        @if (!$usr->can('order-settings.edit'))
+                            $('.EditIcon').empty();
+                            $('.CuponEditIcon').empty();
+                        @endif
+                        @if (!$usr->can('order-settings.create'))
+                            $('#addbtnCupon').empty();
+                        @endif
 
                         //Cupon click on delete icon
 
@@ -741,7 +754,7 @@
                         $('#CuponEditForm').removeClass('d-none');
                         let jsonData = response.data;
                         let exp_date_data = moment(jsonData[0].exp_date).format('YYYY-MM-DD')
-                        console.log(exp_date_data);
+
                         $('#cupon_codeIdUpdate').val(jsonData[0].cupon_code);
                         $('#CuponDesIdUpdate').val(jsonData[0].discount);
                         $('#typeCupon option[value=' + jsonData[0].type + ']').attr('selected', 'selected');

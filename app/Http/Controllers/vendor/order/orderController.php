@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\vendor\order;
 
 use App\Http\Controllers\Controller;
-use App\Models\Orders;
+use App\Models\Order;
 use PDF;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -19,7 +19,7 @@ class OrderController extends Controller
    public function getOrdersData()
    {
        $id=Auth::guard('vendor')->id();
-       $orderData=json_decode(Orders::orderBy('id', 'desc')->get());
+       $orderData=json_decode(Order::orderBy('id', 'desc')->get());
        return $orderData;
    }
 
@@ -27,7 +27,7 @@ class OrderController extends Controller
    public function ordersView(Request $request)
    {
     $id = $request->input('id');
-    $result = Orders::with(['orderProducts', 'customer','orderProducts.product'])->where('id', '=', $id)->get();
+    $result = Order::with(['OrderProduct', 'customer','OrderProduct.product'])->where('id', '=', $id)->get();
 
     return $result;
    }
@@ -37,12 +37,12 @@ class OrderController extends Controller
 
     try {
         $id=$request->input('id');
-       $payment_status=$request->input("payment_status");
+       $delivery_status=$request->input("delivery_status");
 
 
 
-       $result = Orders::where('id', '=', $id)->update([
-        'payment_status' => $payment_status
+       $result = Order::where('id', '=', $id)->update([
+        'delivery_status' => $delivery_status
         ]);
             if ($result == true) {
                 return 1;
@@ -57,7 +57,7 @@ class OrderController extends Controller
 
     public function ordersPrint(Request $request, $id)
     {
-        $orders = Orders::with(['orderProducts', 'orderProducts.product'])->findOrFail($id);
+        $orders = Order::with(['OrderProduct', 'OrderProduct.product'])->findOrFail($id);
 
         $pdf = PDF::loadView('vendor.order.PrintOrder', compact('orders') );
         return $pdf->download('invoice(' . $orders->id.').pdf');

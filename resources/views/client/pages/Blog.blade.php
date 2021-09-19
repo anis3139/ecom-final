@@ -15,53 +15,6 @@
     </style>
 @endsection
 @section('content')
-
-    <section id="page-title">
-
-        <div class="container clearfix">
-            <div class="card">
-                @include('client.component.ErrorMessage')
-                @auth
-                    <div class="card-header text-center">
-                        <h2>Share Your Experiance</h2>
-                    </div>
-                    <div class="card-body">
-                        <form action="{{ route('client.blog.store') }}" method="POST" enctype="multipart/form-data">
-                            @csrf
-                            <div class="row">
-                                <div class="form-group col-md-6">
-                                    <input required type="file" name="image" id="blogImage" class="form-control">
-                                    <div class="blogImg">
-                                        <img src="{{ asset('default-image.png') }}" alt="{{ auth()->user()->name }}"
-                                            id="blogImagePreview">
-                                    </div>
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <input required type="text" name="title" id="title" class="form-control" placeholder="Title">
-                                    <textarea required class="form-control mt-2" name="post" id="post" cols="30"
-                                        rows="10" placeholder="Write Your Massage">{{ old('post') }}</textarea>
-                                </div>
-                            </div>
-
-
-                            <input type="hidden" name="name" value="{{ auth()->user()->name }}">
-                            <button
-                                class="button button-xlarge button-black button-rounded text-right text-light button-3d float-right mt-3"
-                                type="submit">Share Post</button>
-                        </form>
-                    </div>
-                @endauth
-                @guest
-                    <h2 class="text-center">You need to <a class="font-weight-bold text-primary"
-                            href="{{ route('client.login') }}">login</a> for creating post</h2>
-                @endguest
-
-            </div>
-        </div>
-
-    </section>
-
-
     <section id="content">
         <div class="content-wrap">
             <div class="container clearfix">
@@ -77,7 +30,7 @@
                                     </div>
                                     <div class="col-md-8 pl-md-4">
                                         <div class="entry-title title-sm">
-                                            <h2><a href="#"> {{ $post->title }}</a>
+                                            <h2><a href="{{route('client.singleBlog', $post->slug )}}"> {{ $post->title }}</a>
                                             </h2>
                                         </div>
                                         <div class="entry-meta">
@@ -88,8 +41,8 @@
                                             </ul>
                                         </div>
                                         <div class="entry-content">
-                                            <p> {!! nl2br(e($post->post)) !!}</p>
-                                            {{-- <a href="blog-single.html" class="more-link">Read More</a> --}}
+                                            <p> {!! \Illuminate\Support\Str::words($post->post, 50,'...') !!}</p>
+                                            <a href="{{route('client.singleBlog', $post->slug )}}" class="more-link">Read More</a>
                                         </div>
                                     </div>
                                 </div>
@@ -109,6 +62,7 @@
 
 
 @section('script')
+@include('client.component.Scripts')
     <script>
         //image Preview
         $('#blogImage').change(function() {
@@ -120,119 +74,6 @@
             }
         })
 
-
-
-
-
-
-
-        getcartData()
-
-        function getcartData() {
-
-            axios.get("{{ route('client.cartData') }}")
-                .then(function(response) {
-
-                    if (response.status = 200) {
-                        var dataJSON = response.data;
-                        var cartData = dataJSON.cart;
-
-                        var a = Object.keys(cartData).length;
-
-
-                        $("#cart_quantity").html(a);
-                        var tp = parseFloat(dataJSON.total).toFixed(2);
-                        $("#total_cart_price").html(' &#2547; ' + tp);
-
-                        var imageViewHtml = "";
-                        $.each(cartData, function(i, item) {
-                            imageViewHtml += `<div class="top-cart-item">
-                                                                                         <div class="top-cart-item-image">
-                                                                                             <a href="#"><img src="${cartData[i].image}"
-                                                                                                     alt="Blue Round-Neck Tshirt" /></a>
-                                                                                         </div>
-                                                                                         <div class="top-cart-item-desc">
-                                                                                             <div class="top-cart-item-desc-title">
-                                                                                                 <a href="#">${cartData[i].title}</a>
-                                                                                                 <span class="top-cart-item-price d-block"> ${cartData[i].quantity} x &#2547; ${cartData[i].unit_price}</span>
-                                                                                             </div>
-                                                                                             <div class="top-cart-item-quantity"><button class="cartDeleteIcon" data-id="${i}" type="submit"><i class="icon-remove"> </i></button></div>
-                                                                                         </div>
-                                                                                </div>`
-                        });
-
-
-                        $('.top-cart-items').html(imageViewHtml);
-
-                        console.log(a);
-
-                        if (a == 0) {
-                            $("#HeaderPreview").css("display", "none");
-                        } else {
-                            $("#HeaderPreview").css("display", "block");
-                        }
-
-
-                        //Carts click on delete icon
-                        $(".cartDeleteIcon").click(function() {
-                            var id = $(this).data('id');
-                            $('#CartsDeleteId').html(id);
-                            DeleteDataCart(id);
-                        })
-                    } else {
-                        toastr.error('Something Went Wrong', 'Error', {
-                            closeButton: true,
-                            progressBar: true,
-                        });
-                    }
-                }).catch(function(error) {
-
-                    toastr.error('Something Went Wrong...', 'Error', {
-                        closeButton: true,
-                        progressBar: true,
-                    });
-                });
-        }
-
-
-
-        $('#confirmDeleteCart').click(function() {
-
-
-alert("hello")
-var id = $(this).data('id');
-DeleteDataCart(id);
-})
-
-
-//delete Cart function
-function DeleteDataCart(id) {
-
-axios.post("{{ route('client.cartRemove') }}", {
-        product_id: id
-    })
-    .then(function(response) {
-
-        if (response.status == 200) {
-            toastr.success('Cart Removed Success.', 'Success',{
-closeButton: true,
-progressBar: true,
-});
-            getcartData();
-        } else {
-            toastr.error('Something Went Wrong', 'Error',{
-closeButton: true,
-progressBar: true,
-});
-        }
-    }).catch(function(error) {
-
-        toastr.error('Something Went Wrong......', 'Error',{
-closeButton: true,
-progressBar: true,
-});
-    });
-}
 
     </script>
 @endsection

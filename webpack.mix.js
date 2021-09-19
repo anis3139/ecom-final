@@ -12,12 +12,6 @@ const mix = require('laravel-mix');
  */
 
 mix.js('resources/js/app.js', 'public/js')
-.styles(['resources/client/style.css', 'resources/client/css/dark.css', 'resources/client/css/swiper.css','resources/client/demos/shop/shop.css', 'resources/client/demos/shop/css/fonts.css', 'resources/client/css/font-icons.css', 'resources/client/css/animate.css', 'resources/client/css/custom.css'], 'public/css/app.css')
-
- 
-
-
-
-    if (mix.inProduction()) {
-        mix.version();
-    }
+    .postCss('resources/css/app.css', 'public/css', [
+        //
+    ]);

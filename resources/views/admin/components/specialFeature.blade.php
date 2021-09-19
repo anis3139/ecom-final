@@ -12,11 +12,11 @@
                                 <th class="th-sm">Sl.</th>
                                 <th class="th-sm">Title</th>
                                 <th class="th-sm">Description</th>
-                                <th class="th-sm">Edit</th>
-                                <th class="th-sm">Delete</th>
+                                <th class="th-sm EditIcon">Edit</th>
+                                <th class="th-sm DeleteIcon">Delete</th>
                             </tr>
                         </thead>
-                        <tbody id="Slider_table">
+                        <tbody id="SPTable">
 
                         </tbody>
                     </table>
@@ -67,9 +67,9 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-sm btn-primary" data-dismiss="modal">Cancel</button>
-                        <button id="FeaturedSpecialsAddConfirmBtn" type="button"
-                            class="btn  btn-sm  btn-danger">Save</button>
+                        <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">Cancel</button>
+                        <button id="specialFeatureDataAddConfirmBtn" type="button"
+                            class="btn  btn-sm  btn-primary">Save</button>
                     </div>
                 </div>
             </div>
@@ -79,7 +79,7 @@
 
 
         <!-- Modal FeaturedSpecials Delete -->
-        <div class="modal fade" id="deleteModalFeaturedSpecials" tabindex="-1" role="dialog"
+        <div class="modal fade" id="deleteModalSpecialsFeatured" tabindex="-1" role="dialog"
             aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -89,9 +89,9 @@
                         <h5 id="FeaturedSpecialsDeleteId" class="mt-4 d-none "></h5>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-sm btn-primary" data-dismiss="modal">No</button>
-                        <button data-id="" id="confirmDeleteFeaturedSpecials" type="button"
-                            class="btn btn-sm btn-danger">Yes</button>
+                        <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">No</button>
+                        <button data-id="" id="confirmDeleteSpecialsFeatured" type="button"
+                            class="btn btn-sm btn-primary">Yes</button>
                     </div>
                 </div>
             </div>
@@ -131,9 +131,9 @@
                         <h3 id="projectwrongLoader" class="d-none">Something Went Wrong!</h3>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-sm btn-primary" data-dismiss="modal">Cancel</button>
-                        <button id="FeaturedSpecialsESupdateConfirmBtn" type="button"
-                            class="btn  btn-sm  btn-danger">Update</button>
+                        <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">Cancel</button>
+                        <button id="SpecialFeaturedUpdateConfirmBtn" type="button"
+                            class="btn  btn-sm  btn-primary">Update</button>
                     </div>
                 </div>
             </div>

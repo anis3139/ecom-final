@@ -12,11 +12,11 @@
 
         <div class="form-group">
         <label for="exampleInputEmail1">User Name</label>
-         <input required="" name="userName" value="" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter User Name">
+         <input required="" name="username" value="" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter User Name">
         </div>
         <div class="form-group">
           <label for="exampleInputPassword1">Password</label>
-          <input  required="" name="userPassword"  value="" type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+          <input  required="" name="password"  value="" type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
         </div>
         <div class="form-group">
           <button name="submit" type="submit" class="btn btn-block btn-danger">Login</button>
@@ -26,9 +26,9 @@
 
 <div style="height: 450px" class="col-md-6 bg-light">
 @php
-$others=App\Models\OthersModel::first();
+$setting=App\Models\Setting::first();
 @endphp
-<img class="w-75 m-5" src="{{$others->logo ?? asset('/admin/images/login.jpg')}}">
+<img class="w-75 m-5" src="{{$setting->logo ?? asset('/admin/images/login.jpg')}}">
 </div>
 </div>
 </div>
@@ -47,8 +47,6 @@ $others=App\Models\OthersModel::first();
 
 @section('script')
 <script type="text/javascript">
-
-
     $('.loginForm').on('submit',function (event) {
         event.preventDefault();
         let formData=$(this).serializeArray();
@@ -59,7 +57,7 @@ $others=App\Models\OthersModel::first();
           username:userName,
           password:password
         }).then(function (response) {
-          console.log(response.data);
+        
            if(response.status==200 && response.data==1){
             toastr.success('Login Success.', 'Success',{
             closeButton: true,
@@ -70,13 +68,9 @@ $others=App\Models\OthersModel::first();
            else{
                toastr.error('Login Fail ! Try Again');
            }
-
         }).catch(function (error) {
             toastr.error('Login Fail ! Try Again');
         })
-
-
     })
-
 </script>
 @endsection

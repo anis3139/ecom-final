@@ -6,7 +6,7 @@ use App\Notifications\ContactReplyNotification;
 use Illuminate\Support\Facades\Mail;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\ContactModel;
+use App\Models\Contact;
 use Illuminate\Support\Facades\Validator;
 class ContactController extends Controller
 {
@@ -40,7 +40,7 @@ class ContactController extends Controller
         $massage=$request->input('massage');
 
 
-        $contact= new ContactModel();
+        $contact= new Contact();
         $contact->name=$name;
         $contact->email=$email;
         $contact->subject=$subject;

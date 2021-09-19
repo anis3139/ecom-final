@@ -3,18 +3,31 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\HomeAboutSecTionModel;
-use App\Models\homeExclusiveFeaturesModel;
-use App\Models\homeSpecialFeaturesModel;
-use App\Models\TestimonialModel;
+use App\Models\AboutPage;
+use App\Models\ExclusiveFeature;
+use App\Models\SpecialFeature;
+use App\Models\Testimonial;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class AboutPageController extends Controller
 {
-    public function homeAboutIndex(){
 
-        $results = json_decode(HomeAboutSecTionModel::orderBy('id', 'desc')->get()->first());
+    public $user;
+
+    public function __construct()
+    {
+        $this->middleware(function ($request, $next) {
+            $this->user = Auth::guard('admin')->user();
+            return $next($request);
+        });
+    }
+    public function homeAboutIndex(){
+        if (is_null($this->user) || !$this->user->can('about.view')) {
+            abort(403, 'Sorry !! You are Unauthorized to view any about !');
+        }
+        $results = json_decode(AboutPage::orderBy('id', 'desc')->get()->first());
         return view('admin.AboutPage', [
             'results'=>$results
 
@@ -24,17 +37,20 @@ class AboutPageController extends Controller
 
     public function addTitle(Request $request)
     {
+        if (is_null($this->user) || !$this->user->can('about.create')) {
+            abort(403, 'Sorry !! You are Unauthorized to create any about !');
+        }
         $title = $request->input("title");
 
-        $valuecheck = (HomeAboutSecTionModel::orderBy('id', 'desc')->get());
+        $valuecheck = (AboutPage::orderBy('id', 'desc')->get());
 
 
 
         if( count($valuecheck)>0){
-            $result = HomeAboutSecTionModel::where('id', '=',  $valuecheck['0']->id)->update(['title' => $title]);
+            $result = AboutPage::where('id', '=',  $valuecheck['0']->id)->update(['title' => $title]);
         }
         else{
-            $result = HomeAboutSecTionModel::insert(['title' => $title]);
+            $result = AboutPage::insert(['title' => $title]);
         }
         if ($result == true) {
             return 1;
@@ -46,23 +62,26 @@ class AboutPageController extends Controller
 
     public function addDescription(Request $request)
     {
+        if (is_null($this->user) || !$this->user->can('about.create')) {
+            abort(403, 'Sorry !! You are Unauthorized to create any about !');
+        }
         $description = $request->input("description");
 
 
 
-        $valuecheck = (HomeAboutSecTionModel::orderBy('id', 'desc')->get());
+        $valuecheck = (AboutPage::orderBy('id', 'desc')->get());
 
         try {
 
 
         if( count($valuecheck)>0){
-            $result = HomeAboutSecTionModel::where('id', '=',  $valuecheck['0']->id)->first();
+            $result = AboutPage::where('id', '=',  $valuecheck['0']->id)->first();
             $result->description = $description;
             $result->save();
 
         }
         else{
-            $result =new  HomeAboutSecTionModel();
+            $result =new  AboutPage();
             $result->description = $description;
             $result->save();
 
@@ -81,8 +100,10 @@ class AboutPageController extends Controller
 
     function imageAdd(Request $req)
     {
-
-        $valuecheck = (HomeAboutSecTionModel::orderBy('id', 'desc')->get());
+        if (is_null($this->user) || !$this->user->can('about.create')) {
+            abort(403, 'Sorry !! You are Unauthorized to create any about !');
+        }
+        $valuecheck = (AboutPage::orderBy('id', 'desc')->get());
 
         $fileNames =  $req->file('photo')->store('public');
         $fileName = (explode('/', $fileNames))[1];
@@ -94,11 +115,11 @@ class AboutPageController extends Controller
         if( count($valuecheck)>0){
 
 
-        $result = HomeAboutSecTionModel::where('id', '=',  $valuecheck['0']->id)->update(['image1' => $imageRealPath]);
+        $result = AboutPage::where('id', '=',  $valuecheck['0']->id)->update(['image1' => $imageRealPath]);
 
         } else{
 
-            $result = HomeAboutSecTionModel::insert(['image1' => $imageRealPath]);
+            $result = AboutPage::insert(['image1' => $imageRealPath]);
         }
         if ($result == true) {
             return 1;
@@ -109,8 +130,10 @@ class AboutPageController extends Controller
 
     function imageAdd2(Request $req)
     {
-
-        $valuecheck = (HomeAboutSecTionModel::orderBy('id', 'desc')->get());
+        if (is_null($this->user) || !$this->user->can('about.create')) {
+            abort(403, 'Sorry !! You are Unauthorized to create any about !');
+        }
+        $valuecheck = (AboutPage::orderBy('id', 'desc')->get());
 
         $fileNames =  $req->file('photo')->store('public');
         $fileName = (explode('/', $fileNames))[1];
@@ -120,9 +143,9 @@ class AboutPageController extends Controller
 
         if( count($valuecheck)>0){
 
-        $result = HomeAboutSecTionModel::where('id', '=',  $valuecheck['0']->id)->update(['image2' => $imageRealPath]);
+        $result = AboutPage::where('id', '=',  $valuecheck['0']->id)->update(['image2' => $imageRealPath]);
         } else{
-            $result = HomeAboutSecTionModel::insert(['image2' => $imageRealPath]);
+            $result = AboutPage::insert(['image2' => $imageRealPath]);
         }
         if ($result == true) {
             return 1;
@@ -132,8 +155,10 @@ class AboutPageController extends Controller
     }
     function imageAdd3(Request $req)
     {
-
-        $valuecheck = (HomeAboutSecTionModel::orderBy('id', 'desc')->get());
+        if (is_null($this->user) || !$this->user->can('about.create')) {
+            abort(403, 'Sorry !! You are Unauthorized to create any about !');
+        }
+        $valuecheck = (AboutPage::orderBy('id', 'desc')->get());
 
         $fileNames =  $req->file('photo')->store('public');
         $fileName = (explode('/', $fileNames))[1];
@@ -144,9 +169,9 @@ class AboutPageController extends Controller
 
         if( count($valuecheck)>0){
 
-        $result = HomeAboutSecTionModel::where('id', '=',  $valuecheck['0']->id)->update(['image3' => $imageRealPath]);
+        $result = AboutPage::where('id', '=',  $valuecheck['0']->id)->update(['image3' => $imageRealPath]);
         } else{
-            $result = HomeAboutSecTionModel::insert(['image3' => $imageRealPath]);
+            $result = AboutPage::insert(['image3' => $imageRealPath]);
         }
         if ($result == true) {
             return 1;
@@ -158,8 +183,10 @@ class AboutPageController extends Controller
 
     function imageEXPAdd(Request $req)
     {
-
-        $valuecheck = (HomeAboutSecTionModel::orderBy('id', 'desc')->get());
+        if (is_null($this->user) || !$this->user->can('about.create')) {
+            abort(403, 'Sorry !! You are Unauthorized to create any about !');
+        }
+        $valuecheck = (AboutPage::orderBy('id', 'desc')->get());
 
 
 
@@ -173,9 +200,9 @@ class AboutPageController extends Controller
 
         if( count($valuecheck)>0){
 
-        $result = HomeAboutSecTionModel::where('id', '=',  $valuecheck['0']->id)->update(['exp_image' => $imageRealPath]);
+        $result = AboutPage::where('id', '=',  $valuecheck['0']->id)->update(['exp_image' => $imageRealPath]);
         } else{
-            $result = HomeAboutSecTionModel::insert(['exp_image' => $imageRealPath]);
+            $result = AboutPage::insert(['exp_image' => $imageRealPath]);
         }
         if ($result == true) {
             return 1;
@@ -190,17 +217,22 @@ class AboutPageController extends Controller
 
     public function getHomeFeaturedSpecialsData()
     {
-        $result = json_decode(homeSpecialFeaturesModel::orderBy('id', 'desc')->get());
+        if (is_null($this->user) || !$this->user->can('about.view')) {
+            abort(403, 'Sorry !! You are Unauthorized to view any about !');
+        }
+        $result = json_decode(SpecialFeature::orderBy('id', 'desc')->get());
         return $result;
     }
 
     function homeSFAdd(Request $request)
     {
-
+        if (is_null($this->user) || !$this->user->can('about.create')) {
+            abort(403, 'Sorry !! You are Unauthorized to create any about !');
+        }
         $title = $request->input("title");
         $description = $request->input("description");
 
-        $result = homeSpecialFeaturesModel::insert([
+        $result = SpecialFeature::insert([
             'title' => $title,
             'description' => $description
         ]);
@@ -215,8 +247,11 @@ class AboutPageController extends Controller
 
     function HomeFSDelete(Request $req)
     {
+        if (is_null($this->user) || !$this->user->can('about.delete')) {
+            abort(403, 'Sorry !! You are Unauthorized to delete any about !');
+        }
         $id = $req->input('id');
-        $result = homeSpecialFeaturesModel::where('id', '=', $id)->delete();
+        $result = SpecialFeature::where('id', '=', $id)->delete();
         if ($result == true) {
             return 1;
         } else {
@@ -231,9 +266,12 @@ class AboutPageController extends Controller
 
     function HomeFSEdit(Request $req)
     {
+        if (is_null($this->user) || !$this->user->can('about.edit')) {
+            abort(403, 'Sorry !! You are Unauthorized to edit any about !');
+        }
         $id = $req->input('id');
         try {
-            $result = json_encode(homeSpecialFeaturesModel::where('id', '=', $id)->get());
+            $result = json_encode(SpecialFeature::where('id', '=', $id)->get());
             return $result;
         } catch (\Throwable $th) {
            return response()->json(array('error'=>$th));
@@ -245,12 +283,14 @@ class AboutPageController extends Controller
 
     function HomeFSUpdate(Request $request)
     {
-
+        if (is_null($this->user) || !$this->user->can('about.edit')) {
+            abort(403, 'Sorry !! You are Unauthorized to edit any about !');
+        }
         $id = $request->input("id");
         $title = $request->input("title");
         $description = $request->input("description");
 
-            $result = homeSpecialFeaturesModel::where('id', '=', $id)->update(['title' => $title, 'description' => $description]);
+            $result = SpecialFeature::where('id', '=', $id)->update(['title' => $title, 'description' => $description]);
             if ($result == true) {
                 return 1;
             } else {
@@ -266,7 +306,10 @@ class AboutPageController extends Controller
 
  public function getHomeExclusiveSpecialsData()
  {
-     $results = json_decode(homeExclusiveFeaturesModel::orderBy('id', 'desc')->get());
+    if (is_null($this->user) || !$this->user->can('about.view')) {
+        abort(403, 'Sorry !! You are Unauthorized to view any about !');
+    }
+     $results = json_decode(ExclusiveFeature::orderBy('id', 'desc')->get());
 
      return $results;
  }
@@ -275,14 +318,16 @@ class AboutPageController extends Controller
 
  function homeEXPAdd(Request $request)
  {
-
-     $exp_title = $request->input("exp_title");
-     $exp_description = $request->input("exp_description");
+    if (is_null($this->user) || !$this->user->can('about.create')) {
+        abort(403, 'Sorry !! You are Unauthorized to create any about !');
+    }
+     $title = $request->input("title");
+     $description = $request->input("description");
 
     try {
-        $result = homeExclusiveFeaturesModel::insert([
-            'exp_title' => $exp_title,
-            'exp_description' => $exp_description
+        $result = ExclusiveFeature::insert([
+            'title' => $title,
+            'description' => $description
         ]);
     } catch (\Throwable $th) {
         return response()->json(array('error'=>$th));
@@ -302,8 +347,11 @@ class AboutPageController extends Controller
 
  function HomeEXFDelete(Request $req)
  {
+    if (is_null($this->user) || !$this->user->can('about.delete')) {
+        abort(403, 'Sorry !! You are Unauthorized to delete any about !');
+    }
      $id = $req->input('id');
-     $result = homeExclusiveFeaturesModel::where('id', '=', $id)->delete();
+     $result = ExclusiveFeature::where('id', '=', $id)->delete();
      if ($result == true) {
          return 1;
      } else {
@@ -317,10 +365,13 @@ class AboutPageController extends Controller
 
  function HomeEXPEdit(Request $req)
  {
+    if (is_null($this->user) || !$this->user->can('about.edit')) {
+        abort(403, 'Sorry !! You are Unauthorized to edit any about !');
+    }
      $id = $req->input('id');
 
      try {
-         $result = json_encode(homeExclusiveFeaturesModel::where('id', '=', $id)->get());
+         $result = json_encode(ExclusiveFeature::where('id', '=', $id)->get());
          return $result;
      } catch (\Throwable $th) {
         return response()->json(array('error'=>$th));
@@ -331,12 +382,14 @@ class AboutPageController extends Controller
 
  function HomeEXPUpdate(Request $request)
     {
-
+        if (is_null($this->user) || !$this->user->can('about.edit')) {
+            abort(403, 'Sorry !! You are Unauthorized to edit any about !');
+        }
         $id = $request->input("id");
-        $exp_title = $request->input("exp_title");
-        $exp_description = $request->input("exp_description");
+        $title = $request->input("title");
+        $description = $request->input("description");
 
-            $result = homeExclusiveFeaturesModel::where('id', '=', $id)->update(['exp_title' => $exp_title, 'exp_description' => $exp_description]);
+            $result = ExclusiveFeature::where('id', '=', $id)->update(['title' => $title, 'description' => $description]);
             if ($result == true) {
                 return 1;
             } else {
@@ -349,9 +402,12 @@ class AboutPageController extends Controller
 
 
 
-    public function getHomeTestimonialData()
+    public function getTestimonialData()
     {
-        $results = json_decode(TestimonialModel::orderBy('id', 'desc')->get());
+        if (is_null($this->user) || !$this->user->can('about.view')) {
+            abort(403, 'Sorry !! You are Unauthorized to view any about !');
+        }
+        $results = json_decode(Testimonial::orderBy('id', 'desc')->get());
         return $results;
     }
 
@@ -360,7 +416,9 @@ class AboutPageController extends Controller
     function TestimonialAdd(Request $req)
     {
 
-
+        if (is_null($this->user) || !$this->user->can('about.create')) {
+            abort(403, 'Sorry !! You are Unauthorized to create any about !');
+        }
         $data = json_decode($_POST['data']);
 
         $name = $data['0']->name;
@@ -376,7 +434,7 @@ class AboutPageController extends Controller
 
 
             try {
-                $result = TestimonialModel::insert([
+                $result = Testimonial::insert([
                     'name' => $name,
                     'description' => $description,
                     'image' => $imageRealPath,
@@ -397,12 +455,15 @@ class AboutPageController extends Controller
 
 
 
-    function HomeTestimonialDelete(Request $req)
+    function TestimonialDelete(Request $req)
     {
-
+        if (is_null($this->user) || !$this->user->can('about.delete')) {
+            abort(403, 'Sorry !! You are Unauthorized to delete any about !');
+        }
         $id = $req->input('id');
-        $delete_old_file = TestimonialModel::where('id', '=', $id)->first();
-        $delete_old_file_name = (explode('/', $delete_old_file->image))[5];
+        $delete_old_file = Testimonial::where('id', '=', $id)->first();
+        $delete_old_file_nameArr = (explode('/', $delete_old_file->image));
+        $delete_old_file_name = end($delete_old_file_nameArr);
         Storage::delete("public/".$delete_old_file_name);
         $result = $delete_old_file->delete();
         if ($result == true) {
@@ -415,10 +476,14 @@ class AboutPageController extends Controller
 
     }
 
-    function  HomeTestimonialEdit(Request $req)
+    function  TestimonialEdit(Request $req)
     {
+
+        if (is_null($this->user) || !$this->user->can('about.edit')) {
+            abort(403, 'Sorry !! You are Unauthorized to edit any about !');
+        }
         $id = $req->input('id');
-        $result = json_encode(TestimonialModel::where('id', '=', $id)->get());
+        $result = json_encode(Testimonial::where('id', '=', $id)->get());
         return $result;
     }
 
@@ -428,7 +493,9 @@ class AboutPageController extends Controller
 
     function TestimonilaUpdate(Request $req)
     {
-
+        if (is_null($this->user) || !$this->user->can('about.edit')) {
+            abort(403, 'Sorry !! You are Unauthorized to edit any about !');
+        }
 
         $data = json_decode($_POST['data']);
 
@@ -441,8 +508,9 @@ class AboutPageController extends Controller
 
         if ($req->file('photo')) {
 
-        $delete_old_file = TestimonialModel::where('id', '=', $id)->first();
-        $delete_old_file_name = (explode('/', $delete_old_file->image))[5];
+        $delete_old_file = Testimonial::where('id', '=', $id)->first();
+        $delete_old_file_nameArr = (explode('/', $delete_old_file->image));
+        $delete_old_file_name = end($delete_old_file_nameArr);
         Storage::delete("public/".$delete_old_file_name);
 
         $fileNames =  $req->file('photo')->store('public');
@@ -456,14 +524,14 @@ class AboutPageController extends Controller
 
 
 
-        $result = TestimonialModel::where('id', '=', $id)->update(['name' => $name, 'date' => $date, 'description' => $description, 'image' => $imageRealPath]);
+        $result = Testimonial::where('id', '=', $id)->update(['name' => $name, 'date' => $date, 'description' => $description, 'image' => $imageRealPath]);
             if ($result == true) {
                 return 1;
             } else {
                 return 0;
             }
         } else {
-            $result = TestimonialModel::where('id', '=', $id)->update(['name' => $name, 'date' => $date, 'description' => $description]);
+            $result = Testimonial::where('id', '=', $id)->update(['name' => $name, 'date' => $date, 'description' => $description]);
             if ($result == true) {
                 return 1;
             } else {

@@ -1,8 +1,8 @@
 @extends('client.layouts.app')
 @section('title', 'Checkout')
-@php
-$OrderSettings = App\Models\OrderSettings::first();
-@endphp
+    @php
+    $OrderSettings = App\Models\OrderSettings::first();
+    @endphp
 @section('css')
     <style>
         .box {
@@ -40,7 +40,7 @@ $OrderSettings = App\Models\OrderSettings::first();
 @section('content')
 
     <!-- Page Title
-                                                                                                                                                                                      ============================================= -->
+                                                                                                                                                                                                          ============================================= -->
     <section id="page-title">
 
         <div class="container clearfix">
@@ -55,7 +55,7 @@ $OrderSettings = App\Models\OrderSettings::first();
     </section><!-- #page-title end -->
 
     <!-- Content
-                                                                                                                                                                                      ============================================= -->
+                                                                                                                                                                                                          ============================================= -->
     <section id="content">
         <div class="content-wrap">
             <div class="container clearfix">
@@ -128,7 +128,7 @@ $OrderSettings = App\Models\OrderSettings::first();
 
 
                                     <div class="col-12 form-group">
-                                        <label for="billing-form-city">City / Town: </label>
+                                        <label for="billing-form-city">City / Town (Optional): </label>
                                         <input type="text" id="billing-form-city" name="city"
                                             value="{{ auth()->user()->city }}" class="sm-form-control" />
                                     </div>
@@ -154,7 +154,7 @@ $OrderSettings = App\Models\OrderSettings::first();
                             </div>
 
                             <div class="col-lg-6">
-                                <h3>Shipping Address</h3>
+                                <h3>Shipping Address (<span class="text-info">Optional</span>)</h3>
 
                                 <div id="shipping-form" name="shipping-form" class="row mb-0">
 
@@ -182,7 +182,7 @@ $OrderSettings = App\Models\OrderSettings::first();
 
 
                                     <div class="col-12 form-group">
-                                        <label for="billing-form-city">City / Town:</label>
+                                        <label for="billing-form-city">City / Town (Optional):</label>
                                         <input type="text" id="billing-form-city" name="shipping_city" value=""
                                             class="sm-form-control" />
                                     </div>
@@ -208,7 +208,7 @@ $OrderSettings = App\Models\OrderSettings::first();
                             <div class="w-100"></div>
 
                             <div class="col-lg-6">
-                                <h4>Your Orders</h4>
+                                <h4>Your Order</h4>
 
                                 <div class="table-responsive">
                                     <table class="table cart">
@@ -269,16 +269,16 @@ $OrderSettings = App\Models\OrderSettings::first();
                                                 </td>
                                             </tr>
                                             @if (!empty($total_cupon_discount))
-                                            <tr class="cart_item">
-                                                <td class="border-top-0 cart-product-name">
-                                                    <strong>Product Discount</strong>
-                                                </td>
+                                                <tr class="cart_item">
+                                                    <td class="border-top-0 cart-product-name">
+                                                        <strong>Product Discount</strong>
+                                                    </td>
 
-                                                <td class="border-top-0 cart-product-name">
-                                                    <span class="amount">&#2547;
-                                                        {{ number_format($total_discount, 2) }}</span>
-                                                </td>
-                                            </tr>
+                                                    <td class="border-top-0 cart-product-name">
+                                                        <span class="amount">&#2547;
+                                                            {{ number_format($total_discount, 2) }}</span>
+                                                    </td>
+                                                </tr>
                                                 <tr class="cart_item">
                                                     <td class="border-top-0 cart-product-name">
                                                         <strong>Cupon Discount</strong>
@@ -306,29 +306,30 @@ $OrderSettings = App\Models\OrderSettings::first();
                                                     </td>
 
                                                     <td class="border-top-0 cart-product-name">
-                                                        <span class="amount">&#2547; {{ number_format($total-$total_cupon_discount, 2) }}</span>
+                                                        <span class="amount">&#2547;
+                                                            {{ number_format($total - $total_cupon_discount, 2) }}</span>
                                                     </td>
                                                 </tr>
                                             @else
-                                            <tr class="cart_item">
-                                                <td class="border-top-0 cart-product-name">
-                                                    <strong>Total Discount</strong>
-                                                </td>
+                                                <tr class="cart_item">
+                                                    <td class="border-top-0 cart-product-name">
+                                                        <strong>Total Discount</strong>
+                                                    </td>
 
-                                                <td class="border-top-0 cart-product-name">
-                                                    <span class="amount">&#2547;
-                                                        {{ number_format($total_discount, 2) }}</span>
-                                                </td>
-                                            </tr>
-                                            <tr class="cart_item">
-                                                <td class="border-top-0 cart-product-name">
-                                                    <strong>Cart Total (After Discount)</strong>
-                                                </td>
+                                                    <td class="border-top-0 cart-product-name">
+                                                        <span class="amount">&#2547;
+                                                            {{ number_format($total_discount, 2) }}</span>
+                                                    </td>
+                                                </tr>
+                                                <tr class="cart_item">
+                                                    <td class="border-top-0 cart-product-name">
+                                                        <strong>Cart Total (After Discount)</strong>
+                                                    </td>
 
-                                                <td class="border-top-0 cart-product-name">
-                                                    <span class="amount">&#2547; {{ number_format($total, 2) }}</span>
-                                                </td>
-                                            </tr>
+                                                    <td class="border-top-0 cart-product-name">
+                                                        <span class="amount">&#2547; {{ number_format($total, 2) }}</span>
+                                                    </td>
+                                                </tr>
                                             @endif
 
 
@@ -366,6 +367,7 @@ $OrderSettings = App\Models\OrderSettings::first();
                                                             name="in_dhaka">
                                                         Inside Dhaka
                                                     </label>
+                                                    <br>
                                                     <label>
                                                         <input type="radio" id="in_dhaka"
                                                             value="{{ $OrderSettings->delivary_out_city ?? 0 }} "
@@ -381,10 +383,11 @@ $OrderSettings = App\Models\OrderSettings::first();
                                                     <strong>Payable Amount</strong>
                                                 </td>
 
-                                                @if(empty($total_cupon_discount))
-                                                <input id="taxAndTotal" type="hidden" value="{{ ($total + $total_tax) }}">
+                                                @if (empty($total_cupon_discount))
+                                                    <input id="taxAndTotal" type="hidden" value="{{ $total + $total_tax }}">
                                                 @else
-                                                <input id="taxAndTotal" type="hidden" value="{{($total + $total_tax)-$total_cupon_discount}}">
+                                                    <input id="taxAndTotal" type="hidden"
+                                                        value="{{ $total + $total_tax - $total_cupon_discount }}">
                                                 @endif
                                                 <input type="hidden" placeholder="Name*" value="" class="form-control"
                                                     name="total_main_price" id="total_main_price">
@@ -396,12 +399,13 @@ $OrderSettings = App\Models\OrderSettings::first();
                                             </tr>
 
                                             <tr class="cart_item">
-                                                <td class="cart-product-name">
-                                                    <label><input type="radio" checked name="payment_details" id="red"
+                                                <td class="cart-product-name"  id="deliveryLocation">
+                                                    {{-- <label><input type="radio" checked name="payment_details" id="red"
                                                             value=" Cash  On  Delivery"> Cash
                                                         On
-                                                        Delivery</label><br>
-                                                    <label><input type="radio" name="payment_details" id="green" value="Bkash">
+                                                        Delivery</label><br> --}}
+                                                    <label><input type="radio" checked name="payment_details" id="green"
+                                                            value="Bkash">
                                                         Bkash</label><br>
                                                     <label><input type="radio" name="payment_details" id="blue" value="Rocket">
                                                         Rocket</label><br>
@@ -410,17 +414,17 @@ $OrderSettings = App\Models\OrderSettings::first();
                                                 </td>
 
                                                 <td class="cart-product-name">
-                                                    <div class="red box">
+                                                    {{-- <div class="red box">
                                                         <p style="min-height: 100px">Selected For Cash on Delivery</p>
-                                                    </div>
-                                                    <div class="green box">
+                                                    </div> --}}
+
+                                                    <div class="green box bkash">
                                                         <p>Personal Bkash Number:</p>
                                                         <p>
 
                                                             {{ $OrderSettings->bkash_number ?? '01816366535' }}
                                                         </p>
-                                                        <input class="form-control" type="text" name="transection_id[]"
-                                                            placeholder="Input Your Transaction ID">
+
                                                     </div>
                                                     <div class="blue box">
                                                         <p>Personal Rocket Number:</p>
@@ -428,8 +432,6 @@ $OrderSettings = App\Models\OrderSettings::first();
 
                                                             {{ $OrderSettings->rocket_number ?? '018163665358' }}
                                                         </p>
-                                                        <input class="form-control" type="text" name="transection_id[]"
-                                                            placeholder="Input Your Transaction ID">
                                                     </div>
                                                     <div class="yellow box">
                                                         <p>Personal Nagad Number:</p>
@@ -437,9 +439,10 @@ $OrderSettings = App\Models\OrderSettings::first();
 
                                                             {{ $OrderSettings->nagad_number ?? '01816366535' }}
                                                         </p>
-                                                        <input class="form-control" type="text" name="transection_id[]"
-                                                            placeholder="Input Your Transaction ID">
+
                                                     </div>
+                                                    <input  required class="form-control" type="text"
+                                                    name="transection_id" placeholder="Input Your Transaction ID">
                                                 </td>
                                             </tr>
 
@@ -476,137 +479,13 @@ $OrderSettings = App\Models\OrderSettings::first();
     </section><!-- #content end -->
 @endsection
 @section('script')
+    @include('client.component.Scripts')
     <script>
         // Single product Show in modal
 
-        $(document).ready(function() {
-            $('input[type="radio"]').click(function() {
-                var inputValue = $(this).attr("id");
-                var targetBox = $("." + inputValue);
-                $(".box").not(targetBox).hide();
-                $(targetBox).show();
-            });
-        });
 
 
 
-        getcartData()
-
-        function getcartData() {
-
-            axios.get("{{ route('client.cartData') }}")
-                .then(function(response) {
-
-                    if (response.status = 200) {
-                        var dataJSON = response.data;
-                        var cartData = dataJSON.cart;
-
-                        var a = Object.keys(cartData).length;
-
-
-                        $("#cart_quantity").html(a);
-                        var tp = parseFloat(dataJSON.total).toFixed(2);
-                        $("#total_cart_price").html(' &#2547; ' + tp);
-
-                        var imageViewHtml = "";
-                        $.each(cartData, function(i, item) {
-                            imageViewHtml +=
-                                `<div class="top-cart-item">
-                                                                                                                                     <div class="top-cart-item-image">
-                                                                                                                                         <a href="#"><img src="${cartData[i].image}"
-                                                                                                                                                 alt="Blue Round-Neck Tshirt" /></a>
-                                                                                                                                     </div>
-                                                                                                                                     <div class="top-cart-item-desc">
-                                                                                                                                         <div class="top-cart-item-desc-title">
-                                                                                                                                             <a href="#">${cartData[i].title}</a>
-                                                                                                                                             <span class="top-cart-item-price d-block"> ${cartData[i].quantity} x &#2547; ${cartData[i].unit_price}</span>
-                                                                                                                                         </div>
-                                                                                                                                         <div class="top-cart-item-quantity"><button class="cartDeleteIcon" data-id="${i}" type="submit"><i class="icon-remove"> </i></button></div>
-                                                                                                                                     </div>
-                                                                                                                            </div>`
-                        });
-
-
-                        $('.top-cart-items').html(imageViewHtml);
-
-                        console.log(a);
-
-                        if (a == 0) {
-                            $("#HeaderPreview").css("display", "none");
-                        } else {
-                            $("#HeaderPreview").css("display", "block");
-                        }
-
-
-                        //Carts click on delete icon
-                        $(".cartDeleteIcon").click(function() {
-                            var id = $(this).data('id');
-                            $('#CartsDeleteId').html(id);
-                            DeleteDataCart(id);
-                        })
-                    } else {
-                        toastr.error('Something Went Wrong', 'Error',{
-            closeButton: true,
-            progressBar: true,
-        });
-                    }
-                }).catch(function(error) {
-
-                    toastr.error('Something Went Wrong...', 'Error',{
-            closeButton: true,
-            progressBar: true,
-        });
-                });
-        }
-
-
-
-
-
-
-
-
-
-
-
-
-        $('#confirmDeleteCart').click(function() {
-
-
-            alert("hello")
-            var id = $(this).data('id');
-            DeleteDataCart(id);
-        })
-
-
-        //delete Cart function
-        function DeleteDataCart(id) {
-
-            axios.post("{{ route('client.cartRemove') }}", {
-                    product_id: id
-                })
-                .then(function(response) {
-
-                    if (response.status == 200) {
-                        toastr.success('Cart Removed Success.', 'Success',{
-            closeButton: true,
-            progressBar: true,
-        });
-                        getcartData();
-                    } else {
-                        toastr.error('Something Went Wrong', 'Error',{
-            closeButton: true,
-            progressBar: true,
-        });
-                    }
-                }).catch(function(error) {
-
-                    toastr.error('Something Went Wrong......', 'Error',{
-            closeButton: true,
-            progressBar: true,
-        });
-                });
-        }
 
         var dValue = $('input[name=in_dhaka]:checked').val();
         var value = parseInt(dValue);
@@ -620,7 +499,7 @@ $OrderSettings = App\Models\OrderSettings::first();
         var totala = parseFloat(total).toFixed(2);
         $('#totalCharge').html("&#2547; " + totala);
         $('#total_main_price').val(totala);
-        console.log(totala);
+
         $('input[type=radio]').change(function() {
 
             var dValue = $('input[name=in_dhaka]:checked').val();
@@ -634,8 +513,22 @@ $OrderSettings = App\Models\OrderSettings::first();
             var totala = parseFloat(total).toFixed(2);
             $('#totalCharge').html("&#2547; " + totala);
             $('#total_main_price').val(totala);
-            console.log(totala);
+
         });
 
+
+        $(document).ready(function() {
+            var targetBox = $('.bkash');
+            $(targetBox).show();
+            var checkbox = $('#deliveryLocation input[type="radio"]')
+
+            checkbox.change(function() {
+                var inputValue = $(this).attr("id");
+                var targetBox = $("." + inputValue);
+                $(".box").not(targetBox).hide();
+                $(targetBox).show();
+
+            });
+        });
     </script>
 @endsection

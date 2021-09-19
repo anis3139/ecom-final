@@ -6,9 +6,19 @@ use App\Http\Controllers\Controller;
 use App\Models\Cupon;
 use App\Models\OrderSettings;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class OrderSettingsController extends Controller
 {
+    public $user;
+
+    public function __construct()
+    {
+        $this->middleware(function ($request, $next) {
+            $this->user = Auth::guard('admin')->user();
+            return $next($request);
+        });
+    }
     /**
      * Display a listing of the resource.
      *
@@ -16,6 +26,9 @@ class OrderSettingsController extends Controller
      */
     public function index()
     {
+        if (is_null($this->user) || !$this->user->can('order-settings.view')) {
+            abort(403, 'Sorry !! You are Unauthorized to view any order order settings !');
+        }
         return view('admin.order.OrderSettings', [
             'results'=>json_decode(OrderSettings::orderBy('id', 'desc')->get()->first()),
         ]);
@@ -24,6 +37,10 @@ class OrderSettingsController extends Controller
 
     public function addRocketNumber(Request $request)
     {
+
+        if (is_null($this->user) || !$this->user->can('order-settings.create')) {
+            abort(403, 'Sorry !! You are Unauthorized to view any create order settings !');
+        }
         $rocket_number = $request->input("rocket_number");
 
         $valuecheck = (OrderSettings::orderBy('id', 'desc')->get());
@@ -48,7 +65,9 @@ class OrderSettingsController extends Controller
     public function addBkashNumber(Request $request)
     {
 
-
+        if (is_null($this->user) || !$this->user->can('order-settings.create')) {
+            abort(403, 'Sorry !! You are Unauthorized to view any create order settings !');
+        }
         $bkash_number = $request->input("bkash_number");
 
         $valuecheck = (OrderSettings::orderBy('id', 'desc')->get());
@@ -70,6 +89,9 @@ class OrderSettingsController extends Controller
 
     public function addNagadNumber(Request $request)
     {
+        if (is_null($this->user) || !$this->user->can('order-settings.create')) {
+            abort(403, 'Sorry !! You are Unauthorized to view any create order settings !');
+        }
         $nagad_number = $request->input("nagad_number");
 
         $valuecheck = (OrderSettings::orderBy('id', 'desc')->get());
@@ -92,8 +114,10 @@ class OrderSettingsController extends Controller
 
     public function addDelivaryInCity(Request $request)
     {
+        if (is_null($this->user) || !$this->user->can('order-settings.create')) {
+            abort(403, 'Sorry !! You are Unauthorized to view any create order settings !');
+        }
 
-  
         $delivary_in_city = $request->input("delivary_in_city");
 
         $valuecheck = (OrderSettings::orderBy('id', 'desc')->get());
@@ -115,6 +139,9 @@ class OrderSettingsController extends Controller
 
     public function addDelivaryOutCity(Request $request)
     {
+        if (is_null($this->user) || !$this->user->can('order-settings.create')) {
+            abort(403, 'Sorry !! You are Unauthorized to view any create order settings !');
+        }
         $delivary_out_city = $request->input("delivary_out_city");
 
         $valuecheck = (OrderSettings::orderBy('id', 'desc')->get());
@@ -140,13 +167,18 @@ class OrderSettingsController extends Controller
 
     public function getCuponData()
     {
+        if (is_null($this->user) || !$this->user->can('order-settings.view')) {
+            abort(403, 'Sorry !! You are Unauthorized to view any view order settings !');
+        }
         $result = json_decode(Cupon::orderBy('id', 'desc')->get());
         return $result;
     }
 
     function CuponAdd(Request $request)
     {
-
+        if (is_null($this->user) || !$this->user->can('order-settings.create')) {
+            abort(403, 'Sorry !! You are Unauthorized to view any create order settings !');
+        }
         $cupon_code = $request->input("cupon_code");
         $discount = $request->input("discount");
         $type = $request->input("type");
@@ -174,6 +206,9 @@ class OrderSettingsController extends Controller
 
     function CuponEdit(Request $req)
     {
+        if (is_null($this->user) || !$this->user->can('order-settings.edit')) {
+            abort(403, 'Sorry !! You are Unauthorized to view any edit order settings !');
+        }
         $id = $req->input('id');
         try {
             $result = json_encode(Cupon::where('id', '=', $id)->get());
@@ -188,6 +223,9 @@ class OrderSettingsController extends Controller
 
     function CuponUpdate(Request $request)
     {
+        if (is_null($this->user) || !$this->user->can('order-settings.edit')) {
+            abort(403, 'Sorry !! You are Unauthorized to view any edit order settings !');
+        }
 
         $id = $request->input("id");
         $cupon_code = $request->input("cupon_code");
@@ -212,6 +250,9 @@ class OrderSettingsController extends Controller
 
     function CuponDelete(Request $req)
     {
+        if (is_null($this->user) || !$this->user->can('order-settings.delete')) {
+            abort(403, 'Sorry !! You are Unauthorized to view any delete order settings !');
+        }
         $id = $req->input('id');
         $result = Cupon::where('id', '=', $id)->delete();
         if ($result == true) {

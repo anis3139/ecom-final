@@ -1,4 +1,7 @@
 @extends('admin.Layouts.app')
+@php
+$usr = Auth::guard('admin')->user();
+@endphp
 @section('title', 'Contact')
 @section('content')
 
@@ -8,13 +11,13 @@
                 <table id="messageDataTable" class="table table-striped table-sm table-bordered" cellspacing="0" width="100%">
                     <thead>
                         <tr>
-                            <th class="th-sm">NO</th>
-                            <th class="th-sm">Name</th>
-                            <th class="th-sm">Mobile</th>
-                            <th class="th-sm">Email</th>
-                            <th class="th-sm">Subject</th>
-                            <th class="th-sm">Message</th>
-                            <th class="th-sm">Delete</th>
+                            <th class="th-xs w-5 text-wrap">NO</th>
+                            <th class="th-sm w-10 text-wrap">Name</th>
+                            <th class="th-sm w-10 text-wrap">Mobile</th>
+                            <th class="th-sm w-10 text-wrap">Email</th>
+                            <th class="th-sm w-10 text-wrap">Subject</th>
+                            <th class="th-sm w-50 text-wrap">Message</th>
+                            <th class="th-xs w-5 text-wrap">Delete</th>
                         </tr>
                     </thead>
                     <tbody id="message_table">
@@ -54,8 +57,8 @@
                   <h5 id="messageDeleteId" class="mt-4  "></h5>
               </div>
               <div class="modal-footer">
-                  <button type="button" class="btn btn-sm btn-primary" data-dismiss="modal">No</button>
-                  <button data-id="" id="confirmDeleteMessage" type="button" class="btn btn-sm btn-danger">Yes</button>
+                  <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">No</button>
+                  <button data-id="" id="confirmDeleteMessage" type="button" class="btn btn-sm btn-primary">Yes</button>
               </div>
           </div>
       </div>
@@ -106,7 +109,11 @@ axios.get("{{ route('admin.getContactData') }}")
                 ).appendTo('#message_table');
             });
 
-
+            @if (!$usr->can('contact.delete') )
+            $('.DeleteIcon').empty();
+            $('.delDataMessage').hide();
+            @endif
+           
              //MEssage table delete icon click
 
              $(".delDataMessage").click(function() {

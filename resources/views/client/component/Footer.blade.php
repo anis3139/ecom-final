@@ -1,4 +1,3 @@
-
 <footer id="footer" class=" border-0" style="background-color: #cfcece; color:#000;">
 
     <div class="container clearfix">
@@ -29,12 +28,12 @@
 
                         <ul class="list-unstyled iconlist ml-0">
                             @auth()
-                            <li><a href="{{ route('client.logout') }}">Logout</a></li>
+                                <li><a href="{{ route('client.logout') }}">Logout</a></li>
 
                                 <li><a href="{{ route('client.profile') }}">My Account</a></li>
                             @endauth
                             @guest
-                            <li><a href="{{ route('client.login') }}">Login</a></li>
+                                <li><a href="{{ route('client.login') }}">Login</a></li>
                             @endguest
                             <li><a href="{{ route('client.showCart') }}">My Cart</a></li>
                             <li><a href="{{ route('client.checkout') }}">Checkout</a></li>
@@ -45,15 +44,18 @@
                 <div class="col-lg-2 col-md-2 col-6">
                     <div class="widget clearfix">
 
-                        <h4 class="ls0 mb-3 nott">Category</h4>
+                        <h4 class="ls0 mb-3 nott">All Pages</h4>
 
                         <ul class="list-unstyled iconlist ml-0">
-                            @foreach (App\Models\ProductsCategoryModel::orderby('name', 'asc')->where('parent_id', 0)->where('is_menu', 1)->get()
-    as $parentCat)
-                                <li><a
-                                        href="{{ route('client.category', $parentCat->slug) }}">{{ $parentCat->name }}</a>
-                                </li>
-                            @endforeach
+                            @if (count($pages)>0)
+                                @foreach ($pages as $page)
+                                    <li><a
+                                            href="{{ route('client.pages', $page->slug) }}">{{ $page->title }}</a>
+                                    </li>
+                                @endforeach
+                            @else
+                            <li class="text-danger">Pages not created </li>
+                            @endif
                         </ul>
 
                     </div>
@@ -64,19 +66,21 @@
 
                         <div class="widget subscribe-widget mt-2 clearfix">
                             <p class="mb-1">
-                                @if ($others)
-                                    {!! nl2br(e($others->address)) !!}
+                                @if ($setting)
+                                    {!! nl2br(e($setting->address)) !!}
                                 @endif
                             </p>
 
                             <p class="mb-1 ">
-                                @if ($others)
-                                <i class="icon-call" style="font-size: 15px"></i> &nbsp; <a href="tel:{{$others->phone }}">{!! nl2br(e($others->phone)) !!}</a>
+                                @if ($setting)
+                                    <i class="icon-call" style="font-size: 15px"></i> &nbsp; <a
+                                        href="tel:{{ $setting->phone }}">{!! nl2br(e($setting->phone)) !!}</a>
                                 @endif
                             </p>
-                            <p class="mb-1">
-                                @if ($others)
-                                <i class="icon-email" style="font-size: 15px"></i> &nbsp; <a href="mailto:{{$others->email }}">{!! nl2br(e($others->email)) !!}</a>
+                            <p class="mb-1 d-none d-md-block">
+                                @if ($setting)
+                                    <i class="icon-email" style="font-size: 15px"></i> &nbsp; <a
+                                        href="mailto:{{ $setting->email }}">{!! nl2br(e($setting->email)) !!}</a>
                                 @endif
                             </p>
                         </div>
@@ -90,9 +94,8 @@
 
                         <div class="widget subscribe-widget mt-2 clearfix">
                             <div class="text-center">
-                                <a href="{{ route('client.home') }}"><img src=" @if ($others)
-                                    {{$others->logo}}
-                                @endif" alt="" width="120px" height="auto"></a>
+                                <a href="{{ route('client.about') }}"><img src=" @if ($setting) {{ $setting->logo }} @endif" alt=""
+                                        width="120px" height="auto"></a>
                             </div>
 
                         </div>
@@ -114,8 +117,7 @@
 
             <div class="row justify-content-between align-items-center">
                 <div class="col-md-6">
-                    Copyrights &copy; 2020 All Rights Reserved by <a class="text-light font-weight-bold ml-1" href="https://facebook.com/anis3139">Anis
-                        Arronno</a><br>
+                    <p>Copyrights &copy; {{ date('Y') }} {{env('APPLICATION_NAME')}}. &nbsp;All Rights Reserved. </p>
 
                 </div>
 

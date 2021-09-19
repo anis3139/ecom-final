@@ -18,9 +18,22 @@ class CreateBlogsTable extends Migration
             $table->string('name');
             $table->string('title');
             $table->longText('post');
+            $table->string('meta_title',128)->nullable();
+            $table->longText('meta_description')->nullable();
+            $table->unsignedBigInteger('blog_category_id')->nullable();
+            $table->unsignedBigInteger('tag_id')->nullable();
+            $table->string('slug')->unique();
             $table->string('image')->nullable();
             $table->tinyInteger('status')->default(1);
+            $table->unsignedBigInteger('created_by')->nullable();
+            $table->unsignedBigInteger('updated_by')->nullable();
+            $table->unsignedBigInteger('deleted_by')->nullable();
             $table->timestamps();
+            $table->softDeletes();
+            $table->foreign('blog_category_id')->references('id')->on('blog_categories')->nullable()->onDelete('cascade');
+            $table->foreign('created_by')->references('id')->on('admins')->nullable();
+            $table->foreign('updated_by')->references('id')->on('admins')->nullable();
+            $table->foreign('deleted_by')->references('id')->on('admins')->nullable();
         });
     }
 

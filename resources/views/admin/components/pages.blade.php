@@ -1,5 +1,8 @@
 @extends('admin.Layouts.app')
-
+@section('title', 'Pages')
+@php
+$usr = Auth::guard('admin')->user();
+@endphp
 @section('content')
 
 <div class="row mt-5">
@@ -11,11 +14,12 @@
                     <table id="PagesDataTable" class="table table-striped table-bordered" cellspacing="0" width="100%">
                         <thead>
                             <tr>
-                                <th class="th-sm">Sl.</th>
-                                <th class="th-sm">Name</th>
-                                <th class="th-sm">Description</th>
-                                <th class="th-sm">Edit</th>
-                                <th class="th-sm">Delete</th>
+                                <th class="th-xs w-5 ">Sl.</th>
+                                <th class="th-xs w-5">Name</th>
+                                <th class="th-sm w-75">Description</th>
+                                <th class="th-xs w-5">Status</th>
+                                <th class="th-xs w-5 EditIcon">Edit</th>
+                                <th class="th-xs w-5 DeleteIcon">Delete</th>
                             </tr>
                         </thead>
                         <tbody id="Pages_table">
@@ -49,6 +53,8 @@
         <div class="modal fade" id="addPagesModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
             aria-hidden="true">
             <div class="modal-dialog modal-lg" role="document">
+                <form action="{{route('admin.addpages')}}" method="post" id="pageAddForm">
+                    @csrf
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title ml-5">Add New Pages</h5>
@@ -61,16 +67,21 @@
                             <div class="row">
                                 <input id="PagesName" type="text" id="" class="form-control mb-3"
                                     placeholder="Pages Name">
-                                <textarea class="form-control m-5" name="PagesDes" id="PagesDes" cols="30" rows="10"   placeholder="Pages Description"></textarea>
-
+                                <textarea class="form-control m-5 ckeditor" name="PagesDes" id="PagesDes"  placeholder="Pages Description"></textarea>
+                                <select name="status" id="status" class="form-control my-4">
+                                    <option class="form-control" selected value="0">Select Status</option>
+                                    <option class="form-control" value="active">Active</option>
+                                    <option class="form-control" value="inactive">Inactive</option>
+                                </select>
                             </div>
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-sm btn-primary" data-dismiss="modal">Cancel</button>
-                        <button id="PagesAddConfirmBtn" type="button" class="btn  btn-sm  btn-danger">Save</button>
+                        <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">Cancel</button>
+                        <button id="PagesAddConfirmBtn" type="submit" class="btn  btn-sm  btn-primary">Save</button>
                     </div>
                 </div>
+                </form>
             </div>
         </div>
 
@@ -87,9 +98,9 @@
                         <h5 id="PagesDeleteId" class="mt-4 d-none "></h5>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-sm btn-primary" data-dismiss="modal">No</button>
+                        <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">No</button>
                         <button data-id="" id="confirmDeletePages" type="button"
-                            class="btn btn-sm btn-danger">Yes</button>
+                            class="btn btn-sm btn-primary">Yes</button>
                     </div>
                 </div>
             </div>
@@ -103,6 +114,8 @@
         <div class="modal fade" id="updatePagesModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
             aria-hidden="true">
             <div class="modal-dialog modal-lg" role="document">
+                <form action="{{route('admin.pagesupdate')}}" method="post" id="pageUpdateForm">
+                    @csrf
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title">Update Pages</h5>
@@ -117,8 +130,11 @@
                                 <div class="col-md-12">
                                     <input id="PagesNameIdUpdate" type="text" id="" class="form-control mb-3"
                                         placeholder="Pages Name">
-                                    <textarea class="form-control m-5" name="PagesDesIdUpdate" id="PagesDesIdUpdate" cols="30" rows="10"   placeholder="Pages Description"></textarea>
-
+                                    <textarea class="form-control m-5 ckeditor" name="PagesDesIdUpdate" id="PagesDesIdUpdate" cols="30" rows="10"   placeholder="Pages Description"></textarea>
+                                    <select name="statusUpdate" id="statusUpdate" class="form-control my-4">
+                                        <option class="form-control" value="active">Active</option>
+                                        <option class="form-control" value="inactive">Inactive</option>
+                                    </select>
                                 </div>
 
                             </div>
@@ -127,11 +143,12 @@
                         <h3 id="PageswrongLoader" class="d-none">Something Went Wrong!</h3>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-sm btn-primary" data-dismiss="modal">Cancel</button>
-                        <button id="PagesupdateConfirmBtn" type="button"
-                            class="btn  btn-sm  btn-danger">Update</button>
+                        <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">Cancel</button>
+                        <button id="PagesupdateConfirmBtn" type="submit"
+                            class="btn  btn-sm  btn-primary">Update</button>
                     </div>
                 </div>
+            </form>
             </div>
         </div>
     </div>
@@ -147,25 +164,9 @@
 @section('script')
 
 
- <script src="https://cdn.tiny.cloud/1/br7pacni15qnplxm9fm1jf1313en19tje9tfzmu52gubsw9a/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
 
 <script>
-    tinymce.init({
-  selector: 'textarea',
-  plugins: 'a11ychecker advcode casechange formatpainter linkchecker autolink lists checklist media mediaembed pageembed permanentpen powerpaste table advtable tinycomments tinymcespellchecker',
-  toolbar: 'a11ycheck addcomment showcomments casechange checklist code formatpainter pageembed permanentpen table',
-  toolbar_mode: 'floating',
-  tinycomments_mode: 'embedded',
-  tinycomments_author: 'Author name',
-});
 
-
-
-
-tinymce.init({
-    selector: 'textarea',
-    menubar: false
-  });
 
 
 
@@ -181,18 +182,32 @@ getPagesdata();
                         $('#Pages_table').empty();
                         var count = 1;
                         var dataJSON = response.data;
-                        console.log(dataJSON);
                         $.each(dataJSON, function(i, item) {
                             $('<tr>').html(
                                 "<td>" + count++ + " </td>" +
                                 "<td>" + dataJSON[i].title + " </td>" +
                                 "<td>" + dataJSON[i].description + " </td>" +
+
+                                "<td>" + dataJSON[i].status + " </td>" +
                                 "<td><a class='PagesEditIcon' data-id=" + dataJSON[i].id +
                                 "><i class='fas fa-edit'></i></a> </td>" +
                                 "<td><a class='PagesDeleteIcon' data-id=" + dataJSON[i].id +
                                 " ><i class='fas fa-trash-alt'></i></a> </td>"
                             ).appendTo('#Pages_table');
                         });
+
+                        @if (!$usr->can('pages.delete') )
+                         $('.DeleteIcon').empty();
+                         $('.PagesDeleteIcon').hide();
+                         @endif
+                         @if (!$usr->can('pages.edit'))
+                             $('.EditIcon').empty();
+                             $('.PagesEditIcon').empty();
+                         @endif
+                         @if (!$usr->can('pages.create'))
+                             $('#addbtnPages').empty();
+                         @endif
+
                         //Pages click on delete icon
                         $(".PagesDeleteIcon").click(function() {
                             var id = $(this).data('id');
@@ -225,25 +240,38 @@ getPagesdata();
         });
 
 
+
+
+        $(document).ready(function() {
+            $('#status').material_select();
+        });
+
+
         //Pages Add modal save button
-        $('#PagesAddConfirmBtn').click(function() {
+        $('#pageAddForm').submit(function(event) {
+            event.preventDefault();
             var name = $('#PagesName').val();
-            var des =  tinymce.get("PagesDes").getContent();
-            PagesAdd(name, des);
+            var status = $('#status').val();
+            var des =  $("#PagesDes").val();;
+            PagesAdd(name, des, status);
         })
 
         //pages Add Method
-        function PagesAdd(name, des) {
+        function PagesAdd(name, des, status) {
+
             if (name.length == 0) {
                 toastr.error('Pages name is empty!');
-            } else if (des == 0) {
+            } else if (des.length == 0) {
                 toastr.error('Pages description is empty!');
+            } else if (status == 0) {
+                toastr.error('Status is empty!');
             } else {
                 $('#PagesAddConfirmBtn').html(
                     "<div class='spinner-border spinner-border-sm text-primary' role='status'></div>"); //animation
                 my_data = [{
                         name: name,
-                        description: des
+                        description: des,
+                        status: status,
                     }
                 ];
                 var formData = new FormData();
@@ -262,7 +290,8 @@ getPagesdata();
             progressBar: true,
         });
                             $('#PagesName').val("");
-                            tinymce.get("PagesDes").setContent("");
+                            $("#PagesDes").val(" ");
+                            MyEditor.setData(' ');
                             getPagesdata();
                         } else {
                             $('#addPagesModal').modal('hide');
@@ -289,6 +318,18 @@ getPagesdata();
             }
         }
         //each Pages  Details data show for edit
+
+
+         // Material Select Initialization
+         $(document).ready(function() {
+            $('#statusUpdate').material_select();
+        });
+
+
+
+
+
+
         function PagesUpdateDetails(id) {
             axios.post("{{route('admin.pagesdetails')}}", {
                     id: id
@@ -299,7 +340,8 @@ getPagesdata();
                         $('#PagesEditForm').removeClass('d-none');
                         var jsonData = response.data;
                         $('#PagesNameIdUpdate').val(jsonData[0].title);
-                        tinymce.get("PagesDesIdUpdate").setContent(jsonData[0].description);
+                        MyEditor.setData(jsonData[0].description);
+                        $('#statusUpdate option[value=' + jsonData[0].status + ']').attr('selected', 'selected');
                     } else {
                         $('#PagesLoader').addClass('d-none');
                         $('#PageswrongLoader').removeClass('d-none');
@@ -311,15 +353,16 @@ getPagesdata();
         }
 
         //Pages update modal save button
-        $('#PagesupdateConfirmBtn').click(function() {
+        $('#pageUpdateForm').submit(function(event) {
+            event.preventDefault();
             var idUpdate = $('#PagesEditId').html();
             var nameUpdate = $('#PagesNameIdUpdate').val();
-            var desUpdate =  tinymce.get("PagesDesIdUpdate").getContent();
-
-            PagesUpdate(idUpdate, nameUpdate, desUpdate);
+            var desUpdate =  $("#PagesDesIdUpdate").val();;
+            var statusUpdate = $('#statusUpdate').val();
+            PagesUpdate(idUpdate, nameUpdate, desUpdate, statusUpdate);
         })
         //update Pages data using modal
-        function PagesUpdate(idUpdate, nameUpdate, desUpdate) {
+        function PagesUpdate(idUpdate, nameUpdate, desUpdate, statusUpdate) {
             if (nameUpdate.length == 0) {
                 toastr.error('Proejct name is empty!');
             } else if (desUpdate == 0) {
@@ -330,7 +373,8 @@ getPagesdata();
                 updateData = [{
                         id: idUpdate,
                         name: nameUpdate,
-                        description: desUpdate
+                        description: desUpdate,
+                        statusUpdate: statusUpdate,
                     }
                 ];
                 var formData = new FormData();

@@ -8,7 +8,7 @@
              @foreach ($allCategory as $category )
 
                      <li class="grid-item"><a href="{{ route('client.category', $category->slug) }}"><img src="{{$category->icon}}"
-                         alt="Clients"></a></li>
+                         alt="{{ $category->name }}"></a></li>
 
              @endforeach
 

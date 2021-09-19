@@ -7,28 +7,27 @@
             id: id
         })
         .then(function(response) {
-            console.log(response.data);
             if (response.status == 200) {
                 var jsonData = response.data;
 
 
-                var url = `product/${jsonData[0].product_slug}`;
+                var url = `product/${jsonData[0].slug}`;
 
 
 
                 var inStock = '';
-                if (jsonData[0].product_in_stock == 0) {
+                if (jsonData[0].stock <= 0) {
                     inStock = "STOCK OUT!"
                 } else {
                     inStock = "SALE!"
                 }
 
-                $('#pdTitle').html(jsonData[0].product_title);
+                $('#pdTitle').html(jsonData[0].name);
                 $('#pdPrice').html("&#2547;   " + jsonData[0].product_selling_price);
                 $('#pdMainPrice').html("&#2547;   " + jsonData[0].product_price);
                 $('#inStock').html(inStock);
                 $('#pdCategory').html(jsonData[0].cat.name);
-                $('#pDescription').html(jsonData[0].product_discription);
+                $('#pDescription').html(jsonData[0].description);
                 $('#product_ids').val(id);
                 $('#modalSingleView').attr("href", url);
 
@@ -128,7 +127,7 @@ $('#cartForm').on('submit', function(event) {
     let color = formData[1]['value'];
     let quantity = formData[2]['value'];
     let product_ids = formData[3]['value'];
-    console.log(formData);
+  
     let url = "{{ route('client.addCart') }}";
     axios.post(url, {
         meserment: meserment,
@@ -136,26 +135,16 @@ $('#cartForm').on('submit', function(event) {
         quantity: quantity,
         product_id: product_ids
     }).then(function(response) {
-        console.log(response.data);
         if (response.status == 200 && response.data == 1) {
             $('.bd-example-modal-lg').modal('hide');
-                 toastr.success('Product Add Successfully', 'Success',{
-            closeButton: true,
-            progressBar: true,
-        });
+            toastr.success('Product Add Successfully');
             getcartData()
         } else {
-            toastr.error('Product not Added ! Try Again', 'Error',{
-            closeButton: true,
-            progressBar: true,
-        });
+            toastr.error('Product not Added ! Try Again');
         }
 
     }).catch(function(error) {
-        toastr.error('Product not Added  ! Something Error', 'Error',{
-            closeButton: true,
-            progressBar: true,
-        });
+        toastr.error('Product not Added  ! Something Error');
     })
 
 
@@ -203,7 +192,7 @@ function getcartData() {
 
                 $('.top-cart-items').html(imageViewHtml);
 
-                console.log(a);
+             
 
                 if (a == 0) {
                     $("#HeaderPreview").css("display", "none");
@@ -219,10 +208,7 @@ function getcartData() {
                     DeleteDataCart(id);
                 })
             } else {
-                toastr.error('Something Went Wrong', 'Error',{
-            closeButton: true,
-            progressBar: true,
-        });
+                toastr.error('Something Went Wrong');
             }
         }).catch(function(error) {
 
@@ -262,10 +248,7 @@ function DeleteDataCart(id) {
                 toastr.success('Cart Removed Success.');
                 getcartData();
             } else {
-                toastr.error('Something Went Wrong', 'Error',{
-            closeButton: true,
-            progressBar: true,
-        });
+                toastr.error('Something Went Wrong');
             }
         }).catch(function(error) {
 

@@ -60,13 +60,14 @@ class FavouriteController extends Controller
      */
     public function show()
     {
+
         $data = [];
         $user = Auth::user();
         $data['favourites'] = $user->favorite_product()->with('img')->orderBy('id', 'desc')->paginate(15);
-     
-        $data['topRatedProducts'] = Product::orderBy('product_price', 'desc')->where('product_active', 1)->limit(4)->get();
 
-        $data['recentProducts'] = Product::where('product_active', 1)->orderBy('id', 'asc')->limit(5)->get();
+        $data['topRatedProducts'] = Product::orderBy('product_price', 'desc')->where('status', 1)->limit(4)->get();
+
+        $data['recentProducts'] = Product::where('status', 1)->orderBy('id', 'asc')->limit(5)->get();
         return view('client.pages.Fovourite',  $data);
     }
 

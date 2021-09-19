@@ -5,7 +5,7 @@ namespace App\Http\Controllers\vendor;
 use App\Http\Controllers\Controller;
 use App\Models\meserments;
 use App\Models\product_color;
-use App\Models\product_has_images;
+use App\Models\ProductImage;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -33,7 +33,7 @@ class ProductController extends Controller
     {
         $userid = Auth::guard('vendor')->user()->id;
 
-        $result = json_decode(Product::with(['getCategory', 'getBrand', 'image', 'vendor'])->where('products.product_owner_id', $userid)->orderBy('id', 'desc')->get());
+        $result = json_decode(Product::with(['getCategory', 'getBrand', 'image', 'vendor'])->where('products.vendor_id', $userid)->orderBy('id', 'desc')->get());
 
         return $result;
     }
@@ -46,42 +46,42 @@ class ProductController extends Controller
 
 
         $data = json_decode($_POST['data']);
-        $product_title = $data['0']->product_title;
-        $product_discription = $data['0']->product_discription;
+        $name = $data['0']->name;
+        $description = $data['0']->description;
         $product_price = $data['0']->product_price;
         $product_selling_price = $data['0']->product_selling_price;
         $product_quantity = $data['0']->product_quantity;
-        $product_category_id = $data['0']->product_category_id;
-        $product_brand_id = $data['0']->product_brand_id;
-        $product_in_stock = $data['0']->product_in_stock;
+        $category_id = $data['0']->category_id;
+        $brand_id = $data['0']->brand_id;
+        $stock = $data['0']->stock;
         $feture_products = $data['0']->feture_products;
-        $product_active = $data['0']->product_active;
+        $status = $data['0']->status;
         $pdmesermentValue = $data['0']->pdmesermentValue;
         $product_colors = $data['0']->product_colors;
         $selectedmesermentId = $data['0']->selectedmesermentId;
         $userid = Auth::guard('vendor')->user()->id;
 
-        $slug = Str::slug($product_title);
+        $slug = Str::slug($name);
         $next = 2;
-        while (Product::where('product_slug', '=', $slug)->first()) {
+        while (Product::where('slug', '=', $slug)->first()) {
             $slug = $slug . "-" . $next;
             $next++;
         }
 
         $result = new Product();
-        $result->product_title = $product_title;
-        $result->product_discription = $product_discription;
+        $result->name = $name;
+        $result->description = $description;
         $result->product_price = $product_price;
         $result->product_selling_price = $product_selling_price;
         $result->product_quantity = $product_quantity;
-        $result->product_category_id = $product_category_id;
-        $result->product_brand_id = $product_brand_id;
-        $result->product_in_stock = $product_in_stock;
+        $result->category_id = $category_id;
+        $result->brand_id = $brand_id;
+        $result->stock = $stock;
         $result->feture_products = $feture_products;
         $result->product_meserment_type = $selectedmesermentId;
-        $result->product_active = $product_active;
-        $result->product_slug = $slug;
-        $result->product_owner_id = $userid;
+        $result->status = $status;
+        $result->slug = $slug;
+        $result->vendor_id = $userid;
         $result->save();
         $last_id = $result->id;
 
@@ -96,9 +96,9 @@ class ProductController extends Controller
                 $host = $_SERVER['HTTP_HOST'];
                 $protocol = $_SERVER['PROTOCOL'] = isset($_SERVER['HTTPS']) && !empty($_SERVER['HTTPS']) ? 'https://' : 'http://';
                 $productImageOnelocation = $protocol . $productImageOnehost .  "/public/storage/" . $img;
-                $imagemodel = new product_has_images();
+                $imagemodel = new ProductImage();
                 $imagemodel->image_path = "$productImageOnelocation";
-                $imagemodel->has_images_product_id = $last_id;
+                $imagemodel->product_id = $last_id;
                 $imagemodel->save();
                 $i++;
             }
@@ -215,9 +215,9 @@ class ProductController extends Controller
 
         if ($request->has('images')) {
 
-            $product_has_images = product_has_images::where('has_images_product_id', $product_id_edit)->get();
-            foreach ($product_has_images as  $product_has_images_value) {
-                $delete_old_file = product_has_images::where('id', '=', $product_has_images_value->id)->first();
+            $ProductImage = ProductImage::where('product_id', $product_id_edit)->get();
+            foreach ($ProductImage as  $product_has_images_value) {
+                $delete_old_file = ProductImage::where('id', '=', $product_has_images_value->id)->first();
                 $delete_old_file_name = (explode('/', $delete_old_file->image_path))[4];
                 Storage::delete("public/" . $delete_old_file_name);
                 $delete_old_file->delete();
@@ -233,25 +233,25 @@ class ProductController extends Controller
                 $protocol = $_SERVER['PROTOCOL'] = isset($_SERVER['HTTPS']) && !empty($_SERVER['HTTPS']) ? 'https://' : 'http://';
 
                 $productImageOnelocation = $protocol . $productImageOnehost .  "/public/storage/" . $img;
-                $imagemodel = new product_has_images();
+                $imagemodel = new ProductImage();
                 $imagemodel->image_path = $productImageOnelocation;
-                $imagemodel->has_images_product_id = $product_id_edit;
+                $imagemodel->product_id = $product_id_edit;
                 $imagemodel->save();
                 $i++;
             }
 
 
             $result = Product::where('id', '=', $product_id_edit)->first();
-            $result->product_title = $pdEditName;
-            $result->product_discription = $pdEditDescription;
+            $result->name = $pdEditName;
+            $result->description = $pdEditDescription;
             $result->product_price = $pdEditPrice;
             $result->product_selling_price = $pdEditOffer;
             $result->product_quantity = $pdEditQuantity;
-            $result->product_category_id = $pdEditCategory;
-            $result->product_brand_id = $pdEditBrand;
-            $result->product_in_stock = $pdEditStock;
+            $result->category_id = $pdEditCategory;
+            $result->brand_id = $pdEditBrand;
+            $result->stock = $pdEditStock;
             $result->feture_products = $pdEditFeature;
-            $result->product_active = $pdEditStatus;
+            $result->status = $pdEditStatus;
             $result->product_meserment_type = $slelctedmesermentEdit;
             $status = $result->save();
 
@@ -263,16 +263,16 @@ class ProductController extends Controller
         } else {
 
             $result = Product::where('id', '=', $product_id_edit)->first();
-            $result->product_title = $pdEditName;
-            $result->product_discription = $pdEditDescription;
+            $result->name = $pdEditName;
+            $result->description = $pdEditDescription;
             $result->product_price = $pdEditPrice;
             $result->product_selling_price = $pdEditOffer;
             $result->product_quantity = $pdEditQuantity;
-            $result->product_category_id = $pdEditCategory;
-            $result->product_brand_id = $pdEditBrand;
-            $result->product_in_stock = $pdEditStock;
+            $result->category_id = $pdEditCategory;
+            $result->brand_id = $pdEditBrand;
+            $result->stock = $pdEditStock;
             $result->feture_products = $pdEditFeature;
-            $result->product_active = $pdEditStatus;
+            $result->status = $pdEditStatus;
             $result->product_meserment_type = $slelctedmesermentEdit;
             $status = $result->save();
 
@@ -293,11 +293,11 @@ class ProductController extends Controller
     public function destroy(Request $request)
     {
         $id = $request->input('id');
-        $product_has_images = product_has_images::where('has_images_product_id', $id)->get();
+        $ProductImage = ProductImage::where('product_id', $id)->get();
 
-        foreach ($product_has_images as  $product_has_images_value) {
+        foreach ($ProductImage as  $product_has_images_value) {
 
-            $delete_old_file = product_has_images::where('id', '=', $product_has_images_value->id)->first();
+            $delete_old_file = ProductImage::where('id', '=', $product_has_images_value->id)->first();
             $delete_old_file_name = (explode('/', $delete_old_file->image_path))[4];
 
             Storage::delete("public/" . $delete_old_file_name);

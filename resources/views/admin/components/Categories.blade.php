@@ -1,4 +1,7 @@
 @extends('admin.Layouts.app')
+@php
+$usr = Auth::guard('admin')->user();
+@endphp
 @section('title', 'Categories')
 @section('css')
     <style>
@@ -8,6 +11,8 @@
 
     </style>
 @endsection
+
+
 @section('content')
 
     <div class="row mt-5">
@@ -27,8 +32,8 @@
                                     <th>Show Menu</th>
                                     <th>Image</th>
                                     <th>Icon</th>
-                                    <th>Edit</th>
-                                    <th>Delete</th>
+                                    <th class="editIcon">Edit</th>
+                                    <th class="deleteIcon">Delete</th>
                                 </tr>
                             </thead>
                             <tbody id="Category_Table">
@@ -60,61 +65,66 @@
     <div class="modal fade" id="addCategoryModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title ml-5">Add New Category</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body  text-center">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <input id="CategoryName" type="text" id="" class="form-control my-5"
-                                    placeholder="Category Name">
-                                <select name="Categories" id="Categories" class="form-control my-5">
+            <form action="{{ route('admin.addCategory') }}" method="post" id="cat_add_form">
+                @csrf
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title ml-5">Add New Category</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body  text-center">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <input required id="CategoryName" type="text" id="" class="form-control my-5"
+                                        placeholder="Category Name">
+                                    <select name="Categories" id="Categories" class="form-control my-5">
 
-                                </select>
-                                <select name="" id="catStatus">
-                                    <option value="1" selected>Publish</option>
-                                    <option value="0">Panding</option>
-                                </select>
+                                    </select>
+                                    <select name="" id="catStatus">
+                                        <option value="1" selected>Publish</option>
+                                        <option value="0">Panding</option>
+                                    </select>
 
-                                <select name="" id="is_menu">
-                                    <option value="1" selected>Show in Menu</option>
-                                    <option value="0">Hide</option>
-                                </select>
+                                    <select name="" id="is_menu">
+                                        <option value="1" selected>Show in Menu</option>
+                                        <option value="0">Hide</option>
+                                    </select>
 
-                                <select name="" id="is_homepage">
-                                    <option value="1" selected>Show in Homepage</option>
-                                    <option value="0">Hide</option>
-                                </select>
+                                    <select name="" id="is_homepage">
+                                        <option value="1" selected>Show in Homepage</option>
+                                        <option value="0">Hide</option>
+                                    </select>
 
 
+
+                                </div>
+                                <div class="col-md-6">
+
+                                    <label for="iconCategory" class="border-bottom border-primary mb-2">Category
+                                        Icon</label>
+                                    <input required type="file" id="iconCategory" class="form-control" name="text-input">
+                                    <img id="addCategoryIconPreview" style="height: 100px !important;"
+                                        class="imgPreview mt-3 " src="{{ asset('admin/images/default-image.png') }}" />
+
+                                    <label for="imageCategory" class="border-bottom border-primary my-2">Category
+                                        Image</label>
+                                    <input required type="file" id="imageCategory" class="form-control" name="text-input">
+                                    <img id="addCategoryImagePreview" style="height: 100px !important;"
+                                        class="imgPreview mt-3 " src="{{ asset('admin/images/default-image.png') }}" />
+                                </div>
 
                             </div>
-                            <div class="col-md-6">
-
-                                <label for="iconCategory" class="border-bottom border-primary mb-2">Category Icon</label>
-                                <input type="file" id="iconCategory" class="form-control" name="text-input">
-                                <img id="addCategoryIconPreview" style="height: 100px !important;" class="imgPreview mt-3 "
-                                    src="{{ asset('admin/images/default-image.png') }}" />
-
-                                <label for="imageCategory" class="border-bottom border-primary my-2">Category Image</label>
-                                <input type="file" id="imageCategory" class="form-control" name="text-input">
-                                <img id="addCategoryImagePreview" style="height: 100px !important;" class="imgPreview mt-3 "
-                                    src="{{ asset('admin/images/default-image.png') }}" />
-                            </div>
-
                         </div>
                     </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">Cancel</button>
+                        <button id="CategoryAddConfirmBtn" type="submit" class="btn  btn-sm  btn-primary">Save</button>
+                    </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-sm btn-primary" data-dismiss="modal">Cancel</button>
-                    <button id="CategoryAddConfirmBtn" type="button" class="btn  btn-sm  btn-danger">Save</button>
-                </div>
-            </div>
+            </form>
         </div>
     </div>
 
@@ -130,8 +140,8 @@
                     <h5 id="CategoryDeleteId" class="mt-4 d-none "></h5>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-sm btn-primary" data-dismiss="modal">No</button>
-                    <button data-id="" id="confirmDeleteCategory" type="button" class="btn btn-sm btn-danger">Yes</button>
+                    <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">No</button>
+                    <button data-id="" id="confirmDeleteCategory" type="button" class="btn btn-sm btn-primary">Yes</button>
                 </div>
             </div>
         </div>
@@ -191,8 +201,8 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-sm btn-primary" data-dismiss="modal">Cancel</button>
-                    <button id="CategoryUpdateConfirmBtn" type="button" class="btn  btn-sm  btn-danger">Save</button>
+                    <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">Cancel</button>
+                    <button id="CategoryUpdateConfirmBtn" type="button" class="btn  btn-sm  btn-primary">Save</button>
                 </div>
             </div>
         </div>
@@ -220,7 +230,7 @@
                         var dataJSON = response.data;
                         $.each(dataJSON, function(i, item) {
                             var parent = '';
-                            if (dataJSON[i].parent_id == 0) {
+                            if (dataJSON[i].parent_id == null) {
                                 parent = 'Parent Category';
                             } else {
                                 parent = dataJSON[i].parent.name;
@@ -258,10 +268,22 @@
                                 .icon + "> </td>" +
                                 "<td><a class='CategoryEditIcon' data-id=" + dataJSON[i].id +
                                 "><i class='fas fa-edit'></i></a> </td>" +
-                                "<td><a class='CategoryDeleteIcon' data-id=" + dataJSON[i].id +
+
+                                "<td><a  class='CategoryDeleteIcon' data-id=" + dataJSON[i].id +
                                 "><i class='fas fa-trash-alt'></i></a> </td>"
                             ).appendTo('#Category_Table');
                         });
+                        @if (!$usr->can('category.delete') )
+                            $('.CategoryDeleteIcon').empty();
+                            $('.deleteIcon').empty();
+                        @endif
+                        @if (!$usr->can('category.edit'))
+                            $('.CategoryEditIcon').empty();
+                            $('.editIcon').empty();
+                        @endif
+                        @if (!$usr->can('category.create'))
+                            $('#addBtnCategory').empty();
+                        @endif
                         //Category click on delete icon
                         $(".CategoryDeleteIcon").click(function() {
                             var id = $(this).data('id');
@@ -329,7 +351,7 @@
                     var dataJSON = response.data;
                     $('#Categories').empty();
                     $('#Categories').append(
-                        `<option  selected class='p-5 m-5' value='0'>Make Parent Category</option>`);
+                        `<option  selected class='p-5 m-5' value="">Make Parent Category</option>`);
                     $.each(dataJSON, function(i, item) {
                         $('#Categories').append(
                             `<option value="${dataJSON[i].id}"> ${dataJSON[i].name} </option>`);
@@ -369,7 +391,8 @@
 
 
         //Category Add
-        $('#CategoryAddConfirmBtn').click(function() {
+        $('#cat_add_form').submit(function(event) {
+            event.preventDefault();
             var name = $('#CategoryName').val();
             var categories = $('#Categories').val();
             var catStatus = $('#catStatus').val();
@@ -409,10 +432,10 @@
                     if (response.status = 200) {
                         if (response.data == 1) {
                             $('#addCategoryModal').modal('hide');
-                            toastr.success('Add New Success .', 'Success',{
-            closeButton: true,
-            progressBar: true,
-        });
+                            toastr.success('Add New Success .', 'Success', {
+                                closeButton: true,
+                                progressBar: true,
+                            });
                             $('#CategoryName').val("");
                             $('#Categories').val("");
                             $('#imageCategory').val("");
@@ -427,25 +450,25 @@
                             getCategorydata();
                         } else {
                             $('#addCategoryModal').modal('hide');
-                            toastr.error('Add New Failed', 'Error',{
-            closeButton: true,
-            progressBar: true,
-        });
+                            toastr.error('Add New Failed', 'Error', {
+                                closeButton: true,
+                                progressBar: true,
+                            });
                             getCategorydata();
                         }
                     } else {
                         $('#addCategoryModal').modal('hide');
-                        toastr.error('Something Went Wrong', 'Error',{
-            closeButton: true,
-            progressBar: true,
-        });
+                        toastr.error('Something Went Wrong', 'Error', {
+                            closeButton: true,
+                            progressBar: true,
+                        });
                     }
                 }).catch(function(error) {
                     $('#addCategoryModal').modal('hide');
-                    toastr.error('Something Went Wrong', 'Error',{
-            closeButton: true,
-            progressBar: true,
-        });
+                    toastr.error('Something Went Wrong', 'Error', {
+                        closeButton: true,
+                        progressBar: true,
+                    });
                 });
             }
         }
@@ -474,32 +497,32 @@
                     if (response.status == 200) {
                         if (response.data == 1) {
                             $('#deleteModalCategory').modal('hide');
-                            toastr.warning('Delete Success.', 'Success',{
-            closeButton: true,
-            progressBar: true,
-        });
+                            toastr.warning('Delete Success.', 'Success', {
+                                closeButton: true,
+                                progressBar: true,
+                            });
                             getCategorydata();
                         } else {
                             $('#deleteModalCategory').modal('hide');
-                            toastr.error('Delete Failed', 'Error',{
-            closeButton: true,
-            progressBar: true,
-        });
+                            toastr.error('Delete Failed', 'Error', {
+                                closeButton: true,
+                                progressBar: true,
+                            });
                             getCategorydata();
                         }
                     } else {
                         $('#deleteModalCategory').modal('hide');
-                        toastr.error('Something Went Wrong', 'Error',{
-            closeButton: true,
-            progressBar: true,
-        });
+                        toastr.error('Something Went Wrong', 'Error', {
+                            closeButton: true,
+                            progressBar: true,
+                        });
                     }
                 }).catch(function(error) {
                     $('#deleteModalCategory').modal('hide');
-                    toastr.error('Something Went Wrong', 'Error',{
-            closeButton: true,
-            progressBar: true,
-        });
+                    toastr.error('Something Went Wrong', 'Error', {
+                        closeButton: true,
+                        progressBar: true,
+                    });
                 });
         }
 
@@ -543,7 +566,7 @@
                 var dataJSON = response.data;
                 $('#CategoriesUpdate').empty();
                 $('#CategoriesUpdate').append(
-                    `<option class='p-5 m-5' value='0'>Make Parent Category</option>`);
+                    `<option class='p-5 m-5' value=''>Make Parent Category</option>`);
                 $.each(dataJSON, function(i, item) {
                     $('#CategoriesUpdate').append(
                         `<option value="${dataJSON[i].id}"> ${dataJSON[i].name} </option>`);
@@ -635,10 +658,12 @@
             var CategoriesEdit = $('#CategoriesUpdate').val();
             var img = $('#imageUpdateCategory').prop('files')[0];
             var icon = $('#iconUpdateCategory').prop('files')[0];
-            CategoryUpdate(idUpdate, nameUpdate, CategoriesEdit, img, icon, catEditStatus, catEdit_is_menu, catEdit_is_homepage);
+            CategoryUpdate(idUpdate, nameUpdate, CategoriesEdit, img, icon, catEditStatus, catEdit_is_menu,
+                catEdit_is_homepage);
         })
         //update Category data using modal
-        function CategoryUpdate(idUpdate, nameUpdate, CategoriesEdit, img, icon, catEditStatus, catEdit_is_menu, catEdit_is_homepage) {
+        function CategoryUpdate(idUpdate, nameUpdate, CategoriesEdit, img, icon, catEditStatus, catEdit_is_menu,
+            catEdit_is_homepage) {
             if (nameUpdate.length == 0) {
                 toastr.error('Category name is empty!');
             } else {
@@ -666,36 +691,35 @@
                     if (response.status = 200) {
                         if (response.data == 1) {
                             $('#updateCategoryModal').modal('hide');
-                            toastr.success('Update Success.', 'Success',{
-            closeButton: true,
-            progressBar: true,
-        });
+                            toastr.success('Update Success.', 'Success', {
+                                closeButton: true,
+                                progressBar: true,
+                            });
                             getCategorydata();
                         } else {
                             $('#updateCategoryModal').modal('hide');
-                            toastr.error('Update Failed', 'Error',{
-            closeButton: true,
-            progressBar: true,
-        })
+                            toastr.error('Update Failed', 'Error', {
+                                closeButton: true,
+                                progressBar: true,
+                            })
                             getCategorydata();
                         }
                     } else {
                         $('#updateCategoryModal').modal('hide');
-                        toastr.error('Something Went Wrong', 'Error',{
-            closeButton: true,
-            progressBar: true,
-        });
+                        toastr.error('Something Went Wrong', 'Error', {
+                            closeButton: true,
+                            progressBar: true,
+                        });
                     }
                 }).catch(function(error) {
                     $('#updateCategoryModal').modal('hide');
-                    toastr.error('Something Went Wrong', 'Error',{
-            closeButton: true,
-            progressBar: true,
-        });
+                    toastr.error('Something Went Wrong', 'Error', {
+                        closeButton: true,
+                        progressBar: true,
+                    });
                 });
             }
         }
-
     </script>
 
 

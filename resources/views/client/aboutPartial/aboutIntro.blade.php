@@ -5,17 +5,17 @@
             <div class="row">
                 <div class="col-md-5">
                     <div class="left-contain">
-                        <img src="@if($HomeAboutSectionData){{$HomeAboutSectionData->image1}}@endif" alt="">
+                        <img src="@if($AboutSectionData){{$AboutSectionData->image1}}@endif" alt="">
                     </div>
                 </div>
 
             <div class="col-md-7 ">
                 <div class="right-contain">
                     <div class="right-header">
-                        <h1 class="text-light">@if($HomeAboutSectionData){!! nl2br(e( $HomeAboutSectionData->title)) !!}@endif</h1>
+                        <h1 class="text-light">@if($AboutSectionData){!!  $AboutSectionData->title !!}@endif</h1>
                     </div>
                     <div class="right-details text-light mt-2">
-                        <p>@if($HomeAboutSectionData){!! nl2br(e( $HomeAboutSectionData->description)) !!}@endif</p>
+                        <p>@if($AboutSectionData){!! $AboutSectionData->description !!}@endif</p>
                     </div>
                 </div>
             </div>

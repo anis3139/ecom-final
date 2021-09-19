@@ -1,9 +1,4 @@
-@php
- $HomeTestimonialDatas= json_decode(App\Models\TestimonialModel::orderBy('id', 'desc')->limit(3)->get());
-@endphp
-
-
-  <div class="section footer-stick" style="background-color: #fff !important;">
+<div class="section footer-stick" style="background-color: #fff !important;">
 
     <h4 class="text-uppercase center">What <span>Clients</span> Say?</h4>
 
@@ -11,16 +6,16 @@
         <div class="flexslider">
             <div class="slider-wrap">
 
-                @foreach ($HomeTestimonialDatas as $HomeTestimonialData)
+                @foreach ($TestimonialDatas as $TestimonialData)
                 <div class="slide">
                     <div class="testi-image">
-                        <a href="#"><img src="@if($HomeAboutSectionData){{ $HomeTestimonialData->image}}@endif" alt="Customer Testimonails"></a>
+                        <a href="#"><img src="@if($AboutSectionData){{ $TestimonialData->image}}@endif" alt="Customer Testimonails"></a>
                     </div>
                     <div class="testi-content">
-                        <p>@if($HomeAboutSectionData){!! nl2br(e( $HomeTestimonialData->description)) !!}@endif</p>
+                        <p>@if($AboutSectionData){!! nl2br(e( $TestimonialData->description)) !!}@endif</p>
                         <div class="testi-meta">
-                            @if($HomeAboutSectionData){{ $HomeTestimonialData->name}}@endif
-                            <span>@if($HomeAboutSectionData){{ $HomeTestimonialData->date}}@endif</span>
+                            @if($AboutSectionData){{ $TestimonialData->name}}@endif
+                            <span>@if($AboutSectionData){{ $TestimonialData->date}}@endif</span>
                         </div>
                     </div>
                 </div>

@@ -31,9 +31,10 @@ Route::group(['prefix' => 'admin'], function () {
         Route::get('/logout', [App\Http\Controllers\admin\LoginController::class, 'onLogout'])->name('admin.logout');
 
         // Admin Route
-        Route::get('/home', [App\Http\Controllers\admin\HomeController::class, 'adminHome'])->name('admin.adminHome');
-        Route::get('/adminPannel', [App\Http\Controllers\admin\AdminController::class, 'AdminIndex'])->name('admin.adminPannel');
+        Route::get('/dashboard', [App\Http\Controllers\admin\HomeController::class, 'adminHome'])->name('admin.adminHome');
+        Route::get('/admin-settings', [App\Http\Controllers\admin\AdminController::class, 'AdminIndex'])->name('admin.adminPannel');
         Route::get('/getAdminData', [App\Http\Controllers\admin\AdminController::class, 'adminData'])->name('admin.getAdminData');
+        Route::get('/adminRole', [App\Http\Controllers\admin\AdminController::class, 'adminRole'])->name('admin.adminRole');
         Route::post('/adminAdd', [App\Http\Controllers\admin\AdminController::class, 'adminAdd'])->name('admin.adminAdd');
         Route::post('/adminDelete', [App\Http\Controllers\admin\AdminController::class, 'adminDelete'])->name('admin.adminDelete');
         Route::post('/adminDetailEdit', [App\Http\Controllers\admin\AdminController::class, 'adminDetailEdit'])->name('admin.adminDetailEdit');
@@ -68,24 +69,24 @@ Route::group(['prefix' => 'admin'], function () {
         Route::post('/sliderupdate', [\App\Http\Controllers\admin\HomeSliderController::class, 'SliderUpdate'])->name('admin.sliderupdate');
 
         // Brand  Section
-        Route::resource('brand', \App\Http\Controllers\admin\products\ProductBrandController::class,[
+        Route::resource('brand', \App\Http\Controllers\admin\products\BrandController::class,[
             'except'=>['destroy','show','update']
         ]);
-        Route::get('/brands', [\App\Http\Controllers\admin\products\ProductBrandController::class,'index'])->name('admin.brands');
-        Route::get('/getBrandsData', [\App\Http\Controllers\admin\products\ProductBrandController::class,'getBrandData'])->name('admin.getBrandsData');
-        Route::get('/getBrandsData', [\App\Http\Controllers\admin\products\ProductBrandController::class,'getBrandData'])->name('admin.getBrandsData');
-        Route::post('/BrandDelete', [\App\Http\Controllers\admin\products\ProductBrandController::class,'destroy'])->name('admin.BrandDelete');
-        Route::post('/getBrandEditData', [\App\Http\Controllers\admin\products\ProductBrandController::class,'show'])->name('admin.getBrandEditData');
-        Route::post('/updateBrand', [\App\Http\Controllers\admin\products\ProductBrandController::class,'updateBrand'])->name('admin.updateBrand');
+        Route::get('/brands', [\App\Http\Controllers\admin\products\BrandController::class,'index'])->name('admin.brands');
+        Route::get('/getBrandsData', [\App\Http\Controllers\admin\products\BrandController::class,'getBrandData'])->name('admin.getBrandsData');
+        Route::get('/getBrandsData', [\App\Http\Controllers\admin\products\BrandController::class,'getBrandData'])->name('admin.getBrandsData');
+        Route::post('/BrandDelete', [\App\Http\Controllers\admin\products\BrandController::class,'destroy'])->name('admin.BrandDelete');
+        Route::post('/getBrandEditData', [\App\Http\Controllers\admin\products\BrandController::class,'show'])->name('admin.getBrandEditData');
+        Route::post('/updateBrand', [\App\Http\Controllers\admin\products\BrandController::class,'updateBrand'])->name('admin.updateBrand');
 
         // Category  Section
-        Route::get('/categories', [\App\Http\Controllers\admin\products\ProductCategoriesController::class,'index'])->name('admin.categories');
-        Route::get('/getCategoriesData', [\App\Http\Controllers\admin\products\ProductCategoriesController::class,'getCategoriesData'])->name('admin.getCategoriesData');
-        Route::get('/getCategoriesParantData', [\App\Http\Controllers\admin\products\ProductCategoriesController::class,'getCategoriesParantData'])->name('admin.getCategoriesParantData');
-        Route::post('/addCategory', [\App\Http\Controllers\admin\products\ProductCategoriesController::class,'store'])->name('admin.addCategory');
-        Route::post('/deleteCategory', [\App\Http\Controllers\admin\products\ProductCategoriesController::class,'destroy'])->name('admin.deleteCategory');
-        Route::post('/getEditCategoryData', [\App\Http\Controllers\admin\products\ProductCategoriesController::class,'edit'])->name('admin.getEditCategoryData');
-        Route::post('/updateCategory', [\App\Http\Controllers\admin\products\ProductCategoriesController::class,'update'])->name('admin.updateCategory');
+        Route::get('/categories', [\App\Http\Controllers\admin\products\CategoryController::class,'index'])->name('admin.categories');
+        Route::get('/getCategoriesData', [\App\Http\Controllers\admin\products\CategoryController::class,'getCategoriesData'])->name('admin.getCategoriesData');
+        Route::get('/getCategoriesParantData', [\App\Http\Controllers\admin\products\CategoryController::class,'getCategoriesParantData'])->name('admin.getCategoriesParantData');
+        Route::post('/addCategory', [\App\Http\Controllers\admin\products\CategoryController::class,'store'])->name('admin.addCategory');
+        Route::post('/deleteCategory', [\App\Http\Controllers\admin\products\CategoryController::class,'destroy'])->name('admin.deleteCategory');
+        Route::post('/getEditCategoryData', [\App\Http\Controllers\admin\products\CategoryController::class,'edit'])->name('admin.getEditCategoryData');
+        Route::post('/updateCategory', [\App\Http\Controllers\admin\products\CategoryController::class,'update'])->name('admin.updateCategory');
 
          //Product Section
          Route::get('/products', [\App\Http\Controllers\admin\products\ProductsController::class,'index'])->name('admin.products');
@@ -95,6 +96,10 @@ Route::group(['prefix' => 'admin'], function () {
          Route::post('/delete', [\App\Http\Controllers\admin\products\ProductsController::class,'destroy'])->name('admin.delete');
          Route::post('/getEditProductsData', [\App\Http\Controllers\admin\products\ProductsController::class,'edit'])->name('admin.getEditProductsData');
          Route::post('/productsUpdate', [\App\Http\Controllers\admin\products\ProductsController::class,'update'])->name('admin.productsUpdate');
+         Route::get('/product-export', [\App\Http\Controllers\admin\products\ProductsController::class,'excelExport'])->name('admin.productExport');
+
+         //Attribute Section
+         Route::get('/colors', [\App\Http\Controllers\admin\products\ColorController::class,'index'])->name('admin.colors');
 
 
 
@@ -120,19 +125,21 @@ Route::group(['prefix' => 'admin'], function () {
         Route::post('/google', [\App\Http\Controllers\admin\SocialController::class,'addGoogle'])->name('admin.google');
 
 
-        //admin panel Home Page Others management with social URL
-        Route::get('/others', [\App\Http\Controllers\admin\OthersSettingsController::class,'otherIndex'])->name('admin.others');
-        Route::post('/address', [\App\Http\Controllers\admin\OthersSettingsController::class,'addAddress'])->name('admin.address');
-        Route::post('/phone', [\App\Http\Controllers\admin\OthersSettingsController::class,'addPhone'])->name('admin.phone');
-        Route::post('/email', [\App\Http\Controllers\admin\OthersSettingsController::class,'addEmail'])->name('admin.email');
-        Route::post('/title', [\App\Http\Controllers\admin\OthersSettingsController::class,'addTitle'])->name('admin.title');
-        Route::post('/subTitle', [\App\Http\Controllers\admin\OthersSettingsController::class,'addsubTitle'])->name('admin.subTitle');
-        Route::post('/gmap', [\App\Http\Controllers\admin\OthersSettingsController::class,'addGmap'])->name('admin.gmap');
-        Route::post('/logo', [\App\Http\Controllers\admin\OthersSettingsController::class,'logoAdd'])->name('admin.logo');
-        Route::post('/Banner', [\App\Http\Controllers\admin\OthersSettingsController::class,'BannerAdd'])->name('admin.Banner');
-        Route::post('/promoImageOne', [\App\Http\Controllers\admin\OthersSettingsController::class,'promoImageOne'])->name('admin.promoImageOne');
-        Route::post('/promoImageTwo', [\App\Http\Controllers\admin\OthersSettingsController::class,'promoImageTwo'])->name('admin.promoImageTwo');
-        Route::post('/promoImageThree', [\App\Http\Controllers\admin\OthersSettingsController::class,'promoImageThree'])->name('admin.promoImageThree');
+        //admin panel  Setting management with social URL
+        Route::get('/setting', [\App\Http\Controllers\admin\SettingController::class,'otherIndex'])->name('admin.setting');
+        Route::post('/address', [\App\Http\Controllers\admin\SettingController::class,'addAddress'])->name('admin.address');
+        Route::post('/phone', [\App\Http\Controllers\admin\SettingController::class,'addPhone'])->name('admin.phone');
+        Route::post('/email', [\App\Http\Controllers\admin\SettingController::class,'addEmail'])->name('admin.email');
+        Route::post('/title', [\App\Http\Controllers\admin\SettingController::class,'addTitle'])->name('admin.title');
+        Route::post('/subTitle', [\App\Http\Controllers\admin\SettingController::class,'addsubTitle'])->name('admin.subTitle');
+        Route::post('/gmap', [\App\Http\Controllers\admin\SettingController::class,'addGmap'])->name('admin.gmap');
+        Route::post('/logo', [\App\Http\Controllers\admin\SettingController::class,'logoAdd'])->name('admin.logo');
+        Route::post('/Banner', [\App\Http\Controllers\admin\SettingController::class,'BannerAdd'])->name('admin.Banner');
+        Route::post('/promoImageOne', [\App\Http\Controllers\admin\SettingController::class,'promoImageOne'])->name('admin.promoImageOne');
+        Route::post('/promoImageTwo', [\App\Http\Controllers\admin\SettingController::class,'promoImageTwo'])->name('admin.promoImageTwo');
+        Route::post('/promoImageThree', [\App\Http\Controllers\admin\SettingController::class,'promoImageThree'])->name('admin.promoImageThree');
+        Route::post('/videoLink', [\App\Http\Controllers\admin\SettingController::class,'addVideoLink'])->name('admin.videoLink');
+        Route::post('/siteName', [\App\Http\Controllers\admin\SettingController::class,'addSiteName'])->name('admin.siteName');
 
 
         //admin panel order Settings
@@ -150,12 +157,13 @@ Route::group(['prefix' => 'admin'], function () {
 
 
 
-        //admin panel Orders
+        //admin panel Order
         Route::get('/ordeIndex', [App\Http\Controllers\admin\order\OrderController::class,'ordeIndex'])->name('admin.ordeIndex');
         Route::get('/getOrdersData', [App\Http\Controllers\admin\order\OrderController::class,'getOrdersData'])->name('admin.getOrdersData');
         Route::post('/ordersView', [App\Http\Controllers\admin\order\OrderController::class,'ordersView'])->name('admin.ordersView');
         Route::post('/ordersStatusUpdate', [App\Http\Controllers\admin\order\OrderController::class,'ordersStatusUpdate'])->name('admin.ordersStatusUpdate');
         Route::get('/ordersPrint/{id}', [App\Http\Controllers\admin\order\OrderController::class,'ordersPrint'])->name('admin.ordersPrint');
+        Route::post('/excelExport', [App\Http\Controllers\admin\order\OrderController::class,'excelExport'])->name('admin.excelExport');
 
 
         //admin panel Review
@@ -177,7 +185,7 @@ Route::group(['prefix' => 'admin'], function () {
          // About page
 
 
-         Route::get('/homePage', [App\Http\Controllers\admin\AboutPageController::class,'homeAboutIndex'])->name('admin.homePage');
+         Route::get('/about', [App\Http\Controllers\admin\AboutPageController::class,'homeAboutIndex'])->name('admin.homePage');
          Route::post('/addHAtitle', [App\Http\Controllers\admin\AboutPageController::class,'addTitle'])->name('admin.addHAtitle');
          Route::post('/addHADescription', [App\Http\Controllers\admin\AboutPageController::class,'addDescription'])->name('admin.addHADescription');
          Route::post('/addHAimage', [App\Http\Controllers\admin\AboutPageController::class,'imageAdd'])->name('admin.addHAimage');
@@ -203,10 +211,10 @@ Route::group(['prefix' => 'admin'], function () {
 
 
 
-         Route::get('/getTestimonialData', [App\Http\Controllers\admin\AboutPageController::class,'getHomeTestimonialData'])->name('admin.getTestimonialData');
+         Route::get('/getTestimonialData', [App\Http\Controllers\admin\AboutPageController::class,'getTestimonialData'])->name('admin.getTestimonialData');
          Route::post('/TestimonialAdd', [App\Http\Controllers\admin\AboutPageController::class,'TestimonialAdd'])->name('admin.TestimonialAdd');
-         Route::post('/TestimonialDelete', [App\Http\Controllers\admin\AboutPageController::class,'HomeTestimonialDelete'])->name('admin.TestimonialDelete');
-         Route::post('/getTestimonialEditData', [App\Http\Controllers\admin\AboutPageController::class,'HomeTestimonialEdit'])->name('admin.getTestimonialEditData');
+         Route::post('/TestimonialDelete', [App\Http\Controllers\admin\AboutPageController::class,'TestimonialDelete'])->name('admin.TestimonialDelete');
+         Route::post('/getTestimonialEditData', [App\Http\Controllers\admin\AboutPageController::class,'TestimonialEdit'])->name('admin.getTestimonialEditData');
          Route::post('/TestimonilaUpdate', [App\Http\Controllers\admin\AboutPageController::class,'TestimonilaUpdate'])->name('admin.TestimonilaUpdate');
 
 
@@ -217,6 +225,7 @@ Route::group(['prefix' => 'admin'], function () {
          Route::post('/blog-edit', [App\Http\Controllers\admin\BlogController::class, 'edit'])->name('admin.blog.edit');
          Route::post('/blog-update', [App\Http\Controllers\admin\BlogController::class, 'update'])->name('admin.blog.update');
          Route::post('/blog-delete', [App\Http\Controllers\admin\BlogController::class, 'delete'])->name('admin.blog.delete');
+         Route::post('/blog-create', [App\Http\Controllers\admin\BlogController::class, 'store'])->name('admin.blog.store');
 
     });
 
@@ -226,8 +235,8 @@ Route::group(['prefix' => 'admin'], function () {
 
 
 // For Admin And Vendor
-Route::get('/getBrandsData', [\App\Http\Controllers\admin\products\ProductBrandController::class,'getBrandData'])->name('admin.getBrandsData');
-Route::get('/getCategoriesData', [\App\Http\Controllers\admin\products\ProductCategoriesController::class,'getCategoriesData'])->name('admin.getCategoriesData');
+Route::get('/getBrandsData', [\App\Http\Controllers\admin\products\BrandController::class,'getBrandData'])->name('admin.getBrandsData');
+Route::get('/getCategoriesData', [\App\Http\Controllers\admin\products\CategoryController::class,'getCategoriesData'])->name('admin.getCategoriesData');
 // For Vendor
 
 Route::group(['prefix' => 'vendor'], function () {
@@ -267,7 +276,7 @@ Route::group(['prefix' => 'vendor'], function () {
 
 
 
-        //vendor panel Orders
+        //vendor panel Order
         Route::get('/ordeIndex', [App\Http\Controllers\vendor\order\OrderController::class,'ordeIndex'])->name('vendor.ordeIndex');
         Route::get('/getOrdersData', [App\Http\Controllers\vendor\order\OrderController::class,'getOrdersData'])->name('vendor.getOrdersData');
         Route::post('/ordersView', [App\Http\Controllers\vendor\order\OrderController::class,'ordersView'])->name('vendor.ordersView');
@@ -287,6 +296,9 @@ Route::get('/', [App\Http\Controllers\client\HomeController::class, 'index'])->n
 Route::post('/search', [App\Http\Controllers\client\HomeController::class, 'search'])->name('client.search');
 
 
+Route::get('/pages/{slug}', [App\Http\Controllers\client\PagesController::class, 'index'])->name('client.pages');
+
+
 Route::get('/product/{slug}', [App\Http\Controllers\client\ProductController::class, 'showProductDetails'])->name('client.showProductDetails');
 Route::get('/category/{slug}', [App\Http\Controllers\client\CategoryController::class, 'catagoryWiseProduct'])->name('client.category');
 
@@ -303,7 +315,7 @@ Route::get('/checkout', [App\Http\Controllers\client\CartController::class, 'che
 
 //shop page
 Route::get('/blog', [App\Http\Controllers\client\BlogController::class, 'index'])->name('client.blog');
-Route::post('/blog-create', [App\Http\Controllers\client\BlogController::class, 'store'])->name('client.blog.store');
+Route::get('/blog/{slug}', [App\Http\Controllers\client\BlogController::class, 'singleBlog'])->name('client.singleBlog');
 
 Route::get('/shop', [App\Http\Controllers\client\ShopController::class, 'shopIndex'])->name('client.shop');
 Route::post('/getsingleProductdata', [App\Http\Controllers\client\ShopController::class, 'getsingleProductdata'])->name('client.getsingleProductdata');
@@ -335,8 +347,10 @@ Route::post('/getproductreating', [\App\Http\Controllers\client\ReatingReviewCon
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/logout', [App\Http\Controllers\client\authController::class, 'logout'])->name('client.logout');
     Route::get('/profile', [App\Http\Controllers\client\authController::class, 'profile'])->name('client.profile');
+
     Route::get('/password-reset/{id}', [App\Http\Controllers\client\authController::class, 'passwordResetView'])->name('client.passwordReset');
     Route::post('/passwordUpdate/{id}', [App\Http\Controllers\client\authController::class, 'resetPassword'])->name('client.passwordUpdate');
+
     Route::get('/profileEdit/{id}', [App\Http\Controllers\client\authController::class, 'profileEdit'])->name('client.profileEdit');
     Route::post('/upadeteProfile/{id}', [App\Http\Controllers\client\authController::class, 'upadeteProfile'])->name('client.upadeteProfile');
     Route::post('/processOrder', [App\Http\Controllers\client\CartController::class, 'order'])->name('client.processOrder');
@@ -364,7 +378,7 @@ Route::group(['prefix' => '/auth'], function() {
 
 
 //Clear Cache facade value:
-Route::get('/optimize', function() {
+Route::get('/optimize:clear-anis3139', function() {
     $exitCode = Artisan::call('optimize:clear');
     return '<h1>optimize cleared</h1>';
 });
@@ -373,45 +387,50 @@ Route::get('/optimize', function() {
 
 
 //Clear View cache:
-Route::get('/view-clear', function() {
+Route::get('/view:clear-anis3139', function() {
     $exitCode = Artisan::call('view:clear');
     return '<h1>View cache cleared</h1>';
 });
 
 //Clear Config cache:
-Route::get('/config-cache', function() {
+Route::get('/config:cache-anis3139', function() {
     $exitCode = Artisan::call('config:cache');
-    return '<h1>Clear Config cleared</h1>';
+    return '<h1> Config Cache cleared</h1>';
 });
 
 //Clear Cache facade value:
-Route::get('/clear-cache', function() {
+Route::get('/cache:clear-anis3139', function() {
     $exitCode = Artisan::call('cache:clear');
-    return '<h1>Cache facade value cleared</h1>';
+    return '<h1>Cache cleared</h1>';
 });
 
 
 
 //Clear Route cache:
-Route::get('/route-clear', function() {
+Route::get('/route:clear-anis3139', function() {
     $exitCode = Artisan::call('route:clear');
     return '<h1>Route cache cleared</h1>';
 });
 
 //Clear Config cache:
-Route::get('/storage', function() {
+Route::get('/storage:link-anis3139', function() {
     $exitCode = Artisan::call('storage:link');
     return '<h1>Storage Link Created</h1>';
 });
 
 //Clear Config cache:
-Route::get('/seed-anis', function() {
+Route::get('/db:seed-anis3139', function() {
     $exitCode = Artisan::call('db:seed');
-    return '<h1>migrate  Created</h1>';
+    return '<h1>Seed  Created</h1>';
 });
 
 //Clear Config cache:
-Route::get('/migrate-anis', function() {
+Route::get('/migrate-anis3139', function() {
     $exitCode = Artisan::call('migrate');
     return '<h1>migrate  Created</h1>';
+});
+//Clear Log cache:
+Route::get('/log:clear-anis3139', function() {
+    $exitCode = Artisan::call('log:clear');
+    return '<h1>Log  Clear</h1>';
 });

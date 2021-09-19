@@ -4,15 +4,15 @@ namespace App\Http\Controllers\client;
 
 use App\Http\Controllers\Controller;
 use App\Models\Cupon;
-use App\Models\Orders;
-use App\Models\OrderProducts;
+use App\Models\Order;
+use App\Models\OrderProduct;
 use App\Models\Product;
 use App\Notifications\orderConfirmNotification;
 use Dotenv\Exception\ValidationException;
 use Illuminate\Contracts\Session\Session;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-
+use Illuminate\Support\Str;
 
 class CartController extends Controller
 {
@@ -60,7 +60,7 @@ class CartController extends Controller
             return redirect()->back();
         }
 
-        $product = Product::with('img', 'color')->findOrFail($request->input('product_id'));
+        $product = Product::with('img')->findOrFail($request->input('product_id'));
         $unit_price = ($product->product_selling_price !== null && $product->product_selling_price > 0) ? $product->product_selling_price : $product->product_price;
         $total_discount = $product->product_price - $unit_price;
         $main_price = $product->product_price;
@@ -87,8 +87,8 @@ class CartController extends Controller
         } else {
             $cart[$product->id] = [
 
-                'title' => $product->product_title,
-                'slug' => $product->product_slug,
+                'title' => $product->name,
+                'slug' => $product->slug,
                 'quantity' => $quantity,
                 'main_price' => $main_price,
                 'total_main_price' => $main_price,
@@ -174,7 +174,7 @@ class CartController extends Controller
     {
 
         session()->forget(['cart','total_cupon_discount']);
-       
+
 
         return redirect()->back()->with('success', 'Your Cart is Clear');
     }
@@ -216,14 +216,14 @@ class CartController extends Controller
                     $total = array_sum(array_column($cart, 'total_price'));
                     $total_cupon_discount =($total * $cuponDetails->discount) / 100;
                     session(['total_cupon_discount' => $total_cupon_discount]);
-                  
+
 
                     return redirect()->back()->with('success', 'Copon Code Applied Successfully');
                 } else {
 
-                   
+
                     session(['total_cupon_discount' => $cuponDetails->discount]);
-                  
+
 
                     return redirect()->back()->with('success', 'Copon Code Applied Successfully');
                 }
@@ -243,15 +243,15 @@ class CartController extends Controller
         $data['total_discount'] = array_sum(array_column($data['cart'], 'total_discount'));
         $data['total_main_price'] = array_sum(array_column($data['cart'], 'total_main_price'));
         $data['total_cupon_discount'] = session()->has('total_cupon_discount') ? session()->get('total_cupon_discount') : [];
-        
+
         return view('client.pages.Checkout', $data);
     }
     public function order(Request $request)
     {
 
-           
+
         $cart = session()->has('cart') ? session()->get('cart') : [];
-    
+
         $total_cupon_discount=session()->has('total_cupon_discount') ? session()->get('total_cupon_discount') : 0;
         $total = array_sum(array_column($cart, 'total_price'));
 
@@ -259,7 +259,7 @@ class CartController extends Controller
 
         $total_discount = array_sum(array_column($cart, 'total_discount'));
         $total_main_price = array_sum(array_column($cart, 'total_main_price'));
-        
+
 
         $customer_name = $request->Input('customer_name');
         $customer_phone_number = $request->Input('customer_phone_number');
@@ -270,12 +270,13 @@ class CartController extends Controller
         $postal_code = $request->Input('postal_code');
         $payment_details = $request->Input('payment_details');
         $t_id = $request->Input('transection_id');
-        if ($t_id[2] != null) {
-            $transection_id = $t_id[2];
-        } else if ($t_id[1] != null) {
-            $transection_id = $t_id[1];
-        } else {
-            $transection_id = $t_id[0];
+
+
+
+        if ($t_id != null) {
+            $transection_id = $t_id;
+        }else {
+            $transection_id = "Transection ID Is Empty";
         }
 
         $shipping_customer_name = $request->Input('shipping_customer_name');
@@ -294,7 +295,6 @@ class CartController extends Controller
                 'shipping_customer_phone_number' => 'required |min:8| max:16|',
                 'shipping_address' => 'required',
                 'shipping_country' => 'required',
-                'shipping_city' => 'required',
                 'shipping_district' => 'required',
                 'shipping_postal_code' => 'required',
 
@@ -303,7 +303,7 @@ class CartController extends Controller
             if ($validator->fails()) {
                 return redirect()->back()->withErrors($validator);
             }
-            $order = new Orders();
+            $order = new Order();
             $order->user_id = auth()->user()->id;
             $order->customer_name = $shipping_customer_name;
             $order->customer_phone_number = $shipping_customer_phone_number;
@@ -328,7 +328,6 @@ class CartController extends Controller
                 'customer_phone_number' => 'required |min:8| max:16|',
                 'address' => 'required',
                 'country' => 'required',
-                'city' => 'required',
                 'district' => 'required',
                 'postal_code' => 'required',
 
@@ -338,7 +337,7 @@ class CartController extends Controller
                 return redirect()->back()->withErrors($validator);
             }
 
-            $order = new Orders();
+            $order = new Order();
             $order->user_id = auth()->user()->id;
             $order->customer_name = $customer_name;
             $order->customer_phone_number = $customer_phone_number;
@@ -360,7 +359,7 @@ class CartController extends Controller
         }
 
         foreach ($cart as $product_id => $product) {
-            $order_product = new OrderProducts();
+            $order_product = new OrderProduct();
             $order_product->product_id = $product_id;
             $order_product->quantity = $product['quantity'];
             $order_product->price = $product['total_price'];
@@ -372,17 +371,26 @@ class CartController extends Controller
             $order_product->save();
         }
 
-        // auth()->user()->notify(new orderConfirmNotification($order));
+        $collectName=substr($district, 0,3) ?? Str::random(3);
+        $orderId= "#".strtolower($collectName)."00".$order->id;
+
+        $order =Order::findOrFail($order->id);
+        $order->order_id = $orderId;
+        $order->save();
+
+        auth()->user()->notify(new orderConfirmNotification($order));
 
         session()->forget(['cart', 'price', 'total_cupon_discount']);
-  
+
         return redirect()->route('client.orderDetails', $order->id)->with('success', 'Order send successfully');
     }
 
     public function orderDetails($id)
     {
         $data = [];
-        $data['orders'] = Orders::with('product')->findOrFail($id);
+        $data['orders'] = Order::with(['product'=> function ($query) {
+            $query->withTrashed();
+        }])->findOrFail($id);
         return view('client.pages.OrderDetails', $data);
     }
 }

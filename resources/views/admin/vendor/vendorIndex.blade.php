@@ -1,5 +1,8 @@
 @extends('admin.Layouts.app')
 @section('title','Vendor')
+@php
+$usr = Auth::guard('admin')->user();
+@endphp
 @section('content')
 
 <div id="mainDivVendor" class="container-fluid d-none">
@@ -14,8 +17,8 @@
                         <th class="th-sm">Eamil</th>
                         <th class="th-sm">Mobile</th>
                         <th class="th-sm">Status</th>
-                        <th class="th-sm">Edit</th>
-                        <th class="th-sm">Delete</th>
+                        <th class="th-sm EditIcon">Edit</th>
+                        <th class="th-sm DeleteIcon">Delete</th>
                     </tr>
                 </thead>
                 <tbody id="Vendor_table">
@@ -48,6 +51,8 @@
 <!--  Vendor add -->
 <div class="modal fade" id="addVendorModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
+        <form action="{{route('admin.vendorAdd')}}" method="post" id="vendorAddForm">
+            @csrf
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title ml-5">Add New Vendor</h5>
@@ -63,7 +68,7 @@
                         <input id="VendorEmail" type="text" id="" class="form-control mb-3" placeholder="Vendor Eamil">
                         <input id="phone_number" type="text" id="" class="form-control mb-3" placeholder="Vendor Mobile">
                         <select name="status" id="status"  class="browser-default custom-select form-control mb-3">
-                            <option selected disabled>Select Status</option>
+                            <option selected value="0">Select Status</option>
                             <option value="1">Active</option>
                             <option value="0">Inactive</option>
                         </select>
@@ -73,10 +78,11 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-sm btn-primary" data-dismiss="modal">Cancel</button>
-                <button id="VendorAddConfirmBtn" type="button" class="btn  btn-sm  btn-danger">Save</button>
+                <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">Cancel</button>
+                <button id="VendorAddConfirmBtn" type="submit" class="btn  btn-sm  btn-primary">Save</button>
             </div>
         </div>
+        </form>
     </div>
 </div>
 
@@ -107,7 +113,9 @@
 <!--  Vendor update -->
 <div class="modal fade" id="updateVendorModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
+        <form action="{{route('admin.vendorDataUpdate')}}" method="post" id="vendorUpdateForm">
+        @csrf
+            <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">Update Course</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -123,7 +131,7 @@
                             <input id="VendorEmailIdUpdate" type="text" id="" class="form-control mb-3" placeholder="Vendor Email">
                             <input id="phone_number_edit" type="text" id="" class="form-control mb-3" placeholder="Vendor Mobile">
                             <select name="status_edit" id="status_edit"  class="browser-default custom-select form-control mb-3">
-                                <option selected disabled>Select Status</option>
+
                                 <option value="1">Active</option>
                                 <option value="0">Inactive</option>
                             </select>
@@ -136,10 +144,11 @@
                 <h3 id="VendorwrongLoader" class="d-none">Something Went Wrong!</h3>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-sm btn-primary" data-dismiss="modal">Cancel</button>
-                <button id="VendorupdateConfirmBtn" type="button" class="btn  btn-sm  btn-danger">Update</button>
+                <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">Cancel</button>
+                <button id="VendorupdateConfirmBtn" type="submit" class="btn  btn-sm  btn-primary">Update</button>
             </div>
         </div>
+        </form>
     </div>
 </div>
 
@@ -196,6 +205,17 @@
                         ).appendTo('#Vendor_table');
                     });
 
+                    @if (!$usr->can('vendor.delete') )
+                    $('.DeleteIcon').empty();
+                    $('.VendorDeleteIcon').hide();
+                    @endif
+                    @if (!$usr->can('vendor.edit'))
+                        $('.EditIcon').empty();
+                        $('.VendorEditIcon').empty();
+                    @endif
+                    @if (!$usr->can('vendor.create'))
+                        $('#addbtnVendor').empty();
+                    @endif
 
                     //Vendor click on delete icon
 
@@ -256,17 +276,14 @@
 
     //Vendor Add modal save button
 
-    $('#VendorAddConfirmBtn').click(function() {
-
+    $('#vendorAddForm').submit(function(e) {
+            e.preventDefault();
 
         var name = $('#VendorName').val();
         var email = $('#VendorEmail').val();
         var phone_number = $('#phone_number').val();
         var status = $('#status').val();
         var password = $('#VendorPassword').val();
-
-
-
 
         vendorAdd(name, email, password,phone_number,status);
 
@@ -288,10 +305,9 @@
             toastr.error('Vendor Email is empty!');
         } else if (phone_number.length == 0) {
             toastr.error('Mobile is empty!');
-        } else if (status.length == 0) {
+        } else if (status == 0) {
             toastr.error('Status is empty!');
-        } else if (password == 0) {
-
+        }  else if (password == 0) {
             toastr.error('Vendor Password is empty!');
         } else {
 
@@ -359,7 +375,7 @@
 
     //  Vendor delete modal yes button
 
-    $('#confirmDeleteVendor').click(function() {
+    $('#confirmDeleteVendor').submit(function() {
         var id = $('#VendorDeleteId').html();
         // var id = $(this).data('id');
         DeleteDataVendor(id);
@@ -461,9 +477,9 @@
 
     // vendor update modal save button
 
-    $('#VendorupdateConfirmBtn').click(function() {
+    $('#vendorUpdateForm').submit(function(event) {
 
-
+        event.preventDefault();
         var idUpdate = $('#VendorEditId').html();
         var nameUpdate = $('#VendorNameIdUpdate').val();
         var emailUpdate = $('#VendorEmailIdUpdate').val();
@@ -494,8 +510,6 @@
                  toastr.error('Vendor name is empty!');
         }else if (phone_number_edit.length == 0) {
                  toastr.error('Vendor Mobile Number is empty!');
-        }else if (status_edit.length == 0) {
-                 toastr.error('Status is empty!');
         }else {
             $('#VendorupdateConfirmBtn').html(
                 "<div class='spinner-border spinner-border-sm text-primary' role='status'></div>"); //animation
@@ -508,7 +522,6 @@
                 phone_number_edit: phone_number_edit,
                 status_edit: status_edit
             }).then(function(response) {
-                    console.log(response.data);
                 $('#VendorupdateConfirmBtn').html("Update");
 
                 if (response.status = 200) {

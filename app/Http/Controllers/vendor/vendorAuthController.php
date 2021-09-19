@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\vendor;
 
 use App\Http\Controllers\Controller;
-use App\Models\Orders;
+use App\Models\Order;
 use App\Models\Vendor;
 use App\Notifications\VendorPasswordRecoverNotification;
 use Illuminate\Http\Request;

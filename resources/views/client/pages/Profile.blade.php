@@ -56,19 +56,31 @@
                             <th class="cart-product-remove">Order ID</th>
                             <th class="cart-product-thumbnail">Customer name</th>
                             <th class="cart-product-name">Phone Number</th>
-                            <th class="cart-product-price">Total Amount</th>
                             <th class="cart-product-quantity">Paid Amount</th>
+                            <th class="cart-product-quantity">Date</th>
+                            <th class="cart-product-quantity">Status</th>
                             <th class="cart-product-subtotal">Action</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($orders as $order)
                             <tr class="cart_item">
-                                <td class="cart-product-name">{{ $order->id }}</td>
+                                <td class="cart-product-name">{{ $order->order_id }}</td>
                                 <td class="cart-product-name">{{ $order->customer_name }}</td>
                                 <td class="cart-product-name">{{ $order->customer_phone_number }}</td>
-                                <td class="cart-product-name">&#2547; {{ number_format($order->total_amount, 2) }}</td>
                                 <td class="cart-product-name">&#2547; {{ number_format($order->paid_amount, 2) }}</td>
+                                <td class="cart-product-name"> {{ date('j F, Y', strtotime($order->created_at)) }}</td>
+                                @if ($order->delivery_status==="Cancelled")
+                                <td class="cart-product-name"><span class=" btn btn-large btn-danger">{{ $order->delivery_status }}</span></td>
+                                @elseif ($order->delivery_status==="Delivered")
+                                <td class="cart-product-name"><span class=" btn btn-large btn-primary">{{ $order->delivery_status }}</span></td>
+                                @elseif ($order->delivery_status==="Processing")
+                                <td class="cart-product-name"><span class=" btn btn-large btn-success">{{ $order->delivery_status }}</span></td>
+                                @elseif ($order->delivery_status==="On Shipping")
+                                <td class="cart-product-name"><span class=" btn btn-large btn-info">{{ $order->delivery_status }}</span></td>
+                                @else
+                                <td class="cart-product-name">{{ $order->delivery_status }}</td>
+                                @endif
                                 <td class="cart-product-name"><a class="text-primary"
                                         href="{{ route('client.orderDetails', $order->id) }}">View
                                         Details</a></td>
@@ -88,124 +100,5 @@
 
 @section('script')
 
-    <script>
-        getcartData()
-
-        function getcartData() {
-
-            axios.get("{{ route('client.cartData') }}")
-                .then(function(response) {
-
-                    if (response.status = 200) {
-                        var dataJSON = response.data;
-                        var cartData = dataJSON.cart;
-
-                        var a = Object.keys(cartData).length;
-
-
-                        $("#cart_quantity").html(a);
-                        var tp = parseFloat(dataJSON.total).toFixed(2);
-                        $("#total_cart_price").html(' &#2547; ' + tp);
-
-                        var imageViewHtml = "";
-                        $.each(cartData, function(i, item) {
-                            imageViewHtml += `<div class="top-cart-item">
-                                                                             <div class="top-cart-item-image">
-                                                                                 <a href="#"><img src="${cartData[i].image}"
-                                                                                         alt="Blue Round-Neck Tshirt" /></a>
-                                                                             </div>
-                                                                             <div class="top-cart-item-desc">
-                                                                                 <div class="top-cart-item-desc-title">
-                                                                                     <a href="#">${cartData[i].title}</a>
-                                                                                     <span class="top-cart-item-price d-block"> ${cartData[i].quantity} x &#2547; ${cartData[i].unit_price}</span>
-                                                                                 </div>
-                                                                                 <div class="top-cart-item-quantity"><button class="cartDeleteIcon" data-id="${i}" type="submit"><i class="icon-remove"> </i></button></div>
-                                                                             </div>
-                                                                    </div>`
-                        });
-
-
-                        $('.top-cart-items').html(imageViewHtml);
-
-                        console.log(a);
-
-                        if (a == 0) {
-                            $("#HeaderPreview").css("display", "none");
-                        } else {
-                            $("#HeaderPreview").css("display", "block");
-                        }
-
-
-                        //Carts click on delete icon
-                        $(".cartDeleteIcon").click(function() {
-                            var id = $(this).data('id');
-                            $('#CartsDeleteId').html(id);
-                            DeleteDataCart(id);
-                        })
-                    } else {
-                        toastr.error('Something Went Wrong', 'Error', {
-                            closeButton: true,
-                            progressBar: true,
-                        });
-                    }
-                }).catch(function(error) {
-
-                    toastr.error('Something Went Wrong...', 'Error', {
-                        closeButton: true,
-                        progressBar: true,
-                    });
-                });
-        }
-
-
-
-
-
-
-
-
-
-
-
-
-        $('#confirmDeleteCart').click(function() {
-
-
-            alert("hello")
-            var id = $(this).data('id');
-            DeleteDataCart(id);
-        })
-
-
-        //delete Cart function
-        function DeleteDataCart(id) {
-
-            axios.post("{{ route('client.cartRemove') }}", {
-                    product_id: id
-                })
-                .then(function(response) {
-
-                    if (response.status == 200) {
-                        toastr.success('Cart Removed Success.', 'Success', {
-                            closeButton: true,
-                            progressBar: true,
-                        });
-                        getcartData();
-                    } else {
-                        toastr.error('Something Went Wrong', 'Error', {
-                            closeButton: true,
-                            progressBar: true,
-                        });
-                    }
-                }).catch(function(error) {
-
-                    toastr.error('Something Went Wrong......', 'Error', {
-                        closeButton: true,
-                        progressBar: true,
-                    });
-                });
-        }
-
-    </script>
-
+@include('client.component.Scripts')
 @endsection

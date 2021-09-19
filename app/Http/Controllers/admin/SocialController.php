@@ -3,14 +3,28 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\SocialModel;
+use App\Models\Social;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class SocialController extends Controller
 {
-    public function SocialIndex(){
 
-        $results = json_decode(SocialModel::orderBy('id', 'desc')->get()->first());
+
+    public $user;
+
+    public function __construct()
+    {
+        $this->middleware(function ($request, $next) {
+            $this->user = Auth::guard('admin')->user();
+            return $next($request);
+        });
+    }
+    public function SocialIndex(){
+        if (is_null($this->user) || !$this->user->can('social.view')) {
+            abort(403, 'Sorry !! You are Unauthorized to view any social Link !');
+        }
+        $results = json_decode(Social::orderBy('id', 'desc')->get()->first());
 
 
         return view('admin.components.SocialLink', [
@@ -21,17 +35,23 @@ class SocialController extends Controller
 
     public function addFacebook(Request $request)
     {
+        if (is_null($this->user) || !$this->user->can('social.create')) {
+            abort(403, 'Sorry !! You are Unauthorized to create any social Link !');
+        }
+        if (is_null($this->user) || !$this->user->can('rating.view')) {
+            abort(403, 'Sorry !! You are Unauthorized to view any rating !');
+        }
         $facebook = $request->input("facebook");
 
-        $valuecheck = (SocialModel::orderBy('id', 'desc')->get());
+        $valuecheck = (Social::orderBy('id', 'desc')->get());
 
 
 
         if( count($valuecheck)>0){
-            $result = SocialModel::where('id', '=',  $valuecheck['0']->id)->update(['facebook' => $facebook]);
+            $result = Social::where('id', '=',  $valuecheck['0']->id)->update(['facebook' => $facebook]);
         }
         else{
-            $result = SocialModel::insert(['facebook' => $facebook]);
+            $result = Social::insert(['facebook' => $facebook]);
         }
         if ($result == true) {
             return 1;
@@ -42,17 +62,20 @@ class SocialController extends Controller
 
     public function addTwitter(Request $request)
     {
+        if (is_null($this->user) || !$this->user->can('social.create')) {
+            abort(403, 'Sorry !! You are Unauthorized to create any social Link !');
+        }
         $twitter = $request->input("twitter");
 
-        $valuecheck = (SocialModel::orderBy('id', 'desc')->get());
+        $valuecheck = (Social::orderBy('id', 'desc')->get());
 
 
 
         if( count($valuecheck)>0){
-            $result = SocialModel::where('id', '=',  $valuecheck['0']->id)->update(['twitter' => $twitter]);
+            $result = Social::where('id', '=',  $valuecheck['0']->id)->update(['twitter' => $twitter]);
         }
         else{
-            $result = SocialModel::insert(['twitter' => $twitter]);
+            $result = Social::insert(['twitter' => $twitter]);
         }
         if ($result == true) {
             return 1;
@@ -63,17 +86,20 @@ class SocialController extends Controller
 
     public function addYoutube(Request $request)
     {
+        if (is_null($this->user) || !$this->user->can('social.create')) {
+            abort(403, 'Sorry !! You are Unauthorized to create any social Link !');
+        }
         $youtube = $request->input("youtube");
 
-        $valuecheck = (SocialModel::orderBy('id', 'desc')->get());
+        $valuecheck = (Social::orderBy('id', 'desc')->get());
 
 
 
         if( count($valuecheck)>0){
-            $result = SocialModel::where('id', '=',  $valuecheck['0']->id)->update(['youtube' => $youtube]);
+            $result = Social::where('id', '=',  $valuecheck['0']->id)->update(['youtube' => $youtube]);
         }
         else{
-            $result = SocialModel::insert(['youtube' => $youtube]);
+            $result = Social::insert(['youtube' => $youtube]);
         }
         if ($result == true) {
             return 1;
@@ -86,17 +112,20 @@ class SocialController extends Controller
 
     public function addInstragram(Request $request)
     {
+        if (is_null($this->user) || !$this->user->can('social.create')) {
+            abort(403, 'Sorry !! You are Unauthorized to create any social Link !');
+        }
         $instragram = $request->input("instragram");
 
-        $valuecheck = (SocialModel::orderBy('id', 'desc')->get());
+        $valuecheck = (Social::orderBy('id', 'desc')->get());
 
 
 
         if( count($valuecheck)>0){
-            $result = SocialModel::where('id', '=',  $valuecheck['0']->id)->update(['instragram' => $instragram]);
+            $result = Social::where('id', '=',  $valuecheck['0']->id)->update(['instragram' => $instragram]);
         }
         else{
-            $result = SocialModel::insert(['instragram' => $instragram]);
+            $result = Social::insert(['instragram' => $instragram]);
         }
         if ($result == true) {
             return 1;
@@ -107,17 +136,20 @@ class SocialController extends Controller
 
     public function addGoogle(Request $request)
     {
+        if (is_null($this->user) || !$this->user->can('social.create')) {
+            abort(403, 'Sorry !! You are Unauthorized to create any social Link !');
+        }
         $google = $request->input("google");
 
-        $valuecheck = (SocialModel::orderBy('id', 'desc')->get());
+        $valuecheck = (Social::orderBy('id', 'desc')->get());
 
 
 
         if( count($valuecheck)>0){
-            $result = SocialModel::where('id', '=',  $valuecheck['0']->id)->update(['google' => $google]);
+            $result = Social::where('id', '=',  $valuecheck['0']->id)->update(['google' => $google]);
         }
         else{
-            $result = SocialModel::insert(['google' => $google]);
+            $result = Social::insert(['google' => $google]);
         }
         if ($result == true) {
             return 1;
@@ -129,17 +161,20 @@ class SocialController extends Controller
 
     public function addLinkin(Request $request)
     {
+        if (is_null($this->user) || !$this->user->can('social.create')) {
+            abort(403, 'Sorry !! You are Unauthorized to create any social Link !');
+        }
         $linkin = $request->input("linkin");
 
-        $valuecheck = (SocialModel::orderBy('id', 'desc')->get());
+        $valuecheck = (Social::orderBy('id', 'desc')->get());
 
 
 
         if( count($valuecheck)>0){
-            $result = SocialModel::where('id', '=',  $valuecheck['0']->id)->update(['linkin' => $linkin]);
+            $result = Social::where('id', '=',  $valuecheck['0']->id)->update(['linkin' => $linkin]);
         }
         else{
-            $result = SocialModel::insert(['linkin' => $linkin]);
+            $result = Social::insert(['linkin' => $linkin]);
         }
         if ($result == true) {
             return 1;

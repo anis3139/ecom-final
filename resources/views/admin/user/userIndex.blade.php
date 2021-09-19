@@ -1,5 +1,8 @@
 @extends('admin.Layouts.app')
 @section('title','User')
+@php
+$usr = Auth::guard('admin')->user();
+@endphp
 @section('content')
 
 <div id="mainDivUser" class="container-fluid d-none">
@@ -13,8 +16,8 @@
                         <th class="th-sm">Name</th>
                         <th class="th-sm">Eamil</th>
                         <th class="th-sm">Mobile</th>
-                        <th class="th-sm">Edit</th>
-                        <th class="th-sm">Delete</th>
+                        <th class="th-sm EditIcon">Edit</th>
+                        <th class="th-sm DeleteIcon" >Delete</th>
                     </tr>
                 </thead>
                 <tbody id="User_table">
@@ -68,8 +71,8 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-sm btn-primary" data-dismiss="modal">Cancel</button>
-                <button id="UserAddConfirmBtn" type="button" class="btn  btn-sm  btn-danger">Save</button>
+                <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">Cancel</button>
+                <button id="UserAddConfirmBtn" type="button" class="btn  btn-sm  btn-primary">Save</button>
             </div>
         </div>
     </div>
@@ -127,8 +130,8 @@
                 <h3 id="UserwrongLoader" class="d-none">Something Went Wrong!</h3>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-sm btn-primary" data-dismiss="modal">Cancel</button>
-                <button id="UserupdateConfirmBtn" type="button" class="btn  btn-sm  btn-danger">Update</button>
+                <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">Cancel</button>
+                <button id="UserupdateConfirmBtn" type="button" class="btn  btn-sm  btn-primary">Update</button>
             </div>
         </div>
     </div>
@@ -182,6 +185,17 @@
                         ).appendTo('#User_table');
                     });
 
+                    @if (!$usr->can('user.delete') )
+                    $('.DeleteIcon').empty();
+                    $('.UserDeleteIcon').hide();
+                    @endif
+                    @if (!$usr->can('user.edit'))
+                        $('.EditIcon').empty();
+                        $('.UserEditIcon').empty();
+                    @endif
+                    @if (!$usr->can('user.create'))
+                        $('#addbtnUser').empty();
+                    @endif
 
                     //User click on delete icon
 
@@ -487,7 +501,6 @@
                 phone_number_edit: phone_number_edit
 
             }).then(function(response) {
-                    console.log(response.data);
                 $('#UserupdateConfirmBtn').html("Update");
 
                 if (response.status = 200) {

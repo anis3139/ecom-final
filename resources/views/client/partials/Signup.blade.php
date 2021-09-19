@@ -4,7 +4,7 @@
                             <div class="col-md-12">
                                 <div class="row align-items-stretch align-items-center">
                                     <div class="col-md-7 min-vh-50"
-                                        style="background: url('@if($others){{ $others->hero_banner }} @endif') center center no-repeat; background-size: cover;">
+                                        style="background: url('@if($setting){{ $setting->hero_banner }} @endif') center center no-repeat; background-size: cover;">
 
                                     </div>
                                     <div class="col-md-5 bg-white">

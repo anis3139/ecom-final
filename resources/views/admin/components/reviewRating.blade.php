@@ -52,8 +52,8 @@
                 <h5 id="ReviewDeleteId" class="mt-4 d-none "></h5>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-sm btn-primary" data-dismiss="modal">No</button>
-                <button data-id="" id="confirmDeleteReview" type="button" class="btn btn-sm btn-danger">Yes</button>
+                <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">No</button>
+                <button data-id="" id="confirmDeleteReview" type="button" class="btn btn-sm btn-primary">Yes</button>
             </div>
         </div>
     </div>
@@ -72,7 +72,7 @@
 
         axios.get("{{route('admin.getReviewdata')}}")
             .then(function(response) {
-                console.log(response.data);
+              
                 if (response.status = 200) {
 
                     $('#mainDivReview').removeClass('d-none');
@@ -87,7 +87,7 @@
                         var seller= dataJSON[i].vendor == null ? "admin" :dataJSON[i].vendor.name;
                         $('<tr>').html(
                             "<td>" + count++ + " </td>" +
-                            "<td>" + dataJSON[i].product.product_title + " </td>" +
+                            "<td>" + dataJSON[i].product.name + " </td>" +
                             "<td>" + dataJSON[i].user.name + " </td>" +
                             "<td>" + seller + " </td>" +
                             "<td>" + dataJSON[i].star_reating + " </td>" +

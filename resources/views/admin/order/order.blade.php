@@ -27,12 +27,24 @@
             border-top: 1px solid #9ea2a2 !important;
         }
 
+
+
     </style>
+
 @endsection
 @section('content')
 
     <div class="row mt-5 px-5">
+        <div class="col-md-12 py-3">
+            <form class="float-right" action="{{ route('admin.excelExport') }}" method="post">
+                @csrf
+                <input required type="date" value="{{date('Y-m-d')}}" name="time" id="time">
+                <button type="submit" class="btn btn-learge btn-primary"><i class="fas fa-file-excel"></i> Excel
+                    Export</button>
+            </form>
+        </div>
         <div class="col-md-12 border border-dark">
+
             <div id="mainDivOrders" class="container-fluid">
                 <div class="row">
                     <div class="col-md-12 px-2 ">
@@ -40,15 +52,15 @@
                         <table id="OrdersDataTable" class="table table-striped table-bordered" width="100%">
                             <thead class="text-center">
                                 <tr>
-                                    <th class="th-xs">Sl.</th>
+                                    <th class="th-xs">Order No.</th>
                                     <th class="th-xs">Customer Name</th>
                                     <th class="th-xs">Customer Phone</th>
                                     <th class="th-xs">Address</th>
                                     <th class="th-xs">City</th>
                                     <th class="th-xs">District</th>
-                                    <th class="th-xs">Country</th>
-                                    <th class="th-xs">Payment Status</th>
+                                    <th class="th-xs">Delivery Status</th>
                                     <th class="th-xs">paid Amount</th>
+                                    <th class="th-xs">Issued Time</th>
                                     <th class="th-xs">View</th>
                                     <th class="th-xs">Print</th>
                                 </tr>
@@ -225,16 +237,20 @@
                                         <form action="{{ route('admin.ordersStatusUpdate') }}" method="post"
                                             id="product_status_form">
                                             @csrf
+                                            <div class="form-group" id="shipping">
+                                                <input type="text" id="shippingID" name="shippingID" class="form-control" placeholder="Shipping ID">
+                                            </div>
                                             <div class="form-group">
-                                                <select id="payment_status" style="margin-bottom: 10px;"
+                                                <select id="delivery_status"
                                                     class="browser-default custom-select">
                                                     <option value="Pending">Pending</option>
-                                                    <option value="Prograccing">Prograccing</option>
-                                                    <option value="Complete">Complete</option>
-                                                    <option value="Cancel">Cancel</option>
+                                                    <option value="Processing">Processing</option>
+                                                    <option value="On Shipping">On Shipping</option>
+                                                    <option value="Cancelled">Cancelled</option>
+                                                    <option value="Delivered">Delivered</option>
                                                 </select>
                                             </div>
-                                            <input type="hidden" id="payment_status_id">
+                                            <input type="hidden" id="delivery_status_id">
                                             <input type="submit" value="Update" class="btn btn-success btn-block">
                                         </form>
                                     </div>
@@ -253,8 +269,15 @@
 @endsection
 @section('script')
 
+    <script type="text/javascript" src="{{ asset('admin/js/yearpicker.js') }}"></script>
     <script>
         $('#OrdersDataTable').DataTable()
+
+
+
+
+
+
 
 
         getOrdersdata();
@@ -272,28 +295,40 @@
 
 
 
-                        var table="";
+                        var table = "";
                         for (let trableData = 0; trableData < dataJSON.length; trableData++) {
                             const element = dataJSON[trableData];
-                            table+='<tr>';
-                            table+='<td style="max-width:100px; overflow-wrap: break-word;">'+(trableData+1)+'</td>';
-                            table+='<td style="max-width:100px; overflow-wrap: break-word;">'+element.customer_name+'</td>';
-                            table+='<td style="max-width:100px; overflow-wrap: break-word;">'+element.customer_phone_number+'</td>';
-                            table+='<td style="max-width:100px; overflow-wrap: break-word;">'+element.address+'</td>';
-                            table+='<td style="max-width:100px; overflow-wrap: break-word;">'+element.city+'</td>';
-                            table+='<td style="max-width:100px; overflow-wrap: break-word;">'+element.district+'</td>';
-                            table+='<td style="max-width:100px; overflow-wrap: break-word;">'+element.country+'</td>';
-                            table+='<td style="max-width:100px; overflow-wrap: break-word;">'+element.payment_status+'</td>';
-                            table+='<td style="max-width:100px; overflow-wrap: break-word;">'+element.paid_amount+'</td>';
-                            table+='<td><a class="OrdersView" data-id=' + element.id +'><i class="fas fa-eye"></i></a></td>';
-                            table+='<td><a href="ordersPrint/'+ element.id +'"><i class="fas fa-print"></i></a></td>';
-                            table+='</tr>'
+                            let issuedTime = moment(element.created_at).format('DD-MMM-YYYY hh:mm A')
+                            table += '<tr>';
+                            table += '<td style="max-width:100px; overflow-wrap: break-word;">' + (element
+                                .order_id) +
+                                '</td>';
+                            table += '<td style="max-width:100px; overflow-wrap: break-word;">' + element
+                                .customer_name + '</td>';
+                            table += '<td style="max-width:100px; overflow-wrap: break-word;">' + element
+                                .customer_phone_number + '</td>';
+                            table += '<td style="max-width:100px; overflow-wrap: break-word;">' + element.address +
+                                '</td>';
+                            table += '<td style="max-width:100px; overflow-wrap: break-word;">' + element.city +
+                                '</td>';
+                            table += '<td style="max-width:100px; overflow-wrap: break-word;">' + element.district +
+                                '</td>';
+                            table += '<td style="max-width:100px; overflow-wrap: break-word;">' + element
+                                .delivery_status + '</td>';
+                            table += '<td style="max-width:100px; overflow-wrap: break-word;">' + element.paid_amount +
+                                '</td>';
+                            table += '<td style="max-width:100px; overflow-wrap: break-word;">' + issuedTime + '</td>';
+                            table += '<td><a class="OrdersView" data-id=' + element.id +
+                                '><i class="fas fa-eye"></i></a></td>';
+                            table += '<td><a href="ordersPrint/' + element.id +
+                                '"><i class="fas fa-print"></i></a></td>';
+                            table += '</tr>'
                         }
                         $('#Orders_Table').html(table);
 
 
 
-                        //Orders View icon click
+                        //Order View icon click
 
                         $(".OrdersView").click(function() {
                             var id = $(this).data('id');
@@ -331,14 +366,14 @@
                     id: id
                 })
                 .then(function(response) {
-                    console.log(response.data);
+                  
                     if (response.status == 200) {
-
+                          
                         $('#loadDivOrders').addClass('d-none');
                         $('#OrdersEditForm').removeClass('d-none');
 
                         var dataJSON = response.data;
-                        $('#id').html(dataJSON[0].id)
+                        $('#id').html(dataJSON[0].order_id)
                         $('#customer_name').html(dataJSON[0].customer_name)
                         $('#customer_phone_number').html(dataJSON[0].customer_phone_number)
                         $('#address').html(dataJSON[0].address)
@@ -357,41 +392,56 @@
                         $('#tax').html(dataJSON[0].total_tax);
                         $('#delivary_charge').html(dataJSON[0].total_delivery_charge);
                         $('#transection_id').html(dataJSON[0].transection_id);
-                        $('#order_issued').html(dataJSON[0].created_at);
+                        $('#order_issued').html(moment(dataJSON[0].created_at).format('DD-MMM-YYYY hh:mm A'));
                         $('#total_cupon_discount').html(dataJSON[0].total_cupon_discount);
+                        $('#shippingID').val(dataJSON[0].shipping_id);
 
 
-                        $('#payment_status_id').val(dataJSON[0].id);
+                        $('#delivery_status_id').val(dataJSON[0].id);
 
-                        $('#payment_status option[value=' + dataJSON[0].payment_status + ']').attr('selected', 'selected');
+                        $('#delivery_status option[value=' + dataJSON[0].delivery_status + ']').attr('selected',
+                            'selected');
 
 
 
 
-                        var imageViewHtml = "";
-                        for (let index = 0; index < dataJSON[0].order_products.length; index++) {
-                            const element = dataJSON[0].order_products[index];
-                            imageViewHtml += '<tr>';
-                            imageViewHtml += '<td>'+(index+1)+'</td>';
-                            imageViewHtml += '<td clsss="mx-auto" >' + element.product_id + '</td>';
-                            imageViewHtml += '<td clsss="mx-auto" >' + element.product.product_title + '</td>';
+                        var productViewHTML = "";
+                        for (let index = 0; index < dataJSON[0].order_product.length; index++) {
+                            const element = dataJSON[0].order_product[index];
+                            productViewHTML += '<tr>';
+                            productViewHTML += '<td>' + (index + 1) + '</td>';
+                            productViewHTML += '<td clsss="mx-auto" >' + element.product.product_id + '</td>';
+                            productViewHTML += '<td clsss="mx-auto" >' + element.product.name + '</td>';
                             if (element.color) {
-                            imageViewHtml += '<td style="display:flex; justify-content:center; align-items: center;"><div style=" width:20px; height:20px; border:1px solid #000; border-radius:50%; background-color: '+element.color+';"></div></td>';
-                            }else{
-                                imageViewHtml += '<td clsss="mx-auto" >N/A</td>';
+                                productViewHTML +=
+                                    '<td style="display:flex; justify-content:center; align-items: center;"><div>' +
+                                    element.color + '</div></td>';
+                            } else {
+                                productViewHTML += '<td clsss="mx-auto" >N/A</td>';
                             }
-                                if (element.maserment) {
-                                    imageViewHtml += '<td clsss="mx-auto" >' + element.maserment + '</td>';
-                                }else{
-                                    imageViewHtml += '<td clsss="mx-auto" >N/A</td>';
-                                }
-                            imageViewHtml += '<td clsss="mx-auto" >' + element.quantity + '</td>';
-                            imageViewHtml += '<td clsss="mx-auto" style="max-width:80px; overflow-wrap: break-word;" >' + element.note1 + '</td>';
-                            imageViewHtml += '<td clsss="mx-auto" style="max-width:80px; overflow-wrap: break-word;">' + element.note2 + '</td>';
-                            imageViewHtml += '<td clsss="mx-auto" >&#2547;  ' + element.price + '</td>';
-                            imageViewHtml += '</tr>';
+                            if (element.maserment) {
+                                productViewHTML += '<td clsss="mx-auto" >' + element.maserment + '</td>';
+                            } else {
+                                productViewHTML += '<td clsss="mx-auto" >N/A</td>';
+                            }
+                            productViewHTML += '<td clsss="mx-auto" >' + element.quantity + '</td>';
+                            if (element.note1) {
+                            productViewHTML +=
+                                '<td clsss="mx-auto" style="max-width:80px; overflow-wrap: break-word;" >' + element
+                                .note1 + '</td>';
+                            } else {
+                                productViewHTML += '<td clsss="mx-auto" >N/A</td>';
+                            }
+                            if (element.note2) {
+                            productViewHTML += '<td clsss="mx-auto" style="max-width:80px; overflow-wrap: break-word;">' +
+                                element.note2 + '</td>';
+                            } else {
+                                productViewHTML += '<td clsss="mx-auto" >N/A</td>';
+                            }
+                            productViewHTML += '<td clsss="mx-auto" >&#2547;  ' + element.price + '</td>';
+                            productViewHTML += '</tr>';
                         }
-                        $('#OrdersView').html(imageViewHtml);
+                        $('#OrdersView').html(productViewHTML);
 
 
                     } else {
@@ -402,38 +452,92 @@
                 }).catch(function(error) {
                     $('#loadDivOrders').addClass('d-none');
                     $('#wrongDivOrders').removeClass('d-none');
-                        console.log(error);
+                    console.log(error);
                 });
         }
-
+        $(document).ready(function() {
+            var targetBox = $('#shipping');
+            targetBox.hide();
+            $('#delivery_status').change(function() {
+                var delivery_status = $('#delivery_status').val();
+                if(delivery_status == 'On Shipping'){
+                     $('#shippingID').prop("required", true)
+                     $(targetBox).show();
+                }else{
+                     $('#shippingID').removeAttr("required")
+                    $(targetBox).hide();
+                }
+            });
+        });
 
         $('#product_status_form').submit(function(event) {
             event.preventDefault();
-            var payment_status = $('#payment_status').val()
-            var payment_status_id = $('#payment_status_id').val()
-            let url =" {{ route('admin.ordersStatusUpdate') }}";
+            var delivery_status = $('#delivery_status').val()
+            var delivery_status_id = $('#delivery_status_id').val()
+            var shippingID = $('#shippingID').val()
+            let url = " {{ route('admin.ordersStatusUpdate') }}";
 
-            axios.post(url, {
-                payment_status: payment_status,
-                id: payment_status_id,
-            }).then(function(response) {
-                if (response.status == 200 && response.data == 1) {
-                    toastr.success('Update Success.', 'Success',{
-            closeButton: true,
-            progressBar: true,
-        });
+           if( delivery_status == "On Shipping"){
+                if(shippingID.length == 0 ){
+                    toastr.info('Shipping id is Empty.', 'Error', {
+                            closeButton: true,
+                            progressBar: true,
+                        });
+                }else{
+                    axios.post(url, {
+                    id: delivery_status_id,
+                    delivery_status: delivery_status,
+                    shippingID: shippingID,
+                }).then(function(response) {
+                    if (response.status == 200 && response.data == 1) {
+                        toastr.success('Update Success.', 'Success', {
+                            closeButton: true,
+                            progressBar: true,
+                        });
 
-                    $('#viewOrdersModal').modal('hide');
-                    getOrdersdata();
+                        $('#viewOrdersModal').modal('hide');
+                        getOrdersdata();
 
-                } else {
+                    } else {
+                        toastr.error('Update Fail ! Try Again');
+                        getOrdersdata();
+                    }
+                }).catch(function(error) {
                     toastr.error('Update Fail ! Try Again');
-                    getOrdersdata();
+                })
                 }
-            }).catch(function(error) {
-                toastr.error('Update Fail ! Try Again');
-            })
+           }else{
+                axios.post(url, {
+                    id: delivery_status_id,
+                    delivery_status: delivery_status,
+                    shippingID: shippingID,
+                }).then(function(response) {
+                    if (response.status == 200 && response.data == 1) {
+                        toastr.success('Update Success.', 'Success', {
+                            closeButton: true,
+                            progressBar: true,
+                        });
+
+                        $('#viewOrdersModal').modal('hide');
+                        getOrdersdata();
+
+                    } else {
+                        toastr.error('Update Fail ! Try Again');
+                        getOrdersdata();
+                    }
+                }).catch(function(error) {
+                    toastr.error('Update Fail ! Try Again');
+                })
+           }
         })
+
+
+
+
+
+
+
+
 
     </script>
 

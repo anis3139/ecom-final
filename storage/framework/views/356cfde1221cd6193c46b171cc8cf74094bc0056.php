@@ -1,1 +1,0 @@
-<?php /**PATH C:\xampp\htdocs\ecom-final\resources\views/vendor/pagination/bootstrap-4.blade.php ENDPATH**/ ?>

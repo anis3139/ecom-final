@@ -1,6 +1,10 @@
 @extends('client.layouts.app')
 @section('title')
-    {{ $productDetails->product_title }}
+    {{ $productDetails->name }}
+@endsection
+@section('css')
+    @include('client.component.Style')
+
 @endsection
 @php
 $arr = $productDetails->rating;
@@ -19,22 +23,22 @@ if (count($arr) > 0) {
 @endphp
 @section('content')
     <!-- Page Title
-                                                                                                                          ============================================= -->
+                                                                                                                                  ============================================= -->
     <section id="page-title">
 
         <div class="container clearfix">
-            <h1>{!! $productDetails->product_title !!}</h1>
+            <h1>{!! $productDetails->name !!}</h1>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{ route('client.home') }}">Home</a></li>
                 <li class="breadcrumb-item"><a href="{{ route('client.shop') }}">Shop</a></li>
-                <li class="breadcrumb-item active" aria-current="page">{!! $productDetails->product_title !!}</li>
+                <li class="breadcrumb-item active" aria-current="page">{!! $productDetails->name !!}</li>
             </ol>
         </div>
 
     </section><!-- #page-title end -->
 
     <!-- Content
-                                                                                                                          ============================================= -->
+                                                                                                                                  ============================================= -->
     <section id="content">
         <div class="content-wrap">
             <div class="container clearfix">
@@ -46,7 +50,7 @@ if (count($arr) > 0) {
                             <div class="col-md-6">
 
                                 <!-- Product Single - Gallery
-                                                                                                                                 ============================================= -->
+                                                                                                                                         ============================================= -->
                                 <div class="product-image">
                                     <div class="fslider" data-pagi="false" data-arrows="false" data-thumbs="true">
                                         <div class="flexslider">
@@ -56,14 +60,16 @@ if (count($arr) > 0) {
                                                             href="{{ $images->image_path }}"
                                                             title="Pink Printed Dress - Front View"
                                                             data-lightbox="gallery-item"><img
-                                                                src="{{ $images->image_path }}"
-                                                                alt="Pink Printed Dress" class="pinterest-img"></a></div>
+                                                                src="{{ $images->image_path }}" alt="Pink Printed Dress"
+                                                                class="pinterest-img"></a></div>
                                                 @endforeach
                                             </div>
                                         </div>
                                     </div>
-                                    @if ($productDetails->product_in_stock)
-                                        <div class="sale-flash badge badge-danger p-2">Sale!</div>
+                                    @if ($productDetails->category->slug === 'customized-jewelry')
+                                        <div class="sale-flash badge badge-primary p-2">Pre Order</div>
+                                    @elseif($productDetails->stock > 0)
+                                        <div class="sale-flash badge badge-secondary p-2">In Stock</div>
                                     @else
                                         <div class="sale-flash badge badge-danger p-2">Out of Stock!</div>
                                     @endif
@@ -76,7 +82,7 @@ if (count($arr) > 0) {
                                 <div class="d-flex align-items-center justify-content-between">
 
                                     <!-- Product Single - Price
-                                                                                                                                  ============================================= -->
+                                                                                                                                          ============================================= -->
                                     <div class="product-price">
                                         @if ($productDetails->product_price != $productDetails->product_selling_price)
                                             <del>&#2547; {{ $productDetails->product_price }}</del>
@@ -85,7 +91,7 @@ if (count($arr) > 0) {
                                     </div><!-- Product Single - Price End -->
 
                                     <!-- Product Single - Rating
-                                                                                                                                  ============================================= -->
+                                                                                                                                          ============================================= -->
                                     <div class="d-flex align-items-center">
                                         <div class="product-rating">
                                             @if ($ratingValue > 0)
@@ -113,10 +119,10 @@ if (count($arr) > 0) {
 
                                         @guest
                                             <a href="javascript:void(0);" onclick="toastr.info('To add Favorite List. You need to login first.','Info',{
-                                                                           closeButton: true,
-                                                                           progressBar: true,
-                                                                       })" class="btn btn-sm btn-secondary ml-3"><i
-                                                    class="icon-heart3"></i> <span>
+                                                                                           closeButton: true,
+                                                                                           progressBar: true,
+                                                                                       })"
+                                                class="btn btn-sm btn-secondary ml-3"><i class="icon-heart3"></i> <span>
                                                     ({{ $productDetails->favorite_to_users->count() }})</span></a>
                                         @else
                                             <a href="javascript:void(0);"
@@ -140,68 +146,86 @@ if (count($arr) > 0) {
                                 <div class="line"></div>
 
                                 <!-- Product Single - Quantity & Cart Button
-                                                                                                                                 ============================================= -->
+                                                                                                                                         ============================================= -->
 
                                 <form id="cartForm2" method="post">
+                                    @if ($productDetails->stock > 0)
+                                        <div class="cart mb-0 d-flex justify-content-between align-items-center">
+                                            <div class="quantity clearfix">
+                                                <input type="button" value="-" class="minus">
+                                                <input type="number" step="1" min="1" name="quantity" id="quantity"
+                                                    value="1" title="Qty" class="qty" />
+                                                <input type="button" value="+" class="plus">
+                                            </div>
+                                            <input type="hidden" id="product_id" name="product_id"
+                                                value="{{ $productDetails->id }}">
 
-                                    <div class="cart mb-0 d-flex justify-content-between align-items-center">
-                                        <div class="quantity clearfix">
-                                            <input type="button" value="-" class="minus">
-                                            <input type="number" step="1" min="1" name="quantity" id="quantity" value="1"
-                                                title="Qty" class="qty" />
-                                            <input type="button" value="+" class="plus">
+
+                                            <button type="submit" class="add-to-cart button m-0">Add to cart</button>
                                         </div>
-                                        <input type="hidden" id="product_id" name="product_id"
-                                            value="{{ $productDetails->id }}">
-                                        <button type="submit" class="add-to-cart button m-0">Add to cart</button>
-                                    </div>
+                                    @endif
                                     <!-- Product Single - Quantity & Cart Button End -->
 
+                                    @if ($productDetails->category->slug === 'customized-jewelry')
+                                        <div class="line"></div>
+                                        <div class="row mt-3">
+                                            <div class="col-md-6 form-group">
+                                                <label for="note1">Name</label>
+                                                <input required type="text" class="form-control" id="note1" name="note1">
+                                            </div>
+                                            <div class="col-md-6 form-group">
+                                                <label for="note1">Chain Type</label>
 
-                                    <div class="row mt-3">
-                                        <div class="col-md-6 form-group">
-                                            <label for="note1">Note</label>
-                                            <input type="text" class="form-control" id="note1" name="note1">
+                                                <select class="form-control" id="note2" name="note2" required>
+                                                    <option value=""> Choose an option</option>
+                                                    <option value="black">Default Chain</option>
+                                                    <option value="gold">Thick Round Chain</option>
+                                                    <option value="rose gold">Box chain</option>
+                                                    <option value="silver">Ball Chain</option>
+                                                    <option value="Curb Chain">Curb Chain</option>
+                                                </select>
+                                            </div>
                                         </div>
-                                        <div class="col-md-6 form-group">
-                                            <label for="note1">Special Note</label>
-                                            <input type="text" class="form-control" id="note2" name="note2">
-                                        </div>
-                                    </div>
-                                    <div class="line"></div>
+                                        <div class="line"></div>
+                                    @endif
 
                                     <!-- Product Single - Short Description  -->
-                                    <p>{!! $productDetails->product_discription !!}</p>
+                                    <p>{!! \Illuminate\Support\Str::words($productDetails->description, 50, '...') !!}</p>
 
                                     <ul class="list-group list-group-flush">
                                         <li class="list-group-item d-flex justify-content-between align-items-center px-0">
                                             <span class="text-muted">Category:</span><span
                                                 class="text-dark font-weight-semibold">{{ $productDetails->category->name }}</span>
                                         </li>
-                                        <li class="list-group-item d-flex justify-content-between align-items-center px-0">
-                                            <span class="text-muted">Color:</span><span
-                                                class="text-dark font-weight-semibold">
-                                                @if (count($productDetails->color) > 0)
+                                        @if ($productDetails->color)
+                                            <li
+                                                class="list-group-item d-flex justify-content-between align-items-center px-0">
+                                                <span class="text-muted">Color:</span><span
+                                                    class="text-dark font-weight-semibold">
                                                     <!-- Product Color -->
 
 
                                                     <div class="color-choose">
-
-                                                        @foreach ($productDetails->color as $color)
+                                                        @php
+                                                            $colors = json_decode($productDetails->color, true);
+                                                           
+                                                        @endphp
+                                                        @foreach ($colors as $color)
                                                             <div>
-                                                                <input type="radio" id="{{ $color->product_color_code }}"
+                                                                <input type="radio" id="{{ $color }}"
                                                                     name="color" @if ($loop->first) {{ 'checked' }} @endif
-                                                                    value="{{ $color->product_color_code }}">
-                                                                <label for="{{ $color->product_color_code }}"><span
-                                                                        style="background-color:{{ $color->product_color_code }} "></span></label>
+                                                                    value="{{ $color }}">
+                                                                <label for="{{ $color }}"><span
+                                                                        style="background-color:{{ $color }} "></span></label>
+                                                                        <span>{{ Str::ucfirst( $color) }}</span>&ensp;
                                                             </div>
                                                         @endforeach
 
+                                                    </div>
 
-
-                                                @endif
-                                            </span>
-                                        </li>
+                                                </span>
+                                            </li>
+                                        @endif
                                         <li class="list-group-item d-flex justify-content-between align-items-center px-0">
                                             <span class="text-muted">Size:</span><span
                                                 class="text-dark font-weight-semibold">
@@ -231,7 +255,7 @@ if (count($arr) > 0) {
                                     </ul>
                                 </form>
                                 <!-- Product Single - Share
-                                                                                                                                 ============================================= -->
+                                                                                                                                         ============================================= -->
 
 
                                 <div class="si-share d-flex justify-content-between align-items-center mt-4">
@@ -286,7 +310,7 @@ if (count($arr) > 0) {
                                     <div class="tab-container">
 
                                         <div class="tab-content clearfix" id="tabs-1">
-                                            <p>{!! $productDetails->product_discription !!}</p>
+                                            <p>{!! $productDetails->description !!}</p>
 
                                         </div>
                                         <div class="tab-content clearfix" id="tabs-2">
@@ -314,31 +338,37 @@ if (count($arr) > 0) {
                                                             @endif
                                                         </td>
                                                     </tr>
-                                                    <tr>
-                                                        <td>Color</td>
-                                                        <td>
-                                                            @if (count($productDetails->color) > 0)
+                                                    @if ($productDetails->color)
+                                                        <tr>
+                                                            <td>Color</td>
+                                                            <td>
                                                                 <!-- Product Color -->
 
 
                                                                 <div class="color-choose">
-                                                                    @foreach ($productDetails->color as $color)
+                                                                    @php
+                                                                        $colors = json_decode($productDetails->color, true);
+                                                                    @endphp
+                                                                    @foreach ($colors as $color)
+
+
                                                                         <div>
-                                                                            <input type="radio"
-                                                                                id="{{ $color->product_color_code }}"
+                                                                            <input type="radio" id="{{ $color }}"
                                                                                 name="color" @if ($loop->first) {{ 'checked' }} @endif
-                                                                                value="{{ $color->product_color_code }}">
-                                                                            <label
-                                                                                for="{{ $color->product_color_code }}"><span
-                                                                                    style="background-color:{{ $color->product_color_code }} "></span></label>
+                                                                                value="{{ $color }}">
+                                                                            <label for="{{ $color }}"><span
+                                                                                    style="background-color:{{ $color }} "></span></label>
+                                                                                    <span>{{ Str::ucfirst( $color) }}</span>&ensp;
                                                                         </div>
                                                                     @endforeach
 
+                                                                </div>
 
 
-                                                            @endif
-                                                        </td>
-                                                    </tr>
+
+                                                            </td>
+                                                        </tr>
+                                                    @endif
 
                                                 </tbody>
                                             </table>
@@ -353,7 +383,7 @@ if (count($arr) > 0) {
                                                 <div class="aa-product-review-area">
                                                     <h4> <span id="reviewCount"
                                                             style="font-weight:bold; color:red; font-size:30px;">
-                                                        </span> Reviews for {!! $productDetails->product_title !!}</h4>
+                                                        </span> Reviews for {!! $productDetails->name !!}</h4>
                                                     <ul class="aa-review-nav" id="reviewResult"
                                                         style="max-height: 500px; overflow:scroll; overflow-x:hidden;">
 
@@ -412,8 +442,8 @@ if (count($arr) > 0) {
                     <h4>Related Products</h4>
                     @php
                         $relProducts = App\Models\Product::with('img')
-                            ->where('product_category_id', $productDetails->product_category_id)
-                            ->where('product_active', 1)
+                            ->where('category_id', $productDetails->category_id)
+                            ->where('status', 1)
                             ->take(12)
                             ->inRandomOrder()
                             ->get();
@@ -427,54 +457,63 @@ if (count($arr) > 0) {
                                 <div class="product">
                                     <div class="product-image">
 
-                                        @php $i= 2; @endphp
-                                        @foreach ($relProduct->img as $images)
-                                            @if ($i > 0)
-                                                <a
-                                                    href="{{ route('client.showProductDetails', ['slug' => $relProduct->product_slug]) }}"><img
-                                                        src="{{ $images->image_path }}" alt="Checked Short Dress"></a>
-                                            @endif
-                                            @php $i--; @endphp
-                                        @endforeach
+                                        @php
+                                            $imageOne=$relProduct->img[0]->image_path??'';
+                                            $imageTwo=$relProduct->img[1]->image_path?? $relProduct->img[0]->image_path;
+                                            
+                                        @endphp
 
+                                        <a href="{{ route('client.showProductDetails', ['slug' => $relProduct->slug]) }}">
+                                            <img src="{{ $imageOne }}" alt="" />
+                                              <img class="hoverimage" src="{{ $imageTwo }}" alt="" />
+                                           
+                                              @if ($relProduct->category->slug === "customized-jewelry")
+                                              <div class="sale-flash badge badge-primary p-2">Pre Order</div>
+                                              @elseif($relProduct->stock > 0)
+                                              <div class="sale-flash badge badge-secondary p-2">In Stock</div>
+                                              @else
+                                                  <div class="sale-flash badge badge-danger p-2">Out of Stock!</div>
+                                              @endif
+  
+                                            
+                                            <div class="hoverbuttonbox" >
+                                                    <div class="buttonaction"
+                                                            data-hover-animate="fadeIn" data-hover-speed="400">
+                                                                @guest
+                                                                    <a href="javascript:void(0);" onclick="toastr.info('To add Favorite List. You need to login first.','Info',{
+                                                                         closeButton: true,
+                                                                        progressBar: true,
+                                                                        })" class="btn btn-dark"><i class="icon-heart3"></i> <span> ({{ $relProduct->favorite_to_users->count() }})</span>
+                                                                    </a>
+                                                                @else
+                                                                    <a href="javascript:void(0);" onclick="document.getElementById('favorite-form-{{ $relProduct->id }}').submit();"
+                                                                        class="{{ !Auth::user()->favorite_product->where('pivot.product_id',$relProduct->id)->count()  == 0 ? 'favorite_posts' : ''}}"><i class="icon-heart3"></i><span class="text-dark">(<span class="favorite_posts">{{ $relProduct->favorite_to_users->count() }}</span>)</span>
+                                                                    </a>
 
-                                        <div class="badge badge-success p-2">50% Off*</div>
-                                        <div class="bg-overlay">
-                                            <div class="bg-overlay-content align-items-end justify-content-between"
-                                                data-hover-animate="fadeIn" data-hover-speed="400">
-                                                @guest
-                                                    <a href="javascript:void(0);" onclick="toastr.info('To add Favorite List. You need to login first.','Info',{
-                                                                           closeButton: true,
-                                                                           progressBar: true,
-                                                                       })" class="btn btn-dark mr-2"><i
-                                                            class="icon-heart3"></i> <span>
-                                                            ({{ $relProduct->favorite_to_users->count() }})</span></a>
-                                                @else
-                                                    <a href="javascript:void(0);"
-                                                        onclick="document.getElementById('favorite-form-{{ $relProduct->id }}').submit();"
-                                                        class="{{ !Auth::user()->favorite_product->where('pivot.product_id', $relProduct->id)->count() == 0
-    ? 'favorite_posts'
-    : '' }}"><i
-                                                            class="icon-heart3"></i><span class="text-dark">(<span
-                                                                class="favorite_posts">{{ $relProduct->favorite_to_users->count() }}</span>)</span></a>
-
-                                                    <form id="favorite-form-{{ $relProduct->id }}" method="POST"
-                                                        action="{{ route('client.favorite', $relProduct->id) }}"
-                                                        style="display: none;">
-                                                        @csrf
-                                                    </form>
-                                                @endguest
-                                                <a href="" data-toggle="modal" data-target=".bd-example-modal-lg"
-                                                    onclick="productDetailsModal({{ $relProduct->id }})"
-                                                    class="btn btn-dark"><i class="icon-line-expand"></i></a>
+                                                                    <form id="favorite-form-{{ $relProduct->id }}" method="POST" action="{{ route('client.favorite',$relProduct->id) }}" style="display: none;">
+                                                                        @csrf
+                                                                    </form>
+                                                                @endguest
+                                                    </div>
+                                                    <div class="buttonaction right">
+                                                                <a href="{{  $imageTwo }}" class="btn btn-dark" data-toggle="modal"
+                                                                    data-target=".bd-example-modal-lg"
+                                                                    onclick="productDetailsModal({{ $relProduct->id }})"><i
+                                                                        class="icon-line-expand"></i>
+                                                                </a>
+                                                            
+                                                    </div>
+                                                        
                                             </div>
-                                            <div class="bg-overlay-bg bg-transparent"></div>
-                                        </div>
+                                          
+                                        </a>
+                                        
+                                       
                                     </div>
                                     <div class="product-desc center">
                                         <div class="product-title">
                                             <h3><a
-                                                    href="{{ route('client.showProductDetails', ['slug' => $relProduct->product_slug]) }}">{!! $relProduct->product_title !!}</a>
+                                                    href="{{ route('client.showProductDetails', ['slug' => $relProduct->slug]) }}">{!! $relProduct->name !!}</a>
                                             </h3>
                                         </div>
                                         <div class="product-price">
@@ -541,6 +580,7 @@ if (count($arr) > 0) {
 
 
 @section('script')
+    @include('client.component.Scripts')
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.js"></script>
     <script>
@@ -732,195 +772,15 @@ if (count($arr) > 0) {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        getcartData()
-
-        function getcartData() {
-
-            axios.get("{{ route('client.cartData') }}")
-                .then(function(response) {
-
-                    if (response.status = 200) {
-                        var dataJSON = response.data;
-                        var cartData = dataJSON.cart;
-
-                        var a = Object.keys(cartData).length;
-
-
-                        $("#cart_quantity").html(a);
-                        var tp = parseFloat(dataJSON.total).toFixed(2);
-                        $("#total_cart_price").html(' &#2547; ' + tp);
-
-                        var imageViewHtml = "";
-                        $.each(cartData, function(i, item) {
-                            imageViewHtml +=
-                                `<div class="top-cart-item">
-                                                                                                                                                                         <div class="top-cart-item-image">
-                                                                                                                                                                             <a href="#"><img src="${cartData[i].image}"
-                                                                                                                                                                                     alt="Blue Round-Neck Tshirt" /></a>
-                                                                                                                                                                         </div>
-                                                                                                                                                                         <div class="top-cart-item-desc">
-                                                                                                                                                                             <div class="top-cart-item-desc-title">
-                                                                                                                                                                                 <a href="#">${cartData[i].title}</a>
-                                                                                                                                                                                 <span class="top-cart-item-price d-block"> ${cartData[i].quantity} x &#2547; ${cartData[i].unit_price}</span>
-                                                                                                                                                                             </div>
-                                                                                                                                                                             <div class="top-cart-item-quantity"><button class="cartDeleteIcon" data-id="${i}" type="submit"><i class="icon-remove"> </i></button></div>
-                                                                                                                                                                         </div>
-                                                                                                                                                                </div>`
-                        });
-
-
-                        $('.top-cart-items').html(imageViewHtml);
-
-
-
-                        if (a == 0) {
-                            $("#HeaderPreview").css("display", "none");
-                        } else {
-                            $("#HeaderPreview").css("display", "block");
-                        }
-
-
-                        //Carts click on delete icon
-                        $(".cartDeleteIcon").click(function() {
-                            var id = $(this).data('id');
-                            $('#CartsDeleteId').html(id);
-                            DeleteDataCart(id);
-                        })
-                    } else {
-                        toastr.error('Something Went Wrong', 'Error',{
-            closeButton: true,
-            progressBar: true,
-        });
-                    }
-                }).catch(function(error) {
-
-                    toastr.error('Something Went Wrong...', 'Error',{
-            closeButton: true,
-            progressBar: true,
-        });
-                });
-        }
-
-
-
-
-
-
-
-
-
-
-
-
-        $('#confirmDeleteCart').click(function() {
-
-
-            alert("hello")
-            var id = $(this).data('id');
-            DeleteDataCart(id);
-        })
-
-
-        //delete Cart function
-        function DeleteDataCart(id) {
-
-            axios.post("{{ route('client.cartRemove') }}", {
-                    product_id: id
-                })
-                .then(function(response) {
-
-                    if (response.status == 200) {
-                        toastr.success('Cart Removed Success.', 'Success',{
-            closeButton: true,
-            progressBar: true,
-        });
-                        getcartData();
-                    } else {
-                        toastr.error('Something Went Wrong', 'Error',{
-            closeButton: true,
-            progressBar: true,
-        });
-                    }
-                }).catch(function(error) {
-
-                    toastr.error('Something Went Wrong......', 'Error',{
-            closeButton: true,
-            progressBar: true,
-        });
-                });
-        }
-
-
-
-
-
-
-
-
-        $('#cartForm').on('submit', function(event) {
-            event.preventDefault();
-            let formData = $(this).serializeArray();
-            let meserment = formData[0]['value'];
-            let color = formData[1]['value'];
-            let quantity = formData[2]['value'];
-            let product_ids = formData[3]['value'];
-
-            let url = "{{ route('client.addCart') }}";
-            axios.post(url, {
-                meserment: meserment,
-                color: color,
-                quantity: quantity,
-                product_id: product_ids
-            }).then(function(response) {
-
-                if (response.status == 200 && response.data == 1) {
-                    $('.bd-example-modal-lg').modal('hide');
-                         toastr.success('Product Add Successfully', 'Success',{
-            closeButton: true,
-            progressBar: true,
-        });
-                    getcartData()
-                } else {
-                    toastr.error('Product not Added ! Try Again', 'Error',{
-            closeButton: true,
-            progressBar: true,
-        });
-                }
-
-            }).catch(function(error) {
-                toastr.error('Product not Added  ! Try Again');
-            })
-
-
-        })
-
-
         $('#cartForm2').on('submit', function(event) {
             event.preventDefault();
-            let formData = $(this).serializeArray();
+            let quantity = $('#quantity').val();
+            let product_ids = $('#product_id').val();
+            let note1 = $('#note1').val();
+            let note2 = $('#note2').val();
+            let color = $("input[name=color]").val();
+            let meserment = $("input[name=maserment]").val();
 
-            let quantity = formData[0]['value'];
-            let product_ids = formData[1]['value'];
-            let note1 = formData[2]['value'];
-            let note2 = formData[3]['value'];
-            let color = formData[4]['value'];
-            let meserment = formData[5]['value'];
-            console.log(formData);
             let url = "{{ route('client.addCart') }}";
             axios.post(url, {
                 meserment: meserment,
@@ -933,16 +793,16 @@ if (count($arr) > 0) {
 
                 if (response.status == 200 && response.data == 1) {
                     $('.bd-example-modal-lg').modal('hide');
-                         toastr.success('Product Add Successfully', 'Success',{
-            closeButton: true,
-            progressBar: true,
-        });
+                    toastr.success('Product Add Successfully', 'Success', {
+                        closeButton: true,
+                        progressBar: true,
+                    });
                     getcartData()
                 } else {
-                    toastr.error('Product not Added ! Try Again', 'Error',{
-            closeButton: true,
-            progressBar: true,
-        });
+                    toastr.error('Product not Added ! Try Again', 'Error', {
+                        closeButton: true,
+                        progressBar: true,
+                    });
                 }
 
             }).catch(function(error) {
@@ -951,7 +811,5 @@ if (count($arr) > 0) {
 
 
         })
-
-
     </script>
 @endsection

@@ -16,14 +16,14 @@
         <li class="menu-item"><a class="menu-link" href="{{ route('client.shop') }}">
                 <div>Shop</div>
             </a></li>
-        @foreach (App\Models\ProductsCategoryModel::orderby('name', 'asc')->where('parent_id', 0)->where('is_menu', 1)->get()
+        @foreach (App\Models\Category::orderby('name', 'asc')->where('parent_id', null)->where('is_menu', 1)->get()
     as $parentCat)
             <li class="menu-item">
                 <a class="menu-link" href="{{ route('client.category', $parentCat->slug) }} ">
                     <div>{{ $parentCat->name }}</div>
                 </a>
                 @php
-                    $childcats = App\Models\ProductsCategoryModel::orderby('name', 'asc')
+                    $childcats = App\Models\Category::orderby('name', 'asc')
                         ->where('parent_id', $parentCat->id)
                         ->get();
                 @endphp

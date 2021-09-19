@@ -5,11 +5,27 @@ namespace App\Http\Controllers\admin\vendor;
 use App\Http\Controllers\Controller;
 use App\Models\Vendor;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class VendorController extends Controller
 {
+
+
+    public $user;
+
+    public function __construct()
+    {
+        $this->middleware(function ($request, $next) {
+            $this->user = Auth::guard('admin')->user();
+            return $next($request);
+        });
+    }
     public function vendorIndex()
     {
+
+        if (is_null($this->user) || !$this->user->can('vendor.view')) {
+            abort(403, 'Sorry !! You are Unauthorized to view any vendor !');
+        }
 
         return view('admin.vendor.vendorIndex');
     }
@@ -17,6 +33,10 @@ class VendorController extends Controller
 
     public function vendorData()
     {
+
+        if (is_null($this->user) || !$this->user->can('vendor.view')) {
+            abort(403, 'Sorry !! You are Unauthorized to view any vendor !');
+        }
         $result = json_decode(Vendor::orderBy('id', 'desc')->get());
 
         return $result;
@@ -26,6 +46,10 @@ class VendorController extends Controller
 
     function vendorDelete(Request $req)
     {
+
+        if (is_null($this->user) || !$this->user->can('vendor.delete')) {
+            abort(403, 'Sorry !! You are Unauthorized to delete any vendor !');
+        }
         $id = $req->input('id');
         $result = Vendor::where('id', '=', $id)->delete();
         if ($result == true) {
@@ -37,6 +61,10 @@ class VendorController extends Controller
 
     function vendorDetailEdit(Request $req)
     {
+
+        if (is_null($this->user) || !$this->user->can('vendor.edit')) {
+            abort(403, 'Sorry !! You are Unauthorized to edit any vendor !');
+        }
         $id = $req->input('id');
         $result = json_encode(Vendor::where('id', '=', $id)->get());
         return $result;
@@ -46,6 +74,10 @@ class VendorController extends Controller
 
     function vendorDataUpdate(Request $req)
     {
+
+        if (is_null($this->user) || !$this->user->can('vendor.edit')) {
+            abort(403, 'Sorry !! You are Unauthorized to edit any vendor !');
+        }
 
         $id = $req->Input('id');
         $vendor=Vendor::where('id', '=', $id)->first();
@@ -82,7 +114,9 @@ class VendorController extends Controller
 
     function vendorAdd(Request $req)
     {
-
+        if (is_null($this->user) || !$this->user->can('vendor.create')) {
+            abort(403, 'Sorry !! You are Unauthorized to create any vendor !');
+        }
         $this->validate($req, [
             'name' => 'required',
             'email' => 'required | email |unique:vendors,email',

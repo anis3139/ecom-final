@@ -4,8 +4,8 @@
 				<div class="row justify-content-between align-items-center">
 
 					<div class="col-12 col-lg-auto">
-						<p class="mb-0 d-flex justify-content-center justify-content-lg-start py-3 py-lg-0"><strong>@if ($others)
-                        {{$others->title}}
+						<p class="mb-0 d-flex justify-content-center justify-content-lg-start py-3 py-lg-0"><strong>@if ($setting)
+                        {{$setting->title}}
                         @endif</strong></p>
 					</div>
 
@@ -16,7 +16,7 @@
 						<div class="top-links">
 							<ul class="top-links-container">
                                 @auth()
-								<li class="top-links-item"><a href="{{route('client.profile')}}">My Account</a></li>
+								<li class="top-links-item"><a href="{{route('client.profile')}}">My Panel</a></li>
                                 @endauth
 								<li class="top-links-item"><a href="{{route('client.showCart')}}">My Cart</a></li>
 								<li class="top-links-item"><a href="{{ route('client.checkout') }}">Checkout</a></li>
@@ -39,11 +39,11 @@
 							<li><a href="@if ($socialData)
                                    {{$socialData->twitter}}
                                    @endif" class="si-instagram"><span class="ts-icon"><i class="icon-instagram2"></i></span><span class="ts-text">Instagram</span></a></li>
-							<li><a href="tel:@if ($others) {{ $others->phone }} @endif" class="si-call"><span class="ts-icon"><i class="icon-call"></i></span><span class="ts-text">@if ($others) {{ $others->phone }} @endif</span></a></li>
-							<li><a href="mailto: @if ($others)
-                        {{$others->email}}
-                        @endif" class="si-email3"><span class="ts-icon"><i class="icon-envelope-alt"></i></span><span class="ts-text"> @if ($others)
-                        {{$others->email}}
+							<li><a href="tel:@if ($setting) {{ $setting->phone }} @endif" class="si-call"><span class="ts-icon"><i class="icon-call"></i></span><span class="ts-text">@if ($setting) {{ $setting->phone }} @endif</span></a></li>
+							<li><a href="mailto: @if ($setting)
+                        {{$setting->email}}
+                        @endif" class="si-email3"><span class="ts-icon"><i class="icon-envelope-alt"></i></span><span class="ts-text"> @if ($setting)
+                        {{$setting->email}}
                         @endif</span></a></li>
 						</ul><!-- #top-social end -->
 

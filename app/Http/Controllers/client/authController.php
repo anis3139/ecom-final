@@ -4,7 +4,7 @@ namespace App\Http\Controllers\client;
 
 use App\Http\Controllers\Controller;
 use App\Mail\registrationVarificationMail;
-use App\Models\Orders;
+use App\Models\Order;
 use App\Models\User;
 use App\Notifications\registerEmail;
 use Carbon\Carbon;
@@ -15,9 +15,11 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
+
 use Symfony\Component\HttpFoundation\Session\Session as HttpFoundationSessionSession;
 use Session;
 use Laravel\Socialite\Facades\Socialite;
+use Illuminate\Support\Facades\DB;
 
 
 class authController extends Controller
@@ -38,11 +40,17 @@ class authController extends Controller
     public function callback($service)
     {
 
-        $serviceUser = Socialite::driver($service)->user();
-        $name = $serviceUser->name ?? '';
-        $email = $serviceUser->email;
-        $phone_number = $serviceUser->user['mobile'] ?? " ";
-        $image = $serviceUser->avatar ?? '';
+        $serviceUser = Socialite::driver($service)->stateless()->user();
+
+        do {
+   $refrence_id = mt_rand( 11111111, 99999999 );
+} while ( DB::table( 'users' )->where( 'phone_number', $refrence_id )->exists() );
+
+
+        $name =  $serviceUser->getName() ?? '';
+        $email = $serviceUser->getEmail();
+        $phone_number = $serviceUser->user['mobile'] ?? $refrence_id;
+        $image =$serviceUser->getAvatar() ?? '';
         $token = $serviceUser->token ?? '';
         $password = Hash::make(Str::random(32));
 
@@ -59,11 +67,16 @@ class authController extends Controller
             'email_verified_at' => Carbon::now(),
             'email_verification_token' => ''
         ]);
-
-        Auth::login($user, true);
-        $massage = "Welcome " . $name;
-        session()->flash('success', $massage);
-        return redirect()->intended($this->redirectTo);
+        try {
+            Auth::login($user, true);
+            $massage = "Welcome " . $name;
+            session()->flash('success', $massage);
+            return redirect()->intended($this->redirectTo);
+        } catch (\Throwable $th) {
+            session()->flash('success', 'Something Wrong! Please Try Again'.$th->getMassage());
+            return redirect()->intended($this->redirectTo);
+        }
+       
     }
 
 
@@ -174,7 +187,7 @@ class authController extends Controller
     {
 
         $data = [];
-        $data['orders'] = Orders::where('user_id', auth()->user()->id)->orderBy('id', 'DESC')->get();
+        $data['orders'] = Order::where('user_id', auth()->user()->id)->orderBy('id', 'DESC')->get();
 
         return view('client.pages.Profile', $data);
     }

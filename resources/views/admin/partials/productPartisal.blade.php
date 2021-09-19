@@ -9,21 +9,27 @@
                 Add New
             </button>
 
+            <a href="{{ route('admin.productExport') }}" id="product Export"
+                class="btn btn-primary btn-learge  float-right">
+                Excel Export
+            </a>
+
 
             <table id="productDataTable" class="table table-striped table-bordered" cellspacing="0" width="100%">
                 <thead>
                     <tr>
-                        <th class="th-sm">Sl.</th>
-                        <th class="th-sm">Title</th>
-                        <th class="th-sm">Price</th>
-                        <th class="th-sm">Offer</th>
-                        <th class="th-sm">Quantity</th>
-                        <th class="th-sm">Category</th>
-                        <th class="th-sm">Brand</th>
-                        <th class="th-sm">Status</th>
-                        <th class="th-sm">View</th>
-                        <th class="th-sm">Edit</th>
-                        <th class="th-sm">Delete</th>
+                        <th class="th-xs">Product ID</th>
+                        <th class="th-xs">Title</th>
+                        <th class="th-xs">SKU</th>
+                        <th class="th-xs">Purchase Price</th>
+                        <th class="th-xs">Price</th>
+                        <th class="th-xs">Selling Price</th>
+                        <th class="th-xs">Stock</th>
+                        <th class="th-xs">Category</th>
+                        <th class="th-xs">Status</th>
+                        <th class="th-xs">View</th>
+                        <th class="th-xs EditIcon">Edit</th>
+                        <th class="th-xs DeleteIcon">Delete</th>
                     </tr>
                 </thead>
                 <tbody id="Product">
@@ -56,206 +62,237 @@
     aria-labelledby="exampleModalPreviewLabel" aria-hidden="true">
     <div class="modal-dialog-full-width modal-dialog momodel modal-fluid" role="document">
         <div class="modal-content-full-width modal-content ">
-            <div class=" modal-header-full-width   modal-header text-center">
-                <h5 class="modal-title w-100" id="exampleModalPreviewLabel">Product Add</h5>
-                <button type="button" class="close " data-dismiss="modal" aria-label="Close">
-                    <span style="font-size: 1.3em;" aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
+            <form action="{{ route('admin.productAdd') }}" method="post" id="product_add_form">
+                @csrf
+                <div class=" modal-header-full-width   modal-header text-center">
+                    <h5 class="modal-title w-100" id="exampleModalPreviewLabel">Product Add</h5>
+                    <button  type="button" class="close " data-dismiss="modal" aria-label="Close">
+                        <span style="font-size: 1.3em;" aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
 
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <input id="pdName" type="text" id="" class="form-control mb-3" placeholder="Product Name">
-                            <textarea id="pdDescription" type="text" id="" class="form-control mb-3"
-                                placeholder="Product Description" cols="30" rows="5"></textarea>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <input  id="pdName" type="text" id="" class="form-control mb-3"
+                                    placeholder="Product Name">
+                                <textarea id="pdDescription" type="text" id="" class="form-control mb-3 ckeditor"
+                                    placeholder="Product Description" cols="30" rows="5"></textarea>
 
 
-                                <div class="row">
+                                <div class="row  mt-2">
 
                                     <div class="col-4 col-sm-4 col-md-4 col-lg-4 col-xl-4">
                                         <label for="pdPrice">Product Price:</label>
-                                        <input id="pdPrice" type="number" class="form-control mb-3" placeholder="Product Price"   min="0"  onkeyup="calculate();" onchange="calculate();" onkeydown="javascript: return event.keyCode === 8 || event.keyCode === 46 ? true : !isNaN(Number(event.key))">
+                                        <input id="pdPrice" type="number" class="form-control mb-3"
+                                            placeholder="Product Price" min="0" onkeyup="calculate();"
+                                            onchange="calculate();"
+                                            onkeydown="javascript: return event.keyCode === 8 || event.keyCode === 46 ? true : !isNaN(Number(event.key))">
                                     </div>
                                     <div class="col-4 col-sm-4 col-md-4 col-lg-4 col-xl-4">
                                         <label for="pdSaving">Discount(%):</label>
-                                        <input id="pdSaving" type="number" value="0"  class="form-control mb-3" placeholder="Saving Percentege"   min="0" max="100" onkeyup="calculate();"  onchange="calculate();">
+                                        <input id="pdSaving" type="number" value="0" class="form-control mb-3"
+                                            placeholder="Saving Percentege" min="0" max="100" onkeyup="calculate();"
+                                            onchange="calculate();">
                                     </div>
                                     <div class="col-4 col-sm-4 col-md-4 col-lg-4 col-xl-4">
                                         <label for="pdOffer">Selling Price:</label>
-                                        <input id="pdOffer" type="number"  class="form-control mb-3" readonly placeholder="Offer Price" min="0" onkeydown="javascript: return event.keyCode === 8 || event.keyCode === 46 ? true : !isNaN(Number(event.key))">
+                                        <input id="pdOffer" type="number" class="form-control mb-3" readonly
+                                            placeholder="Offer Price" min="0"
+                                            onkeydown="javascript: return event.keyCode === 8 || event.keyCode === 46 ? true : !isNaN(Number(event.key))">
                                     </div>
                                 </div>
+
+
+                                <div class="row mt-2">
+                                    <div class="col-4 col-sm-4 col-md-4 col-lg-4 col-xl-4">
+                                        <label for="sku">Product SKU:</label>
+                                        <input id="sku" type="text" id="" class="form-control mb-3" placeholder="SKU">
+                                    </div>
+                                    <div class="col-4 col-sm-4 col-md-4 col-lg-4 col-xl-4">
+                                        <label for="purchase_price">Purchase Price:</label>
+                                        <input id="purchase_price" type="number" class="form-control mb-3"
+                                            placeholder="Purchase Price" min="0" onkeyup="calculate();"
+                                            onkeydown="javascript: return event.keyCode === 8 || event.keyCode === 46 ? true : !isNaN(Number(event.key))">
+                                    </div>
+
+                                    <div class="col-4 col-sm-4 col-md-4 col-lg-4 col-xl-4">
+                                        <label for="pdStock">Stock Quantity:</label>
+                                        <input id="pdStock" type="number" class="form-control mb-3"
+                                            placeholder="Stock Quantity" min="0" onkeyup="calculate();"
+                                            onkeydown="javascript: return event.keyCode === 8 || event.keyCode === 46 ? true : !isNaN(Number(event.key))">
+                                    </div>
+
+                                </div>
+
 
                                 <div class="row">
                                     <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
                                         <label for="pdQuantity">Product Quantity:</label>
                                         <input id="pdQuantity" type="number" id="" class="form-control mb-3"
-                                            placeholder="Product Quantity" value="1" min="1" max="1000" onkeydown="javascript: return event.keyCode === 8 || event.keyCode === 46 ? true : !isNaN(Number(event.key))">
+                                            placeholder="Product Quantity" value="1" min="1" max="1000"
+                                            onkeydown="javascript: return event.keyCode === 8 || event.keyCode === 46 ? true : !isNaN(Number(event.key))">
                                     </div>
                                     <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
                                         <label for="pdTax">Product Tax(%):</label>
-                                        <input id="pdTax" type="number" class="form-control mb-3" placeholder="Product Tax"   min="0" onkeyup="calculate();" onkeydown="javascript: return event.keyCode === 8 || event.keyCode === 46 ? true : !isNaN(Number(event.key))">
+                                        <input id="pdTax" type="number" class="form-control mb-3"
+                                            placeholder="Product Tax" value="0" min="0" onkeyup="calculate();"
+                                            onkeydown="javascript: return event.keyCode === 8 || event.keyCode === 46 ? true : !isNaN(Number(event.key))">
                                     </div>
-                                
+
                                 </div>
 
 
 
 
-                            <select id="pdCategory" style="margin-bottom: 10px;" class="browser-default custom-select">
-                            </select>
-                            <select id="pdBrand" style="margin-bottom: 10px;" class="browser-default custom-select">
-                            </select>
 
-                            <select id="pdStock" style="margin-bottom: 10px;" class="browser-default custom-select">
-                                <option value="1" selected>Stock In</option>
-                                <option value="0">Stock Out</option>
-                            </select>
 
-                            <div class="form-group">
-                                <label for="pdFeature">Product Feature ? </label>
-                                <select id="pdFeature" style="margin-bottom: 10px;"
+                                <select id="pdCategory" style="margin-bottom: 10px;"
                                     class="browser-default custom-select">
-                                    <option value="1">Yes</option>
-                                    <option value="0" selected>No</option>
                                 </select>
-                            </div>
+                                <select id="pdBrand" style="margin-bottom: 10px;" class="browser-default custom-select">
+                                </select>
 
-                            <div class="form-group">
-                                <label for="pdFeature">Product Status: </label>
-                                <select id="pdActive" style="margin-bottom: 10px;"
+
+                                <div class="form-group">
+                                    <label for="pdFeature">Product Feature ? </label>
+                                    <select id="pdFeature" style="margin-bottom: 10px;"
+                                        class="browser-default custom-select">
+                                        <option value="1">Yes</option>
+                                        <option value="0" selected>No</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="pdFeature">Product Status: </label>
+                                    <select id="pdActive" style="margin-bottom: 10px;"
+                                        class="browser-default custom-select">
+                                        <option value="1" selected>Publish</option>
+                                        <option value="0">Panding</option>
+                                    </select>
+                                </div>
+                                <label for="pdmeserment">Product Measurement:</label>
+                                <select id="pdmeserment" style="margin-bottom: 10px;"
                                     class="browser-default custom-select">
-                                    <option value="1" selected>Publish</option>
-                                    <option value="0">Panding</option>
+                                    <option selected value="0">Select Measurement</option>
+                                    <option value="1">Size</option>
+                                    <option value="2">Wight</option>
+                                    <option value="3">Dimention</option>
+                                    <option value="4">Custom</option>
                                 </select>
-                            </div>
-                            <label for="pdmeserment">Product Meserment:</label>
-                            <select id="pdmeserment" style="margin-bottom: 10px;" class="browser-default custom-select">
-                                <option selected>Select Meserment</option>
-                                <option value="1">Size</option>
-                                <option value="2">Wight</option>
-                                <option value="3">Dimention</option>
-                                <option value="4">Custom</option>
-                            </select>
 
-                            <div class="meserment_input">
+                                <div class="meserment_input">
 
-                            </div>
-
-
-
-
-
-                        </div>
-                        <div class="col-md-6">
-
-                            <div class="card">
-                                <div class="card-header p-2 font-weight-bold text-center border border-dark">
-                                    Product Images
-                                </div>
-                                <div class="card-body p-0">
-                                    <table cellpadding="10px">
-                                        <thead>
-                                            <tr>
-                                                <th>Image</th>
-                                                <th>Preview</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr class="text-center">
-                                                <td>
-                                                    <input type="file" id="productImageOne" class="form-control mb-3"
-                                                        name="productImage[]">
-                                                </td>
-                                                <td>
-                                                    <img id="productImageOnePreview"
-                                                        style="height: 100px !important; width: 200px !important;"
-                                                        class="imgPreview mx-auto"
-                                                        src="{{ asset('admin/images/default-image.png') }}" />
-                                                </td>
-                                            </tr>
-                                            <tr class="text-center">
-                                                <td>
-                                                    <input type="file" id="productImageTwo" class="form-control mb-3"
-                                                        name="productImage[]">
-                                                </td>
-                                                <td>
-                                                    <img id="productImageTwoPreview"
-                                                        style="height: 100px !important; width: 200px !important;"
-                                                        class="imgPreview mx-auto"
-                                                        src="{{ asset('admin/images/default-image.png') }}" />
-                                                </td>
-                                            <tr class="text-center">
-                                                <td>
-                                                    <input type="file" id="productImageThree" class="form-control mb-3"
-                                                        name="productImage[]">
-                                                </td>
-                                                <td>
-                                                    <img id="productImageThreePreview"
-                                                        style="height: 100px !important; width: 200px !important;"
-                                                        class="imgPreview mx-auto"
-                                                        src="{{ asset('admin/images/default-image.png') }}" />
-                                                </td>
-                                            <tr class="text-center">
-                                                <td>
-                                                    <input type="file" id="productImageFour" class="form-control mb-3"
-                                                        name="productImage[]">
-                                                </td>
-                                                <td>
-                                                    <img id="productImageFourPreview"
-                                                        style="height: 100px !important; width: 200px !important;"
-                                                        class="imgPreview mx-auto"
-                                                        src="{{ asset('admin/images/default-image.png') }}" />
-                                                </td>
-                                            <tr class="text-center">
-                                                <td>
-                                                    <input type="file" id="productImageFive" class="form-control mb-3"
-                                                        name="productImage[]">
-                                                </td>
-                                                <td>
-                                                    <img id="productImageFivePreview"
-                                                        style="height: 100px !important; width: 200px !important;"
-                                                        class="imgPreview mx-auto"
-                                                        src="{{ asset('admin/images/default-image.png') }}" />
-                                                </td>
-                                            </tr>
-
-                                        </tbody>
-                                    </table>
                                 </div>
 
+
+
+
+
                             </div>
-                            <div class="card mt-2">
-                                <div class="card-header">
-                                    <h5>Add Color</h5>
-                                </div>
-                                <div class="card-body">
-                                    <div class="form-group">
-                                        <table class="table table-border table-sm">
-                                            <thead class="thead-success">
-                                                <th class="text-center">Input</th>
-                                                <th class="text-center">
-                                                    <button onclick="addInput();" class="btn btn-warning btn-sm p-o mx-auto"><i class="fas fa-plus-circle fa-2x"></i></button>
-                                                </th>
+                            <div class="col-md-6">
+
+                                <div class="card">
+                                    <div class="card-header p-2 font-weight-bold text-center border border-dark">
+                                        Product Images
+                                    </div>
+                                    <div class="card-body p-0">
+                                        <table cellpadding="10px">
+                                            <thead>
+                                                <tr>
+                                                    <th>Image</th>
+                                                    <th>Preview</th>
+                                                </tr>
                                             </thead>
-                                            <tbody id="append_tbody">
+                                            <tbody>
+                                                <tr class="text-center">
+                                                    <td>
+                                                        <input type="file" id="productImageOne"
+                                                            class="form-control mb-3" name="productImage[]">
+                                                    </td>
+                                                    <td>
+                                                        <img id="productImageOnePreview"
+                                                            style="height: 100px !important; width: 200px !important;"
+                                                            class="imgPreview mx-auto"
+                                                            src="{{ asset('admin/images/default-image.png') }}" />
+                                                    </td>
+                                                </tr>
+                                                <tr class="text-center">
+                                                    <td>
+                                                        <input type="file" id="productImageTwo"
+                                                            class="form-control mb-3" name="productImage[]">
+                                                    </td>
+                                                    <td>
+                                                        <img id="productImageTwoPreview"
+                                                            style="height: 100px !important; width: 200px !important;"
+                                                            class="imgPreview mx-auto"
+                                                            src="{{ asset('admin/images/default-image.png') }}" />
+                                                    </td>
+                                                <tr class="text-center">
+                                                    <td>
+                                                        <input type="file" id="productImageThree"
+                                                            class="form-control mb-3" name="productImage[]">
+                                                    </td>
+                                                    <td>
+                                                        <img id="productImageThreePreview"
+                                                            style="height: 100px !important; width: 200px !important;"
+                                                            class="imgPreview mx-auto"
+                                                            src="{{ asset('admin/images/default-image.png') }}" />
+                                                    </td>
+                                                <tr class="text-center">
+                                                    <td>
+                                                        <input type="file" id="productImageFour"
+                                                            class="form-control mb-3" name="productImage[]">
+                                                    </td>
+                                                    <td>
+                                                        <img id="productImageFourPreview"
+                                                            style="height: 100px !important; width: 200px !important;"
+                                                            class="imgPreview mx-auto"
+                                                            src="{{ asset('admin/images/default-image.png') }}" />
+                                                    </td>
+                                                <tr class="text-center">
+                                                    <td>
+                                                        <input type="file" id="productImageFive"
+                                                            class="form-control mb-3" name="productImage[]">
+                                                    </td>
+                                                    <td>
+                                                        <img id="productImageFivePreview"
+                                                            style="height: 100px !important; width: 200px !important;"
+                                                            class="imgPreview mx-auto"
+                                                            src="{{ asset('admin/images/default-image.png') }}" />
+                                                    </td>
+                                                </tr>
 
                                             </tbody>
                                         </table>
+                                    </div>
+
+                                </div>
+
+                                <div class="card mt-2">
+                                    <div class="card-header">
+                                        <h5>Add Color</h5>
+                                        <p>Use multiple colors. separated with come ( , )</p>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="form-group">
+                                            <select id="pdcolor" class="browser-default custom-select" multiple style="width: 100% !important; overflow: hidden;">
+
+                                            </select>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="modal-footer-full-width  modal-footer">
-                <button type="button" class="btn btn-danger btn-md btn-rounded" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary btn-md btn-rounded" id="productAddConfirmBtn">Save
-                    changes</button>
-            </div>
+                <div class="modal-footer-full-width  modal-footer">
+                    <button type="button" class="btn btn-danger btn-md btn-rounded" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary btn-md btn-rounded" id="productAddConfirmBtn">Save
+                        changes</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
@@ -273,8 +310,8 @@
                 <h5 id="productDeleteId" class="mt-4 d-none"></h5>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-sm btn-primary" data-dismiss="modal">No</button>
-                <button data-id="" id="confirmDeleteproduct" type="button" class="btn btn-sm btn-danger">Yes</button>
+                <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">No</button>
+                <button data-id="" id="confirmDeleteproduct" type="button" class="btn btn-sm btn-primary">Yes</button>
             </div>
         </div>
     </div>
@@ -316,6 +353,18 @@
                                     <td id="pdDesShow"></td>
                                 </tr>
                                 <tr>
+                                    <td>SKU</td>
+                                    <td id="pdSku"></td>
+                                </tr>
+                                <tr>
+                                    <td>Stock</td>
+                                    <td id="product_stock"></td>
+                                </tr>
+                                <tr>
+                                    <td>Purchase Price</td>
+                                    <td id="pdPurchasePrice"></td>
+                                </tr>
+                                <tr>
                                     <td>Price</td>
                                     <td id="pdPriceShow"></td>
                                 </tr>
@@ -335,33 +384,34 @@
                                     <td>Product Tax(%)</td>
                                     <td id="pdViewTax"></td>
                                 </tr>
-                                
+
                                 <tr>
                                     <td>Category Name</td>
-                                    <td id="product_category_id"></td>
+                                    <td id="category_id"></td>
                                 </tr>
 
                                 <tr>
                                     <td>Brand Name</td>
-                                    <td id="product_brand_id"></td>
+                                    <td id="brand_id"></td>
                                 </tr>
 
                                 <tr>
-                                    <td>Owner Name</td>
-                                    <td id="product_owner_id">
+                                    <td>Product Owner</td>
+                                    <td id="vendor_id">
 
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>Product Color</td>
                                     <td id="">
-                                        <ul id="product_if_has_color" style="list-style-type: none; display:flex"></ul>
+                                        <ul id="color" style="list-style-type: none; display:flex"></ul>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>Product Measurement </td>
-                                    <td >
-                                        <ul id="product_meserment_type" style="list-style-type: none; display:flex"></ul>
+                                    <td>
+                                        <ul id="product_meserment_type" style="list-style-type: none; display:flex">
+                                        </ul>
                                     </td>
                                 </tr>
 
@@ -370,14 +420,14 @@
                         </div>
                         <div class="col-md-6">
 
-                                <div class="card">
-                                    <div class="card-headr text-center pt-2">
-                                       <h4>Product images</h4>
-                                    </div>
-                                    <div class="card-body ImageView">`
-
-                                    </div>
+                            <div class="card">
+                                <div class="card-headr text-center pt-2">
+                                    <h4>Product images</h4>
                                 </div>
+                                <div class="card-body ImageView">`
+
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -393,6 +443,8 @@
 <div class="modal fade right" id="updateProductModal" tabindex="-1" role="dialog"
     aria-labelledby="exampleModalPreviewLabel" aria-hidden="true">
     <div class="modal-dialog-full-width modal-dialog momodel modal-fluid" role="document">
+        <form action="{{ route('admin.productsUpdate') }}" method="post" id="product_edit_form">
+            @csrf
         <div class="modal-content-full-width modal-content ">
             <div class=" modal-header-full-width   modal-header text-center">
                 <h5 class="modal-title w-100" id="exampleModalPreviewLabel">Product Update</h5>
@@ -408,50 +460,81 @@
                             <label for="pdEditName">Product Name:</label>
                             <input id="pdEditName" type="text" id="" class="form-control mb-3"
                                 placeholder="Product Name">
-                                <input type="hidden" id="product_id_edit">
-                                <label for="pdEditDescription">Product Description:</label>
-                            <textarea id="pdEditDescription" type="text" id="" class="form-control mb-3" placeholder="Product Description" cols="30" rows="5"></textarea>
+                            <input type="hidden" id="product_id_edit">
+                            <label for="pdEditDescription">Product Description:</label>
+                            <textarea id="pdEditDescription" type="text" id="" class="form-control mb-3 ckeditor"
+                                placeholder="Product Description" cols="30" rows="5"></textarea>
 
 
 
-                             <div class="row">
+                            <div class="row  mt-2">
 
-                                    <div class="col-4 col-sm-4 col-md-4 col-lg-4 col-xl-4">
-                                        <label for="pdEditPrice">Product Price:</label>
-                                        <input id="pdEditPrice" type="number" class="form-control mb-3" placeholder="Product Price"   min="0" onkeyup="calculateEdit();" onchange="calculateEdit();" onkeydown="javascript: return event.keyCode === 8 || event.keyCode === 46 ? true : !isNaN(Number(event.key))">
-                                    </div>
-                                    <div class="col-4 col-sm-4 col-md-4 col-lg-4 col-xl-4">
-                                        <label for="pdEditSaving">Product Discount(%):</label>
-                                        <input id="pdEditSaving" type="number"  class="form-control mb-3" placeholder="Saving Percentege"   min="0" max="100" onkeyup="calculateEdit();" onchange="calculateEdit();">
-                                    </div>
-                                    <div class="col-4 col-sm-4 col-md-4 col-lg-4 col-xl-4">
-                                        <label for="pdEditOffer">Product Selling Price:</label>
-                                        <input id="pdEditOffer" type="number"  class="form-control mb-3" readonly placeholder="Offer Price" min="0" onkeydown="javascript: return event.keyCode === 8 || event.keyCode === 46 ? true : !isNaN(Number(event.key))">
-                                    </div>
+                                <div class="col-4 col-sm-4 col-md-4 col-lg-4 col-xl-4">
+                                    <label for="pdEditPrice">Product Price:</label>
+                                    <input id="pdEditPrice" type="number" class="form-control mb-3"
+                                        placeholder="Product Price" min="0" onkeyup="calculateEdit();"
+                                        onchange="calculateEdit();"
+                                        onkeydown="javascript: return event.keyCode === 8 || event.keyCode === 46 ? true : !isNaN(Number(event.key))">
                                 </div>
+                                <div class="col-4 col-sm-4 col-md-4 col-lg-4 col-xl-4">
+                                    <label for="pdEditSaving">Product Discount(%):</label>
+                                    <input id="pdEditSaving" type="number" class="form-control mb-3"
+                                        placeholder="Saving Percentege" min="0" max="100" onkeyup="calculateEdit();"
+                                        onchange="calculateEdit();">
+                                </div>
+                                <div class="col-4 col-sm-4 col-md-4 col-lg-4 col-xl-4">
+                                    <label for="pdEditOffer">Product Selling Price:</label>
+                                    <input id="pdEditOffer" type="number" class="form-control mb-3" readonly
+                                        placeholder="Offer Price" min="0"
+                                        onkeydown="javascript: return event.keyCode === 8 || event.keyCode === 46 ? true : !isNaN(Number(event.key))">
+                                </div>
+                            </div>
+
+                            <div class="row mt-2">
+                                <div class="col-4 col-sm-4 col-md-4 col-lg-4 col-xl-4">
+                                    <label for="pdEditSku">Product SKU:</label>
+                                    <input id="pdEditSku" type="text" id="" class="form-control mb-3" placeholder="SKU">
+                                </div>
+                                <div class="col-4 col-sm-4 col-md-4 col-lg-4 col-xl-4">
+                                    <label for="pdEditPurchasePrice">Purchase Price:</label>
+                                    <input id="pdEditPurchasePrice" type="number" class="form-control mb-3"
+                                        placeholder="Purchase Price" min="0" onkeyup="calculate();"
+                                        onkeydown="javascript: return event.keyCode === 8 || event.keyCode === 46 ? true : !isNaN(Number(event.key))">
+                                </div>
+
+                                <div class="col-4 col-sm-4 col-md-4 col-lg-4 col-xl-4">
+                                    <label for="pdEditStock">Stock Quantity:</label>
+                                    <input id="pdEditStock" type="number" class="form-control mb-3"
+                                        placeholder="Stock Quantity" min="0" onkeyup="calculate();"
+                                        onkeydown="javascript: return event.keyCode === 8 || event.keyCode === 46 ? true : !isNaN(Number(event.key))">
+                                </div>
+
+                            </div>
+
+
 
 
                             <div class="row">
                                 <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
                                     <label for="pdEditQuantity">Product Quantity:</label>
-                                        <input id="pdEditQuantity" type="number" id="" class="form-control mb-3" placeholder="Product Quantity"  min="0" max="1000" onkeydown="javascript: return event.keyCode === 8 || event.keyCode === 46 ? true : !isNaN(Number(event.key))">
-                                    </div>
+                                    <input id="pdEditQuantity" type="number" id="" class="form-control mb-3"
+                                        placeholder="Product Quantity" min="0" max="1000"
+                                        onkeydown="javascript: return event.keyCode === 8 || event.keyCode === 46 ? true : !isNaN(Number(event.key))">
+                                </div>
                                 <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
                                     <label for="pdEditTax">Product Tax(%):</label>
-                                    <input id="pdEditTax" type="number" class="form-control mb-3" placeholder="Product Tax"   min="0" onkeyup="calculate();" onkeydown="javascript: return event.keyCode === 8 || event.keyCode === 46 ? true : !isNaN(Number(event.key))">
+                                    <input id="pdEditTax" type="number" class="form-control mb-3"
+                                        placeholder="Product Tax" min="0" onkeyup="calculate();"
+                                        onkeydown="javascript: return event.keyCode === 8 || event.keyCode === 46 ? true : !isNaN(Number(event.key))">
                                 </div>
-                                </div>
-                         
+                            </div>
+
 
                             <label for="pdEditCategory">Product Category:</label>
-                            <select id="pdEditCategory" style="margin-bottom: 10px;" class="browser-default custom-select"></select>
+                            <select id="pdEditCategory" style="margin-bottom: 10px;"
+                                class="browser-default custom-select"></select>
                             <label for="pdEditBrand">Product Brand:</label>
                             <select id="pdEditBrand" style="margin-bottom: 10px;" class="browser-default custom-select">
-                            </select>
-                            <label for="pdEditStock">Product Stock:</label>
-                            <select id="pdEditStock" style="margin-bottom: 10px;" class="browser-default custom-select">
-                                <option value="1" >Stock In</option>
-                                <option value="0">Stock Out</option>
                             </select>
 
 
@@ -468,13 +551,14 @@
                                 <label for="pdEditStatus">Product Status: </label>
                                 <select id="pdEditStatus" style="margin-bottom: 10px;"
                                     class="browser-default custom-select">
-                                    <option value="1" >Publish</option>
+                                    <option value="1">Publish</option>
                                     <option value="0">Panding</option>
                                 </select>
                             </div>
-                            <label for="pdmesermentEdit">Product Meserment:</label>
-                            <select id="pdmesermentEdit" style="margin-bottom: 10px;" class="browser-default custom-select">
-                                <option >Select Meserment</option>
+                            <label for="pdmesermentEdit">Product Measurement:</label>
+                            <select id="pdmesermentEdit" style="margin-bottom: 10px;"
+                                class="browser-default custom-select">
+                                <option value="0">Select Measurement</option>
                                 <option value="1">Size</option>
                                 <option value="2">Wight</option>
                                 <option value="3">Dimention</option>
@@ -570,17 +654,11 @@
                                 </div>
                                 <div class="card-body">
                                     <div class="form-group">
-                                        <table class="table table-border table-sm">
-                                            <thead class="thead-success">
-                                                <th class="text-center">Input</th>
-                                                <th class="text-center">
-                                                    <button onclick="addEditInput();" class="btn btn-warning btn-sm p-o mx-auto"><i class="fas fa-plus-circle fa-2x"></i></button>
-                                                </th>
-                                            </thead>
-                                            <tbody id="addEditColorInput">
+                                       
+                                            <select name="pdcolorEdit" id="addEditColorInput" class="browser-default custom-select" multiple style="width: 100% !important; overflow: hidden;">
 
-                                            </tbody>
-                                        </table>
+                                            </select>
+
                                     </div>
                                 </div>
                             </div>
@@ -590,8 +668,10 @@
             </div>
             <div class="modal-footer-full-width  modal-footer">
                 <button type="button" class="btn btn-danger btn-md btn-rounded" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary btn-md btn-rounded" id="productEditConfirmBtn">Save Changes</button>
+                <button type="submit" class="btn btn-primary btn-md btn-rounded" id="productEditConfirmBtn">Save
+                    Changes</button>
             </div>
         </div>
+        </form>
     </div>
 </div>

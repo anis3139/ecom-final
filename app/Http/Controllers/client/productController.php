@@ -4,7 +4,7 @@ namespace App\Http\Controllers\client;
 
 use App\Http\Controllers\Controller;
 use App\Models\Product;
-use App\Models\ProductsCategoryModel;
+use App\Models\Category;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -13,7 +13,7 @@ class ProductController extends Controller
     {
 
 
-        $productDetails = Product::with('cat', 'img', 'maserment', 'color', 'rating')->where('product_slug', $slug)->where('product_active', 1)->first();
+        $productDetails = Product::with('cat', 'img', 'maserment',  'rating')->where('slug', $slug)->where('status', 1)->first();
 
         if ($productDetails == null) {
             return redirect()->route('client.home');

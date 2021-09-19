@@ -2,6 +2,10 @@
 @section('title')
     {{ $category->name }}
 @endsection
+@section('css')
+    @include('client.component.Style')
+
+@endsection
 @section('content')
     <!-- Page Title
                                                                   ============================================= -->
@@ -40,61 +44,64 @@
                                 <div class="product col-md-4 col-sm-6 col-12">
                                     <div class="grid-inner">
                                         <div class="product-image">
-                                            @php $i= 2; @endphp
-                                            @foreach ($allProduct->img as $images)
-                                                @if ($i > 0)
-                                                    <a
-                                                        href="{{ route('client.showProductDetails', ['slug' => $allProduct->product_slug]) }}"><img
-                                                            src="{{ $images->image_path }}" alt="Checked Short Dress"></a>
-                                                @endif
-                                                @php $i--; @endphp
-                                            @endforeach
 
+                                            @php
+                                                $imageOne=$allProduct->img[0]->image_path??'';
+                                                $imageTwo=$allProduct->img[1]->image_path?? $allProduct->img[0]->image_path;
+                                                
+                                            @endphp
 
+                                            <a href="{{ route('client.showProductDetails', ['slug' => $allProduct->slug]) }}">
+                                                <img src="{{ $imageOne }}" alt="" />
+                                                  <img class="hoverimage" src="{{ $imageTwo }}" alt="" />
+                                               
+                                                  @if ($allProduct->category->slug === "customized-jewelry")
+                                                  <div class="sale-flash badge badge-primary p-2">Pre Order</div>
+                                                  @elseif($allProduct->stock > 0)
+                                                  <div class="sale-flash badge badge-secondary p-2">In Stock</div>
+                                                  @else
+                                                      <div class="sale-flash badge badge-danger p-2">Out of Stock!</div>
+                                                  @endif
+      
+                                                
+                                                <div class="hoverbuttonbox" >
+                                                        <div class="buttonaction"
+                                                                data-hover-animate="fadeIn" data-hover-speed="400">
+                                                                    @guest
+                                                                        <a href="javascript:void(0);" onclick="toastr.info('To add Favorite List. You need to login first.','Info',{
+                                                                             closeButton: true,
+                                                                            progressBar: true,
+                                                                            })" class="btn btn-dark"><i class="icon-heart3"></i> <span> ({{ $allProduct->favorite_to_users->count() }})</span>
+                                                                        </a>
+                                                                    @else
+                                                                        <a href="javascript:void(0);" onclick="document.getElementById('favorite-form-{{ $allProduct->id }}').submit();"
+                                                                            class="{{ !Auth::user()->favorite_product->where('pivot.product_id',$allProduct->id)->count()  == 0 ? 'favorite_posts' : ''}}"><i class="icon-heart3"></i><span class="text-dark">(<span class="favorite_posts">{{ $allProduct->favorite_to_users->count() }}</span>)</span>
+                                                                        </a>
 
-                                            @if ($allProduct->product_in_stock)
-                                                <div class="sale-flash badge badge-secondary p-2">Sell!</div>
-                                            @else
-                                                <div class="sale-flash badge badge-secondary p-2">Out of Stock</div>
-                                            @endif
-
-                                            <div class="bg-overlay">
-                                                <div class="bg-overlay-content align-items-end justify-content-between"
-                                                    data-hover-animate="fadeIn" data-hover-speed="400">
-                                                    @guest
-                                                        <a href="javascript:void(0);" onclick="toastr.info('To add Favorite List. You need to login first.','Info',{
-                                                                       closeButton: true,
-                                                                       progressBar: true,
-                                                                   })" class="btn btn-dark mr-2"><i class="icon-heart3"></i>
-                                                            <span>
-                                                                ({{ $allProduct->favorite_to_users->count() }})</span></a>
-                                                    @else
-                                                        <a href="javascript:void(0);"
-                                                            onclick="document.getElementById('favorite-form-{{ $allProduct->id }}').submit();"
-                                                            class="{{ !Auth::user()->favorite_product->where('pivot.product_id', $allProduct->id)->count() == 0
-    ? 'favorite_posts'
-    : '' }}"><i
-                                                                class="icon-heart3"></i><span class="text-dark">(<span
-                                                                    class="favorite_posts">{{ $allProduct->favorite_to_users->count() }}</span>)</span></a>
-
-                                                        <form id="favorite-form-{{ $allProduct->id }}" method="POST"
-                                                            action="{{ route('client.favorite', $allProduct->id) }}"
-                                                            style="display: none;">
-                                                            @csrf
-                                                        </form>
-                                                    @endguest
-                                                    <a href="" class="btn btn-dark" data-toggle="modal"
-                                                        data-target=".bd-example-modal-lg"
-                                                        onclick="productDetailsModal({{ $allProduct->id }})"><i
-                                                            class="icon-line-expand"></i></a>
+                                                                        <form id="favorite-form-{{ $allProduct->id }}" method="POST" action="{{ route('client.favorite',$allProduct->id) }}" style="display: none;">
+                                                                            @csrf
+                                                                        </form>
+                                                                    @endguest
+                                                        </div>
+                                                        <div class="buttonaction right">
+                                                                    <a href="{{  $imageTwo }}" class="btn btn-dark" data-toggle="modal"
+                                                                        data-target=".bd-example-modal-lg"
+                                                                        onclick="productDetailsModal({{ $allProduct->id }})"><i
+                                                                            class="icon-line-expand"></i>
+                                                                    </a>
+                                                                
+                                                        </div>
+                                                            
                                                 </div>
-                                                <div class="bg-overlay-bg bg-transparent"></div>
-                                            </div>
+                                              
+                                            </a>
+                                            
+                                           
                                         </div>
                                         <div class="product-desc">
                                             <div class="product-title">
                                                 <h3><a
-                                                        href="{{ route('client.showProductDetails', ['slug' => $allProduct->product_slug]) }}">{{ $allProduct->product_title }}</a>
+                                                        href="{{ route('client.showProductDetails', ['slug' => $allProduct->slug]) }}">{{ $allProduct->name }}</a>
                                                 </h3>
                                             </div>
                                             <div class="product-price">
@@ -160,7 +167,7 @@
 
                                 <h4>Shop Categories</h4>
                                 <ul>
-                                    @foreach (App\Models\ProductsCategoryModel::orderby('name', 'asc')->where('parent_id', 0)->get()
+                                    @foreach (App\Models\Category::orderby('name', 'asc')->where('parent_id', null)->get()
         as $parentCat)
                                         <li><a
                                                 href="{{ route('client.category', $parentCat->slug) }}">{{ $parentCat->name }}</a>
@@ -186,7 +193,7 @@
                                                         @foreach ($recentProduct->img as $images)
                                                             @if ($i > 0)
                                                                 <a class="aa-cartbox-img"
-                                                                    href="{{ route('client.showProductDetails', ['slug' => $recentProduct->product_slug]) }}"><img
+                                                                    href="{{ route('client.showProductDetails', ['slug' => $recentProduct->slug]) }}"><img
                                                                         src="{{ $images->image_path }}"
                                                                         alt="polo shirt img" width="100%"
                                                                         height="300px"></a>
@@ -198,7 +205,7 @@
                                                 <div class="col pl-3">
                                                     <div class="entry-title">
                                                         <h4><a
-                                                                href="{{ route('client.showProductDetails', ['slug' => $recentProduct->product_slug]) }}">{{ $recentProduct->product_title }}</a>
+                                                                href="{{ route('client.showProductDetails', ['slug' => $recentProduct->slug]) }}">{{ $recentProduct->name }}</a>
                                                         </h4>
                                                     </div>
                                                     <div class="entry-meta no-separator">
@@ -235,7 +242,7 @@
                                                             @foreach ($topRatedProduct->img as $images)
                                                                 @if ($i > 0)
                                                                     <a class="aa-cartbox-img"
-                                                                        href="{{ route('client.showProductDetails', ['slug' => $topRatedProduct->product_slug]) }}"><img
+                                                                        href="{{ route('client.showProductDetails', ['slug' => $topRatedProduct->slug]) }}"><img
                                                                             src="{{ $images->image_path }}"
                                                                             alt="polo shirt img" width="100%"
                                                                             height="300px"></a>
@@ -247,7 +254,7 @@
                                                     <div class="col pl-3">
                                                         <div class="entry-title">
                                                             <h4><a
-                                                                    href="{{ route('client.showProductDetails', ['slug' => $topRatedProduct->product_slug]) }}">{{ $topRatedProduct->product_title }}</a>
+                                                                    href="{{ route('client.showProductDetails', ['slug' => $topRatedProduct->slug]) }}">{{ $topRatedProduct->name }}</a>
                                                             </h4>
                                                         </div>
                                                         <div class="entry-meta no-separator">
@@ -298,171 +305,6 @@
 @endsection
 
 @section('script')
-    <script>
-   
-        // Add to cart
+@include('client.component.Scripts')
 
-
-        $('#cartForm').on('submit', function(event) {
-            event.preventDefault();
-            let formData = $(this).serializeArray();
-            let meserment = formData[0]['value'];
-            let color = formData[1]['value'];
-            let quantity = formData[2]['value'];
-            let product_ids = formData[3]['value'];
-            console.log(formData);
-            let url = "{{ route('client.addCart') }}";
-            axios.post(url, {
-                meserment: meserment,
-                color: color,
-                quantity: quantity,
-                product_id: product_ids
-            }).then(function(response) {
-                console.log(response.data);
-                if (response.status == 200 && response.data == 1) {
-                    $('.bd-example-modal-lg').modal('hide');
-                    toastr.success('Product Add Successfully', 'Success', {
-                        closeButton: true,
-                        progressBar: true,
-                    });
-                    getcartData()
-                } else {
-                    toastr.error('Product not Added ! Try Again', 'Error', {
-                        closeButton: true,
-                        progressBar: true,
-                    });
-                }
-
-            }).catch(function(error) {
-                toastr.error('Product not Added  ! Something Error', 'Error', {
-                    closeButton: true,
-                    progressBar: true,
-                });
-            })
-
-
-        })
-
-
-
-
-
-        getcartData()
-
-        function getcartData() {
-
-            axios.get("{{ route('client.cartData') }}")
-                .then(function(response) {
-
-                    if (response.status = 200) {
-                        var dataJSON = response.data;
-                        var cartData = dataJSON.cart;
-
-                        var a = Object.keys(cartData).length;
-
-
-                        $("#cart_quantity").html(a);
-                        var tp = parseFloat(dataJSON.total).toFixed(2);
-                        $("#total_cart_price").html(' &#2547; ' + tp);
-
-                        var imageViewHtml = "";
-                        $.each(cartData, function(i, item) {
-                            imageViewHtml += `<div class="top-cart-item">
-                                                                                                 <div class="top-cart-item-image">
-                                                                                                     <a href="#"><img src="${cartData[i].image}"
-                                                                                                             alt="Blue Round-Neck Tshirt" /></a>
-                                                                                                 </div>
-                                                                                                 <div class="top-cart-item-desc">
-                                                                                                     <div class="top-cart-item-desc-title">
-                                                                                                         <a href="#">${cartData[i].title}</a>
-                                                                                                         <span class="top-cart-item-price d-block"> ${cartData[i].quantity} x &#2547; ${cartData[i].unit_price}</span>
-                                                                                                     </div>
-                                                                                                     <div class="top-cart-item-quantity"><button class="cartDeleteIcon" data-id="${i}" type="submit"><i class="icon-remove"> </i></button></div>
-                                                                                                 </div>
-                                                                                        </div>`
-                        });
-
-
-                        $('.top-cart-items').html(imageViewHtml);
-
-                        console.log(a);
-
-                        if (a == 0) {
-                            $("#HeaderPreview").css("display", "none");
-                        } else {
-                            $("#HeaderPreview").css("display", "block");
-                        }
-
-
-                        //Carts click on delete icon
-                        $(".cartDeleteIcon").click(function() {
-                            var id = $(this).data('id');
-                            $('#CartsDeleteId').html(id);
-                            DeleteDataCart(id);
-                        })
-                    } else {
-                        toastr.error('Something Went Wrong', 'Error', {
-                            closeButton: true,
-                            progressBar: true,
-                        });
-                    }
-                }).catch(function(error) {
-
-                    toastr.error('Something Went Wrong...', 'Error', {
-                        closeButton: true,
-                        progressBar: true,
-                    });
-                });
-        }
-
-
-
-
-
-
-
-
-
-
-
-
-        $('#confirmDeleteCart').click(function() {
-
-
-            alert("hello")
-            var id = $(this).data('id');
-            DeleteDataCart(id);
-        })
-
-
-        //delete Cart function
-        function DeleteDataCart(id) {
-
-            axios.post("{{ route('client.cartRemove') }}", {
-                    product_id: id
-                })
-                .then(function(response) {
-
-                    if (response.status == 200) {
-                        toastr.success('Cart Removed Success.', 'Success', {
-                            closeButton: true,
-                            progressBar: true,
-                        });
-                        getcartData();
-                    } else {
-                        toastr.error('Something Went Wrong', 'Error', {
-                            closeButton: true,
-                            progressBar: true,
-                        });
-                    }
-                }).catch(function(error) {
-
-                    toastr.error('Something Went Wrong......', 'Error', {
-                        closeButton: true,
-                        progressBar: true,
-                    });
-                });
-        }
-
-    </script>
 @endsection

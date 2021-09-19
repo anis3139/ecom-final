@@ -15,8 +15,8 @@
                                 <th class="th-sm">Type</th>
                                 <th class="th-sm">Status</th>
                                 <th class="th-sm">Expiry date</th>
-                                <th class="th-sm">Edit</th>
-                                <th class="th-sm">Delete</th>
+                                <th class="th-sm EditIcon">Edit</th>
+                                <th class="th-sm DeleteIcon">Delete</th>
                             </tr>
                         </thead>
                         <tbody id="Cupon_table">

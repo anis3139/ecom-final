@@ -1,4 +1,7 @@
 @extends('admin.Layouts.app')
+@php
+$usr = Auth::guard('admin')->user();
+@endphp
 @section('title', 'Brands')
 @section('content')
     <div class="row mt-5">
@@ -12,10 +15,9 @@
                                 <tr class="text-center">
                                     <th class="th-sm">Sl.</th>
                                     <th class="th-sm">Brand Name</th>
-                                    <th class="th-sm">Category Name</th>
                                     <th class="th-sm">Images</th>
-                                    <th class="th-sm">Edit</th>
-                                    <th class="th-sm">Delete</th>
+                                    <th class="th-sm EditIcon">Edit</th>
+                                    <th class="th-sm DeleteIcon">Delete</th>
                                 </tr>
                             </thead>
                             <tbody id="Brands_table">
@@ -48,6 +50,9 @@
             <div class="modal fade" id="addBrandsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
                 aria-hidden="true">
                 <div class="modal-dialog modal-lg" role="document">
+                    <form action="{{ route('brand.store') }}" method="post"
+                    id="brand_add_form">
+                    @csrf
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title ml-5">Add New Brands</h5>
@@ -59,14 +64,12 @@
                             <div class="container">
                                 <div class="row">
 
-                                    <input id="BrandName" type="text" id="" class="form-control mb-3"
+                                    <input required id="BrandName" type="text" id="" class="form-control mb-3"
                                         placeholder="Brands Name">
 
-                                    <select name="Categories" id="Categories" class="form-control mb-3">
 
-                                    </select>
 
-                                    <input type="file" id="imageBrand" class="form-control mb-3" name="text-input">
+                                    <input required type="file" id="imageBrand" class="form-control mb-3" name="text-input">
                                     <img id="addBrandImagePreview" style="height: 100px !important;"
                                         class="imgPreview mt-3 " src="{{ asset('admin/images/default-image.png') }}" />
 
@@ -75,10 +78,11 @@
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-sm btn-primary" data-dismiss="modal">Cancel</button>
-                            <button id="BrandsAddConfirmBtn" type="button" class="btn  btn-sm  btn-danger">Save</button>
+                            <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">Cancel</button>
+                            <button id="BrandsAddConfirmBtn" type="submit" class="btn  btn-sm  btn-primary">Save</button>
                         </div>
                     </div>
+                    </form>
                 </div>
             </div>
 
@@ -88,6 +92,7 @@
             <div class="modal fade" id="deleteModalBrands" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
                 aria-hidden="true">
                 <div class="modal-dialog" role="document">
+
                     <div class="modal-content">
 
                         <div class="modal-body p-3 text-center">
@@ -95,11 +100,12 @@
                             <h5 id="BrandsDeleteId" class="mt-4 d-none "></h5>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-sm btn-primary" data-dismiss="modal">No</button>
+                            <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">No</button>
                             <button data-id="" id="confirmDeleteBrands" type="button"
-                                class="btn btn-sm btn-danger">Yes</button>
+                                class="btn btn-sm btn-primary">Yes</button>
                         </div>
                     </div>
+
                 </div>
             </div>
             <!-- Modal Brands Delete -->
@@ -124,8 +130,7 @@
                                 <div class="container">
                                     <div class="row">
                                         <input id="BrandNameEdit" type="text" id="" class="form-control mb-3">
-                                        <select name="CategoriesEdit" id="CategoriesEdit" class="form-control mb-3">
-                                        </select>
+
                                         <input type="file" id="imageBrandEdit" class="form-control mb-3" name="text-input">
                                         <img id="editBrandImagePreview" style="height: 100px !important;"
                                             class="imgPreview mt-3 " src="{{ asset('admin/images/default-image.png') }}" />
@@ -134,8 +139,8 @@
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-sm btn-primary" data-dismiss="modal">Cancel</button>
-                            <button id="BrandsEditConfirmBtn" type="button" class="btn  btn-sm  btn-danger">Save</button>
+                            <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">Cancel</button>
+                            <button id="BrandsEditConfirmBtn" type="button" class="btn  btn-sm  btn-primary">Save</button>
                         </div>
                     </div>
                 </div>
@@ -158,7 +163,7 @@
         function getBranddata() {
             axios.get("{{ route('admin.getBrandsData') }}")
                 .then(function(response) {
-                    console.log(response.data);
+                  
 
                     if (response.status = 200) {
                         $('#mainDivBrands').removeClass('d-none');
@@ -171,8 +176,7 @@
                         $.each(dataJSON, function(i, item) {
                             $('<tr class="text-center">').html(
                                 "<td>" + count++ + " </td>" +
-                                "<td>" + dataJSON[i].brandName + " </td>" +
-                                "<td>" + dataJSON[i].categoryName + " </td>" +
+                                "<td>" + dataJSON[i].name + " </td>" +
                                 "<td><img width='200px' height='80' class='table-img' src=" + dataJSON[i]
                                 .image + "> </td>" +
                                 "<td><a class='brandEditIcon' data-id=" + dataJSON[i].id +
@@ -181,6 +185,19 @@
                                 " ><i class='fas fa-trash-alt'></i></a> </td>"
                             ).appendTo('#Brands_table');
                         });
+
+                        @if (!$usr->can('brand.delete') )
+                         $('.DeleteIcon').empty();
+                         $('.brandDeleteIcon').hide();
+                         @endif
+                         @if (!$usr->can('brand.edit'))
+                             $('.EditIcon').empty();
+                             $('.brandEditIcon').empty();
+                         @endif
+                         @if (!$usr->can('brand.create'))
+                             $('#addBtnBrands').empty();
+                         @endif
+                         
                         //Brands click on delete icon
                         $(".brandDeleteIcon").click(function() {
                             var id = $(this).data('id');
@@ -223,38 +240,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-        // Material Select Initialization
-        $(document).ready(function() {
-            $('#Categories').material_select();
-        });
-
-
-        // Add Category List
-        axios.get("{{ route('admin.getCategoriesData') }}")
-            .then(function(response) {
-                var dataJSON = response.data;
-
-                $('#Categories').empty();
-                $('#Categories').append(`<option disabled selected>Select Category</option>`);
-                $.each(dataJSON, function(i, item) {
-                    $('#Categories').append(
-                        `<option value="${dataJSON[i].id}"> ${dataJSON[i].name} </option>`);
-
-                    $('#Categories').material_select('refresh');
-                });
-            }).catch(function(error) {
-                alert("There are no Category")
-            });
-
         //image Preview
 
         $('#imageBrand').change(function() {
@@ -267,24 +252,21 @@
         })
 
         //Brand Add
-        $('#BrandsAddConfirmBtn').click(function() {
+        $('#brand_add_form').submit(function(event) {
+            event.preventDefault();
             var name = $('#BrandName').val();
-            var categories = $('#Categories').val();
             var image = $('#imageBrand').prop('files')[0];
-            BrandAdd(name, categories, image);
+            BrandAdd(name, image);
         })
 
-        function BrandAdd(name, categories, image) {
+        function BrandAdd(name, image) {
             if (name.length == 0) {
                 toastr.error('Brand Title is empty!');
-            } else if (categories == 0) {
-                toastr.error('Brand description is empty!');
             } else {
                 $('#BrandAddConfirmBtn').html(
                     "<div class='spinner-border spinner-border-sm text-primary' role='status'></div>"); //animation
                 my_data = [{
                     name: name,
-                    categories: categories
                 }];
                 var formData = new FormData();
                 formData.append('data', JSON.stringify(my_data));
@@ -305,7 +287,6 @@
             progressBar: true,
         });
                             $('#BrandName').val("");
-                            $('#Categories').val("");
                             $('#imageBrand').val("");
                             document.getElementById("addBrandImagePreview").src = window.location.protocol + "//" +
                                 window.document.location.host + "/public/admin/images/default-image.png";
@@ -420,22 +401,6 @@
         $(document).ready(function() {
             $('#CategoriesEdit').material_select();
         });
-        // Add Category List
-        axios.get("{{ route('admin.getCategoriesData') }}")
-            .then(function(response) {
-                var dataJSON = response.data;
-                $('#CategoriesEdit').empty();
-                $.each(dataJSON, function(i, item) {
-                    $('#CategoriesEdit').append(
-                        `<option value="${dataJSON[i].id}"> ${dataJSON[i].name} </option>`);
-
-                });
-            }).catch(function(error) {
-                alert("There are no Category")
-            });
-
-
-
 
 
 
@@ -455,8 +420,6 @@
                         $('#BrandsEditForm').removeClass('d-none');
                         var jsonData = response.data;
                         $('#BrandNameEdit').val(jsonData[0].name);
-
-                        $('#CategoriesEdit option[value='+ jsonData[0].producrts_category_models_id +']').attr('selected','selected');
 
                         var ImgSource = (jsonData[0].image);
                         $('#editBrandImagePreview').attr('src', ImgSource)
@@ -485,23 +448,19 @@
         $('#BrandsEditConfirmBtn').click(function() {
             var idUpdate = $('#BrandsEditId').html();
             var nameUpdate = $('#BrandNameEdit').val();
-            var CategoriesEdit = $('#CategoriesEdit').val();
             var img = $('#imageBrandEdit').prop('files')[0];
-            BrandsUpdate(idUpdate, nameUpdate, CategoriesEdit, img);
+            BrandsUpdate(idUpdate, nameUpdate, img);
         })
         //update Brands data using modal
-        function BrandsUpdate(idUpdate, nameUpdate, CategoriesEdit, imgUpdate) {
+        function BrandsUpdate(idUpdate, nameUpdate, imgUpdate) {
             if (nameUpdate.length == 0) {
                 toastr.error('Brands name is empty!');
-            } else if (CategoriesEdit == 0) {
-                toastr.error('Brands Category is empty!');
             } else {
                 $('#BrandsEditConfirmBtn').html(
                     "<div class='spinner-border spinner-border-sm text-primary' role='status'></div>"); //animation
                 updateData = [{
                     id: idUpdate,
-                    name: nameUpdate,
-                    products_category_models_id: CategoriesEdit
+                    name: nameUpdate
                 }];
                 var formData = new FormData();
                 formData.append('data', JSON.stringify(updateData));
@@ -511,7 +470,7 @@
                         'Content-Type': 'multipart/form-data'
                     }
                 }).then(function(response) {
-                    console.log(response.data);
+                  
                     $('#BrandsEditConfirmBtn').html("Update");
                     if (response.status = 200) {
                         if (response.data == 1) {

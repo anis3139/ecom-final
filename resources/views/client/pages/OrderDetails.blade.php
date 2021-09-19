@@ -49,7 +49,7 @@
                         <a href="{{ route('client.profile') }}">Go Your Profile</a>
                     </div>
                 @endauth
-                <h2 class=" profile  text-center mt-3">Order id: {{ $orders->id }}</h2>
+                <h2 class=" profile  text-center mt-3">Order id: {{ $orders->order_id }}</h2>
                 @include('client.component.Message')
 
 
@@ -172,17 +172,17 @@
                                 <span class="amount">{{ $orders->total_delivery_charge }}</span>
                             </td>
                         </tr>
-                        @if ( $orders->total_cupon_discount>0)
+                        @if ($orders->total_cupon_discount > 0)
 
 
-                        <tr class="cart_item">
-                            <td class="cart-product-subtotal">
-                                <span class="amount">Cupon Discount:</span>
-                            </td>
-                            <td class="cart-product-subtotal">
-                                <span class="amount">{{ $orders->total_cupon_discount }}</span>
-                            </td>
-                        </tr>
+                            <tr class="cart_item">
+                                <td class="cart-product-subtotal">
+                                    <span class="amount">Cupon Discount:</span>
+                                </td>
+                                <td class="cart-product-subtotal">
+                                    <span class="amount">{{ $orders->total_cupon_discount }}</span>
+                                </td>
+                            </tr>
                         @endif
                         <tr class="cart_item">
                             <td class="cart-product-subtotal">
@@ -197,18 +197,47 @@
                             <td class="cart-product-subtotal">
                                 <span class="amount">Delivery Status:</span>
                             </td>
-                            @if ($orders->payment_status === "Cancel")
-                            <td class="cart-product-subtotal">
-                                <span class="amount btn btn-large btn-danger  px-3">{{ucfirst(trans($orders->payment_status))}}</span>
-                            </td>
+                            @if ($orders->delivery_status === 'Cancelled')
+                                <td class="cart-product-subtotal">
+                                    <span
+                                        class="amount btn btn-large btn-danger  px-3">{{ ucfirst(trans($orders->delivery_status)) }}</span>
+                                </td>
+                            @elseif ($orders->delivery_status === 'On Shipping')
+
+                                <td class="cart-product-subtotal">
+                                    <span
+                                        class="amount btn-large btn btn-info  px-3">{{ ucfirst(trans($orders->delivery_status)) }}</span>
+                                </td>
+
+                            @elseif ($orders->delivery_status === 'On Processing')
+
+                                <td class="cart-product-subtotal">
+                                    <span
+                                        class="amount btn-large btn btn-success  px-3">{{ ucfirst(trans($orders->delivery_status)) }}</span>
+                                </td>
+
                             @else
 
-                            <td class="cart-product-subtotal">
-                                <span class="amount btn-large btn btn-success  px-3">{{ucfirst(trans($orders->payment_status))}}</span>
-                            </td>
+                                <td class="cart-product-subtotal">
+                                    <span
+                                        class="amount btn-large btn btn-success  px-3">{{ ucfirst(trans($orders->delivery_status)) }}</span>
+                                </td>
                             @endif
 
                         </tr>
+                        @if ($orders->shipping_id && $orders->delivery_status === 'On Shipping' && !empty($orders->shipping_id))
+                            <tr class="cart_item">
+                                <td class="cart-product-subtotal">
+                                    <span class="amount">Shipping ID:</span>
+                                </td>
+
+                                <td class="cart-product-subtotal">
+                                    <span
+                                        class="amount btn-large btn btn-info  px-3">{{ $orders->shipping_id }}</span>
+                                </td>
+
+                            </tr>
+                        @endif
 
                         <tr class="cart_item">
                             <td class="cart-product-subtotal">
@@ -223,7 +252,7 @@
                                 <span class="amount">Transection Id:</span>
                             </td>
                             <td class="cart-product-subtotal">
-                                <span class="amount">{{ $orders->transection_id ?? "Payment Incomplete" }}</span>
+                                <span class="amount">{{ $orders->transection_id ?? 'Payment Incomplete' }}</span>
                             </td>
                         </tr>
 
@@ -253,6 +282,7 @@
                         <tr>
 
 
+                            <th class="cart-product-remove">Product ID</th>
                             <th class="cart-product-remove">Product Title</th>
                             <th class="cart-product-thumbnail">Quantity</th>
                             <th class="cart-product-name">Color</th>
@@ -269,7 +299,10 @@
 
 
                                     <td class="cart-product-subtotal">
-                                        <span class="amount">{{ $product->product->product_title }}</span>
+                                        <span class="amount">{{ $product->product->product_id }}</span>
+                                    </td>
+                                    <td class="cart-product-subtotal">
+                                        <span class="amount">{{ $product->product->name }}</span>
                                     </td>
                                     <td class="cart-product-subtotal">
                                         <span class="amount"> {{ $product->quantity }}</span>
@@ -280,8 +313,8 @@
                                             style="display:flex; justify-content:center; align-items: center;">
                                             @if ($product->color)
 
-                                                <div
-                                                    style=" width:20px; height:20px; border:1px solid #000; border-radius:50%; background-color: {{ $product->color }};">
+                                                <div>
+                                                    <p>{{ Str::ucfirst( $product->color ) }}</p>
                                                 </div>
                                             @else
                                                 {{ 'N/A' }}
@@ -320,119 +353,5 @@
 
 
 @section('script')
-
-    <script>
-
-
-
-
-      getcartData()
-
-function getcartData() {
-
-    axios.get("{{ route('client.cartData') }}")
-        .then(function(response) {
-
-            if (response.status = 200) {
-                var dataJSON = response.data;
-                var cartData = dataJSON.cart;
-
-                var a = Object.keys(cartData).length;
-
-
-                $("#cart_quantity").html(a);
-                var tp = parseFloat(dataJSON.total).toFixed(2);
-                $("#total_cart_price").html(' &#2547; ' + tp);
-
-                var imageViewHtml = "";
-                $.each(cartData, function(i, item) {
-                    imageViewHtml += `<div class="top-cart-item">
-                                                                                 <div class="top-cart-item-image">
-                                                                                     <a href="#"><img src="${cartData[i].image}"
-                                                                                             alt="Blue Round-Neck Tshirt" /></a>
-                                                                                 </div>
-                                                                                 <div class="top-cart-item-desc">
-                                                                                     <div class="top-cart-item-desc-title">
-                                                                                         <a href="#">${cartData[i].title}</a>
-                                                                                         <span class="top-cart-item-price d-block"> ${cartData[i].quantity} x &#2547; ${cartData[i].unit_price}</span>
-                                                                                     </div>
-                                                                                     <div class="top-cart-item-quantity"><button class="cartDeleteIcon" data-id="${i}" type="submit"><i class="icon-remove"> </i></button></div>
-                                                                                 </div>
-                                                                        </div>`
-                });
-
-
-                $('.top-cart-items').html(imageViewHtml);
-
-                console.log(a);
-
-                if (a == 0) {
-                    $("#HeaderPreview").css("display", "none");
-                } else {
-                    $("#HeaderPreview").css("display", "block");
-                }
-
-
-                //Carts click on delete icon
-                $(".cartDeleteIcon").click(function() {
-                    var id = $(this).data('id');
-                    $('#CartsDeleteId').html(id);
-                    DeleteDataCart(id);
-                })
-            } else {
-                toastr.error('Something Went Wrong', 'Error', {
-                    closeButton: true,
-                    progressBar: true,
-                });
-            }
-        }).catch(function(error) {
-
-            toastr.error('Something Went Wrong...', 'Error', {
-                closeButton: true,
-                progressBar: true,
-            });
-        });
-}
-
-
-
-$('#confirmDeleteCart').click(function() {
-
-
-alert("hello")
-var id = $(this).data('id');
-DeleteDataCart(id);
-})
-
-
-//delete Cart function
-function DeleteDataCart(id) {
-
-axios.post("{{ route('client.cartRemove') }}", {
-product_id: id
-})
-.then(function(response) {
-
-if (response.status == 200) {
-    toastr.success('Cart Removed Success.', 'Success',{
-closeButton: true,
-progressBar: true,
-});
-    getcartData();
-} else {
-    toastr.error('Something Went Wrong', 'Error',{
-closeButton: true,
-progressBar: true,
-});
-}
-}).catch(function(error) {
-
-toastr.error('Something Went Wrong......', 'Error',{
-closeButton: true,
-progressBar: true,
-});
-});
-}
-    </script>
-
+    @include('client.component.Scripts')
 @endsection

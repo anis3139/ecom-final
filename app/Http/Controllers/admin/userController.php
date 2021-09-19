@@ -7,18 +7,38 @@ use App\Models\User;
 use App\Notifications\registerEmail;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
+
+
+    public $user;
+
+    public function __construct()
+    {
+        $this->middleware(function ($request, $next) {
+            $this->user = Auth::guard('admin')->user();
+            return $next($request);
+        });
+    }
     public function userIndex()
     {
-
-        return view('admin.user.userIndex');
+        if (is_null($this->user) || !$this->user->can('user.view')) {
+            abort(403, 'Sorry !! You are Unauthorized to view any user!');
+        }
+        if (is_null($this->user) || !$this->user->can('social.create')) {
+            abort(403, 'Sorry !! You are Unauthorized to create any social Link !');
+        }
+        return view('admin.user.UserIndex');
     }
 
 
     public function userData()
     {
+        if (is_null($this->user) || !$this->user->can('user.view')) {
+            abort(403, 'Sorry !! You are Unauthorized to view any user!');
+        }
         $result = json_decode(User::orderBy('id', 'desc')->get());
 
         return $result;
@@ -28,6 +48,9 @@ class UserController extends Controller
 
     function userDelete(Request $req)
     {
+        if (is_null($this->user) || !$this->user->can('user.delete')) {
+            abort(403, 'Sorry !! You are Unauthorized to delete any user!');
+        }
         $id = $req->input('id');
         $result = User::where('id', '=', $id)->delete();
         if ($result == true) {
@@ -39,6 +62,9 @@ class UserController extends Controller
 
     function userDetailEdit(Request $req)
     {
+        if (is_null($this->user) || !$this->user->can('user.edit')) {
+            abort(403, 'Sorry !! You are Unauthorized to edit any user!');
+        }
         $id = $req->input('id');
         $result = json_encode(User::where('id', '=', $id)->get());
         return $result;
@@ -48,7 +74,9 @@ class UserController extends Controller
 
     function userDataUpdate(Request $req)
     {
-
+        if (is_null($this->user) || !$this->user->can('user.edit')) {
+            abort(403, 'Sorry !! You are Unauthorized to edit any user!');
+        }
         $id = $req->Input('id');
         $user=User::where('id', '=', $id)->first();
 
@@ -56,7 +84,7 @@ class UserController extends Controller
             'name' => 'required',
             'email' => 'required |unique:users,email,' .$user->id,
             'phone_number_edit' => 'required|min:8| max:16|required |unique:users,phone_number,'.$user->id
-            
+
 
           ]);
 
@@ -64,13 +92,13 @@ class UserController extends Controller
         $name = $req->Input('name');
         $email = strtolower($req-> Input('email'));
         $phone_number_edit = $req-> Input('phone_number_edit');
-    
+
 
         $result = User::where('id', '=', $id)->update([
             'name' => $name,
             'email' => $email,
             'phone_number' => $phone_number_edit
-            
+
             ]);
         if ($result == true) {
             return 1;
@@ -83,7 +111,9 @@ class UserController extends Controller
 
     function userAdd(Request $req)
     {
-
+        if (is_null($this->user) || !$this->user->can('user.create')) {
+            abort(403, 'Sorry !! You are Unauthorized to create any user!');
+        }
         $this->validate($req, [
             'name' => 'required',
             'email' => 'required | email |unique:users,email',

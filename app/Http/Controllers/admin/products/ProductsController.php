@@ -2,17 +2,30 @@
 
 namespace App\Http\Controllers\admin\products;
 
+use App\Exports\ProductExport;
 use App\Http\Controllers\Controller;
 use App\Models\meserments;
-use App\Models\product_color;
-use App\Models\product_has_images;
+use App\Models\ProductImage;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ProductsController extends Controller
 {
+
+
+    public $user;
+
+    public function __construct()
+    {
+        $this->middleware(function ($request, $next) {
+            $this->user = Auth::guard('admin')->user();
+            return $next($request);
+        });
+    }
     /**
      * Display a listing of the resource.
      *
@@ -20,6 +33,9 @@ class ProductsController extends Controller
      */
     public function index()
     {
+        if (is_null($this->user) || !$this->user->can('product.view')) {
+            abort(403, 'Sorry !! You are Unauthorized to view any Product !');
+        }
         return view('admin.components.Products');
     }
 
@@ -27,7 +43,10 @@ class ProductsController extends Controller
 
     public function getProductData()
     {
-        $result = json_decode(Product::with(['getCategory', 'getBrand', 'image'])->where('product_owner_id', '0')->orderBy('id', 'desc')->get());
+        if (is_null($this->user) || !$this->user->can('product.view')) {
+            abort(403, 'Sorry !! You are Unauthorized to view any Product !');
+        }
+        $result = json_decode(Product::with(['getCategory', 'getBrand', 'image'])->where('vendor_id', null)->orderBy('id', 'desc')->get());
         return $result;
     }
 
@@ -51,49 +70,71 @@ class ProductsController extends Controller
     {
 
 
-
+        if (is_null($this->user) || !$this->user->can('product.create')) {
+            abort(403, 'Sorry !! You are Unauthorized to create any Product !');
+        }
         $data = json_decode($_POST['data']);
-        $product_title = $data['0']->product_title;
-        $product_discription = $data['0']->product_discription;
+        $name = $data['0']->name;
+        $description = $data['0']->description;
+        $sku = $data['0']->sku;
+        $purchase_price = $data['0']->purchase_price;
         $product_price = $data['0']->product_price;
-        $product_saving = $data['0']->product_saving;
+        $discount = $data['0']->discount;
         $product_selling_price = $data['0']->product_selling_price;
         $product_quantity = $data['0']->product_quantity;
-        $product_category_id = $data['0']->product_category_id;
-        $product_brand_id = $data['0']->product_brand_id;
-        $product_in_stock = $data['0']->product_in_stock;
+        $category_id = $data['0']->category_id;
+        $brand_id = $data['0']->brand_id;
+        $stock = $data['0']->stock;
         $feture_products = $data['0']->feture_products;
-        $product_active = $data['0']->product_active;
+        $status = $data['0']->status;
         $pdmesermentValue = $data['0']->pdmesermentValue;
         $product_colors = $data['0']->product_colors;
         $selectedmesermentId = $data['0']->selectedmesermentId;
         $pdTax = $data['0']->pdTax;
 
-        $slug = Str::slug($product_title);
+
+        $slug = Str::slug($name);
         $next = 2;
-        while (Product::where('product_slug', '=', $slug)->first()) {
+        while (Product::where('slug', '=', $slug)->first()) {
             $slug = $slug . "-" . $next;
             $next++;
         }
 
         $result = new Product();
-        $result->product_title = $product_title;
-        $result->product_discription = $product_discription;
+        $result->name = $name;
+        $result->description = $description;
+        $result->meta_title = $name;
+        $result->meta_description = $description;
+        $result->sku = $sku;
+        $result->purchase_price = $purchase_price;
         $result->product_price = $product_price;
-        $result->product_saving = $product_saving;
+        $result->discount = $discount;
         $result->product_selling_price = $product_selling_price;
         $result->product_quantity = $product_quantity;
-        $result->product_category_id = $product_category_id;
-        $result->product_brand_id = $product_brand_id;
-        $result->product_in_stock = $product_in_stock;
+        $result->category_id = $category_id;
+        $result->brand_id = $brand_id;
+        $result->stock = $stock;
         $result->feture_products = $feture_products;
         $result->product_meserment_type = $selectedmesermentId;
-        $result->product_active = $product_active;
-        $result->product_slug = $slug;
+        $result->status = $status;
+        $result->slug = $slug;
         $result->product_tax = $pdTax;
-
+        $result->color =json_encode($product_colors);
+        $result->created_by = Auth::guard('admin')->user()->id;
         $result->save();
         $last_id = $result->id;
+
+        $words = explode(" ", $name);
+        $acronym = "";
+        foreach ($words as $w) {
+            $acronym .= $w[0];
+        }
+
+        $collectName= $acronym ?? Str::random(3);
+        $lastPId= "#".strtolower($collectName)."-".$result->id;
+        $pdId =Product::findOrFail($result->id);
+        $pdId->product_id = $lastPId;
+        $pdId->save();
 
 
         if (count($request->images) > 0) {
@@ -105,9 +146,9 @@ class ProductsController extends Controller
                 $productImageOnehost = $_SERVER['HTTP_HOST'];
                 $protocol = $_SERVER['PROTOCOL'] = isset($_SERVER['HTTPS']) && !empty($_SERVER['HTTPS']) ? 'https://' : 'http://';
                 $productImageOnelocation = $protocol . $productImageOnehost .  "/public/storage/" . $img;
-                $imagemodel = new product_has_images();
+                $imagemodel = new ProductImage();
                 $imagemodel->image_path = "$productImageOnelocation";
-                $imagemodel->has_images_product_id = $last_id;
+                $imagemodel->product_id = $last_id;
                 $imagemodel->save();
                 $i++;
             }
@@ -122,15 +163,7 @@ class ProductsController extends Controller
                 $pdmeserment->save();
             }
         }
-        if (count($product_colors) > 0) {
 
-            for ($color = 0; $color < count($product_colors); $color++) {
-                $pdmeserment = new product_color();
-                $pdmeserment->product_color_product_id = $last_id;
-                $pdmeserment->product_color_code = $product_colors[$color];
-                $pdmeserment->save();
-            }
-        }
 
 
 
@@ -162,8 +195,12 @@ class ProductsController extends Controller
      */
     public function edit(Request $req)
     {
+
+        if (is_null($this->user) || !$this->user->can('product.edit')) {
+            abort(403, 'Sorry !! You are Unauthorized to edit any Product !');
+        }
         $id = $req->input('id');
-        $result = json_encode(Product::with(['getCategory', 'getBrand', 'image', 'vendor', 'maserment', 'color'])->where('id', '=', $id)->get());
+        $result = json_encode(Product::with(['getCategory', 'getBrand', 'image', 'vendor', 'maserment'])->where('id', '=', $id)->get());
         return $result;
     }
 
@@ -177,11 +214,15 @@ class ProductsController extends Controller
     public function update(Request $request)
     {
 
-
+        if (is_null($this->user) || !$this->user->can('product.edit')) {
+            abort(403, 'Sorry !! You are Unauthorized to edit any Product !');
+        }
         $data = json_decode($_POST['data']);
         $product_id_edit = $data['0']->product_id_edit;
         $pdEditName = $data['0']->pdEditName;
         $pdEditDescription = $data['0']->pdEditDescription;
+        $pdEditSku = $data['0']->pdEditSku;
+        $pdEditPurchasePrice = $data['0']->pdEditPurchasePrice;
         $pdEditPrice = $data['0']->pdEditPrice;
         $pdEditSaving = $data['0']->pdEditSaving;
         $pdEditOffer = $data['0']->pdEditOffer;
@@ -193,7 +234,7 @@ class ProductsController extends Controller
         $pdEditStatus = $data['0']->pdEditStatus;
         $pdmesermentValueEdit = $data['0']->pdmesermentValueEdit;
         $slelctedmesermentEdit = $data['0']->slelctedmesermentEdit;
-        $editedValueOfColor = $data['0']->editedValueOfColor;
+        $editedValueOfColor = json_encode($data['0']->editedValueOfColor);
         $pdEditTax = $data['0']->pdEditTax;
 
 
@@ -211,26 +252,17 @@ class ProductsController extends Controller
             }
         }
 
-        if (isset($editedValueOfColor)) {
-            product_color::where('product_color_product_id', $product_id_edit)->delete();
-
-            for ($colors = 0; $colors < count($editedValueOfColor); $colors++) {
-                $dataColor = new product_color();
-                $dataColor->product_color_code = $editedValueOfColor[$colors];
-                $dataColor->product_color_product_id = $product_id_edit;
-                $dataColor->save();
-            }
-        }
 
 
 
 
         if ($request->has('images')) {
 
-            $product_has_images = product_has_images::where('has_images_product_id', $product_id_edit)->get();
-            foreach ($product_has_images as  $product_has_images_value) {
-                $delete_old_file = product_has_images::where('id', '=', $product_has_images_value->id)->first();
-                $delete_old_file_name = (explode('/', $delete_old_file->image_path))[5];
+            $ProductImage = ProductImage::where('product_id', $product_id_edit)->get();
+            foreach ($ProductImage as  $product_has_images_value) {
+                $delete_old_file = ProductImage::where('id', '=', $product_has_images_value->id)->first();
+                $delete_old_file_nameArr = (explode('/', $delete_old_file->image_path));
+                $delete_old_file_name = end($delete_old_file_nameArr);
                 Storage::delete("public/" . $delete_old_file_name);
                 $delete_old_file->delete();
             }
@@ -244,29 +276,34 @@ class ProductsController extends Controller
                 $productImageOnehost = $_SERVER['HTTP_HOST'];
                 $protocol = $_SERVER['PROTOCOL'] = isset($_SERVER['HTTPS']) && !empty($_SERVER['HTTPS']) ? 'https://' : 'http://';
                 $productImageOnelocation = $protocol . $productImageOnehost .  "/public/storage/" . $img;
-                $imagemodel = new product_has_images();
+                $imagemodel = new ProductImage();
                 $imagemodel->image_path = $productImageOnelocation;
-                $imagemodel->has_images_product_id = $product_id_edit;
+                $imagemodel->product_id = $product_id_edit;
                 $imagemodel->save();
                 $i++;
             }
 
 
             $result = Product::where('id', '=', $product_id_edit)->first();
-            $result->product_title = $pdEditName;
-            $result->product_discription = $pdEditDescription;
+            $result->name = $pdEditName;
+            $result->description = $pdEditDescription;
+            $result->meta_title = $pdEditName;
+            $result->meta_description = $pdEditDescription;
+            $result->sku = $pdEditSku;
+            $result->purchase_price = $pdEditPurchasePrice;
             $result->product_price = $pdEditPrice;
-            $result->product_saving = $pdEditSaving;
+            $result->discount = $pdEditSaving;
             $result->product_selling_price = $pdEditOffer;
             $result->product_quantity = $pdEditQuantity;
-            $result->product_category_id = $pdEditCategory;
-            $result->product_brand_id = $pdEditBrand;
-            $result->product_in_stock = $pdEditStock;
+            $result->category_id = $pdEditCategory;
+            $result->brand_id = $pdEditBrand;
+            $result->stock = $pdEditStock;
             $result->feture_products = $pdEditFeature;
-            $result->product_active = $pdEditStatus;
+            $result->status = $pdEditStatus;
             $result->product_meserment_type = $slelctedmesermentEdit;
+            $result->color = $editedValueOfColor;
             $result->product_tax = $pdEditTax;
-
+            $result->updated_by = Auth::guard('admin')->user()->id;
             $status = $result->save();
 
             if ($status == true) {
@@ -277,19 +314,25 @@ class ProductsController extends Controller
         } else {
 
             $result = Product::where('id', '=', $product_id_edit)->first();
-            $result->product_title = $pdEditName;
-            $result->product_discription = $pdEditDescription;
+            $result->name = $pdEditName;
+            $result->description = $pdEditDescription;
+            $result->meta_title = $pdEditName;
+            $result->meta_description = $pdEditDescription;
+            $result->sku = $pdEditSku;
+            $result->purchase_price = $pdEditPurchasePrice;
             $result->product_price = $pdEditPrice;
-            $result->product_saving = $pdEditSaving;
+            $result->discount = $pdEditSaving;
             $result->product_selling_price = $pdEditOffer;
             $result->product_quantity = $pdEditQuantity;
-            $result->product_category_id = $pdEditCategory;
-            $result->product_brand_id = $pdEditBrand;
-            $result->product_in_stock = $pdEditStock;
+            $result->category_id = $pdEditCategory;
+            $result->brand_id = $pdEditBrand;
+            $result->stock = $pdEditStock;
             $result->feture_products = $pdEditFeature;
-            $result->product_active = $pdEditStatus;
+            $result->status = $pdEditStatus;
             $result->product_meserment_type = $slelctedmesermentEdit;
+            $result->color = $editedValueOfColor;
             $result->product_tax = $pdEditTax;
+            $result->updated_by = Auth::guard('admin')->user()->id;
             $status = $result->save();
 
             if ($status == true) {
@@ -308,35 +351,29 @@ class ProductsController extends Controller
      */
     public function destroy(Request $request)
     {
+
+        if (is_null($this->user) || !$this->user->can('product.delete')) {
+            abort(403, 'Sorry !! You are Unauthorized to delete any Product !');
+        }
         $id = $request->input('id');
-        $product_has_images = product_has_images::where('has_images_product_id', $id)->get();
+        $ProductImage = ProductImage::where('product_id', $id)->get();
 
-        foreach ($product_has_images as  $product_has_images_value) {
+        foreach ($ProductImage as  $product_has_images_value) {
 
-            $delete_old_file = product_has_images::where('id', '=', $product_has_images_value->id)->first();
-            $delete_old_file_name = (explode('/', $delete_old_file->image_path))[5];
-
+            $delete_old_file = ProductImage::where('id', '=', $product_has_images_value->id)->first();
+            $delete_old_file_nameArr = (explode('/', $delete_old_file->image_path));
+            $delete_old_file_name = end($delete_old_file_nameArr);
             Storage::delete("public/" . $delete_old_file_name);
+            $delete_old_file->update(['deleted_by' => Auth::guard('admin')->user()->id]);
             $result2 = $delete_old_file->delete();
         }
 
-        $product_maserments = meserments::where('product_id', $id)->get();
-        foreach ($product_maserments as  $product_maserment) {
 
-            $delete_old_meserment_data = meserments::where('id', '=', $product_maserment->id)->first();
 
-            $result3 = $delete_old_meserment_data->delete();
-        }
 
-        $product_colors = product_color::where('product_color_product_id', $id)->get();
-        foreach ($product_colors as  $product_color) {
-
-            $delete_old_color_data = product_color::where('id', '=', $product_color->id)->first();
-
-            $result4 = $delete_old_color_data->delete();
-        }
 
         $data = Product::where('id', '=', $id)->first();
+        $data->update(['deleted_by' => Auth::guard('admin')->user()->id]);
         $result = $data->delete();
         if ($result == true) {
             return 1;
@@ -344,4 +381,16 @@ class ProductsController extends Controller
             return 0;
         }
     }
+
+
+    public function excelExport(Request $request){
+        if (is_null($this->user) || !$this->user->can('product.view')) {
+            abort(403, 'Sorry !! You are Unauthorized to view any order !');
+        }
+
+        return Excel::download(new ProductExport, 'products('. date("j F, Y").').xlsx');
+
+    }
+
+
 }

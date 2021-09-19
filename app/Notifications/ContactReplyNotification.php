@@ -2,7 +2,7 @@
 
 namespace App\Notifications;
 
-use App\Models\ContactModel;
+use App\Models\Contact;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
@@ -11,7 +11,7 @@ use Illuminate\Notifications\Notification;
 class ContactReplyNotification extends Notification implements ShouldQueue
 {
     use Queueable;
-    
+
     public $contact;
 
     /**
@@ -19,9 +19,9 @@ class ContactReplyNotification extends Notification implements ShouldQueue
      *
      * @return void
      */
-    public function __construct(ContactModel $contact)
+    public function __construct(Contact $contact)
     {
-      
+
          $this->contact=$contact;
     }
 

@@ -40,7 +40,7 @@
                                             @foreach ($favourite->img as $images)
                                                 @if ($i > 0)
                                                     <a
-                                                        href="{{ route('client.showProductDetails', ['slug' => $favourite->product_slug]) }}"><img
+                                                        href="{{ route('client.showProductDetails', ['slug' => $favourite->slug]) }}"><img
                                                             src="{{ $images->image_path }}" alt="Checked Short Dress"></a>
                                                 @endif
                                                 @php $i--; @endphp
@@ -48,10 +48,10 @@
 
 
 
-                                            @if ($favourite->product_in_stock)
-                                                <div class="sale-flash badge badge-secondary p-2">Sell!</div>
+                                            @if ($favourite->stock > 0)
+                                                <div class="sale-flash badge badge-secondary p-2">In Stock</div>
                                             @else
-                                                <div class="sale-flash badge badge-secondary p-2">Out of Stock</div>
+                                                <div class="sale-flash badge badge-danger p-2">Out of Stock</div>
                                             @endif
 
                                             <div class="bg-overlay">
@@ -89,7 +89,7 @@
                                         <div class="product-desc">
                                             <div class="product-title">
                                                 <h3><a
-                                                        href="{{ route('client.showProductDetails', ['slug' => $favourite->product_slug]) }}">{{ $favourite->product_title }}</a>
+                                                        href="{{ route('client.showProductDetails', ['slug' => $favourite->slug]) }}">{{ $favourite->name }}</a>
                                                 </h3>
                                             </div>
                                             <div class="product-price">
@@ -164,7 +164,7 @@
 
                                 <h4>Shop Categories</h4>
                                 <ul>
-                                    @foreach (App\Models\ProductsCategoryModel::orderby('name', 'asc')->where('parent_id', 0)->get()
+                                    @foreach (App\Models\Category::orderby('name', 'asc')->where('parent_id', null)->get()
         as $parentCat)
                                         <li><a
                                                 href="{{ route('client.category', $parentCat->slug) }}">{{ $parentCat->name }}</a>
@@ -190,7 +190,7 @@
                                                         @foreach ($recentProduct->img as $images)
                                                             @if ($i > 0)
                                                                 <a class="aa-cartbox-img"
-                                                                    href="{{ route('client.showProductDetails', ['slug' => $recentProduct->product_slug]) }}"><img
+                                                                    href="{{ route('client.showProductDetails', ['slug' => $recentProduct->slug]) }}"><img
                                                                         src="{{ $images->image_path }}"
                                                                         alt="polo shirt img" width="100%"
                                                                         height="300px"></a>
@@ -202,7 +202,7 @@
                                                 <div class="col pl-3">
                                                     <div class="entry-title">
                                                         <h4><a
-                                                                href="{{ route('client.showProductDetails', ['slug' => $recentProduct->product_slug]) }}">{{ $recentProduct->product_title }}</a>
+                                                                href="{{ route('client.showProductDetails', ['slug' => $recentProduct->slug]) }}">{{ $recentProduct->name }}</a>
                                                         </h4>
                                                     </div>
                                                     <div class="entry-meta no-separator">
@@ -239,7 +239,7 @@
                                                             @foreach ($topRatedProduct->img as $images)
                                                                 @if ($i > 0)
                                                                     <a class="aa-cartbox-img"
-                                                                        href="{{ route('client.showProductDetails', ['slug' => $topRatedProduct->product_slug]) }}"><img
+                                                                        href="{{ route('client.showProductDetails', ['slug' => $topRatedProduct->slug]) }}"><img
                                                                             src="{{ $images->image_path }}"
                                                                             alt="polo shirt img" width="100%"
                                                                             height="300px"></a>
@@ -251,7 +251,7 @@
                                                     <div class="col pl-3">
                                                         <div class="entry-title">
                                                             <h4><a
-                                                                    href="{{ route('client.showProductDetails', ['slug' => $topRatedProduct->product_slug]) }}">{{ $topRatedProduct->product_title }}</a>
+                                                                    href="{{ route('client.showProductDetails', ['slug' => $topRatedProduct->slug]) }}">{{ $topRatedProduct->name }}</a>
                                                             </h4>
                                                         </div>
                                                         <div class="entry-meta no-separator">
@@ -295,8 +295,12 @@
 @endsection
 
 @section('script')
+@include('client.component.Scripts')
     <script>
-        
+
+
+
+
         // Add to cart
 
 
@@ -307,7 +311,7 @@
             let color = formData[1]['value'];
             let quantity = formData[2]['value'];
             let product_ids = formData[3]['value'];
-            console.log(formData);
+           
             let url = "{{ route('client.addCart') }}";
             axios.post(url, {
                 meserment: meserment,
@@ -315,7 +319,6 @@
                 quantity: quantity,
                 product_id: product_ids
             }).then(function(response) {
-                console.log(response.data);
                 if (response.status == 200 && response.data == 1) {
                     $('.bd-example-modal-lg').modal('hide');
                     toastr.success('Product Add Successfully', 'Success', {
@@ -342,125 +345,6 @@
 
 
 
-
-
-        getcartData()
-
-        function getcartData() {
-
-            axios.get("{{ route('client.cartData') }}")
-                .then(function(response) {
-
-                    if (response.status = 200) {
-                        var dataJSON = response.data;
-                        var cartData = dataJSON.cart;
-
-                        var a = Object.keys(cartData).length;
-
-
-                        $("#cart_quantity").html(a);
-                        var tp = parseFloat(dataJSON.total).toFixed(2);
-                        $("#total_cart_price").html(' &#2547; ' + tp);
-
-                        var imageViewHtml = "";
-                        $.each(cartData, function(i, item) {
-                            imageViewHtml +=
-                                `<div class="top-cart-item">
-                                                                                                                                                         <div class="top-cart-item-image">
-                                                                                                                                                             <a href="#"><img src="${cartData[i].image}"
-                                                                                                                                                                     alt="Blue Round-Neck Tshirt" /></a>
-                                                                                                                                                         </div>
-                                                                                                                                                         <div class="top-cart-item-desc">
-                                                                                                                                                             <div class="top-cart-item-desc-title">
-                                                                                                                                                                 <a href="#">${cartData[i].title}</a>
-                                                                                                                                                                 <span class="top-cart-item-price d-block"> ${cartData[i].quantity} x &#2547; ${cartData[i].unit_price}</span>
-                                                                                                                                                             </div>
-                                                                                                                                                             <div class="top-cart-item-quantity"><button class="cartDeleteIcon" data-id="${i}" type="submit"><i class="icon-remove"> </i></button></div>
-                                                                                                                                                         </div>
-                                                                                                                                                </div>`
-                        });
-
-
-                        $('.top-cart-items').html(imageViewHtml);
-
-                        console.log(a);
-
-                        if (a == 0) {
-                            $("#HeaderPreview").css("display", "none");
-                        } else {
-                            $("#HeaderPreview").css("display", "block");
-                        }
-
-
-                        //Carts click on delete icon
-                        $(".cartDeleteIcon").click(function() {
-                            var id = $(this).data('id');
-                            $('#CartsDeleteId').html(id);
-                            DeleteDataCart(id);
-                        })
-                    } else {
-                        toastr.error('Something Went Wrong', 'Error', {
-                            closeButton: true,
-                            progressBar: true,
-                        });
-                    }
-                }).catch(function(error) {
-
-                    toastr.error('Something Went Wrong...', 'Error', {
-                        closeButton: true,
-                        progressBar: true,
-                    });
-                });
-        }
-
-
-
-
-
-
-
-
-
-
-
-
-        $('#confirmDeleteCart').click(function() {
-
-
-            alert("hello")
-            var id = $(this).data('id');
-            DeleteDataCart(id);
-        })
-
-
-        //delete Cart function
-        function DeleteDataCart(id) {
-
-            axios.post("{{ route('client.cartRemove') }}", {
-                    product_id: id
-                })
-                .then(function(response) {
-
-                    if (response.status == 200) {
-                        toastr.success('Cart Removed Success.', 'Success', {
-                            closeButton: true,
-                            progressBar: true,
-                        });
-                        getcartData();
-                    } else {
-                        toastr.error('Something Went Wrong', 'Error', {
-                            closeButton: true,
-                            progressBar: true,
-                        });
-                    }
-                }).catch(function(error) {
-
-                    toastr.error('Something Went Wrong......', 'Error', {
-                        closeButton: true,
-                        progressBar: true,
-                    });
-                });
-        }
 
     </script>
 @endsection
