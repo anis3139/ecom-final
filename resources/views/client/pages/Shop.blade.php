@@ -44,13 +44,13 @@
                                             @php
                                                 $imageOne=$allProduct->img[0]->image_path??'';
                                                 $imageTwo=$allProduct->img[1]->image_path?? $allProduct->img[0]->image_path;
-                                                
+
                                             @endphp
 
                                             <a href="{{ route('client.showProductDetails', ['slug' => $allProduct->slug]) }}">
                                                 <img src="{{ $imageOne }}" alt="" />
                                                   <img class="hoverimage" src="{{ $imageTwo }}" alt="" />
-                                               
+
                                                   @if ($allProduct->category->slug === "customized-jewelry")
                                                   <div class="sale-flash badge badge-primary p-2">Pre Order</div>
                                                   @elseif($allProduct->stock > 0)
@@ -58,8 +58,8 @@
                                                   @else
                                                       <div class="sale-flash badge badge-danger p-2">Out of Stock!</div>
                                                   @endif
-      
-                                                
+
+
                                                 <div class="hoverbuttonbox" >
                                                         <div class="buttonaction"
                                                                 data-hover-animate="fadeIn" data-hover-speed="400">
@@ -85,14 +85,14 @@
                                                                         onclick="productDetailsModal({{ $allProduct->id }})"><i
                                                                             class="icon-line-expand"></i>
                                                                     </a>
-                                                                
+
                                                         </div>
-                                                            
+
                                                 </div>
-                                              
+
                                             </a>
-                                            
-                                           
+
+
                                         </div>
                                         <div class="product-desc">
                                             <div class="product-title">

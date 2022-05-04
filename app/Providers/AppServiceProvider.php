@@ -38,5 +38,10 @@ class AppServiceProvider extends ServiceProvider
         $pages=Page::orderby('title', 'asc')->where('status', 'active')->limit(5)->get();
         View::share(compact('setting', 'socialData', 'pages'));
        }
+
+        if ($this->app->environment('local')) {
+            $this->app->register(\Laravel\Telescope\TelescopeServiceProvider::class);
+            $this->app->register(TelescopeServiceProvider::class);
+        }
      }
 }

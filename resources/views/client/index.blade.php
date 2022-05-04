@@ -28,7 +28,7 @@
                 <div class="container clearfix">
 
                     @include('client.partials.HomeCategory')
-                    @include('client.partials.WeeklyFeaturedItems')
+                    {{-- @include('client.partials.WeeklyFeaturedItems') --}}
 
 
                 </div>
@@ -41,7 +41,7 @@
 
                 <!-- New Arrivals Men
                                                                                                                                                                             ============================================= -->
-                @include('client.partials.NewArrivalProduct')
+                {{-- @include('client.partials.NewArrivalProduct') --}}
 
                 <!-- Sign Up
                                                                                                                                                                             ============================================= -->

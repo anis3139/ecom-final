@@ -51,9 +51,9 @@ return [
     |
     */
 
-    'url' => env('APP_URL', 'https://giftaecologist.com/'),
+    'url' => env('APP_URL', 'https://ecom-final.test/'),
 
-    'asset_url' => env('ASSET_URL', 'https://giftaecologist.com/public/'),
+    'asset_url' => env('ASSET_URL', null),
 
     /*
     |--------------------------------------------------------------------------
@@ -172,6 +172,7 @@ return [
         App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        App\Providers\TelescopeServiceProvider::class,
         Barryvdh\DomPDF\ServiceProvider::class,
         Barryvdh\Debugbar\ServiceProvider::class,
         Spatie\Permission\PermissionServiceProvider::class,

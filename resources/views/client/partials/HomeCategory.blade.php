@@ -1,7 +1,7 @@
  <!-- Shop Categories
          ============================================= -->
 
- @if ($promo_categories->count() > 0)
+ @if ($categories->count() > 0)
 
 
      <div class="fancy-title title-border title-center mb-4">
@@ -9,7 +9,7 @@
      </div>
 
      <div class="row shop-categories clearfix">
-         @foreach ($promo_categories as $category)
+         @foreach ($categories as $category)
              @if ($loop->first)
 
                  <div class="col-lg-7">
@@ -24,7 +24,7 @@
                  </div>
              @endif
          @endforeach
-         @foreach ($promo_categories as $key => $category)
+         @foreach ($categories as $key => $category)
 
              @if ($key != 0 && $key == 1)
 
@@ -41,7 +41,7 @@
              @endif
          @endforeach
 
-         @foreach ($promo_categories as $key => $category)
+         @foreach ($categories as $key => $category)
 
              @if ($key != 0 && $key != 1)
 
